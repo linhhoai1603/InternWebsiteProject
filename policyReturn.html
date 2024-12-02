@@ -1,380 +1,587 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!-- Bootstrap CSS -->
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-   <!-- Font Awesome -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-   <!-- Custom CSS -->
-   <link rel="stylesheet" href="css/paymentSuccess.css">
-   <!--jQuery-->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/paymentSuccess.css" />
+    <!--jQuery-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-   <title>Chính sách đổi trả - Vô vàn vải</title>
-  <link rel="stylesheet" href="css/policyReturn.css">
-</head>
-<body>
+    <title>Chính sách đổi trả - Vô vàn vải</title>
+    <link rel="stylesheet" href="css/policyReturn.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+  </head>
+  <body>
     <!-- header -->
     <div class="container-fluid">
-        <div class="row intro text-white bg">
-            <div class="col-md-12">
-                <p class="text-center">Vô Vàn Vải - Vô vàn sáng tạo</p>
-            </div>
-        </div>
-        <div class="header">
-            <div class="row">
-                <div class="col-md-2 text-center">
-                    <img src="images/logo.jpg" alt="" style="width: 100%; height: 100%;">
-                </div>
-                <div class="col-md-5 text-center pt-4">
-                    <form action="\user?method=search" method="post">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Tìm kiếm sản phẩm" name="search" id="searchInput">
-                            <button class="btn text-white btn-bg" type="submit"><i class="fa-solid fa-magnifying-glass"></i>&nbsp;Tìm kiếm</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md-5 text-center pt-4">
-                    <a href="shoppingCart.html" class="btn text-white btn-bg"><i class="fa-solid fa-cart-shopping"></i>&nbsp;Giỏ hàng</a>
-                    <a href="login.html" class="btn text-white btn-bg"><i class="fa-solid fa-right-to-bracket"></i>&nbsp;Đăng nhập</a>
-                    <a href="register.html" class="btn text-white btn-bg"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Đăng ký</a>
-                </div>
-            </div>
-        </div>
+      <iframe
+        src="header.html"
+        frameborder="0"
+        scrolling="no"
+        width="100%"
+        height="120px"
+      ></iframe>
     </div>
     <!-- end header-->
     <!--navbar-->
     <div class="container-fluid">
-        <!--navbar for page-->
-        <nav class="navbar navbar-expand-lg" style="background-color: #4FD0B6; height: 40px;">
-            <div class="container-fluid">
-                <a class="navbar text-white" href="index.html">Trang chủ</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <div class="dropdown">
-                                <a class="nav-link dropdown-toggle text-white" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Sản phẩm
-                                </a>
-                                <ul class="dropdown-menu custom-dropdown" aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-item">
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="card">
-                                                        <img src="images/navbar1.jpg" class="card-img-top" alt="...">
-                                                        <div class="card-body">
-                                                            <h4 class="card-title" style="text-align: center;">Vải lụa</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <div class="card">
-                                                        <img src="images/navbar2.jpg" class="card-img-top" alt="...">
-                                                        <div class="card-body">
-                                                            <h4 class="card-title" style="text-align: center;">Vải kaki</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <div class="card">
-                                                        <img src="images/navbar3.jpg" class="card-img-top" alt="...">
-                                                        <div class="card-body">
-                                                            <h4 class="card-title" style="text-align: center;">Vải nhung</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-3">
-                                                    <div class="card">
-                                                        <img src="images/navbar4.jpg" class="card-img-top" alt="...">
-                                                        <div class="card-body">
-                                                            <h4 class="card-title" style="text-align: center;">Vải Linen</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                       </div>
-                                    </div>
-                                    <div class="dropdown-item">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <h4>Bán chạy</h4>
-                                                <a href="...">Vải Cotton</a><br>
-                                                <a href="...">Vải Linen</a><br>
-                                                <a href="...">Vải Silk</a><br>
-                                                <a href="...">Polyester</a><br>
-                                                <a href="...">Denim</a><br>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <h4>Mùa đông</h4>
-                                                <a href="...">Vải len</a><br>
-                                                <a href="...">Vải nhung</a><br>
-                                                <a href="...">Vải lanh</a><br>
-                                                <a href="...">Vải da</a><br>
-                                                <a href="...">Vải dù</a>
-                                                
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <h4>Mùa hè</h4>
-                                                <a href="...">Vải Cotton</a><br>
-                                                <a href="...">Vải Linen </a><br>
-                                                <a href="...">Vải Rayon</a><br>
-                                                <a href="...">Vải Bamboo </a><br>
-                                                <a href="...">Vải Chambray</a><br>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <h4>Mùa thu</h4>
-                                                <a href="...">Vải Cotton</a>   <br> 
-                                                <a href="...">Vải Wool </a><br>
-                                                <a href="...">Vải Tweed</a><br>
-                                                <a href="...">Vải Flannel</a><br>
-                                                <a href="...">Vải Corduroy</a><br>
-                                                <a href="...">Vải Denim</a><br>
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <h4>Đồng phục</h4>
-                                                <a href="...">Polyester</a><br>
-                                                <a href="...">Cotton-PVC</a><br>
-                                                <a href="...">Nỉ </a><br>
-                                                <a href="...">Kaki</a><br>
-                                                <a href="...">Lanh </a><br>
-
-                                            </div>
-
-                                            <div class="col-md-2">
-                                                <h4>Nội thất</h4>
-                                                <a href="...">Vải Cotton</a><br>
-                                                <a href="...">Vải Microfiber</a><br>
-                                                <a href="...">Vải Velvet</a><br>
-                                                <a href="...">Vải Polyester</a><br>
-                                                <a href="...">Vải Tweed</a><br>
-                                                <a href="...">Vải Canvas</a><br>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </ul>
+      <!--navbar for page-->
+      <nav
+        class="navbar navbar-expand-lg"
+        style="background-color: #4fd0b6; height: 40px"
+      >
+        <div class="container-fluid">
+          <a class="navbar-item text-white active" href="index.html"
+            >Trang chủ</a
+          >
+          <!-- Updated href -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <div class="dropdown">
+                  <a
+                    class="nav-link dropdown-toggle text-white"
+                    href="#"
+                    role="button"
+                    id="dropdownMenuLink"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Sản phẩm
+                  </a>
+                  <ul
+                    class="dropdown-menu custom-dropdown"
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    <div class="dropdown-item">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar1.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải lụa
+                                </h4>
+                              </div>
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <!-- create dropdown with bootstrap-->
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="\user?method=blog">Vải may mặc</a>
-                            </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="\user?method=blog">Vải nội thất</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="\user?method=contact">Phụ kiện may mặc</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="designProduct.html">Các mẫu thiết kế</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="\user?method=contact">Liên hệ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="">Chính sách đổi trả</a>
-                        </li>
-                    </ul>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar2.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải kaki
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar3.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải nhung
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar4.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải Linen
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dropdown-item">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <h4>Bán chạy</h4>
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen</a><br />
+                          <a href="templateProduct.html">Vải Silk</a><br />
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.html">Denim</a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Mùa đông</h4>
+                          <a href="templateProduct.html">Vải len</a><br />
+                          <a href="templateProduct.html">Vải nhung</a><br />
+                          <a href="templateProduct.html">Vải lanh</a><br />
+                          <a href="templateProduct.html">Vải da</a><br />
+                          <a href="templateProduct.html">Vải dù</a>
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Mùa hè</h4>
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen </a><br />
+                          <a href="templateProduct.html">Vải Rayon</a><br />
+                          <a href="templateProduct.html">Vải Bamboo </a><br />
+                          <a href="templateProduct.html">Vải Chambray</a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Mùa thu</h4>
+                          <a href="templateProduct.html">Vải Cotton</a> <br />
+                          <a href="templateProduct.html">Vải Wool </a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Flannel</a><br />
+                          <a href="templateProduct.html">Vải Corduroy</a><br />
+                          <a href="templateProduct.html">Vải Denim</a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Đồng phục</h4>
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.htmll">Cotton-PVC</a><br />
+                          <a href="templateProduct.html">Nỉ </a><br />
+                          <a href="templateProduct.html">Kaki</a><br />
+                          <a href="templateProduct.html">Lanh </a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Nội thất</h4>
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Microfiber</a
+                          ><br />
+                          <a href="templateProduct.html">Vải Velvet</a><br />
+                          <a href="templateProduct.html">Vải Polyester</a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Canvas</a><br />
+                        </div>
+                      </div>
+                    </div>
+                  </ul>
                 </div>
-            </div>
-        </nav>
-        <!--end navbar for page-->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="templateMayMac.html"
+                  >Vải may mặc</a
+                >
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="fabric_blog.html"
+                  >Vải nội thất</a
+                >
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle text-white"
+                  href="#"
+                  id="accessoryDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Phụ kiện may mặc
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="accessoryDropdown">
+                  <li>
+                    <a class="dropdown-item" href="Lace_Haven.html">REN</a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+
+                  <li>
+                    <a class="dropdown-item" href="Button_Up.html">NÚT ÁO</a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="ZipStar.html">DÂY KÉO</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="designProduct.html"
+                  >Các mẫu thiết kế</a
+                >
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="contact.html">Liên hệ</a>
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="policyReturn.html"
+                  >Chính sách đổi trả</a
+                >
+                <!-- Updated href -->
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!--end navbar for page-->
     </div>
     <!--end navbar-->
     <!--content-->
-        <div class="container-fluid mt-3 mb-5">
+    <div class="container-fluid mt-3 mb-5">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-center">Chính sách đổi trả hàng</h1>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <p
+              class="ps-5 pe-5 text-center col-md-10"
+              style="font-style: italic"
+            >
+              Cảm ơn quý khách đã tin tưởng lựa chọn sản phẩm vải may mặc của
+              chúng tôi. Chúng tôi cam kết mang đến cho quý khách hàng những sản
+              phẩm chất lượng và dịch vụ tốt nhất. Chính sách đổi trả hàng hóa
+              dưới đây sẽ giúp quý khách yên tâm hơn khi mua sắm tại cửa
+              hàng/chúng tôi:
+            </p>
+            <div class="col-md-1"></div>
             <div class="row">
-                <div class="col-md-12">
-                    <h1 class="text-center">Chính sách đổi trả hàng</h1>
-                   <div class="row">
-                        <div class="col-md-1"></div>
-                        <p class="ps-5 pe-5 text-center col-md-10" style="font-style: italic;">Cảm ơn quý khách đã tin tưởng lựa chọn sản phẩm vải may mặc của chúng tôi. 
-                        Chúng tôi cam kết mang đến cho quý khách hàng những sản phẩm chất lượng và dịch vụ tốt nhất. 
-                        Chính sách đổi trả hàng hóa dưới đây sẽ giúp quý khách yên tâm hơn khi mua sắm tại cửa hàng/chúng tôi:</p>
-                        <div class="col-md-1"></div>
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-10">
-                                <ul style="list-style-type: none;">
-                                    <li>
-                                        <h4>1. Điều kiện áp dụng đổi trả</h4>
-                                        <ul>
-                                            <li><b>Thời gian đổi trả:</b> Quý khách có thể yêu cầu đổi trả trong vòng 7 ngày kể từ ngày nhận hàng (đối với sản phẩm vải chưa sử dụng).</li>
-                                            <li><b>Sản phẩm không bị hư hỏng:</b> Sản phẩm vải cần được trả lại trong tình trạng nguyên vẹn, không bị rách, sờn, mất nếp, không có mùi lạ hoặc bị tác động bởi các yếu tố khác.</li>
-                                            <li><b>Hóa đơn mua hàng:</b> Quý khách cần giữ lại hóa đơn hoặc biên lai mua hàng để làm căn cứ khi yêu cầu đổi trả.</li>
-                                            <li><b>Sản phẩm chưa qua gia công:</b> Đối với vải may mặc, nếu đã cắt hoặc may thành sản phẩm thì không được đổi trả trừ khi vải bị lỗi do nhà sản xuất.</li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <h4>2. Lý do đổi trả</h4>
-                                        <ul>
-                                            <li><b>Sản phẩm bị lỗi:</b> Quý khách phát hiện sản phẩm bị lỗi do nhà sản xuất như vải bị rách, lỗi dệt, nhuộm sai màu, hay chất lượng không đạt yêu cầu.</li>
-                                            <li><b>Sản phẩm không đúng mẫu:</b> Nếu sản phẩm nhận được không đúng với đơn đặt hàng (về màu sắc, loại vải, kích thước,...), quý khách có thể yêu cầu đổi trả.</li>
-                                            <li><b>Sản phẩm không phù hợp:</b> Trong trường hợp sản phẩm không phù hợp với nhu cầu hoặc yêu cầu của quý khách, chúng tôi có thể hỗ trợ đổi sang mẫu vải khác (nếu còn hàng) hoặc hoàn tiền (trong trường hợp không có sản phẩm thay thế).</li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <h4>3. Quy trình đổi trả</h4>
-                                        <ul>
-                                            <li><b>Bước 1:</b> Liên hệ với chúng tôi qua email, số điện thoại hỗ trợ hoặc fanpage để thông báo về yêu cầu đổi trả và lý do đổi trả.</li>
-                                            <li><b>Bước 2:</b> Cung cấp thông tin chi tiết như mã đơn hàng, hình ảnh sản phẩm (nếu có lỗi), và yêu cầu đổi trả.</li>
-                                            <li><b>Bước 3:</b> Chúng tôi sẽ kiểm tra yêu cầu và thông báo quý khách về cách thức gửi trả hàng (quý khách có thể gửi lại sản phẩm qua bưu điện hoặc mang trực tiếp đến cửa hàng nếu thuận tiện).</li>
-                                            <li><b>Bước 4:</b> Sau khi nhận sản phẩm trả lại, chúng tôi sẽ kiểm tra tình trạng sản phẩm và thực hiện đổi hàng hoặc hoàn tiền cho quý khách trong vòng 7 ngày làm việc.</li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <h4>4. Phí đổi trả</h4>
-                                        <ul>
-                                            <li><b>Đổi hàng:</b> Miễn phí đổi hàng nếu vải bị lỗi, không đúng mẫu hoặc có sự cố do nhà sản xuất.</li>
-                                            <li><b>Trả hàng và hoàn tiền:</b> Quý khách chịu chi phí vận chuyển khi trả lại sản phẩm do thay đổi ý định hoặc không phù hợp. Chúng tôi sẽ hoàn lại tiền sau khi nhận được sản phẩm trả lại và kiểm tra tình trạng sản phẩm.</li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <h4>5. Trường hợp không áp dụng đổi trả</h4>
-                                        <ul>
-                                            <li>Sản phẩm vải đã được cắt, may hoặc sử dụng.</li>
-                                            <li>Sản phẩm đã bị thay đổi trạng thái ban đầu (như giặt, nhuộm, hoặc sửa chữa).</li>
-                                            <li>Quá thời gian đổi trả (quá 7 ngày kể từ ngày nhận hàng).</li>
-                                            <li>Sản phẩm không có hóa đơn mua hàng, hoặc không đúng với thông tin mua hàng ban đầu.</li>
-                                        </ul>
-                                    </li>
-                                    
-                                    <li>
-                                        <h4>6. Lưu ý quan trọng</h4>
-                                        <ul>
-                                            <li>Sản phẩm vải có thể có sự chênh lệch nhẹ về màu sắc giữa các lô sản xuất hoặc trong ánh sáng khác nhau. Điều này không được coi là lỗi.</li>
-                                            <li>Quý khách vui lòng kiểm tra kỹ sản phẩm trước khi quyết định đặt mua.</li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        <div class="col-md-1"></div>
-                        </div>
-                        <div class="row">
-                           <div class="col-md-1"></div>
-                           <div class="col-md-6 ms-5">
-                            <input type="checkbox" name="readedPolicyReturn" id="readed">
-                            <label for="readed" class="fw-bold">Tôi đã đọc và đồng ý với chính sách đổi trả hàng của cửa hàng.</label>
-                           </div>
-                        </div>
-                        <div class="row" id="folowReturn" style="border: 1px solid black; border-top: #4FD0B6 5px solid;">
-                                <h4 class="fw-bold text-center">Quy trình đổi trả hàng</h4>
-                                <div class="ms-5">
-                                    <h6><b>Bước 1:</b> Liên hệ với chúng tôi thông qua số điện thoại hoặc email được thông báo trên trang website của chúng tôi.</h6>
-                                <h6><b>Bước 2:</b> Kiểm tra lại chính sách đổi trả hàng và đóng gói hàng.</h6>
-                                <h6><b>Bước 3:</b> Bàn giao sản phẩm đến chúng tôi thông qua các đơn vị vận chuyển.</h6>
-                                <h6><b>Bước 4:</b> Đơn hàng sẽ được phê duyệt và hoàn tiền.</h6>
-                                <a href="https://zalo.me/0377314202" style="float: right; margin-right: 30%; font-style: italic; font-size: 20px;" class="text-primary">Liên hệ với chúng tôi.</a>
-                                </div>
-                                <img src="images/quyTrinhDoiTra.webp" alt="Quy trình đổi trả hàng" class="w-100">
-                        </div>
-                   </div>
-                </div>
-            </div>
-                    
-        </div>
-    <!-- end content-->
-    <!--footer-->
-    <footer class="text-white pt-5 pb-4" style="background-color: #4FD0B6;">
-        <div class="container text-md-left">
-          <div class="row text-md-left">
-            <!-- Liên hệ -->
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h5 class="text-uppercase mb-4 font-weight-bold">Liên hệ</h5>
-              <p>Địa chỉ: KĐT Linh Đàm, Quận Hoàng Mai, TP Hà Nội</p>
-              <p>Hotline: 0243 0000 111 - 039 5555 119</p>
-              <p>Email: myphamchinhhang@gmail.com</p>
-              <p>Website: thoitrang9.vnwordpress.net</p>
-            </div>
-      
-            <!-- Chính sách chung -->
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h5 class="text-uppercase mb-4 font-weight-bold">Chính sách chung</h5>
-              <p>Chính sách quy định chung</p>
-              <p>Chính sách vận chuyển</p>
-              <p>Chính sách bảo hành</p>
-              <p>Chính sách đổi trả và hoàn tiền</p>
-              <p>Chính sách cho doanh nghiệp</p>
-              <p>Chính sách hàng chính hãng</p>
-            </div>
-      
-            <!-- Hướng dẫn dịch vụ -->
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h5 class="text-uppercase mb-4 font-weight-bold">Hướng dẫn dịch vụ</h5>
-              <p>Hướng dẫn mua hàng trực tuyến</p>
-              <p>Hướng dẫn thanh toán</p>
-              <p>Hướng dẫn mua hàng trả góp</p>
-              <p>In hóa đơn điện tử</p>
-              <p>Gửi yêu cầu bảo hành</p>
-              <p>Góp ý, khiếu nại</p>
-            </div>
-      
-            <!-- Giờ làm việc -->
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
-              <h5 class="text-uppercase mb-4 font-weight-bold">Giờ làm việc</h5>
-              <p>Gọi mua: 1800.1111 (7:30 - 22:00)</p>
-              <p>Kỹ thuật: 1800.2222 (7:30 - 22:00)</p>
-              <p>Khiếu nại: 1800.3333 (8:00 - 21:30)</p>
-              <p>Bảo hành: 1800.4444 (8:00 - 21:00)</p>
-            </div>
-          </div>
-      
-          <hr class="mb-4">
-      
-          <!-- Social Media Icons -->
-          <div class="row align-items-center">
-            <div class="col-md-7 col-lg-8">
-              <p>&copy; 2024 Bản quyền thuộc về thoitrang9.vnwordpress.net</p>
-            </div>
-      
-            <div class="col-md-5 col-lg-4">
-              <div class="text-center text-md-right">
-                <ul class="list-unstyled list-inline">
-                  <li class="list-inline-item">
-                    <a href="#" class="btn-floating btn-sm text-white"><i class="fab fa-facebook"></i></a>
+              <div class="col-md-1"></div>
+              <div class="col-md-10">
+                <ul style="list-style-type: none">
+                  <li>
+                    <h4>1. Điều kiện áp dụng đổi trả</h4>
+                    <ul>
+                      <li>
+                        <b>Thời gian đổi trả:</b> Quý khách có thể yêu cầu đổi
+                        trả trong vòng 7 ngày kể từ ngày nhận hàng (đối với sản
+                        phẩm vải chưa sử dụng).
+                      </li>
+                      <li>
+                        <b>Sản phẩm không bị hư hỏng:</b> Sản phẩm vải cần được
+                        trả lại trong tình trạng nguyên vẹn, không bị rách, sờn,
+                        mất nếp, không có mùi lạ hoặc bị tác động bởi các yếu tố
+                        khác.
+                      </li>
+                      <li>
+                        <b>Hóa đơn mua hàng:</b> Quý khách cần giữ lại hóa đơn
+                        hoặc biên lai mua hàng để làm căn cứ khi yêu cầu đổi
+                        trả.
+                      </li>
+                      <li>
+                        <b>Sản phẩm chưa qua gia công:</b> Đối với vải may mặc,
+                        nếu đã cắt hoặc may thành sản phẩm thì không được đổi
+                        trả trừ khi vải bị lỗi do nhà sản xuất.
+                      </li>
+                    </ul>
                   </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="btn-floating btn-sm text-white"><i class="fab fa-instagram"></i></a>
+
+                  <li>
+                    <h4>2. Lý do đổi trả</h4>
+                    <ul>
+                      <li>
+                        <b>Sản phẩm bị lỗi:</b> Quý khách phát hiện sản phẩm bị
+                        lỗi do nhà sản xuất như vải bị rách, lỗi dệt, nhuộm sai
+                        màu, hay chất lượng không đạt yêu cầu.
+                      </li>
+                      <li>
+                        <b>Sản phẩm không đúng mẫu:</b> Nếu sản phẩm nhận được
+                        không đúng với đơn đặt hàng (về màu sắc, loại vải, kích
+                        thước,...), quý khách có thể yêu cầu đổi trả.
+                      </li>
+                      <li>
+                        <b>Sản phẩm không phù hợp:</b> Trong trường hợp sản phẩm
+                        không phù hợp với nhu cầu hoặc yêu cầu của quý khách,
+                        chúng tôi có thể hỗ trợ đổi sang mẫu vải khác (nếu còn
+                        hàng) hoặc hoàn tiền (trong trường hợp không có sản phẩm
+                        thay thế).
+                      </li>
+                    </ul>
                   </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="btn-floating btn-sm text-white"><i class="fab fa-tiktok"></i></a>
+
+                  <li>
+                    <h4>3. Quy trình đổi trả</h4>
+                    <ul>
+                      <li>
+                        <b>Bước 1:</b> Liên hệ với chúng tôi qua email, số điện
+                        thoại hỗ trợ hoặc fanpage để thông báo về yêu cầu đổi
+                        trả và lý do đổi trả.
+                      </li>
+                      <li>
+                        <b>Bước 2:</b> Cung cấp thông tin chi tiết như mã đơn
+                        hàng, hình ảnh sản phẩm (nếu có lỗi), và yêu cầu đổi
+                        trả.
+                      </li>
+                      <li>
+                        <b>Bước 3:</b> Chúng tôi sẽ kiểm tra yêu cầu và thông
+                        báo quý khách về cách thức gửi trả hàng (quý khách có
+                        thể gửi lại sản phẩm qua bưu điện hoặc mang trực tiếp
+                        đến cửa hàng nếu thuận tiện).
+                      </li>
+                      <li>
+                        <b>Bước 4:</b> Sau khi nhận sản phẩm trả lại, chúng tôi
+                        sẽ kiểm tra tình trạng sản phẩm và thực hiện đổi hàng
+                        hoặc hoàn tiền cho quý khách trong vòng 7 ngày làm việc.
+                      </li>
+                    </ul>
                   </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="btn-floating btn-sm text-white"><i class="fab fa-zalo"></i></a>
+
+                  <li>
+                    <h4>4. Phí đổi trả</h4>
+                    <ul>
+                      <li>
+                        <b>Đổi hàng:</b> Miễn phí đổi hàng nếu vải bị lỗi, không
+                        đúng mẫu hoặc có sự cố do nhà sản xuất.
+                      </li>
+                      <li>
+                        <b>Trả hàng và hoàn tiền:</b> Quý khách chịu chi phí vận
+                        chuyển khi trả lại sản phẩm do thay đổi ý định hoặc
+                        không phù hợp. Chúng tôi sẽ hoàn lại tiền sau khi nhận
+                        được sản phẩm trả lại và kiểm tra tình trạng sản phẩm.
+                      </li>
+                    </ul>
                   </li>
-                  <li class="list-inline-item">
-                    <a href="#" class="btn-floating btn-sm text-white"><i class="fab fa-youtube"></i></a>
+
+                  <li>
+                    <h4>5. Trường hợp không áp dụng đổi trả</h4>
+                    <ul>
+                      <li>Sản phẩm vải đã được cắt, may hoặc sử dụng.</li>
+                      <li>
+                        Sản phẩm đã bị thay đổi trạng thái ban đầu (như giặt,
+                        nhuộm, hoặc sửa chữa).
+                      </li>
+                      <li>
+                        Quá thời gian đổi trả (quá 7 ngày kể từ ngày nhận hàng).
+                      </li>
+                      <li>
+                        Sản phẩm không có hóa đơn mua hàng, hoặc không đúng với
+                        thông tin mua hàng ban đầu.
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <h4>6. Lưu ý quan trọng</h4>
+                    <ul>
+                      <li>
+                        Sản phẩm vải có thể có sự chênh lệch nhẹ về màu sắc giữa
+                        các lô sản xuất hoặc trong ánh sáng khác nhau. Điều này
+                        không được coi là lỗi.
+                      </li>
+                      <li>
+                        Quý khách vui lòng kiểm tra kỹ sản phẩm trước khi quyết
+                        định đặt mua.
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </div>
+              <div class="col-md-1"></div>
+            </div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-6 ms-5">
+                <input type="checkbox" name="readedPolicyReturn" id="readed" />
+                <label for="readed" class="fw-bold"
+                  >Tôi đã đọc và đồng ý với chính sách đổi trả hàng của cửa
+                  hàng.</label
+                >
+              </div>
+            </div>
+            <div
+              class="row"
+              id="folowReturn"
+              style="border: 1px solid black; border-top: #4fd0b6 5px solid"
+            >
+              <h4 class="fw-bold text-center">Quy trình đổi trả hàng</h4>
+              <div class="ms-5">
+                <h6>
+                  <b>Bước 1:</b> Liên hệ với chúng tôi thông qua số điện thoại
+                  hoặc email được thông báo trên trang website của chúng tôi.
+                </h6>
+                <h6>
+                  <b>Bước 2:</b> Kiểm tra lại chính sách đổi trả hàng và đóng
+                  gói hàng.
+                </h6>
+                <h6>
+                  <b>Bước 3:</b> Bàn giao sản phẩm đến chúng tôi thông qua các
+                  đơn vị vận chuyển.
+                </h6>
+                <h6><b>Bước 4:</b> Đơn hàng sẽ được phê duyệt và hoàn tiền.</h6>
+                <a
+                  href="https://zalo.me/0377314202"
+                  style="
+                    float: right;
+                    margin-right: 30%;
+                    font-style: italic;
+                    font-size: 20px;
+                  "
+                  class="text-primary"
+                  >Liên hệ với chúng tôi.</a
+                >
+              </div>
+              <img
+                src="images/quyTrinhDoiTra.webp"
+                alt="Quy trình đổi trả hàng"
+                class="w-100"
+              />
             </div>
           </div>
         </div>
-      </footer>
+      </div>
+    </div>
+    <!-- end content-->
+    <!--footer-->
+    <footer class="text-white pt-5 pb-4" style="background-color: #4fd0b6">
+      <div class="container text-md-left">
+        <div class="row text-md-left">
+          <!-- Liên hệ -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 font-weight-bold">Liên hệ</h5>
+            <p>Địa chỉ: KĐT Linh Đàm, Quận Hoàng Mai, TP Hà Nội</p>
+            <p>Hotline: 0243 0000 111 - 039 5555 119</p>
+            <p>Email: myphamchinhhang@gmail.com</p>
+            <p>Website: thoitrang9.vnwordpress.net</p>
+          </div>
+
+          <!-- Chính sách chung -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 font-weight-bold">
+              Chính sách chung
+            </h5>
+            <p>Chính sách quy định chung</p>
+            <p>Chính sách vận chuyển</p>
+            <p>Chính sách bảo hành</p>
+            <p>Chính sách đổi trả và hoàn tiền</p>
+            <p>Chính sách cho doanh nghiệp</p>
+            <p>Chính sách hàng chính hãng</p>
+          </div>
+
+          <!-- Hướng dẫn dịch vụ -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 font-weight-bold">
+              Hướng dẫn dịch vụ
+            </h5>
+            <p>Hướng dẫn mua hàng trực tuyến</p>
+            <p>Hướng dẫn thanh toán</p>
+            <p>Hướng dẫn mua hàng trả góp</p>
+            <p>In hóa đơn điện tử</p>
+            <p>Gửi yêu cầu bảo hành</p>
+            <p>Góp ý, khiếu nại</p>
+          </div>
+
+          <!-- Giờ làm việc -->
+          <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+            <h5 class="text-uppercase mb-4 font-weight-bold">Giờ làm việc</h5>
+            <p>Gọi mua: 1800.1111 (7:30 - 22:00)</p>
+            <p>Kỹ thuật: 1800.2222 (7:30 - 22:00)</p>
+            <p>Khiếu nại: 1800.3333 (8:00 - 21:30)</p>
+            <p>Bảo hành: 1800.4444 (8:00 - 21:00)</p>
+          </div>
+        </div>
+
+        <hr class="mb-4" />
+
+        <!-- Social Media Icons -->
+        <div class="row align-items-center">
+          <div class="col-md-7 col-lg-8">
+            <p>&copy; 2024 Bản quyền thuộc về thoitrang9.vnwordpress.net</p>
+          </div>
+
+          <div class="col-md-5 col-lg-4">
+            <div class="text-center text-md-right">
+              <ul class="list-unstyled list-inline">
+                <li class="list-inline-item">
+                  <a href="#" class="btn-floating btn-sm text-white"
+                    ><i class="fab fa-facebook"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#" class="btn-floating btn-sm text-white"
+                    ><i class="fab fa-instagram"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#" class="btn-floating btn-sm text-white"
+                    ><i class="fab fa-tiktok"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#" class="btn-floating btn-sm text-white"
+                    ><i class="fab fa-zalo"></i
+                  ></a>
+                </li>
+                <li class="list-inline-item">
+                  <a href="#" class="btn-floating btn-sm text-white"
+                    ><i class="fab fa-youtube"></i
+                  ></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
     <!---end footer-->
     <script>
-        $(document).ready(function(){
-            $("#readed").click(function(){
-                $("#folowReturn").slideToggle();
-            })
-        })
+      $(document).ready(function () {
+        $("#readed").click(function () {
+          $("#folowReturn").slideToggle();
+        });
+      });
     </script>
-</body>
+  </body>
 </html>

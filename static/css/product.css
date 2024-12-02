@@ -1,0 +1,29 @@
+.breadcrumb {
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  
+}
+.breadcrumb-item {
+  font-size: 16px;
+  color: #007bff;
+}
+.breadcrumb-item.active {
+  font-weight: bold;
+  color: #6c757d;
+}
+
+.breadcrumb.breadcrumb-item a { 
+  color: rgb(40, 40, 40);
+  text-decoration: none; 
+}
+
+.bestseller-titel{
+  background-color: #339C87; /* Chuyển đổi sang màu xanh lá cây */
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}

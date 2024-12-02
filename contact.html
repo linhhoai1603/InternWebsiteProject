@@ -24,175 +24,25 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
+    <link href="styles.css" rel="stylesheet" />
 
-    <style>
-      body {
-        font-family: "Roboto", sans-serif;
-        background-color: #f0f2f5;
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        scrollbar-width: none;
-        overflow-x: hidden;
-      }
-      .contact-section {
-        padding: 60px 0;
-      }
-      .breadcrumb {
-        background-color: #4fd0b6;
-        padding: 10px;
-        margin-bottom: 30px;
-        font-size: 14px;
-        border-radius: 5px;
-      }
-      .breadcrumb a {
-        color: #ffffff;
-      }
-      .breadcrumb .breadcrumb-item.active {
-        color: #ffffff;
-      }
-      .breadcrumb-item + .breadcrumb-item::before {
-        content: ">";
-        color: #ffffff;
-      }
-      .contact-info,
-      .contact-form {
-        background-color: #37c9b0;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s, box-shadow 0.3s;
-        min-height: 400px;
-      }
-      .contact-info h3,
-      .contact-form h3 {
-        color: #ffffff;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        font-size: 24px;
-      }
-      .contact-info h3 i,
-      .contact-form h3 i {
-        margin-right: 10px;
-        font-size: 28px;
-      }
-      .contact-info p {
-        margin-bottom: 15px;
-        color: #ffffff;
-        display: flex;
-        align-items: center;
-        font-size: 16px;
-      }
-      .contact-info p i {
-        margin-right: 10px;
-        color: #ffffff;
-        width: 25px;
-        text-align: center;
-        font-size: 20px;
-      }
-      .map-container {
-        margin-top: 20px;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s;
-      }
-      .form-control:focus {
-        border-color: #ffffff;
-        box-shadow: none;
-      }
-      .btn-submit {
-        background-color: #f7c72b;
-        color: #ffffff;
-        border: none;
-        transition: background-color 0.3s, transform 0.3s;
-      }
-      .btn-submit:hover {
-        background-color: #e0b023;
-        transform: translateY(-2px);
-      }
-      .mb-4 {
-        margin-bottom: 1.5rem !important;
-      }
-      .section-title {
-        text-align: center;
-        margin-bottom: 40px;
-        position: relative;
-      }
-      .section-title h2 {
-        font-size: 32px;
-        color: #333;
-        font-weight: 700;
-      }
-      .section-title .underline {
-        width: 100px;
-        height: 4px;
-        background-color: #f7c72b;
-        margin: 10px auto 0;
-      }
-      /* Ẩn Honeypot Field */
-      .honeypot-field {
-        position: absolute;
-        left: -10000px;
-        top: auto;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-      }
-      @media (max-width: 991.98px) {
-        .contact-info,
-        .contact-form {
-          margin-bottom: 20px;
-        }
-        .map-container iframe {
-          height: 250px;
-        }
-      }
-      @media (max-width: 575.98px) {
-        .contact-info p {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-        .contact-info p i {
-          margin-bottom: 5px;
-        }
-        .contact-info h3,
-        .contact-form h3 {
-          font-size: 20px;
-        }
-      }
-      /* Custom styles for dropdown hover */
-      .dropdown:hover .dropdown-menu {
-        display: block;
-      }
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
 
-      /* Custom size for the dropdown menu */
-      .dropdown-menu.custom-dropdown {
-        width: 1000px; /* Set width */
-        height: 450px; /* Set height */
-        overflow: auto; /* Enable scrolling if content overflows */
-      }
-      .card {
-        width: 100%;
-        height: 200px;
-        cursor: pointer;
-      }
-      a {
-        text-decoration: none;
-        color: black !important;
-        text-align: center;
-      }
-      .dropdown-item .row .col-md-2 h4 {
-        font-size: 20px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/contact.css" />
   </head>
   <body>
-    <!-- Header -->
+    <!-- header -->
     <div class="container-fluid">
-      <iframe src="header.html" frameborder="0" width="100%"></iframe>
+      <iframe
+        src="header.html"
+        frameborder="0"
+        scrolling="no"
+        width="100%"
+        height="120px"
+      ></iframe>
     </div>
+    <!-- end header-->
     <!-- navbar -->
     <div class="container-fluid">
       <!--navbar for page-->
@@ -201,9 +51,10 @@
         style="background-color: #4fd0b6; height: 40px"
       >
         <div class="container-fluid">
-          <a class="navbar-brand text-white" href="\user?method=home"
+          <a class="navbar-item text-white active" href="index.html"
             >Trang chủ</a
           >
+          <!-- Updated href -->
           <button
             class="navbar-toggler"
             type="button"
@@ -236,7 +87,6 @@
                     <div class="dropdown-item">
                       <div class="container">
                         <div class="row">
-                          <h4>Sản phẩm nổi bật</h4>
                           <div class="col-md-3">
                             <div class="card">
                               <img
@@ -315,58 +165,59 @@
                       <div class="row">
                         <div class="col-md-2">
                           <h4>Bán chạy</h4>
-                          <a href="...">Vải Cotton</a><br />
-                          <a href="...">Vải Linen</a><br />
-                          <a href="...">Vải Silk</a><br />
-                          <a href="...">Polyester</a><br />
-                          <a href="...">Denim</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen</a><br />
+                          <a href="templateProduct.html">Vải Silk</a><br />
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.html">Denim</a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Mùa đông</h4>
-                          <a href="...">Vải len</a><br />
-                          <a href="...">Vải nhung</a><br />
-                          <a href="...">Vải lanh</a><br />
-                          <a href="...">Vải da</a><br />
-                          <a href="...">Vải dù</a>
+                          <a href="templateProduct.html">Vải len</a><br />
+                          <a href="templateProduct.html">Vải nhung</a><br />
+                          <a href="templateProduct.html">Vải lanh</a><br />
+                          <a href="templateProduct.html">Vải da</a><br />
+                          <a href="templateProduct.html">Vải dù</a>
                         </div>
 
                         <div class="col-md-2">
                           <h4>Mùa hè</h4>
-                          <a href="...">Vải Cotton</a><br />
-                          <a href="...">Vải Linen </a><br />
-                          <a href="...">Vải Rayon</a><br />
-                          <a href="...">Vải Bamboo </a><br />
-                          <a href="...">Vải Chambray</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen </a><br />
+                          <a href="templateProduct.html">Vải Rayon</a><br />
+                          <a href="templateProduct.html">Vải Bamboo </a><br />
+                          <a href="templateProduct.html">Vải Chambray</a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Mùa thu</h4>
-                          <a href="...">Vải Cotton</a> <br />
-                          <a href="...">Vải Wool </a><br />
-                          <a href="...">Vải Tweed</a><br />
-                          <a href="...">Vải Flannel</a><br />
-                          <a href="...">Vải Corduroy</a><br />
-                          <a href="...">Vải Denim</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a> <br />
+                          <a href="templateProduct.html">Vải Wool </a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Flannel</a><br />
+                          <a href="templateProduct.html">Vải Corduroy</a><br />
+                          <a href="templateProduct.html">Vải Denim</a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Đồng phục</h4>
-                          <a href="...">Polyester</a><br />
-                          <a href="...">Cotton-PVC</a><br />
-                          <a href="...">Nỉ </a><br />
-                          <a href="...">Kaki</a><br />
-                          <a href="...">Lanh </a><br />
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.htmll">Cotton-PVC</a><br />
+                          <a href="templateProduct.html">Nỉ </a><br />
+                          <a href="templateProduct.html">Kaki</a><br />
+                          <a href="templateProduct.html">Lanh </a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Nội thất</h4>
-                          <a href="...">Vải Cotton</a><br />
-                          <a href="...">Vải Microfiber</a><br />
-                          <a href="...">Vải Velvet</a><br />
-                          <a href="...">Vải Polyester</a><br />
-                          <a href="...">Vải Tweed</a><br />
-                          <a href="...">Vải Canvas</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Microfiber</a
+                          ><br />
+                          <a href="templateProduct.html">Vải Velvet</a><br />
+                          <a href="templateProduct.html">Vải Polyester</a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Canvas</a><br />
                         </div>
                       </div>
                     </div>
@@ -374,61 +225,58 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=blog"
+                <a class="nav-link text-white" href="templateMayMac.html"
                   >Vải may mặc</a
                 >
+                <!-- Updated href -->
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=blog"
+                <a class="nav-link text-white" href="fabric_blog.html"
                   >Vải nội thất</a
                 >
+                <!-- Updated href -->
               </li>
-              <!-- Dropdown cho Phụ kiện may mặc -->
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle text-white"
                   href="#"
-                  id="phukienDropdown"
+                  id="accessoryDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Phụ kiện may mặc
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="phukienDropdown">
-                  <!-- Phần REN -->
+                <ul class="dropdown-menu" aria-labelledby="accessoryDropdown">
                   <li>
-                    <a class="dropdown-item" href="Lace_Haven.html"> REN </a>
+                    <a class="dropdown-item" href="Lace_Haven.html">REN</a>
                   </li>
                   <li><hr class="dropdown-divider" /></li>
 
-                  <!-- Phần NÚT ÁO -->
                   <li>
-                    <a class="dropdown-item" href="Button_Up.html"> NÚT ÁO </a>
+                    <a class="dropdown-item" href="Button_Up.html">NÚT ÁO</a>
                   </li>
                   <li><hr class="dropdown-divider" /></li>
-
-                  <!-- Phần DÂY KÉO -->
                   <li>
-                    <a class="dropdown-item" href="ZipStar.html"> DÂY KÉO </a>
+                    <a class="dropdown-item" href="ZipStar.html">DÂY KÉO</a>
                   </li>
                 </ul>
               </li>
-
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=about"
+                <a class="nav-link text-white" href="designProduct.html"
                   >Các mẫu thiết kế</a
                 >
+                <!-- Updated href -->
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=contact"
-                  >Liên hệ</a
-                >
+                <a class="nav-link text-white" href="contact.html">Liên hệ</a>
+                <!-- Updated href -->
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=about"
+                <a class="nav-link text-white" href="policyReturn.html"
                   >Chính sách đổi trả</a
                 >
+                <!-- Updated href -->
               </li>
             </ul>
           </div>
@@ -474,7 +322,7 @@
                 <a
                   href="mailto:vaihongngan@gmail.com"
                   class="text-decoration-none text-light"
-                  >vaisovietan@gmail.com</a
+                  >vovanvai@gmail.com</a
                 >
               </p>
               <!-- Interactive Map -->
@@ -629,10 +477,35 @@
     </section>
     <!-- Footer -->
     <div>
-      <iframe src="footer.html" frameborder="0" width="100%" height="450px" scrolling="no"></iframe>
+      <iframe
+        src="footer.html"
+        frameborder="0"
+        width="100%"
+        height="450px"
+        scrolling="no"
+      ></iframe>
     </div>
     <!-- end footer-->
-    
+
+    <!-- Nút Biểu Tượng -->
+    <div class="icon-buttons">
+      <a
+        href="https://facebook.com"
+        class="icon-btn facebook-btn"
+        target="_blank"
+      >
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="tel:+84123456789" class="icon-btn call-btn">
+        <i class="fas fa-phone"></i>
+      </a>
+    </div>
+
+    <!-- Nút Back to Top -->
+    <button id="back-to-top" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+
     <!-- Bootstrap JS and dependencies -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -721,11 +594,30 @@
           }
         });
       })();
+
+      // Hiển thị nút "Back to Top" khi cuộn xuống
+      window.addEventListener("scroll", () => {
+        const backToTopButton = document.getElementById("back-to-top");
+        if (window.scrollY > 200) {
+          // Hiển thị khi cuộn xuống hơn 200px
+          backToTopButton.classList.add("show");
+        } else {
+          backToTopButton.classList.remove("show");
+        }
+      });
+
+      // Thêm sự kiện click cho nút "Back to Top"
+      document.getElementById("back-to-top").addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // Cuộn về đầu trang một cách mượt mà
+        });
+      });
     </script>
     <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"
-  ></script>
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

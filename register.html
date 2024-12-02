@@ -1,362 +1,434 @@
-    <!DOCTYPE html>
-    <html lang="vi">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Đăng ký tài khoản - Bán Vải Online</title>
-        <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet"/>
-        <style>
-            body {
-                font-family: 'Arial', sans-serif;
-                background-color: #f9f9f9;
-                margin: 0;
-                padding: 20px 0; /* Top và Bottom padding */
-                /* Scrollbar styles... */
-                scrollbar-width: auto; /* Firefox */
-                scrollbar-color: #888 #f1f1f1; /* Firefox */
-            }
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Đăng ký tài khoản - Bán Vải Online</title>
+    <!-- Bootstrap CSS (Phiên bản 5.3.2) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-..."
+      crossorigin="anonymous"
+    />
 
-            /* Webkit scrollbar cho toàn bộ trang */
-            body::-webkit-scrollbar {
-                width: 16px; /* Tăng chiều rộng của scrollbar */
-            }
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
-            body::-webkit-scrollbar-track {
-                background: #f1f1f1; /* Màu nền của track */
-            }
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
 
-            body::-webkit-scrollbar-thumb {
-                background: #888; /* Màu nền của thumb */
-                border-radius: 8px; /* Bo góc cho thumb */
-            }
+    <link rel="stylesheet" href="css/register.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="container-fluid">
+      <iframe
+        src="header.html"
+        frameborder="0"
+        width="100%"
+        height="120px"
+        title="Header"
+      ></iframe>
+    </div>
+    <!-- End Header -->
 
-            body::-webkit-scrollbar-thumb:hover {
-                background: #555; /* Màu nền của thumb khi hover */
-            }
+    <!-- Navbar -->
+    <div class="container-fluid">
+      <!-- Navbar for page -->
+      <nav
+        class="navbar navbar-expand-lg"
+        style="background-color: #4fd0b6; height: 40px"
+      >
+        <div class="container-fluid">
+          <a class="navbar-item text-white active" href="index.html"
+            >Trang chủ</a
+          >
+          <!-- Updated href -->
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <div class="dropdown">
+                  <a
+                    class="nav-link dropdown-toggle text-white"
+                    href="#"
+                    role="button"
+                    id="dropdownMenuLink"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Sản phẩm
+                  </a>
+                  <ul
+                    class="dropdown-menu custom-dropdown"
+                    aria-labelledby="dropdownMenuLink"
+                  >
+                    <div class="dropdown-item">
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar1.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải lụa
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
 
-            .form-section {
-                padding: 40px; /* Giảm padding từ 140px xuống 40px */
-                background-color: #fff; /* Thêm màu nền */
-                border-radius: 10px; /* Thêm bo góc */
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ */
-                max-width: 700px;
-                margin: 20px auto 60px; /* Top: 20px, Left & Right: auto, Bottom: 60px */
-                animation: fadeIn 1s ease-in-out;
-            }
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar2.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải kaki
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
 
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(-20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar3.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải nhung
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
 
-            .form-section h2 {
-                margin-bottom: 20px; /* Tăng margin từ 15px lên 20px */
-                font-size: 2rem; /* Tăng kích thước font từ 1.8rem lên 2rem */
-                font-weight: bold;
-                color: #333;
-                text-align: center;
-            }
-
-            .form-control {
-                margin-bottom: 15px; /* Tăng margin từ 12px lên 15px */
-                border-radius: 5px;
-                padding: 12px; /* Tăng padding từ 10px lên 12px */
-                border: 1px solid #ced4da;
-                transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            }
-
-            .form-control:focus {
-                border-color: #007bff;
-                box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
-                outline: none;
-            }
-
-            .btn-primary {
-                background-color: #007bff;
-                color: #fff;
-                border: none;
-                padding: 12px 20px; /* Tăng padding từ 10px 18px lên 12px 20px */
-                width: 100%;
-                border-radius: 5px;
-                transition: background-color 0.3s ease, transform 0.2s ease;
-                cursor: pointer;
-                font-size: 16px;
-            }
-
-            .btn-primary:hover, .btn-primary:focus {
-                background-color: #0056b3;
-                transform: translateY(-2px);
-            }
-
-            .social-login {
-                margin-top: 20px; /* Tăng margin từ 15px lên 20px */
-                display: flex;
-                justify-content: space-between;
-                gap: 10px; /* Tăng gap từ 8px lên 10px */
-            }
-
-            .social-login button {
-                flex: 1;
-                padding: 10px; /* Tăng padding từ 8px lên 10px */
-                border: none;
-                border-radius: 5px;
-                color: #fff;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-                cursor: pointer;
-                font-size: 16px; /* Tăng kích thước font từ 15px lên 16px */
-            }
-
-            .social-login button i {
-                margin-right: 8px; /* Tăng margin từ 6px lên 8px */
-                font-size: 18px; /* Tăng kích thước icon từ 16px lên 18px */
-            }
-
-            .btn-facebook {
-                background-color: #3b5998;
-            }
-
-            .btn-facebook:hover, .btn-facebook:focus {
-                background-color: #334d84;
-                transform: scale(1.05);
-                box-shadow: 0 6px 20px rgba(59, 89, 152, 0.4);
-            }
-
-            .btn-google {
-                background-color: #db4437;
-            }
-
-            .btn-google:hover, .btn-google:focus {
-                background-color: #c23321;
-                transform: scale(1.05);
-                box-shadow: 0 6px 20px rgba(219, 68, 55, 0.4);
-            }
-
-            .breadcrumb {
-                background-color: transparent;
-                padding-left: 0;
-                margin-bottom: 15px; /* Giảm margin từ 20px xuống 15px */
-                font-size: 14px;
-            }
-
-            .breadcrumb-item a {
-                color: #007bff;
-                text-decoration: none;
-            }
-
-            .breadcrumb-item a:hover {
-                text-decoration: underline;
-            }
-
-            .breadcrumb-item.active {
-                color: #6c757d;
-            }
-
-            .error-message {
-                color: #dc3545;
-                font-size: 0.9rem;
-                min-height: 1.2em; /* Đảm bảo không gian được giữ cố định */
-                visibility: hidden; /* Ẩn lỗi nhưng giữ không gian */
-            }
-
-            .error-message.visible {
-                visibility: visible; /* Hiển thị lỗi */
-            }
-
-            .success-message {
-                color: #28a745;
-                font-size: 1rem;
-                text-align: center;
-                display: none;
-                margin-bottom: 15px;
-            }
-
-            /* Responsive adjustments */
-            @media (max-width: 576px) {
-                .social-login {
-                    flex-direction: column;
-                }
-                .social-login button {
-                    width: 100%;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Đăng ký tài khoản</li>
-                </ol>
-            </nav>
-            <div class="form-section">
-                <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
-                <p class="text-center">Nếu chưa có tài khoản vui lòng đăng ký tại đây</p>
-                <div class="success-message" id="successMessage">Đăng ký thành công!</div>
-                <form id="registrationForm" novalidate>
-                    <div class="mb-3">
-                        <input class="form-control" id="firstName" placeholder="Họ *" required type="text" aria-label="Họ"/>
-                        <div class="error-message" id="firstNameError">Vui lòng nhập họ của bạn.</div>
+                          <div class="col-md-3">
+                            <div class="card">
+                              <img
+                                src="images/navbar4.jpg"
+                                class="card-img-top"
+                                alt="..."
+                              />
+                              <div class="card-body">
+                                <h4
+                                  class="card-title"
+                                  style="text-align: center"
+                                >
+                                  Vải Linen
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                    <div class="mb-3">
-                        <input class="form-control" id="lastName" placeholder="Tên *" required type="text" aria-label="Tên"/>
-                        <div class="error-message" id="lastNameError">Vui lòng nhập tên của bạn.</div>
+                    <div class="dropdown-item">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <h4>Bán chạy</h4>
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen</a><br />
+                          <a href="templateProduct.html">Vải Silk</a><br />
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.html">Denim</a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Mùa đông</h4>
+                          <a href="templateProduct.html">Vải len</a><br />
+                          <a href="templateProduct.html">Vải nhung</a><br />
+                          <a href="templateProduct.html">Vải lanh</a><br />
+                          <a href="templateProduct.html">Vải da</a><br />
+                          <a href="templateProduct.html">Vải dù</a>
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Mùa hè</h4>
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen </a><br />
+                          <a href="templateProduct.html">Vải Rayon</a><br />
+                          <a href="templateProduct.html">Vải Bamboo </a><br />
+                          <a href="templateProduct.html">Vải Chambray</a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Mùa thu</h4>
+                          <a href="templateProduct.html">Vải Cotton</a> <br />
+                          <a href="templateProduct.html">Vải Wool </a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Flannel</a><br />
+                          <a href="templateProduct.html">Vải Corduroy</a><br />
+                          <a href="templateProduct.html">Vải Denim</a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Đồng phục</h4>
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.htmll">Cotton-PVC</a><br />
+                          <a href="templateProduct.html">Nỉ </a><br />
+                          <a href="templateProduct.html">Kaki</a><br />
+                          <a href="templateProduct.html">Lanh </a><br />
+                        </div>
+
+                        <div class="col-md-2">
+                          <h4>Nội thất</h4>
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Microfiber</a
+                          ><br />
+                          <a href="templateProduct.html">Vải Velvet</a><br />
+                          <a href="templateProduct.html">Vải Polyester</a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Canvas</a><br />
+                        </div>
+                      </div>
                     </div>
-                    <div class="mb-3">
-                        <input class="form-control" id="email" placeholder="Email *" required type="email" aria-label="Email"/>
-                        <div class="error-message" id="emailError">Vui lòng nhập một địa chỉ email hợp lệ.</div>
-                    </div>
-                    <div class="mb-3">
-                        <input class="form-control" id="phone" placeholder="Số điện thoại *" required type="tel" aria-label="Số điện thoại"/>
-                        <div class="error-message" id="phoneError">Vui lòng nhập số điện thoại hợp lệ.</div>
-                    </div>
-                    <div class="mb-3">
-                        <input class="form-control" id="password" placeholder="Mật khẩu *" required type="password" aria-label="Mật khẩu"/>
-                        <div class="error-message" id="passwordError">Vui lòng nhập mật khẩu (ít nhất 6 ký tự).</div>
-                    </div>
-                    <div class="text-center">
-                        <button class="btn btn-primary" type="submit">ĐĂNG KÝ</button>
-                    </div>
-                </form>
-                <div class="social-login">
-                    <button class="btn btn-facebook" id="facebookLogin" aria-label="Đăng nhập bằng Facebook">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </button>
-                    <button class="btn btn-google" id="googleLogin" aria-label="Đăng nhập bằng Google">
-                        <i class="fab fa-google"></i> Google
-                    </button>
+                  </ul>
                 </div>
-            </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="templateMayMac.html"
+                  >Vải may mặc</a
+                >
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="fabric_blog.html"
+                  >Vải nội thất</a
+                >
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle text-white"
+                  href="#"
+                  id="accessoryDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Phụ kiện may mặc
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="accessoryDropdown">
+                  <li>
+                    <a class="dropdown-item" href="Lace_Haven.html">REN</a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+
+                  <li>
+                    <a class="dropdown-item" href="Button_Up.html">NÚT ÁO</a>
+                  </li>
+                  <li><hr class="dropdown-divider" /></li>
+                  <li>
+                    <a class="dropdown-item" href="ZipStar.html">DÂY KÉO</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="designProduct.html"
+                  >Các mẫu thiết kế</a
+                >
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="contact.html">Liên hệ</a>
+                <!-- Updated href -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="policyReturn.html"
+                  >Chính sách đổi trả</a
+                >
+                <!-- Updated href -->
+              </li>
+            </ul>
+          </div>
         </div>
+      </nav>
+      <!-- End Navbar for page -->
+    </div>
+    <!-- End Navbar -->
 
-        <!-- Modal for Loading Indicator -->
-        <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" style="background: transparent; border: none; box-shadow: none;">
-                    <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                        <span class="visually-hidden">Loading...</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Nội Dung Chính: Form Đăng Ký -->
+    <div class="container">
+      <div class="form-section">
+        <h2>ĐĂNG KÝ TÀI KHOẢN</h2>
+        <p class="text-center">
+          Vui lòng nhập Email và Mật khẩu để đăng ký tài khoản
+        </p>
+        <!-- Thông báo thành công -->
+        <div class="alert alert-success alert-message" id="successMessage">
+          Đăng ký thành công!
         </div>
+        <!-- Thông báo lỗi -->
+        <div class="alert alert-danger alert-message" id="submissionError">
+          Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại sau.
+        </div>
+        <!-- Form Đăng Ký -->
+        <form id="registrationForm" novalidate>
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="email" class="form-label">Email *</label>
+            <input
+              class="form-control"
+              id="email"
+              placeholder="Email *"
+              required
+              type="email"
+              aria-describedby="emailHelp"
+            />
+            <div class="invalid-feedback" id="emailError">
+              Vui lòng nhập một địa chỉ email hợp lệ.
+            </div>
+          </div>
+          <!-- Xác nhận Email -->
+          <div class="mb-3">
+            <label for="confirmEmail" class="form-label"
+              >Xác nhận Email *</label
+            >
+            <input
+              class="form-control"
+              id="confirmEmail"
+              placeholder="Xác nhận Email *"
+              required
+              type="email"
+              aria-describedby="confirmEmailHelp"
+            />
+            <div class="invalid-feedback" id="confirmEmailError">
+              Email xác nhận không khớp.
+            </div>
+          </div>
+          <!-- Mật khẩu -->
+          <div class="mb-3">
+            <label for="password" class="form-label">Mật khẩu *</label>
+            <input
+              class="form-control"
+              id="password"
+              placeholder="Mật khẩu *"
+              required
+              type="password"
+              aria-describedby="passwordHelp"
+            />
+            <div class="invalid-feedback" id="passwordError">
+              Vui lòng nhập mật khẩu (ít nhất 6 ký tự).
+            </div>
+          </div>
+          <!-- Xác nhận Mật khẩu -->
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label"
+              >Xác nhận Mật khẩu *</label
+            >
+            <input
+              class="form-control"
+              id="confirmPassword"
+              placeholder="Xác nhận Mật khẩu *"
+              required
+              type="password"
+              aria-describedby="confirmPasswordHelp"
+            />
+            <div class="invalid-feedback" id="confirmPasswordError">
+              Mật khẩu xác nhận không khớp.
+            </div>
+          </div>
+          <!-- Nút Đăng Ký -->
+          <div class="text-center">
+            <button class="btn-custom" type="submit">ĐĂNG KÝ</button>
+          </div>
+        </form>
+        <!-- Đăng Nhập Xã Hội -->
+        <div class="social-login">
+          <button class="btn-facebook" id="facebookLogin">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </button>
+          <button class="btn-google" id="googleLogin">
+            <i class="fab fa-google"></i> Google
+          </button>
+        </div>
+      </div>
+    </div>
 
-        <!-- Bootstrap JS and dependencies -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3vI0Txkzl5M7G7rvB/JF9QFJzUawmGJlfyep7EJiF" crossorigin="anonymous"></script>
-        <!-- Font Awesome -->
-        <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-                const registrationForm = document.getElementById('registrationForm');
-                const successMessage = document.getElementById('successMessage');
+    <!-- Footer -->
+    <div class="footer mt-3">
+      <iframe
+        src="footer.html"
+        frameborder="0"
+        scrolling="no"
+        width="100%"
+        height="450px"
+        title="Footer"
+      ></iframe>
+    </div>
+    <!-- End Footer -->
 
-                registrationForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    if (validateForm()) {
-                        // Show loading indicator
-                        const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
-                        loadingModal.show();
+    <!-- Font Awesome JS -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/js/all.min.js"
+      integrity="sha512-OL1e4xdQXY+MCAuXqudI+VwVkljheAPp34zqzM1Ee3x/NmFJRmVw3t3ZpVJ4t0k9uSnho/0Iae/BmL2uC7s3FQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
 
-                        // Simulate form submission
-                        setTimeout(() => {
-                            loadingModal.hide();
-                            successMessage.style.display = 'block';
-                            registrationForm.reset();
-                            setTimeout(() => {
-                                successMessage.style.display = 'none';
-                            }, 3000);
-                        }, 2000);
-                    }
-                });
+    <!-- Bootstrap JS (Phiên bản 5.3.2) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
 
-                function validateForm() {
-                    let isValid = true;
+    <script src="static/js/register.js"></script>
 
-                    // First Name
-                    const firstName = document.getElementById('firstName');
-                    const firstNameError = document.getElementById('firstNameError');
-                    if (firstName.value.trim() === '') {
-                        firstNameError.classList.add('visible');
-                        isValid = false;
-                    } else {
-                        firstNameError.classList.remove('visible');
-                    }
+    <!-- Nút Biểu Tượng -->
+    <div class="icon-buttons">
+      <a
+        href="https://facebook.com"
+        class="icon-btn facebook-btn"
+        target="_blank"
+        aria-label="Facebook"
+      >
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="tel:+84123456789" class="icon-btn call-btn" aria-label="Call">
+        <i class="fas fa-phone"></i>
+      </a>
+    </div>
 
-                    // Last Name
-                    const lastName = document.getElementById('lastName');
-                    const lastNameError = document.getElementById('lastNameError');
-                    if (lastName.value.trim() === '') {
-                        lastNameError.classList.add('visible');
-                        isValid = false;
-                    } else {
-                        lastNameError.classList.remove('visible');
-                    }
-
-                    // Email
-                    const email = document.getElementById('email');
-                    const emailError = document.getElementById('emailError');
-                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailPattern.test(email.value.trim())) {
-                        emailError.classList.add('visible');
-                        isValid = false;
-                    } else {
-                        emailError.classList.remove('visible');
-                    }
-
-                    // Phone
-                    const phone = document.getElementById('phone');
-                    const phoneError = document.getElementById('phoneError');
-                    const phonePattern = /^[0-9]{10,15}$/;
-                    if (!phonePattern.test(phone.value.trim())) {
-                        phoneError.classList.add('visible');
-                        isValid = false;
-                    } else {
-                        phoneError.classList.remove('visible');
-                    }
-
-                    // Password
-                    const password = document.getElementById('password');
-                    const passwordError = document.getElementById('passwordError');
-                    if (password.value.trim().length < 6) {
-                        passwordError.classList.add('visible');
-                        isValid = false;
-                    } else {
-                        passwordError.classList.remove('visible');
-                    }
-
-                    return isValid;
-                }
-
-                // Social Login Buttons
-                const facebookLogin = document.getElementById('facebookLogin');
-                const googleLogin = document.getElementById('googleLogin');
-
-                facebookLogin.addEventListener('click', () => {
-                    // Show loading indicator
-                    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
-                    loadingModal.show();
-
-                    // Simulate Facebook login
-                    setTimeout(() => {
-                        loadingModal.hide();
-                        alert('Đăng nhập qua Facebook thành công!');
-                    }, 2000);
-                });
-
-                googleLogin.addEventListener('click', () => {
-                    // Show loading indicator
-                    const loadingModal = new bootstrap.Modal(document.getElementById('loadingModal'));
-                    loadingModal.show();
-
-                    // Simulate Google login
-                    setTimeout(() => {
-                        loadingModal.hide();
-                        alert('Đăng nhập qua Google thành công!');
-                    }, 2000);
-                });
-            });
-        </script>
-    </body>
-    </html>
+    <!-- Nút Back to Top -->
+    <button id="back-to-top" class="back-to-top" aria-label="Back to Top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
+  </body>
+</html>

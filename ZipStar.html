@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Dây Kéo</title>
+    <title>Dây Kéo Cao Cấp</title>
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -16,257 +16,33 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
       rel="stylesheet"
     />
-    <style>
-      /* Các kiểu chung */
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: #f5f5f5;
-      }
-
-      /* Chỉnh sửa breadcrumb */
-      .breadcrumb {
-        background-color: #4fd0b6; /* Màu nền mới */
-        margin-bottom: 20px;
-        padding: 10px 15px;
-        border-radius: 5px;
-      }
-      .breadcrumb-item a,
-      .breadcrumb-item.active {
-        color: #fff; /* Màu chữ trắng */
-        text-decoration: none;
-      }
-      .breadcrumb-item a:hover {
-        text-decoration: underline;
-        color: #fff; /* Giữ màu chữ trắng khi hover */
-      }
-      .breadcrumb-item.active {
-        color: #fff; /* Màu chữ trắng cho mục active */
-      }
-
-      .sidebar {
-        background-color: #fff;
-        padding: 20px;
-        border-right: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 20px;
-      }
-      .sidebar h5 {
-        font-size: 18px;
-        margin-bottom: 15px;
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 5px;
-      }
-      .sidebar .form-check-label {
-        font-size: 14px;
-      }
-      .sidebar a {
-        color: #333;
-        text-decoration: none;
-        display: block;
-        padding: 5px 0;
-        transition: color 0.3s;
-      }
-      .sidebar a:hover {
-        color: #007bff;
-        text-decoration: none;
-      }
-      .pagination {
-        justify-content: flex-end;
-      }
-
-      /* Các kiểu cho Grid View */
-      .product-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px; /* Khoảng cách giữa các card */
-        width: 100%; /* Chiếm toàn bộ chiều rộng của container */
-        margin: 0 auto; /* Căn giữa */
-      }
-      .product-grid .col-md-4 {
-        flex: 0 0 calc(33.33% - 20px); /* Điều chỉnh để mỗi card chiếm đều không gian */
-        max-width: calc(33.33% - 20px);
-      }
-      .card {
-        transition: transform 0.3s, box-shadow 0.3s;
-        height: 100%;
-        position: relative; /* Để chứa các nút hành động */
-        overflow: hidden; /* Ẩn phần tràn */
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        max-width: 100%; /* Giới hạn chiều rộng */
-        margin: auto; /* Căn giữa trong trường hợp kích thước container thay đổi */
-      }
-      .card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      }
-      .card-img-top {
-        width: 100%;
-        max-height: 150px; /* Giới hạn chiều cao của hình ảnh */
-        object-fit: cover; /* Giữ tỷ lệ hình ảnh mà không bị méo hình */
-      }
-      .description {
-        display: -webkit-box;
-        --webkit-line-clamp: 3; /* Giới hạn 3 dòng */
-        --webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-bottom: 10px;
-        font-size: 14px;
-        color: #555;
-      }
-      .card-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 15px;
-      }
-      .card-title {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 1.25rem;
-        margin-bottom: 10px;
-      }
-      .pricing {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .discount-badge {
-        background-color: red;
-        color: white;
-        padding: 2px 6px;
-        font-size: 12px;
-        border-radius: 4px;
-      }
-      .discounted-price {
-        font-size: 1rem;
-        font-weight: bold;
-        color: #28a745;
-      }
-      .original-price {
-        font-size: 0.9rem;
-        text-decoration: line-through;
-        color: #6c757d;
-      }
-
-      /* Nút hành động trên card */
-      .card-actions {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-      .card:hover .card-actions {
-        opacity: 1;
-      }
-      .btn-add-to-cart {
-        background-color: rgba(40, 167, 69, 0.9); /* Màu xanh lá */
-        border: none;
-        padding: 8px;
-        border-radius: 50%;
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .btn-add-to-cart:hover {
-        background-color: rgba(40, 167, 69, 1);
-      }
-      .btn-favorite {
-        background-color: rgba(220, 53, 69, 0.9); /* Màu đỏ */
-        border: none;
-        padding: 8px;
-        border-radius: 50%;
-        color: #fff;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .btn-favorite:hover {
-        background-color: rgba(220, 53, 69, 1);
-      }
-      .card-actions .btn {
-        width: 40px;
-        height: 40px;
-        padding: 0;
-      }
-
-      /* Responsive điều chỉnh */
-      .sidebar {
-        max-width: 100%;
-        padding: 10px; /* Giảm padding */
-      }
-
-      @media (max-width: 768px) {
-        .sidebar {
-          display: none;
-        }
-      }
-
-      /* Giới hạn độ dài văn bản */
-      .card-title {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .description {
-        display: -webkit-box;
-        --webkit-line-clamp: 3; /* Giới hạn 3 dòng */
-        --webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-       /* Custom styles for dropdown hover */
-       .dropdown:hover .dropdown-menu {
-        display: block;
-      }
-
-      /* Custom size for the dropdown menu */
-      .dropdown-menu.custom-dropdown {
-        width: 1000px; /* Set width */
-        height: 450px; /* Set height */
-        overflow: auto; /* Enable scrolling if content overflows */
-      }
-      .card {
-        width: 100%;
-        height: 200px;
-        cursor: pointer;
-      }
-      a {
-        text-decoration: none;
-        color: black !important;
-        text-align: center;
-      }
-      .dropdown-item .row .col-md-2 h4 {
-        font-size: 20px;
-      }
-    </style>
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/ZipStar.css" />
   </head>
   <body>
-
+    <!-- Header -->
     <div class="container-fluid">
-      <iframe src="header.html" scrolling="no" width="100%" frameborder="0" height="120px"></iframe>
+      <iframe
+        src="header.html"
+        scrolling="no"
+        width="100%"
+        frameborder="0"
+        height="120px"
+      ></iframe>
     </div>
+    <!-- End Header -->
+
+    <!-- Navbar -->
     <div class="container-fluid">
-      <!--navbar for page-->
       <nav
         class="navbar navbar-expand-lg"
         style="background-color: #4fd0b6; height: 40px"
       >
         <div class="container-fluid">
-          <a class="navbar-brand text-white" href="\user?method=home"
+          <a class="navbar-item text-white active" href="index.html"
             >Trang chủ</a
           >
+          <!-- Updated href -->
           <button
             class="navbar-toggler"
             type="button"
@@ -299,7 +75,6 @@
                     <div class="dropdown-item">
                       <div class="container">
                         <div class="row">
-                          <h4>Sản phẩm nổi bật</h4>
                           <div class="col-md-3">
                             <div class="card">
                               <img
@@ -378,58 +153,59 @@
                       <div class="row">
                         <div class="col-md-2">
                           <h4>Bán chạy</h4>
-                          <a href="...">Vải Cotton</a><br />
-                          <a href="...">Vải Linen</a><br />
-                          <a href="...">Vải Silk</a><br />
-                          <a href="...">Polyester</a><br />
-                          <a href="...">Denim</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen</a><br />
+                          <a href="templateProduct.html">Vải Silk</a><br />
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.html">Denim</a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Mùa đông</h4>
-                          <a href="...">Vải len</a><br />
-                          <a href="...">Vải nhung</a><br />
-                          <a href="...">Vải lanh</a><br />
-                          <a href="...">Vải da</a><br />
-                          <a href="...">Vải dù</a>
+                          <a href="templateProduct.html">Vải len</a><br />
+                          <a href="templateProduct.html">Vải nhung</a><br />
+                          <a href="templateProduct.html">Vải lanh</a><br />
+                          <a href="templateProduct.html">Vải da</a><br />
+                          <a href="templateProduct.html">Vải dù</a>
                         </div>
 
                         <div class="col-md-2">
                           <h4>Mùa hè</h4>
-                          <a href="...">Vải Cotton</a><br />
-                          <a href="...">Vải Linen </a><br />
-                          <a href="...">Vải Rayon</a><br />
-                          <a href="...">Vải Bamboo </a><br />
-                          <a href="...">Vải Chambray</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Linen </a><br />
+                          <a href="templateProduct.html">Vải Rayon</a><br />
+                          <a href="templateProduct.html">Vải Bamboo </a><br />
+                          <a href="templateProduct.html">Vải Chambray</a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Mùa thu</h4>
-                          <a href="...">Vải Cotton</a> <br />
-                          <a href="...">Vải Wool </a><br />
-                          <a href="...">Vải Tweed</a><br />
-                          <a href="...">Vải Flannel</a><br />
-                          <a href="...">Vải Corduroy</a><br />
-                          <a href="...">Vải Denim</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a> <br />
+                          <a href="templateProduct.html">Vải Wool </a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Flannel</a><br />
+                          <a href="templateProduct.html">Vải Corduroy</a><br />
+                          <a href="templateProduct.html">Vải Denim</a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Đồng phục</h4>
-                          <a href="...">Polyester</a><br />
-                          <a href="...">Cotton-PVC</a><br />
-                          <a href="...">Nỉ </a><br />
-                          <a href="...">Kaki</a><br />
-                          <a href="...">Lanh </a><br />
+                          <a href="templateProduct.html">Polyester</a><br />
+                          <a href="templateProduct.htmll">Cotton-PVC</a><br />
+                          <a href="templateProduct.html">Nỉ </a><br />
+                          <a href="templateProduct.html">Kaki</a><br />
+                          <a href="templateProduct.html">Lanh </a><br />
                         </div>
 
                         <div class="col-md-2">
                           <h4>Nội thất</h4>
-                          <a href="...">Vải Cotton</a><br />
-                          <a href="...">Vải Microfiber</a><br />
-                          <a href="...">Vải Velvet</a><br />
-                          <a href="...">Vải Polyester</a><br />
-                          <a href="...">Vải Tweed</a><br />
-                          <a href="...">Vải Canvas</a><br />
+                          <a href="templateProduct.html">Vải Cotton</a><br />
+                          <a href="templateProduct.html">Vải Microfiber</a
+                          ><br />
+                          <a href="templateProduct.html">Vải Velvet</a><br />
+                          <a href="templateProduct.html">Vải Polyester</a><br />
+                          <a href="templateProduct.html">Vải Tweed</a><br />
+                          <a href="templateProduct.html">Vải Canvas</a><br />
                         </div>
                       </div>
                     </div>
@@ -437,61 +213,58 @@
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=blog"
+                <a class="nav-link text-white" href="templateMayMac.html"
                   >Vải may mặc</a
                 >
+                <!-- Updated href -->
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=blog"
+                <a class="nav-link text-white" href="fabric_blog.html"
                   >Vải nội thất</a
                 >
+                <!-- Updated href -->
               </li>
-              <!-- Dropdown cho Phụ kiện may mặc -->
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle text-white"
                   href="#"
-                  id="phukienDropdown"
+                  id="accessoryDropdown"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
                   Phụ kiện may mặc
                 </a>
-                <ul class="dropdown-menu" aria-labelledby="phukienDropdown">
-                  <!-- Phần REN -->
+                <ul class="dropdown-menu" aria-labelledby="accessoryDropdown">
                   <li>
-                    <a class="dropdown-item" href="Lace_Haven.html"> REN </a>
+                    <a class="dropdown-item" href="Lace_Haven.html">REN</a>
                   </li>
                   <li><hr class="dropdown-divider" /></li>
 
-                  <!-- Phần NÚT ÁO -->
                   <li>
-                    <a class="dropdown-item" href="Button_Up.html"> NÚT ÁO </a>
+                    <a class="dropdown-item" href="Button_Up.html">NÚT ÁO</a>
                   </li>
                   <li><hr class="dropdown-divider" /></li>
-
-                  <!-- Phần DÂY KÉO -->
                   <li>
-                    <a class="dropdown-item" href="ZipStar.html"> DÂY KÉO </a>
+                    <a class="dropdown-item" href="ZipStar.html">DÂY KÉO</a>
                   </li>
                 </ul>
               </li>
-
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=about"
+                <a class="nav-link text-white" href="designProduct.html"
                   >Các mẫu thiết kế</a
                 >
+                <!-- Updated href -->
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=contact"
-                  >Liên hệ</a
-                >
+                <a class="nav-link text-white" href="contact.html">Liên hệ</a>
+                <!-- Updated href -->
               </li>
               <li class="nav-item">
-                <a class="nav-link text-white" href="\user?method=about"
+                <a class="nav-link text-white" href="policyReturn.html"
                   >Chính sách đổi trả</a
                 >
+                <!-- Updated href -->
               </li>
             </ul>
           </div>
@@ -499,11 +272,8 @@
       </nav>
       <!--end navbar for page-->
     </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
+    <!-- End Navbar -->
+
     <!-- Container chính -->
     <div class="container-fluid">
       <div class="row">
@@ -611,6 +381,8 @@
             </div>
           </div>
         </div>
+        <!-- End Sidebar -->
+
         <!-- Nội dung chính -->
         <div class="col-md-9">
           <!-- Header Controls: Title, Sort, Pagination -->
@@ -623,10 +395,10 @@
             <div class="header-right d-flex align-items-center">
               <!-- Loại bỏ view-toggle -->
               <select class="form-select d-inline-block w-auto" id="sortSelect">
-                <option value="name-asc" selected>Sắp xếp theo: Tên A-Z</option>
-                <option value="name-desc">Tên Z-A</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
+                <option value="newest" selected>Mới Nhất</option>
+                <option value="best-sellers">Bán chạy nhất</option>
+                <option value="price-asc">Từ thấp đến cao</option>
+                <option value="price-desc">Từ cao đến thấp</option>
               </select>
               <!-- Phân trang ở trên bên phải -->
               <nav aria-label="Page navigation example" class="ms-3">
@@ -664,12 +436,19 @@
           <!-- Product Grid -->
           <div class="row product-grid">
             <!-- Sản phẩm 1 -->
-            <div class="col-md-4 mb-4" data-price="8000" data-brand="ZipperPro">
+            <div
+              class="col-md-4 mb-4"
+              data-price="8000"
+              data-brand="ZipperPro"
+              data-date="2024-04-01"
+              data-sales="150"
+            >
               <div class="card h-100">
                 <img
                   src="images/daykeothantientrang.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Thần Tiên - Màu Trắng"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <!-- Các nút Thêm vào Giỏ và Yêu Thích -->
                 <div class="card-actions">
@@ -700,12 +479,15 @@
               class="col-md-4 mb-4"
               data-price="12000"
               data-brand="SmoothZips"
+              data-date="2024-03-15"
+              data-sales="200"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeosmoothblue.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Smooth - Màu Xanh Dương"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -735,12 +517,15 @@
               class="col-md-4 mb-4"
               data-price="15000"
               data-brand="ElegantZips"
+              data-date="2024-02-20"
+              data-sales="180"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeoelegantrong.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Elegant - Màu Đỏ"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -766,12 +551,19 @@
             </div>
 
             <!-- Sản phẩm 4 -->
-            <div class="col-md-4 mb-4" data-price="5000" data-brand="ZipperPro">
+            <div
+              class="col-md-4 mb-4"
+              data-price="5000"
+              data-brand="ZipperPro"
+              data-date="2024-05-10"
+              data-sales="90"
+            >
               <div class="card h-100">
                 <img
                   src="images/daykeothanhtheocochai.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Thánh Thiểu - Cổ Chai"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -795,19 +587,20 @@
               </div>
             </div>
 
-            <!-- Thêm các sản phẩm cho trang 2 và 3 -->
-            <!-- Bạn có thể sao chép các sản phẩm trên và thay đổi thuộc tính data-price và data-brand phù hợp -->
             <!-- Sản phẩm 5 -->
             <div
               class="col-md-4 mb-4"
               data-price="7000"
               data-brand="SmoothZips"
+              data-date="2024-03-05"
+              data-sales="120"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeosmoothgreen.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Smooth - Màu Xanh Lá"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -836,12 +629,15 @@
               class="col-md-4 mb-4"
               data-price="9000"
               data-brand="ElegantZips"
+              data-date="2024-01-25"
+              data-sales="160"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeoelegantblack.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Elegant - Màu Đen"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -871,12 +667,15 @@
               class="col-md-4 mb-4"
               data-price="11000"
               data-brand="ZipperPro"
+              data-date="2024-02-10"
+              data-sales="130"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeothanhtheoovang.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Thần Thiết - Màu Vàng"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -906,12 +705,15 @@
               class="col-md-4 mb-4"
               data-price="6000"
               data-brand="SmoothZips"
+              data-date="2024-04-15"
+              data-sales="100"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeosmoothsilver.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Smooth - Màu Bạc"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -941,12 +743,15 @@
               class="col-md-4 mb-4"
               data-price="10000"
               data-brand="ZipperPro"
+              data-date="2024-05-01"
+              data-sales="140"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeoelegantgreen.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Elegant - Màu Xanh Lá"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -976,12 +781,15 @@
               class="col-md-4 mb-4"
               data-price="13000"
               data-brand="ZipperPro"
+              data-date="2024-01-30"
+              data-sales="170"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeothanhtheoococ.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Thần Thiết - Cổ Cọc"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1009,84 +817,17 @@
             <!-- Sản phẩm 11 -->
             <div
               class="col-md-4 mb-4"
-              data-price="9000"
-              data-brand="SmoothZips"
-            >
-              <div class="card h-100">
-                <img
-                  src="images/daykeosmoothgold.jpg"
-                  class="card-img-top"
-                  alt="Dây Kéo Smooth - Màu Vàng Gold"
-                />
-                <div class="card-actions">
-                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                    <i class="fas fa-shopping-cart"></i>
-                  </button>
-                  <button class="btn btn-favorite" title="Yêu thích">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Smooth - Màu Vàng Gold</h5>
-                  <p class="card-text description">
-                    Dây kéo màu vàng gold, lấp lánh và nổi bật cho các sự kiện
-                    đặc biệt.
-                  </p>
-                  <div class="pricing mt-auto">
-                    <span class="discount-badge">-15%</span>
-                    <span class="discounted-price">9,000đ</span>
-                    <span class="original-price">10,588đ</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Sản phẩm 12 -->
-            <div
-              class="col-md-4 mb-4"
-              data-price="14000"
-              data-brand="ElegantZips"
-            >
-              <div class="card h-100">
-                <img
-                  src="images/daykeoelegantsilver.jpg"
-                  class="card-img-top"
-                  alt="Dây Kéo Elegant - Màu Bạc"
-                />
-                <div class="card-actions">
-                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                    <i class="fas fa-shopping-cart"></i>
-                  </button>
-                  <button class="btn btn-favorite" title="Yêu thích">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Elegant - Màu Bạc</h5>
-                  <p class="card-text description">
-                    Dây kéo màu bạc, thanh lịch và phù hợp với nhiều loại áo.
-                  </p>
-                  <div class="pricing mt-auto">
-                    <span class="discount-badge">-20%</span>
-                    <span class="discounted-price">14,000đ</span>
-                    <span class="original-price">17,500đ</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tiếp tục thêm các sản phẩm tương tự cho các trang tiếp theo -->
-            <!-- Sản phẩm 13 -->
-            <div
-              class="col-md-4 mb-4"
-              data-price="10000"
+              data-price="7500"
               data-brand="ZipperPro"
+              data-date="2024-02-05"
+              data-sales="110"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeothanhtheoocochai2.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Thần Thiết - Cổ Chai 2"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1103,24 +844,27 @@
                   </p>
                   <div class="pricing mt-auto">
                     <span class="discount-badge">-10%</span>
-                    <span class="discounted-price">10,000đ</span>
-                    <span class="original-price">11,111đ</span>
+                    <span class="discounted-price">7,500đ</span>
+                    <span class="original-price">8,333đ</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Sản phẩm 14 -->
+            <!-- Sản phẩm 12 -->
             <div
               class="col-md-4 mb-4"
               data-price="8500"
               data-brand="SmoothZips"
+              data-date="2024-03-25"
+              data-sales="140"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeosmoothpurple.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Smooth - Màu Tím"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1145,17 +889,57 @@
               </div>
             </div>
 
-            <!-- Sản phẩm 15 -->
+            <!-- Sản phẩm 13 -->
+            <div
+              class="col-md-4 mb-4"
+              data-price="9500"
+              data-brand="ZipperPro"
+              data-date="2024-02-18"
+              data-sales="160"
+            >
+              <div class="card h-100">
+                <img
+                  src="images/daykeothanhtheoocochai3.jpg"
+                  class="card-img-top"
+                  alt="Dây Kéo Thần Thiết - Cổ Chai 3"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                />
+                <div class="card-actions">
+                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                  <button class="btn btn-favorite" title="Yêu thích">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">Dây Kéo Thần Thiết - Cổ Chai 3</h5>
+                  <p class="card-text description">
+                    Dây kéo cổ chai, phù hợp với các loại áo sơ mi cổ điển.
+                  </p>
+                  <div class="pricing mt-auto">
+                    <span class="discount-badge">-10%</span>
+                    <span class="discounted-price">9,500đ</span>
+                    <span class="original-price">10,556đ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sản phẩm 14 -->
             <div
               class="col-md-4 mb-4"
               data-price="16000"
               data-brand="ElegantZips"
+              data-date="2024-01-10"
+              data-sales="190"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeoelegantblack2.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Elegant - Màu Đen 2"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1179,47 +963,20 @@
               </div>
             </div>
 
-            <!-- Sản phẩm 16 -->
-            <div class="col-md-4 mb-4" data-price="7500" data-brand="ZipperPro">
-              <div class="card h-100">
-                <img
-                  src="images/daykeothanhtheoocochai3.jpg"
-                  class="card-img-top"
-                  alt="Dây Kéo Thần Thiết - Cổ Chai 3"
-                />
-                <div class="card-actions">
-                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                    <i class="fas fa-shopping-cart"></i>
-                  </button>
-                  <button class="btn btn-favorite" title="Yêu thích">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Thần Thiết - Cổ Chai 3</h5>
-                  <p class="card-text description">
-                    Dây kéo cổ chai, phù hợp với các loại áo sơ mi cổ điển.
-                  </p>
-                  <div class="pricing mt-auto">
-                    <span class="discount-badge">-10%</span>
-                    <span class="discounted-price">7,500đ</span>
-                    <span class="original-price">8,333đ</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Sản phẩm 17 -->
+            <!-- Sản phẩm 15 -->
             <div
               class="col-md-4 mb-4"
-              data-price="9500"
+              data-price="17000"
               data-brand="SmoothZips"
+              data-date="2024-03-20"
+              data-sales="210"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeosmoothbrown.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Smooth - Màu Nâu"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1243,17 +1000,20 @@
               </div>
             </div>
 
-            <!-- Sản phẩm 18 -->
+            <!-- Sản phẩm 16 -->
             <div
               class="col-md-4 mb-4"
-              data-price="13000"
-              data-brand="ZipperPro"
+              data-price="18000"
+              data-brand="SmoothZips"
+              data-date="2024-04-05"
+              data-sales="230"
             >
               <div class="card h-100">
                 <img
-                  src="images/daykeoelegantwhite.jpg"
+                  src="images/daykeosmoothgray.jpg"
                   class="card-img-top"
-                  alt="Dây Kéo Elegant - Màu Trắng"
+                  alt="Dây Kéo Smooth - Màu Xám"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1264,31 +1024,33 @@
                   </button>
                 </div>
                 <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Elegant - Màu Trắng</h5>
+                  <h5 class="card-title">Dây Kéo Smooth - Màu Xám</h5>
                   <p class="card-text description">
-                    Dây kéo màu trắng, tinh tế và phù hợp với các loại áo
-                    formal.
+                    Dây kéo màu xám, phù hợp với các loại áo vest và áo khoác.
                   </p>
                   <div class="pricing mt-auto">
                     <span class="discount-badge">-20%</span>
-                    <span class="discounted-price">16,000đ</span>
-                    <span class="original-price">20,000đ</span>
+                    <span class="discounted-price">18,000đ</span>
+                    <span class="original-price">22,500đ</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Sản phẩm 19 -->
+            <!-- Sản phẩm 17 -->
             <div
               class="col-md-4 mb-4"
-              data-price="11000"
-              data-brand="ZipperPro"
+              data-price="14000"
+              data-brand="ElegantZips"
+              data-date="2024-05-20"
+              data-sales="250"
             >
               <div class="card h-100">
                 <img
-                  src="images/daykeothanhtheoocochai4.jpg"
+                  src="images/daykeoelegantpurple.jpg"
                   class="card-img-top"
-                  alt="Dây Kéo Thần Thiết - Cổ Chai 4"
+                  alt="Dây Kéo Elegant - Màu Tím"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1299,10 +1061,47 @@
                   </button>
                 </div>
                 <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Thần Thiết - Cổ Chai 4</h5>
+                  <h5 class="card-title">Dây Kéo Elegant - Màu Tím</h5>
                   <p class="card-text description">
-                    Dây kéo cổ chai, thiết kế đặc biệt cho các loại áo sơ mi cổ
-                    điển.
+                    Dây kéo màu tím, sang trọng và phù hợp với các loại áo dạ
+                    hội.
+                  </p>
+                  <div class="pricing mt-auto">
+                    <span class="discount-badge">-20%</span>
+                    <span class="discounted-price">17,000đ</span>
+                    <span class="original-price">21,250đ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sản phẩm 18 -->
+            <div
+              class="col-md-4 mb-4"
+              data-price="9500"
+              data-brand="ZipperPro"
+              data-date="2024-02-28"
+              data-sales="190"
+            >
+              <div class="card h-100">
+                <img
+                  src="images/daykeothanhtheoocochai6.jpg"
+                  class="card-img-top"
+                  alt="Dây Kéo Thần Thiết - Cổ Chai 6"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                />
+                <div class="card-actions">
+                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                  <button class="btn btn-favorite" title="Yêu thích">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">Dây Kéo Thần Thiết - Cổ Chai 6</h5>
+                  <p class="card-text description">
+                    Dây kéo cổ chai, phù hợp với các loại áo sơ mi cổ điển.
                   </p>
                   <div class="pricing mt-auto">
                     <span class="discount-badge">-10%</span>
@@ -1313,17 +1112,58 @@
               </div>
             </div>
 
+            <!-- Sản phẩm 19 -->
+            <div
+              class="col-md-4 mb-4"
+              data-price="16000"
+              data-brand="ElegantZips"
+              data-date="2024-03-30"
+              data-sales="220"
+            >
+              <div class="card h-100">
+                <img
+                  src="images/daykeoelegantpink.jpg"
+                  class="card-img-top"
+                  alt="Dây Kéo Elegant - Màu Hồng"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                />
+                <div class="card-actions">
+                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                  <button class="btn btn-favorite" title="Yêu thích">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">Dây Kéo Elegant - Màu Hồng</h5>
+                  <p class="card-text description">
+                    Dây kéo màu hồng, nữ tính và phù hợp với các loại áo mềm
+                    mại.
+                  </p>
+                  <div class="pricing mt-auto">
+                    <span class="discount-badge">-10%</span>
+                    <span class="discounted-price">7,000đ</span>
+                    <span class="original-price">7,778đ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <!-- Sản phẩm 20 -->
             <div
               class="col-md-4 mb-4"
-              data-price="14000"
+              data-price="18000"
               data-brand="SmoothZips"
+              data-date="2024-04-20"
+              data-sales="240"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeosmoothgray.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Smooth - Màu Xám"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1350,14 +1190,17 @@
             <!-- Sản phẩm 21 -->
             <div
               class="col-md-4 mb-4"
-              data-price="7000"
+              data-price="20000"
               data-brand="ElegantZips"
+              data-date="2024-05-25"
+              data-sales="260"
             >
               <div class="card h-100">
                 <img
-                  src="images/daykeoelegantpink.jpg"
+                  src="images/daykeoelegantwhite.jpg"
                   class="card-img-top"
-                  alt="Dây Kéo Elegant - Màu Hồng"
+                  alt="Dây Kéo Elegant - Màu Trắng"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1368,45 +1211,10 @@
                   </button>
                 </div>
                 <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Elegant - Màu Hồng</h5>
+                  <h5 class="card-title">Dây Kéo Elegant - Màu Trắng</h5>
                   <p class="card-text description">
-                    Dây kéo màu hồng, nữ tính và phù hợp với các loại áo mềm
-                    mại.
-                  </p>
-                  <div class="pricing mt-auto">
-                    <span class="discount-badge">-10%</span>
-                    <span class="discounted-price">7,000đ</span>
-                    <span class="original-price">7,778đ</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Sản phẩm 22 -->
-            <div
-              class="col-md-4 mb-4"
-              data-price="16000"
-              data-brand="ZipperPro"
-            >
-              <div class="card h-100">
-                <img
-                  src="images/daykeothanhtheoocochai5.jpg"
-                  class="card-img-top"
-                  alt="Dây Kéo Thần Thiết - Cổ Chai 5"
-                />
-                <div class="card-actions">
-                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                    <i class="fas fa-shopping-cart"></i>
-                  </button>
-                  <button class="btn btn-favorite" title="Yêu thích">
-                    <i class="fas fa-heart"></i>
-                  </button>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Thần Thiết - Cổ Chai 5</h5>
-                  <p class="card-text description">
-                    Dây kéo cổ chai, thiết kế đặc biệt cho các loại áo sơ mi cổ
-                    điển.
+                    Dây kéo màu trắng, tinh tế và phù hợp với các loại áo
+                    formal.
                   </p>
                   <div class="pricing mt-auto">
                     <span class="discount-badge">-20%</span>
@@ -1417,17 +1225,20 @@
               </div>
             </div>
 
-            <!-- Sản phẩm 23 -->
+            <!-- Sản phẩm 22 -->
             <div
               class="col-md-4 mb-4"
-              data-price="8000"
+              data-price="22000"
               data-brand="SmoothZips"
+              data-date="2024-05-30"
+              data-sales="280"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeosmoothorange.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Smooth - Màu Cam"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1452,17 +1263,20 @@
               </div>
             </div>
 
-            <!-- Sản phẩm 24 -->
+            <!-- Sản phẩm 23 -->
             <div
               class="col-md-4 mb-4"
-              data-price="17000"
+              data-price="24000"
               data-brand="ElegantZips"
+              data-date="2024-06-05"
+              data-sales="300"
             >
               <div class="card h-100">
                 <img
                   src="images/daykeoelegantpurple.jpg"
                   class="card-img-top"
                   alt="Dây Kéo Elegant - Màu Tím"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1487,13 +1301,20 @@
               </div>
             </div>
 
-            <!-- Sản phẩm 25 -->
-            <div class="col-md-4 mb-4" data-price="9500" data-brand="ZipperPro">
+            <!-- Sản phẩm 24 -->
+            <div
+              class="col-md-4 mb-4"
+              data-price="26000"
+              data-brand="ElegantZips"
+              data-date="2024-06-10"
+              data-sales="320"
+            >
               <div class="card h-100">
                 <img
-                  src="images/daykeothanhtheoocochai6.jpg"
+                  src="images/daykeoelegantpurple.jpg"
                   class="card-img-top"
-                  alt="Dây Kéo Thần Thiết - Cổ Chai 6"
+                  alt="Dây Kéo Elegant - Màu Tím 2"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1504,14 +1325,53 @@
                   </button>
                 </div>
                 <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Thần Thiết - Cổ Chai 6</h5>
+                  <h5 class="card-title">Dây Kéo Elegant - Màu Tím 2</h5>
                   <p class="card-text description">
-                    Dây kéo cổ chai, phù hợp với các loại áo sơ mi cổ điển.
+                    Dây kéo màu tím, sang trọng và phù hợp với các loại áo dạ
+                    hội.
                   </p>
                   <div class="pricing mt-auto">
-                    <span class="discount-badge">-10%</span>
-                    <span class="discounted-price">9,500đ</span>
-                    <span class="original-price">10,556đ</span>
+                    <span class="discount-badge">-20%</span>
+                    <span class="discounted-price">26,000đ</span>
+                    <span class="original-price">32,500đ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sản phẩm 25 -->
+            <div
+              class="col-md-4 mb-4"
+              data-price="28000"
+              data-brand="ElegantZips"
+              data-date="2024-06-15"
+              data-sales="350"
+            >
+              <div class="card h-100">
+                <img
+                  src="images/daykeoelegantwhite.jpg"
+                  class="card-img-top"
+                  alt="Dây Kéo Elegant - Màu Trắng 2"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                />
+                <div class="card-actions">
+                  <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
+                  <button class="btn btn-favorite" title="Yêu thích">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <h5 class="card-title">Dây Kéo Elegant - Màu Trắng 2</h5>
+                  <p class="card-text description">
+                    Dây kéo màu trắng, tinh tế và phù hợp với các loại áo
+                    formal.
+                  </p>
+                  <div class="pricing mt-auto">
+                    <span class="discount-badge">-20%</span>
+                    <span class="discounted-price">26,000đ</span>
+                    <span class="original-price">32,500đ</span>
                   </div>
                 </div>
               </div>
@@ -1520,14 +1380,17 @@
             <!-- Sản phẩm 26 -->
             <div
               class="col-md-4 mb-4"
-              data-price="18000"
-              data-brand="SmoothZips"
+              data-price="30000"
+              data-brand="ElegantZips"
+              data-date="2024-06-20"
+              data-sales="380"
             >
               <div class="card h-100">
                 <img
-                  src="images/daykeosmoothgray.jpg"
+                  src="images/daykeoelegantblack.jpg"
                   class="card-img-top"
-                  alt="Dây Kéo Smooth - Màu Xám"
+                  alt="Dây Kéo Elegant - Màu Đen 3"
+                  onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
                 />
                 <div class="card-actions">
                   <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -1538,14 +1401,14 @@
                   </button>
                 </div>
                 <div class="card-body d-flex flex-column">
-                  <h5 class="card-title">Dây Kéo Smooth - Màu Xám</h5>
+                  <h5 class="card-title">Dây Kéo Elegant - Màu Đen 3</h5>
                   <p class="card-text description">
-                    Dây kéo màu xám, phù hợp với các loại áo vest và áo khoác.
+                    Dây kéo màu đen, tinh tế và phù hợp với các loại áo formal.
                   </p>
                   <div class="pricing mt-auto">
                     <span class="discount-badge">-20%</span>
-                    <span class="discounted-price">18,000đ</span>
-                    <span class="original-price">22,500đ</span>
+                    <span class="discounted-price">30,000đ</span>
+                    <span class="original-price">37,500đ</span>
                   </div>
                 </div>
               </div>
@@ -1577,8 +1440,38 @@
         </div>
       </div>
     </div>
+    <!-- End Container chính -->
 
     <!-- Footer (nếu có) -->
+    <div class="footer mt-3">
+      <iframe
+        src="footer.html"
+        frameborder="0"
+        scrolling="no"
+        width="100%"
+        height="450px"
+      ></iframe>
+    </div>
+    <!-- End Footer -->
+
+    <!-- Nút Biểu Tượng -->
+    <div class="icon-buttons">
+      <a
+        href="https://facebook.com"
+        class="icon-btn facebook-btn"
+        target="_blank"
+      >
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="tel:+84123456789" class="icon-btn call-btn">
+        <i class="fas fa-phone"></i>
+      </a>
+    </div>
+
+    <!-- Nút Back to Top -->
+    <button id="back-to-top" class="back-to-top">
+      <i class="fas fa-arrow-up"></i>
+    </button>
 
     <!-- Bootstrap JS -->
     <script
@@ -1602,10 +1495,16 @@
         let currentPage = parseInt(localStorage.getItem("currentPage")) || 1;
         const productsPerPage = 9;
         let filteredProducts = [];
+        let allProductsData = []; // Mảng lưu trữ tất cả sản phẩm
 
         // Hàm chuyển đổi chuỗi giá thành số nguyên
         function parsePrice(priceStr) {
           return parseInt(priceStr.replace(/[^0-9]/g, ""));
+        }
+
+        // Hàm chuyển đổi chuỗi ngày thành đối tượng Date
+        function parseDate(dateStr) {
+          return new Date(dateStr);
         }
 
         // Hàm lọc sản phẩm theo giá và thương hiệu
@@ -1615,9 +1514,8 @@
           );
           const priceRanges = checkedPriceFilters.map((filter) => {
             const min = parseInt(filter.getAttribute("data-min")) || 0;
-            const max =
-              parseInt(filter.getAttribute("data-max")) ||
-              Number.MAX_SAFE_INTEGER;
+            const maxStr = filter.getAttribute("data-max");
+            const max = maxStr ? parseInt(maxStr) : Number.MAX_SAFE_INTEGER;
             return { min, max };
           });
 
@@ -1628,17 +1526,17 @@
             filter.getAttribute("data-brand")
           );
 
-          const allProducts = Array.from(
-            document.querySelectorAll(".product-grid .col-md-4")
-          );
-
-          // Lọc sản phẩm dựa trên giá và thương hiệu
-          filteredProducts = allProducts.filter((card) => {
+          // Lọc từ allProductsData
+          filteredProducts = allProductsData.filter((card) => {
             const discountedPriceEl = card.querySelector(".discounted-price");
             const brand = card.getAttribute("data-brand");
-            if (!discountedPriceEl) return false;
+            const dateStr = card.getAttribute("data-date");
+            const salesStr = card.getAttribute("data-sales");
+            if (!discountedPriceEl || !dateStr || !salesStr) return false;
             const priceText = discountedPriceEl.textContent.trim();
             const price = parsePrice(priceText);
+            const date = parseDate(dateStr);
+            const sales = parseInt(salesStr);
 
             // Kiểm tra giá
             const isPriceMatch =
@@ -1674,23 +1572,18 @@
               b.querySelector(".discounted-price").textContent.trim()
             );
 
-            const nameA = a
-              .querySelector(".card-title")
-              .textContent.trim()
-              .toLowerCase();
-            const nameB = b
-              .querySelector(".card-title")
-              .textContent.trim()
-              .toLowerCase();
-
-            if (sortValue === "name-asc") {
-              return nameA.localeCompare(nameB);
-            } else if (sortValue === "name-desc") {
-              return nameB.localeCompare(nameA);
+            if (sortValue === "newest") {
+              const dateA = parseDate(a.getAttribute("data-date"));
+              const dateB = parseDate(b.getAttribute("data-date"));
+              return dateB - dateA; // Mới nhất trước
+            } else if (sortValue === "best-sellers") {
+              const salesA = parseInt(a.getAttribute("data-sales"));
+              const salesB = parseInt(b.getAttribute("data-sales"));
+              return salesB - salesA; // Bán chạy nhất trước
             } else if (sortValue === "price-asc") {
-              return priceA - priceB;
+              return priceA - priceB; // Giá tăng dần
             } else if (sortValue === "price-desc") {
-              return priceB - priceA;
+              return priceB - priceA; // Giá giảm dần
             } else {
               return 0;
             }
@@ -1699,19 +1592,18 @@
 
         // Hàm để hiển thị sản phẩm của một trang cụ thể
         function renderProducts() {
-          const productCards = document.querySelectorAll(
-            ".product-grid .col-md-4"
-          );
-          productCards.forEach((card) => {
-            card.classList.add("d-none");
-          });
+          // Xóa tất cả các sản phẩm hiện có trong productGrid
+          productGrid.innerHTML = "";
 
+          // Hiển thị sản phẩm theo trang hiện tại
           const start = (currentPage - 1) * productsPerPage;
           const end = start + productsPerPage;
           const productsToShow = filteredProducts.slice(start, end);
 
+          // Thêm các sản phẩm vào productGrid
           productsToShow.forEach((card) => {
-            card.classList.remove("d-none");
+            card.classList.remove("d-none"); // Hiển thị lại sản phẩm
+            productGrid.appendChild(card);
           });
         }
 
@@ -1720,32 +1612,48 @@
           const paginations = [paginationTop, paginationBottom];
 
           paginations.forEach((pagination) => {
-            const pageItems = pagination.querySelectorAll(".page-item");
-
-            pageItems.forEach((item) => {
+            // Xóa các trang cũ (trừ prev và next)
+            const existingPageItems = pagination.querySelectorAll(".page-item");
+            existingPageItems.forEach((item) => {
               const page = item.getAttribute("data-page");
-
-              if (page === "prev") {
-                if (currentPage === 1) {
-                  item.classList.add("disabled");
-                } else {
-                  item.classList.remove("disabled");
-                }
-              } else if (page === "next") {
-                if (currentPage === totalPages) {
-                  item.classList.add("disabled");
-                } else {
-                  item.classList.remove("disabled");
-                }
-              } else {
-                const pageNumber = parseInt(page);
-                if (pageNumber === currentPage) {
-                  item.classList.add("active");
-                } else {
-                  item.classList.remove("active");
-                }
+              if (page !== "prev" && page !== "next") {
+                item.remove();
               }
             });
+
+            // Thêm các trang mới
+            for (let i = 1; i <= totalPages; i++) {
+              const li = document.createElement("li");
+              li.classList.add("page-item");
+              if (i === currentPage) {
+                li.classList.add("active");
+                li.setAttribute("aria-current", "page");
+              }
+              li.setAttribute("data-page", i);
+              const a = document.createElement("a");
+              a.classList.add("page-link");
+              a.href = "#";
+              a.textContent = i;
+              li.appendChild(a);
+              // Insert before the "next" button
+              const nextBtn = pagination.querySelector('li[data-page="next"]');
+              pagination.insertBefore(li, nextBtn);
+            }
+
+            // Cập nhật trạng thái nút "Trước" và "Sau"
+            const prevBtn = pagination.querySelector('li[data-page="prev"]');
+            if (currentPage === 1) {
+              prevBtn.classList.add("disabled");
+            } else {
+              prevBtn.classList.remove("disabled");
+            }
+
+            const nextBtn = pagination.querySelector('li[data-page="next"]');
+            if (currentPage === totalPages || totalPages === 0) {
+              nextBtn.classList.add("disabled");
+            } else {
+              nextBtn.classList.remove("disabled");
+            }
           });
         }
 
@@ -1798,15 +1706,20 @@
 
           // Hiển thị sản phẩm
           renderProducts();
+
+          // Thêm sự kiện cho phân trang sau khi render
+          addPaginationEventListeners();
         }
 
         // Thêm sự kiện cho các liên kết phân trang (trên và dưới)
-        const allPaginationLinks = document.querySelectorAll(
-          ".pagination .page-item a"
-        );
-        allPaginationLinks.forEach((link) => {
-          link.addEventListener("click", handlePaginationClick);
-        });
+        function addPaginationEventListeners() {
+          const allPaginationLinks = document.querySelectorAll(
+            ".pagination .page-item a"
+          );
+          allPaginationLinks.forEach((link) => {
+            link.addEventListener("click", handlePaginationClick);
+          });
+        }
 
         // Thêm sự kiện cho chọn sắp xếp
         sortSelect.addEventListener("change", () => {
@@ -1840,10 +1753,8 @@
             // Thực hiện chức năng thêm vào yêu thích
             button.classList.toggle("active");
             if (button.classList.contains("active")) {
-              button.style.backgroundColor = "rgba(220, 53, 69, 1)";
               alert("Đã thêm sản phẩm vào danh sách yêu thích!");
             } else {
-              button.style.backgroundColor = "rgba(220, 53, 69, 0.9)";
               alert("Đã loại bỏ sản phẩm khỏi danh sách yêu thích!");
             }
           });
@@ -1852,6 +1763,12 @@
         // Khởi tạo khi tải trang
         // Đảm bảo không có lớp 'list-view' trên product-grid
         productGrid.classList.remove("list-view");
+
+        // Lưu trữ tất cả sản phẩm vào allProductsData
+        const allProductElements = document.querySelectorAll(
+          ".product-grid .col-md-4"
+        );
+        allProductsData = Array.from(allProductElements);
 
         // Lọc sản phẩm ban đầu
         filterProducts();
@@ -1867,6 +1784,25 @@
 
       // Gửi chiều cao khi kích thước cửa sổ thay đổi
       window.addEventListener("resize", sendHeight);
+
+      // Hiển thị nút "Back to Top" khi cuộn xuống
+      window.addEventListener("scroll", () => {
+        const backToTopButton = document.getElementById("back-to-top");
+        if (window.scrollY > 200) {
+          // Hiển thị khi cuộn xuống hơn 200px
+          backToTopButton.classList.add("show");
+        } else {
+          backToTopButton.classList.remove("show");
+        }
+      });
+
+      // Thêm sự kiện click cho nút "Back to Top"
+      document.getElementById("back-to-top").addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // Cuộn về đầu trang một cách mượt mà
+        });
+      });
     </script>
   </body>
 </html>

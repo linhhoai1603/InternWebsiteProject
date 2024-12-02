@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm</title>
+    <!-- Nhúng Bootstrap từ CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Thiết lập giao diện cho layout */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .form-addProduct {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid black;
+            border-radius: 5px;
+            border-top: 5px blue solid;
+            display: none;
+        }
+       .navbar-left{
+            background-color: #052f31;
+            height: 100vh;
+            padding: 20px;
+            float: left;
+
+        }
+        .navbar-left ul{
+            list-style-type: none;
+            padding: 0;
+        }
+        .navbar-left ul li{
+            margin-bottom: 10px;
+        }
+        .navbar-left ul li a{
+            text-decoration: none;
+            color: rgb(191, 255, 0);
+            font-size: 20px;
+        }
+        .navbar-left ul li a:hover{
+            color: blue;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        .btn-add {
+            margin-top: 20px;
+       }
+
+    </style>
+</head>
+<body>
+
+  <div class="container-fluid">
+     <div class="row ">
+        
+        <div class=" col-md-12">
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <h1 class="text-center">Quản lý sản phẩm</h1>
+                </div>
+                <div class="col-md-4 mt-2">
+                    <form action="search">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Nhập mã sản phẩm" name="search">
+                            <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-2" style="margin-top: -11px;">
+                    <button class="btn btn-warning btn-add">Thêm sản phẩm</button>
+                </div>
+            </div>
+            <!-- Form thêm sản phẩm -->
+            <div class="row">
+                <div class="col-md-12 form-addProduct">
+                    <h3 class="text-center">Thêm sản phẩm mới</h3>
+                    <!-- Form thêm sản phẩm -->
+                    <form class="product-form">
+                        <!-- Mã sản phẩm -->
+                        <div class="mb-3">
+                            <label for="product-id" class="form-label">Mã sản phẩm</label>
+                            <input type="text" class="form-control" id="product-id" name="product-id" required>
+                        </div>
+
+                        <!-- Tên sản phẩm -->
+                        <div class="mb-3">
+                            <label for="product-name" class="form-label">Tên sản phẩm</label>
+                            <input type="text" class="form-control" id="product-name" name="product-name" required>
+                        </div>
+
+                        <!-- Hình ảnh -->
+                        <div class="mb-3">
+                            <label for="product-image" class="form-label">Hình ảnh</label>
+                            <input type="file" class="form-control" id="product-image" name="product-image" accept="image/*" required>
+                        </div>
+
+                        <!-- Mô tả -->
+                        <div class="mb-3">
+                            <label for="product-description" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="product-description" name="product-description" rows="4" required></textarea>
+                        </div>
+
+                        <!-- Giá tiền -->
+                        <div class="mb-3">
+                            <label for="product-price" class="form-label">Giá tiền</label>
+                            <input type="number" class="form-control" id="product-price" name="product-price" required>
+                        </div>
+
+                        <!-- Số lượng -->
+                        <div class="mb-3">
+                            <label for="product-quantity" class="form-label">Số lượng</label>
+                            <input type="number" class="form-control" id="product-quantity" name="product-quantity" required>
+                        </div>
+
+                        <!-- Thông số kỹ thuật -->
+                        <div class="mb-3">
+                            <label for="product-specifications" class="form-label">Thông số kỹ thuật</label>
+                            <textarea class="form-control" id="product-specifications" name="product-specifications" rows="4" required></textarea>
+                        </div>
+
+                        <!-- Ngày sản xuất -->
+                        <div class="mb-3">
+                            <label for="product-manufacture-date" class="form-label">Ngày sản xuất</label>
+                            <input type="date" class="form-control" id="product-manufacture-date" name="product-manufacture-date" required>
+                        </div>
+
+                        <!-- Chính sách bảo hành -->
+                        <div class="mb-3">
+                            <label for="product-warranty" class="form-label">Chính sách bảo hành</label>
+                            <input type="text" class="form-control" id="product-warranty" name="product-warranty" required>
+                        </div>
+
+                        <!-- Loại sản phẩm -->
+                        <div class="mb-3">
+                            <label for="product-category" class="form-label">Loại sản phẩm</label>
+                            <select class="form-select" id="product-category" name="product-category" required>
+                                <option value="fabricDefault">Vải may mặc</option>
+                                <option value="fabricInterior">Vải nội thất</option>
+                                <option value="garmentAccessories">Phụ kiện may mặc</option>
+                                <option value="interiorAccessories">Phụ kiện nội thất</option>
+                            </select>
+                        </div>
+
+                        <!-- Nút thêm sản phẩm -->
+                        <button type="submit" class="btn btn-primary">Thêm sản phẩm</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="table-container">
+                    <!-- Bảng sản phẩm -->
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Mã sản phẩm</th>
+                                <th scope="col">Tên sản phẩm</th>
+                                <th scope="col">Hình ảnh</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col">Giá tiền</th>
+                                <th scope="col">Số lượng</th>
+                                <th scope="col">Thông số kỹ thuật</th>
+                                <th scope="col">Ngày sản xuất</th>
+                                <th scope="col">Chính sách bảo hành</th>
+                                <th scope="col">Loại sản phẩm</th>
+                                <th scope="col">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Dòng sản phẩm 1 -->
+                            <tr>
+                                <td>P001</td>
+                                <td>Vải trơn</td>
+                                <td><img src="../images/vai1.jpg" alt="Hình ảnh sản phẩm" height="50px"></td>
+                                <td>Vải trơn phong cách </td>
+                                <td>200,000 VND</td>
+                                <td>50</td>
+                                <td>Vải trơn phong cách màu be</td>
+                                <td>2023-06-01</td>
+                                <td>12 tháng</td>
+                                <td>Vải may mặc</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm">Chỉnh sửa</button>
+                                    <button class="btn btn-danger btn-sm">Xóa</button>
+                                </td>
+                            </tr>
+                            <!-- Dòng sản phẩm 2 -->
+                            <tr>
+                                <td>P002</td>
+                                <td>Vải kaki</td>
+                                <td><img src="../images/vai2.jpg" alt="Hình ảnh sản phẩm" height="50px"></td>
+                                <td>Vải kaki sang trọng 2 màu xanh rêu và đà</td>
+                                <td>100,000 VND</td>
+                                <td>100</td>
+                                <td>Chất liệu: 100% kaki</td>
+                                <td>2023-05-10</td>
+                                <td>6 tháng</td>
+                                <td>Vải may mặc</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm">Chỉnh sửa</button>
+                                    <button class="btn btn-danger btn-sm">Xóa</button>
+                                </td>
+                            </tr>
+                            <!-- Dòng sản phẩm 3 -->
+                            <tr>
+                                <td>P003</td>
+                                <td>Xấp vải truyền thống</td>
+                                <td><img src="../images/vai3.jpg" alt="Hình ảnh sản phẩm" height="50px"></td>
+                                <td>Vải truyền thống với nhiều loại mẫu mã khác máu, màu sắc khác nhau</td>
+                                <td>150,000 VND</td>
+                                <td>30</td>
+                                <td>Chất liệu từ thiên nhiên</td>
+                                <td>2022-12-15</td>
+                                <td>12 tháng</td>
+                                <td>Vải nội thất</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm">Chỉnh sửa</button>
+                                    <button class="btn btn-danger btn-sm">Xóa</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+     </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+     <script>
+        // xử lý sự kiện cho nút thêm sản phẩm
+        $(document).ready(function(){
+            $('.btn-add').click(function(){
+                $('.form-addProduct').slideToggle();
+            })
+        })
+    </script>
+    <!-- Nhúng Bootstrap từ CDN -->
+    
+   
+</body>
+</html>
