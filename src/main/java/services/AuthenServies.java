@@ -11,7 +11,8 @@ public class AuthenServies {
         AccountUser acc = accDao.findByUsername(username);
         User user = null;
         if (acc == null) return null;
-        if (acc.getUsername().equals(username) && acc.getPassword().equals(password)) {
+        if (acc!=null && password!=null
+                && acc.getPassword().equals(password)) {
             user = acc.getUser();
         }
         return user;

@@ -23,6 +23,16 @@ public class AccountDao {
                         .orElse(null)
         );
     }
+    public AccountUser findByUserId(int id) {
+        Jdbi jdbi = DBConnection.getConnetion();
+        return jdbi.withHandle(handle ->
+                handle.createQuery("select * from account_users where idUser = :idUser")
+                        .bind("idUser", id)
+                        .mapToBean(AccountUser.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
 
 
 }
