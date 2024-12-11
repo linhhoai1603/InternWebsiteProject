@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class UserDao {
-    public User getUserById(int id) {
+    public User findUserById(int id) {
         Jdbi jdbi = DBConnection.getConnetion();
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM Users WHERE id = :id")

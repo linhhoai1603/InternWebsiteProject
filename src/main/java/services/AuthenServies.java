@@ -3,12 +3,17 @@ package services;
 import dao.AccountDao;
 import dao.UserDao;
 import models.AccountUser;
+import models.User;
 
 public class AuthenServies {
-    public boolean checkLoogin(String username, String password) {
+    public User checkLogin(String username, String password) {
         AccountDao accDao = new AccountDao();
         AccountUser acc = accDao.findByUsername(username);
-        if (acc == null) return false;
-        return password.equals(acc.getPassword());
+        User user = null;
+        if (acc == null) return null;
+        if (acc.getUsername().equals(username) && acc.getPassword().equals(password)) {
+            user = acc.getUser();
+        }
+        return user;
     }
 }
