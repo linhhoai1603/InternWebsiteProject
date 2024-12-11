@@ -52,47 +52,6 @@
                             </div>
                         </div>
                     </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <img src="images/vaiDoChamHoaXanh.jpg" alt="Áo sơ mi xanh nhạt" class="img-fluid me-3" style="width: 50px; height: 60px;">
-                        <div>
-                            <p class="mb-1">Vải đỏ chấm hoa xanh</p>
-                            <div class="product-price row">
-                                <p class="col text-muted text-decoration-line-through mb-0">469,000đ</p>
-                                <p class="col  fw-bold mb-0" style="color: #339C87;">390,000đ</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <img src="images/vaiGamHoaVanTim.webp" alt="Áo sơ mi xám tro" class="img-fluid me-3" style="width: 50px; height: 60px;">
-                        <div>
-                            <p class="mb-1">Vải gấm hoa văn tím </p>
-                            <div class="product-price row">
-                                <p class="col text-muted text-decoration-line-through mb-0">469,000đ</p>
-                                <p class="col  fw-bold mb-0" style="color: #339C87;">390,000đ</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <img src="images/vaiGamHoaVanTrang.webp" alt="Áo sơ mi trắng" class="img-fluid me-3" style="width: 50px; height: 60px;">
-                        <div>
-                            <p class="mb-1">Vải gấm hoa văn trắng</p>
-                            <div class="product-price row">
-                                <p class="col text-muted text-decoration-line-through mb-0">469,000đ</p>
-                                <p class="col  fw-bold mb-0" style="color: #339C87;">390,000đ</p>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="mb-3 d-flex align-items-start">
-                        <img src="images/vaiGamHoaVanXanh.jpg" alt="Quần kaki Camel" class="img-fluid me-3" style="width: 50px; height: 60px;">
-                        <div>
-                            <p class="mb-1">Vải gấm hoa văn xanh</p>
-                            <div class="product-price row">
-                                <p class="col text-muted text-decoration-line-through mb-0">469,000đ</p>
-                                <p class="col  fw-bold mb-0" style="color: #339C87;">390,000đ</p>
-                            </div>
-
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -119,8 +78,8 @@
                             </div>
                         </div>
                     </div>
-
-
+                </div>
+            </div>
             </div>
         </div>
     </div>

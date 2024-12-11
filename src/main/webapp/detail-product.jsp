@@ -124,10 +124,10 @@
             <div class="mb-3">
                 <p class="fw-bold">Size</p>
                 <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-secondary size-option">1m<sup>2</sup></button>
                     <button type="button" class="btn btn-outline-secondary size-option">2m<sup>2</sup></button>
-                    <button type="button" class="btn btn-outline-secondary size-option">3m<sup>2</sup></button>
-
+                    <button type="button" class="btn btn-outline-secondary size-option" >3m<sup>2</sup></button>
+                    <button type="button" class="btn btn-outline-secondary size-option" >4m<sup>2</sup></button>
+                    <button type="button" class="btn btn-outline-secondary size-option" >5m<sup>2</sup></button>
                 </div>
             </div>
 
