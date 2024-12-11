@@ -3,9 +3,9 @@ package models;
 import java.sql.Date;
 
 public class TechnicalInfo {
-    int id;
-    String specification;
-    Date manufactureDate;
+   private int id;
+   private String specification;
+   private Date manufactureDate;
 
     public int getId() {
         return id;

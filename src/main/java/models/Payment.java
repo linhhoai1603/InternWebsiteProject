@@ -1,5 +1,6 @@
 package models;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Payment {
@@ -7,12 +8,12 @@ public class Payment {
    private Order order;
    private int method;
    private int status;
-   private LocalTime timePayment;
+   private LocalDateTime timePayment;
    private double price;
    public Payment(){
 
    }
-   public Payment(int id, Order order, int method, int status, LocalTime timePayment) {
+   public Payment(int id, Order order, int method, int status, LocalDateTime timePayment) {
        this.id  = id;
        this.order = order;
        this.method = method;
@@ -53,11 +54,11 @@ public class Payment {
         this.status = status;
     }
 
-    public LocalTime getTimePayment() {
+    public LocalDateTime getTimePayment() {
         return timePayment;
     }
 
-    public void setTimePayment(LocalTime timePayment) {
+    public void setTimePayment(LocalDateTime timePayment) {
         this.timePayment = timePayment;
     }
 
