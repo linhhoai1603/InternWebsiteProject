@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.User;
 import services.AuthenServies;
+import services.PasswordUtils;
 
 import java.io.IOException;
 
@@ -22,7 +23,8 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         AuthenServies authen = new AuthenServies();
-        User user = authen.checkLogin(username, password);
+        PasswordUtils pw = new PasswordUtils();
+        User user = authen.checkLogin(username, pw.encodeToBase64(password));
         if(user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
