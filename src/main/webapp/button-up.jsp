@@ -24,19 +24,6 @@
     <!-- Sidebar -->
     <div class="col-md-3">
       <div class="sidebar">
-        <h5>Danh mục</h5>
-        <ul class="list-unstyled mb-4">
-          <li><a href="#">Nút Áo Tròn</a></li>
-          <li><a href="#">Nút Áo Vuông</a></li>
-          <li><a href="#">Nút Áo Kim Loại</a></li>
-          <li><a href="#">Nút Áo Nhựa</a></li>
-          <li><a href="#">Nút Áo Thắt Lưng</a></li>
-          <li><a href="#">Nút Áo Trang Trí</a></li>
-          <li><a href="#">Nút Áo Cổ Điển</a></li>
-          <li><a href="#">Nút Áo Đa Năng</a></li>
-          <li><a href="#">Nút Áo Sang Trọng</a></li>
-          <li><a href="#">Nút Áo Đa Màu</a></li>
-        </ul>
         <h5>Giá</h5>
         <div class="form-check mb-2">
           <input
@@ -93,17 +80,6 @@
                   data-max=""
           />
           <label class="form-check-label" for="price5">Trên 100.000đ</label>
-        </div>
-
-        <h5 class="brand-section">Thương hiệu</h5>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input brand-filter"
-                  id="brand1"
-                  type="checkbox"
-                  data-brand="ButtonPro"
-          />
-          <label class="form-check-label" for="brand1">ButtonPro</label>
         </div>
         <div class="form-check mb-2">
           <input
