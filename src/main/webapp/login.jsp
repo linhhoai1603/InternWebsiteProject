@@ -20,7 +20,11 @@
     <div class="form-section">
         <h2>ĐĂNG NHẬP</h2>
         <p class="text-center">Vui lòng đăng nhập để truy cập tài khoản của bạn</p>
+<<<<<<< HEAD
+        <form id="loginForm">
+=======
         <form id="loginForm" action="login">
+>>>>>>> bad46cf8bdb766a35aad87f877d096ae5cc67cb1
             <div class="mb-3">
                 <input class="form-control" id="email" placeholder="Email *" required type="email" aria-label="Email"/>
             </div>

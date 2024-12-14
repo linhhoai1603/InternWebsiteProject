@@ -22,19 +22,6 @@
     <!-- Sidebar -->
     <div class="col-md-3">
       <div class="sidebar">
-        <h5>Danh mục</h5>
-        <ul class="list-unstyled mb-4">
-          <li><a href="#">Dây Kéo Trơn</a></li>
-          <li><a href="#">Dây Kéo Răng Cưa</a></li>
-          <li><a href="#">Dây Kéo Bằng Kim Loại</a></li>
-          <li><a href="#">Dây Kéo Nhựa</a></li>
-          <li><a href="#">Dây Kéo Thắt Lưng</a></li>
-          <li><a href="#">Dây Kéo Trang Trí</a></li>
-          <li><a href="#">Dây Kéo Cổ Điển</a></li>
-          <li><a href="#">Dây Kéo Đa Năng</a></li>
-          <li><a href="#">Dây Kéo Sang Trọng</a></li>
-          <li><a href="#">Dây Kéo Đa Màu</a></li>
-        </ul>
         <h5>Giá</h5>
         <div class="form-check mb-2">
           <input
@@ -115,36 +102,6 @@
             <option value="price-asc">Từ thấp đến cao</option>
             <option value="price-desc">Từ cao đến thấp</option>
           </select>
-          <!-- Phân trang ở trên bên phải -->
-          <nav aria-label="Page navigation example" class="ms-3">
-            <ul class="pagination mb-0" id="paginationTop">
-              <li class="page-item disabled" data-page="prev">
-                <a
-                        class="page-link"
-                        href="#"
-                        tabindex="-1"
-                        aria-disabled="true"
-                >Trước</a
-                >
-              </li>
-              <li
-                      class="page-item active"
-                      aria-current="page"
-                      data-page="1"
-              >
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item" data-page="2">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item" data-page="3">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item" data-page="next">
-                <a class="page-link" href="#">Sau</a>
-              </li>
-            </ul>
-          </nav>
         </div>
       </div>
 
@@ -379,7 +336,7 @@
 
       <!-- Phân trang ở dưới bên phải -->
       <nav aria-label="Page navigation example" class="mt-3">
-        <ul class="pagination" id="paginationBottom">
+        <ul class="pagination justify-content-center" id="paginationBottom">
           <li class="page-item disabled" data-page="prev">
             <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
             >Trước</a

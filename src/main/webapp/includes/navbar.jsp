@@ -13,7 +13,7 @@
     <nav class="navbar navbar-expand-lg" style="background-color: #4fd0b6; height: 40px">
         <div class="container-fluid">
             <a class="navbar-item text-white active" href="index.jsp"
-            style="text-decoration: none;">Trang chủ</a>
+               style="text-decoration: none;">Trang chủ</a>
             <!-- Updated href -->
             <button
                     class="navbar-toggler"
@@ -44,11 +44,11 @@
                             >
                                 <div class="dropdown-item">
                                     <div class="container">
-                                        <div class="row">
+                                        <div class="row h-50">
                                             <div class="col-md-3">
                                                 <div class="card">
                                                     <img
-                                                            src="images/navbar1.jpg"
+                                                            src="https://th.bing.com/th/id/OIP.OprMkiqtc3Lnf5vyMtfSdQHaHa?w=1200&h=1200&rs=1&pid=ImgDetMain"
                                                             class="card-img-top"
                                                             alt="..."
                                                     />
@@ -66,7 +66,7 @@
                                             <div class="col-md-3">
                                                 <div class="card">
                                                     <img
-                                                            src="images/navbar2.jpg"
+                                                            src="https://file.hstatic.net/1000361985/article/vai-kaki-la-gi_e7480b5129684cea950712b3e91e8a80.jpg"
                                                             class="card-img-top"
                                                             alt="..."
                                                     />
@@ -84,7 +84,7 @@
                                             <div class="col-md-3">
                                                 <div class="card">
                                                     <img
-                                                            src="images/navbar3.jpg"
+                                                            src="https://cuahangnoithat.vn/sites/default/files/tu-van/vai-nhung-thuong-mem-mai-va-co-do-bong-cao.jpg"
                                                             class="card-img-top"
                                                             alt="..."
                                                     />
@@ -102,7 +102,7 @@
                                             <div class="col-md-3">
                                                 <div class="card">
                                                     <img
-                                                            src="images/navbar4.jpg"
+                                                            src="https://th.bing.com/th/id/OIP.Q4mxQDdT9Wy7Zu89L3z8VwHaHa?rs=1&pid=ImgDetMain"
                                                             class="card-img-top"
                                                             alt="..."
                                                     />
@@ -116,66 +116,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="dropdown-item">
-                                    <div class="row">
-                                        <div class="col-md-2">
-                                            <h4>Bán chạy</h4>
-                                            <a href="templateProduct.html">Vải Cotton</a><br />
-                                            <a href="templateProduct.html">Vải Linen</a><br />
-                                            <a href="templateProduct.html">Vải Silk</a><br />
-                                            <a href="templateProduct.html">Polyester</a><br />
-                                            <a href="templateProduct.html">Denim</a><br />
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <h4>Mùa đông</h4>
-                                            <a href="templateProduct.html">Vải len</a><br />
-                                            <a href="templateProduct.html">Vải nhung</a><br />
-                                            <a href="templateProduct.html">Vải lanh</a><br />
-                                            <a href="templateProduct.html">Vải da</a><br />
-                                            <a href="templateProduct.html">Vải dù</a>
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <h4>Mùa hè</h4>
-                                            <a href="templateProduct.html">Vải Cotton</a><br />
-                                            <a href="templateProduct.html">Vải Linen </a><br />
-                                            <a href="templateProduct.html">Vải Rayon</a><br />
-                                            <a href="templateProduct.html">Vải Bamboo </a><br />
-                                            <a href="templateProduct.html">Vải Chambray</a><br />
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <h4>Mùa thu</h4>
-                                            <a href="templateProduct.html">Vải Cotton</a> <br />
-                                            <a href="templateProduct.html">Vải Wool </a><br />
-                                            <a href="templateProduct.html">Vải Tweed</a><br />
-                                            <a href="templateProduct.html">Vải Flannel</a><br />
-                                            <a href="templateProduct.html">Vải Corduroy</a><br />
-                                            <a href="templateProduct.html">Vải Denim</a><br />
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <h4>Đồng phục</h4>
-                                            <a href="templateProduct.html">Polyester</a><br />
-                                            <a href="templateProduct.htmll">Cotton-PVC</a><br />
-                                            <a href="templateProduct.html">Nỉ </a><br />
-                                            <a href="templateProduct.html">Kaki</a><br />
-                                            <a href="templateProduct.html">Lanh </a><br />
-                                        </div>
-
-                                        <div class="col-md-2">
-                                            <h4>Nội thất</h4>
-                                            <a href="templateProduct.jsp">Vải Cotton</a><br />
-                                            <a href="templateProduct.jsp">Vải Microfiber</a
-                                            ><br />
-                                            <a href="templateProduct.jsp">Vải Velvet</a><br />
-                                            <a href="templateProduct.jsp">Vải Polyester</a><br />
-                                            <a href="templateProduct.jsp">Vải Tweed</a><br />
-                                            <a href="templateProduct.jsp">Vải Canvas</a><br />
                                         </div>
                                     </div>
                                 </div>
