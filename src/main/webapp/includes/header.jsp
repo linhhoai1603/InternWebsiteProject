@@ -51,6 +51,9 @@
                 <a href="register.jsp" class="btn text-white btn-bg" id="registerButton">
                     <i class="fa-solid fa-pen-to-square"></i>&nbsp;Đăng ký
                 </a>
+                <a href="user.jsp" class="btn text-white btn-bg" id="accountButton">
+                    <i class="fa-solid fa-user"></i>&nbsp;Cá nhân
+                </a>
             </div>
         </div>
     </div>
