@@ -18,19 +18,19 @@
 <link rel="stylesheet" href="css/user.css">
 <div class="container mt-5">
   <!-- Header -->
-  <h3 class="text-center text-primary mb-4">Thông tin người dùng</h3>
+  <h3 class="text-center  mb-4 title" >Thông tin người dùng</h3>
 
   <!-- Form để chỉnh sửa thông tin người dùng -->
   <form action="saveUserInfo.jsp" method="post" enctype="multipart/form-data">
     <div class="row">
       <!-- Cột ảnh đại diện -->
       <div class="col-md-3 text-center">
-        <div class="avatar-container">
+        <div class="col-md-6 avatar-container">
           <!-- Hiển thị ảnh người dùng -->
           <img src="images/avatar.jpg" alt="User Avatar" id="userAvatar">
 
           <!-- Nút chọn ảnh -->
-          <label for="avatarInput" class="file-label">Chọn ảnh</label>
+          <label for="avatarInput" class="col-md-6 file-label w-100">Chọn ảnh</label>
           <input type="file" id="avatarInput" name="avatar" accept="image/*" class="file-input" onchange="previewAvatar(event)">
         </div>
       </div>
@@ -74,7 +74,7 @@
         </div>
 
         <!-- Nút lưu thông tin -->
-        <button type="submit" class="btn btn-success mt-3">Lưu thông tin</button>
+        <button type="submit" class="btn mt-3" style="background: #339C87 ;color: white ">Lưu thông tin</button>
       </div>
     </div>
   </form>
