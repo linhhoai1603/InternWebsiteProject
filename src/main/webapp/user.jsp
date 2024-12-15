@@ -10,21 +10,29 @@
 <html>
 <head>
   <title>Thông tin người dùng</title>
+
 </head>
 <body>
+<%@include file="includes/header.jsp"%>
+<%@include file="includes/navbar.jsp"%>
+<link rel="stylesheet" href="css/user.css">
 <div class="container mt-5">
   <!-- Header -->
   <h3 class="text-center text-primary mb-4">Thông tin người dùng</h3>
 
   <!-- Form để chỉnh sửa thông tin người dùng -->
-  <form action="saveUserInfo.jsp" method="post">
+  <form action="saveUserInfo.jsp" method="post" enctype="multipart/form-data">
     <div class="row">
       <!-- Cột ảnh đại diện -->
       <div class="col-md-3 text-center">
-        <div class="rounded-circle overflow-hidden" style="width: 150px; height: 150px; border: 3px solid #4fd0b6;">
-          <img src="" alt="User Avatar" class="img-fluid">
+        <div class="avatar-container">
+          <!-- Hiển thị ảnh người dùng -->
+          <img src="images/avatar.jpg" alt="User Avatar" id="userAvatar">
+
+          <!-- Nút chọn ảnh -->
+          <label for="avatarInput" class="file-label">Chọn ảnh</label>
+          <input type="file" id="avatarInput" name="avatar" accept="image/*" class="file-input" onchange="previewAvatar(event)">
         </div>
-        <input type="file" class="form-control mt-2" name="avatar" accept="image/*">
       </div>
 
       <!-- Cột thông tin người dùng -->
@@ -65,7 +73,7 @@
           <input type="text" class="form-control" id="street" name="street" placeholder="Nhập đường" value="" required>
         </div>
 
-        <!-- Nút lưu -->
+        <!-- Nút lưu thông tin -->
         <button type="submit" class="btn btn-success mt-3">Lưu thông tin</button>
       </div>
     </div>
@@ -74,6 +82,6 @@
 
 <%@ include file="includes/footer.jsp" %>
 <%@ include file="includes/link/footLink.jsp" %>
+
 </body>
 </html>
-
