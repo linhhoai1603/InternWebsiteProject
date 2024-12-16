@@ -14,7 +14,7 @@ public class OrderDetail implements Serializable {
         this.idOrder = idOrder;
         this.style = style;
         this.quantity = quantity;
-        this.totalPrice = quantity * style.getPrice().getLastPrice();
+        this.totalPrice = quantity * style.getProduct().getPrice().getLastPrice();
         this.weight = quantity * 0.5;
     }
     public OrderDetail(){
