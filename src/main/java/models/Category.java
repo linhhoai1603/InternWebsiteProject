@@ -1,6 +1,8 @@
 package models;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable {
     private int id;
     private String name;
 
@@ -20,6 +22,14 @@ public class Category {
         this.name = name;
     }
 
+    public Category(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Category() {
+
+    }
     @Override
     public String toString() {
         return "Category{" +

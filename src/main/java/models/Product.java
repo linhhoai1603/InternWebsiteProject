@@ -1,9 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-public class Product {
+public class Product implements Serializable {
     private int id;
     private String name;
     private int quantity;
@@ -14,6 +14,7 @@ public class Product {
     private String image;
     private Category category;
     private TechnicalInfo technicalInfo;
+    private Price price;
 
     public int getId() {
         return id;
@@ -93,6 +94,30 @@ public class Product {
 
     public void setTechnicalInfo(TechnicalInfo technicalInfo) {
         this.technicalInfo = technicalInfo;
+    }
+    public Price getPrice() {
+        return price;
+    }
+    public void setPrice(Price price) {
+        this.price = price;
+    }
+
+    public Product(int id, String name, int quantity, LocalDateTime dateAdded, String description, double area, int selling, String image, Category category, TechnicalInfo technicalInfo, Price price) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.dateAdded = dateAdded;
+        this.description = description;
+        this.area = area;
+        this.selling = selling;
+        this.image = image;
+        this.category = category;
+        this.technicalInfo = technicalInfo;
+        this.price = price;
+    }
+
+    public Product() {
+
     }
 
     @Override

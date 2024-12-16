@@ -1,6 +1,8 @@
 package models;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
     private int id;
     private User user;
     private String title;
@@ -36,6 +38,16 @@ public class Message {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Message(String content, String title, User user, int id) {
+        this.content = content;
+        this.title = title;
+        this.user = user;
+        this.id = id;
+    }
+    public Message() {
+
     }
 
     @Override

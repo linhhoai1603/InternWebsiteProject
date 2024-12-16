@@ -1,8 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class TechnicalInfo {
+public class TechnicalInfo implements Serializable {
    private int id;
    private String specification;
    private Date manufactureDate;

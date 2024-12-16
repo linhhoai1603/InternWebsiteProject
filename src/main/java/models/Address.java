@@ -1,6 +1,8 @@
 package models;
 
-public class Address {
+import java.io.Serializable;
+
+public class Address implements Serializable {
     private int id;
     private String province;
     private String city;
@@ -45,6 +47,17 @@ public class Address {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    public Address(int id, String province, String city, String commune, String street) {
+        this.id = id;
+        this.province = province;
+        this.city = city;
+        this.commune = commune;
+        this.street = street;
+    }
+    public Address() {
+        super();
     }
 
     @Override

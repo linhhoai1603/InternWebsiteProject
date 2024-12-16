@@ -1,6 +1,8 @@
 package models;
 
-public class AccountUser {
+import java.io.Serializable;
+
+public class AccountUser implements Serializable {
     private int id;
     private User user;
     private String username;
@@ -65,5 +67,16 @@ public class AccountUser {
                 ", role=" + role +
                 ", locked=" + locked +
                 '}';
+    }
+
+    public AccountUser(int id, User user, String username, String password, int role, int locked) {
+        this.id = id;
+        this.user = user;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.locked = locked;
+    }
+    public AccountUser() {
     }
 }

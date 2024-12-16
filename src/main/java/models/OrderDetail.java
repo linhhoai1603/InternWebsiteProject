@@ -1,19 +1,23 @@
 package models;
 
-public class DetailOrder {
+import java.io.Serializable;
+
+public class OrderDetail implements Serializable {
     private int id;
     private int idOrder;
     private Style style;
     private int quantity;
     private double totalPrice;
-    public DetailOrder(int id, int idOrder, Style style, int quantity) {
+    private double weight;
+    public OrderDetail(int id, int idOrder, Style style, int quantity) {
         this.id = id;
         this.idOrder = idOrder;
         this.style = style;
         this.quantity = quantity;
         this.totalPrice = quantity * style.getPrice().getLastPrice();
+        this.weight = quantity * 0.5;
     }
-    public DetailOrder(){
+    public OrderDetail(){
 
     }
 
@@ -56,6 +60,12 @@ public class DetailOrder {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+    public double getWeight() {
+        return weight;
+    }
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
     @Override
     public String toString() {
@@ -65,6 +75,8 @@ public class DetailOrder {
                 ", style=" + style +
                 ", quantity=" + quantity +
                 ", totalPrice=" + totalPrice +
+                ", weight=" + weight +
                 '}';
     }
+
 }
