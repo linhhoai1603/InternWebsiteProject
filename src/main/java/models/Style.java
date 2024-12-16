@@ -9,6 +9,7 @@ public class Style  implements Serializable {
     private String image;
     private int quantity;
 
+
     public int getId() {
         return id;
     }
