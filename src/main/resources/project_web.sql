@@ -35,7 +35,7 @@ CREATE TABLE `payments`(
                            `method` TINYINT NOT NULL,
                            `status` VARCHAR(255) NOT NULL,
                            `time` DATETIME NOT NULL,
-                            `price` DOUBLE NOT NULL
+                           `price` DOUBLE NOT NULL
 );
 CREATE TABLE `order_details`(
                                 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -43,10 +43,9 @@ CREATE TABLE `order_details`(
                                 `idStyle` INT NOT NULL,
                                 `quantity` INT NOT NULL,
                                 `totalPrice` DOUBLE NOT NULL,
-                                `weight` DOUBLE NOT NULL,
+                                `weight` DOUBLE NOT NULL
 );
-ALTER TABLE
-    `order_details` ADD PRIMARY KEY(`idStyle`);
+
 CREATE TABLE `vouchers`(
                            `idVoucher` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                            `code` VARCHAR(255) NOT NULL,
@@ -63,7 +62,7 @@ CREATE TABLE `deliveries`(
                              `deliveryFee` DOUBLE NOT NULL,
                              `note` VARCHAR(255) NOT NULL,
                              `status` VARCHAR(255) NOT NULL,
-                             `scheduledDateTime` DATETIME NOT NULL,
+                             `scheduledDateTime` DATETIME NOT NULL
 );
 CREATE TABLE `addresses`(
                             `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
