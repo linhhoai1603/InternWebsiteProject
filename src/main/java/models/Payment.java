@@ -1,9 +1,9 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
-public class Payment {
+public class Payment implements Serializable {
    private int id;
    private Order order;
    private int method;
@@ -67,6 +67,15 @@ public class Payment {
     }
 
     public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Payment(int id, Order order, int method, int status, LocalDateTime timePayment, double price) {
+        this.id = id;
+        this.order = order;
+        this.method = method;
+        this.status = status;
+        this.timePayment = timePayment;
         this.price = price;
     }
 }

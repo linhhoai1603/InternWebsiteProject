@@ -1,6 +1,8 @@
 package models;
 
-public class Price {
+import java.io.Serializable;
+
+public class Price implements Serializable {
      private int id;
      private double price;
      private double discountAmount;
@@ -10,7 +12,7 @@ public class Price {
         this.id = id;
         this.price = price;
         this.discountAmount = discountAmount;
-        this.lastPrice = lastPrice;
+        this.lastPrice = price - (discountAmount * lastPrice);
     }
     public Price(){
 

@@ -1,21 +1,22 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
    private int id;
    private User user;
    private LocalTime timeOrdered;
    private Voucher voucher;
    private int status;
    private double totalPrice;
-   private List<DetailOrder> listOfDetailOrder = new ArrayList<DetailOrder>();
+   private List<OrderDetail> listOfDetailOrder = new ArrayList<OrderDetail>();
     public Order() {
 
     }
-    public Order(int id, User user, LocalTime timeOrdered, List<DetailOrder> listOfDetailOrder, int status ) {
+    public Order(int id, User user, LocalTime timeOrdered, List<OrderDetail> listOfDetailOrder, int status ) {
         this.id = id;
         this.user = user;
         this.timeOrdered = timeOrdered;
@@ -80,12 +81,21 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public List<DetailOrder> getListOfDetailOrder() {
+    public List<OrderDetail> getListOfDetailOrder() {
         return listOfDetailOrder;
     }
 
-    public void setListOfDetailOrder(List<DetailOrder> listOfDetailOrder) {
+    public void setListOfDetailOrder(List<OrderDetail> listOfDetailOrder) {
         this.listOfDetailOrder = listOfDetailOrder;
     }
 
+    public Order(int id, User user, LocalTime timeOrdered, Voucher voucher, int status, double totalPrice, List<OrderDetail> listOfDetailOrder) {
+        this.id = id;
+        this.user = user;
+        this.timeOrdered = timeOrdered;
+        this.voucher = voucher;
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.listOfDetailOrder = listOfDetailOrder;
+    }
 }

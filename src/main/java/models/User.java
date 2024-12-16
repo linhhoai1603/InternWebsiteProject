@@ -1,11 +1,14 @@
 package models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private int id;
     private String email;
     private String fullName;
     private String numberPhone;
     private Address address;
+    private String image;
 
     public int getId() {
         return id;
@@ -46,6 +49,13 @@ public class User {
     public void setAddress(Address address) {
         this.address = address;
     }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 
     @Override
     public String toString() {

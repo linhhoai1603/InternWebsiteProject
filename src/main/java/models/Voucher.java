@@ -1,6 +1,8 @@
 package models;
 
-public class Voucher {
+import java.io.Serializable;
+
+public class Voucher implements Serializable {
     private int id;
     private String code;
     private double discountAmount;

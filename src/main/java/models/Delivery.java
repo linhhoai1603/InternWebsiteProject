@@ -1,14 +1,15 @@
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Delivery {
+public class Delivery implements Serializable {
     private int id;
     private int idOrder;
     private int idAddress;
     private String fullName;
-    private String numberPhone;
-    private double weight;
+    private String phoneNumber;
+    private double area;
     private double deliveryFee;
     private String note;
     private String status;
@@ -46,20 +47,20 @@ public class Delivery {
         this.fullName = fullName;
     }
 
-    public String getNumberPhone() {
-        return numberPhone;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setNumberPhone(String numberPhone) {
-        this.numberPhone = numberPhone;
+    public void setNumberPhone(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    public double getWeight() {
-        return weight;
+    public double getArea() {
+        return area;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setArea(double area) {
+        this.area = area;
     }
 
     public double getDeliveryFee() {
@@ -94,13 +95,13 @@ public class Delivery {
         this.scheduledDateTime = scheduledDateTime;
     }
 
-    public Delivery(int id, int idOrder, int idAddress, String fullName, String numberPhone, double weight, double deliveryFee, String note, String status, LocalDateTime scheduledDateTime) {
+    public Delivery(int id, int idOrder, int idAddress, String fullName, String phoneNumber, double area, double deliveryFee, String note, String status, LocalDateTime scheduledDateTime) {
         this.id = id;
         this.idOrder = idOrder;
         this.idAddress = idAddress;
         this.fullName = fullName;
-        this.numberPhone = numberPhone;
-        this.weight = weight;
+        this.phoneNumber = phoneNumber;
+        this.area = area;
         this.deliveryFee = deliveryFee;
         this.note = note;
         this.status = status;
@@ -117,8 +118,8 @@ public class Delivery {
                 ", idOrder=" + idOrder +
                 ", idAddress=" + idAddress +
                 ", fullName='" + fullName + '\'' +
-                ", numberPhone='" + numberPhone + '\'' +
-                ", weight=" + weight +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", area=" + area +
                 ", deliveryFee=" + deliveryFee +
                 ", note='" + note + '\'' +
                 ", status='" + status + '\'' +
