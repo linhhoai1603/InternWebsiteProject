@@ -1,13 +1,13 @@
 package models;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Product implements Serializable {
     private int id;
     private String name;
     private int quantity;
-    private LocalDateTime dateAdded;
+    private LocalDate dateAdded;
     private String description;
     private double area;
     private int selling;
@@ -18,6 +18,10 @@ public class Product implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
     }
 
     public void setId(int id) {
@@ -38,14 +42,6 @@ public class Product implements Serializable {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public LocalDateTime getDateAdded() {
-        return dateAdded;
-    }
-
-    public void setDate(LocalDateTime dateAdded) {
-        this.dateAdded = dateAdded;
     }
 
     public String getDescription() {
@@ -102,7 +98,7 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Product(int id, String name, int quantity, LocalDateTime dateAdded, String description, double area, int selling, String image, Category category, TechnicalInfo technicalInfo, Price price) {
+    public Product(int id, String name, int quantity, LocalDate dateAdded, String description, double area, int selling, String image, Category category, TechnicalInfo technicalInfo, Price price) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
@@ -135,4 +131,5 @@ public class Product implements Serializable {
                 ", technicalInfo=" + technicalInfo +
                 '}';
     }
+
 }

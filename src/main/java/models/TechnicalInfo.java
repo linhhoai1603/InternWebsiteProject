@@ -2,6 +2,7 @@ package models;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class TechnicalInfo implements Serializable {
    private int id;

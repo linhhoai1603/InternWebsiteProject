@@ -19,6 +19,4 @@ public class UserDao {
                         .orElse(null)
         );
     }
-
-
 }
