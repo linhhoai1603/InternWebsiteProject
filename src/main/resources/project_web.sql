@@ -5,7 +5,7 @@ CREATE TABLE `account_users`(
                                 `password` VARCHAR(255) NOT NULL,
                                 `role` TINYINT NOT NULL,
                                 `locked` TINYINT NOT NULL,
-                                `code` INT NOT NULL
+                                `code` INT
 );
 CREATE TABLE `products`(
                            `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -95,11 +95,11 @@ CREATE TABLE `technical_information`(
 );
 CREATE TABLE `users`(
                         `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                        `email` VARCHAR(255) NOT NULL,
-                        `fullName` VARCHAR(255) NOT NULL,
-                        `phoneNumber` VARCHAR(255) NOT NULL,
-                        `idAddress` INT NOT NULL,
-                        `image` VARCHAR(255) NOT NULL
+                        `email` VARCHAR(255) ,
+                        `fullName` VARCHAR(255) ,
+                        `phoneNumber` VARCHAR(255) ,
+                        `idAddress` INT ,
+                        `image` VARCHAR(255)
 );
 CREATE TABLE `message`(
                           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

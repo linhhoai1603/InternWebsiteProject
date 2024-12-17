@@ -31,4 +31,9 @@ public class ProductDao {
                         .findOne().orElse(null)
         );
     }
+    public Product getProductByCategory(String name) {
+        Jdbi jdbi = DBConnection.getConnetion();
+        CategoryDao categoryDao = new CategoryDao();
+        return null;
+    }
 }
