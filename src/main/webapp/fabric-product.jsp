@@ -26,6 +26,7 @@
         <li><a class="dropdown-item" href="product-fabric?option=2&page=1">Giá: Cao -> Thấp</a></li>
         <li><a class="dropdown-item" href="product-fabric?option=3&page=1">Giá: Thấp -> Cao</a></li>
         <li><a class="dropdown-item" href="product-fabric?option=4&page=1">Bán chạy nhất</a></li>
+        <li><a class="dropdown-item" href="product-fabric?option=5&page=1">Giảm giá: Cao -> Thấp</a></li>
       </ul>
     </div>
   </div>

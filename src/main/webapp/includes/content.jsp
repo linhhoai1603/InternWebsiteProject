@@ -15,33 +15,28 @@
             <div class="col-md-3 sidebar-section">
                 <!-- Category Title -->
                 <div class="category-title">
-                    DANH MỤC VẢI
+                    NỘI THÁT BÁN CHẠY
                 </div>
                 <!-- Category Items -->
                 <div class="row">
-                    <div class="col-6 mb-4 category-item" onclick="showDetailProduct()">
-                        <img src="images/vailua2.jpg" alt="Vải Lụa">
-                        <div>VẢI LỤA</div>
-                    </div>
-                    <div class="col-6 mb-4 category-item" onclick="showDetailProduct()">
-                        <img src="images/vaicotton3.jpg" alt="Vải Cotton">
-                        <div>VẢI COTTON</div>
-                    </div>
-                    <div class="col-6 mb-4 category-item" onclick="showDetailProduct()">
-                        <img src="images/vaimodal2.jpg" alt="Vải Modal">
-                        <div>VẢI MODAL</div>
-                    </div>
-                    <div class="col-6 mb-4 category-item" onclick="showDetailProduct()">
-                        <img src="images/vaikaki.jpg" alt="Vải Kaki">
-                        <div>VẢI KAKI</div>
-                    </div>
+                   <c:forEach var="product" items="${sessionScope.fabricHotSelling}">
+                       <!-- sản phẩm -->
+                       <div class="col-6 mb-4 category-item" onclick="window.location.href='product-fabric?option=4'" style="cursor: pointer;">
+                           <img src="${product.image}" alt="Hình ảnh sản phẩm" class="w-100">
+                           <div>${product.name}</div>
+                       </div>
+                   </c:forEach>
                 </div>
 
+                <div class="category-title">
+                   SẢN PHẨM VẢI MỚI NHẤT
+                </div>
                 <!-- Advertisement Section -->
+
                 <div class="category-item mt-3" onclick="showDetailProduct()">
-                    <img src="images/mikamiFashion.jpg" alt="Quảng cáo sản phẩm mới">
-                    <div>VẢI MỚI NHẤT</div>
-                    <button class="btn-buy mt-2">MUA NGAY</button>
+                    <img src="${sessionScope.mostProductNew.image}" alt="Sản phẩm mới nhất">
+                    <div>${sessionScope.mostProductNew.name}</div>
+                    <button class="btn-buy mt-2">Xem ngay</button>
                 </div>
             </div>
             <!-- Main Product Section -->
@@ -49,10 +44,10 @@
                 <!-- Sale Section -->
                 <div class="d-flex justify-content-between align-items-center sale-banner">
                     <div>
-                        SẢN PHẨM VẢI ĐẶC BIỆT
+                        MAY MẶC BÁN CHẠY
                     </div>
                     <div class="more-link">
-                        <a href="#">Xem thêm <i class="fas fa-arrow-right"></i></a>
+                        <a href="#" class="text-white">Xem thêm <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
 

@@ -10,12 +10,12 @@ import jakarta.servlet.annotation.*;
 import models.Product;
 import services.ProductService;
 
-@WebServlet(name = "ProductFabric", value = "/product-fabric")
-public class ProductFabric extends HttpServlet {
+@WebServlet(name = "ProductFabricServlet", value = "/product-fabric")
+public class ProductFabricServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int option = request.getParameter("option") == null ? 0 : Integer.parseInt(request.getParameter("option"));
-        option = (option < 0 || option > 4) ? 0 : option;
+        option = (option < 0 || option > 5) ? 0 : option;
 
         ProductService ps = new ProductService();
 

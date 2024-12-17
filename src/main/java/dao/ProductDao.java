@@ -58,6 +58,10 @@ public class ProductDao {
                 """;
                 sum = ", SUM(od.quantity) AS totalProduct "; // tổng số lượng đã bán
                 break;
+            case 5 :
+                sortBy = " pr.discountPercent ";
+                sortOrder = " DESC ";
+                break;
             default:
                 sortBy = " p.id ";
                 sortOrder = " ASC "; // mặc định sắp xếp theo id
@@ -89,7 +93,7 @@ public class ProductDao {
         JOIN technical_information t ON p.id = t.id
         JOIN prices pr ON p.idPrice = pr.id
         """ + join + """
-        WHERE p.idCategory = ?
+        WHERE p.idCategory = ? and p.quantity > 0 and p.selling > 0
         """ + groupBy + """
         ORDER BY """ + sortBy + " " + sortOrder + """
         LIMIT ? OFFSET ?;
@@ -133,6 +137,11 @@ public class ProductDao {
                     product.setPrice(price);
 
                     return product;
-                }).list());
+        }).list());
+    }
+
+    public static void main(String[] args) {
+        ProductDao dao = new ProductDao();
+        System.out.println(dao.getProductsByCategoryBySort(2, 1, 4, 4));
     }
 }
