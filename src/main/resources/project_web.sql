@@ -1713,3 +1713,162 @@ INSERT INTO `styles` (`id`, `idProduct`, `name`, `image`, `quantity`) VALUES
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+INSERT INTO 'addresses' ('id', 'city', 'province', 'commune', 'street') VALUES
+    (1, 'Hà Nội', 'Hà Nội', 'Cầu Giấy', 'Duy Tân'),
+    (2, 'Hà Nội', 'Hà Nội', 'Đống Đa', 'Xã Đàn'),
+    (3, 'Hồ Chí Minh', 'Hồ Chí Minh', 'Quận 1', 'Nguyễn Huệ'),
+    (4, 'Hồ Chí Minh', 'Hồ Chí Minh', 'Quận 3', 'Lê Văn Sỹ'),
+    (5, 'Đà Nẵng', 'Đà Nẵng', 'Hải Châu', 'Nguyễn Văn Linh'),
+    (6, 'Đà Nẵng', 'Đà Nẵng', 'Sơn Trà', 'Võ Nguyên Giáp'),
+    (7, 'Cần Thơ', 'Cần Thơ', 'Ninh Kiều', '30 Tháng 4'),
+    (8, 'Hải Phòng', 'Hải Phòng', 'Lê Chân', 'Trần Nguyên Hãn'),
+    (9, 'Huế', 'Thừa Thiên Huế', 'Phú Hội', 'Hùng Vương'),
+    (10, 'Nha Trang', 'Khánh Hòa', 'Vĩnh Hải', 'Trần Phú');
+
+INSERT INTO `users` (`id`, `email`, `fullName`, `phoneNumber`, `idAddress`, `image`) VALUES
+                                                                                         (1, 'nguyenanh@gmail.com', 'Nguyễn Văn Anh', '0912345678', 1, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (2, 'lethihanh@gmail.com', 'Lê Thị Hạnh', '0987654321', 2, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (3, 'tranvanbinh@gmail.com', 'Trần Văn Bình', '0934567890', 3, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (4, 'phamthuy@gmail.com', 'Phạm Thị Thúy', '0978123456', 4, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (5, 'hoangminhtuan@gmail.com', 'Hoàng Minh Tuấn', '0923456789', 5, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (6, 'dinhphuong@gmail.com', 'Đinh Thị Phượng', '0945678901', 6, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (7, 'votienthanh@gmail.com', 'Võ Tiến Thành', '0967890123', 7, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (8, 'ngothithao@gmail.com', 'Ngô Thị Thảo', '0901234567', 8, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (9, 'phamvangiang@gmail.com', 'Phạm Văn Giang', '0919876543', 9, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA'),
+                                                                                         (10, 'tranthuthuy@gmail.com', 'Trần Thu Thủy', '0921098765', 10, 'https://www.google.com/imgres?q=avatar%20fb&imgurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Fwp-content%2Fuploads%2F2023%2F10%2Favatar-trang-4.jpg&imgrefurl=https%3A%2F%2Fcellphones.com.vn%2Fsforum%2Favatar-trang&docid=l8Ud2gDyur0xUM&tbnid=9ELtMP6ldyeR8M&vet=12ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA..i&w=800&h=800&hcb=2&ved=2ahUKEwjLqMSk_q6KAxXYSmwGHc4CEIIQM3oECBYQAA');
+INSERT INTO `account_users` (`id`, `idUser`, `username`, `password`, `role`, `locked`, `code`) VALUES
+                                                                                                   (1, 1, 'hung', '123', 1, 0, null),
+                                                                                                   (2, 2, 'hoai', '123', 1, 0, null),
+                                                                                                   (3, 3, 'khang', '123', 1, 0, null),
+                                                                                                   (4, 4, 'phamthuy', 'password101', 0, 1, null),
+                                                                                                   (5, 5, 'hoangtuan', 'password102', 0, 0, null),
+                                                                                                   (6, 6, 'dinhphuong', 'password103', 0, 0, null),
+                                                                                                   (7, 7, 'vothanh', 'password104', 0, 1, null),
+                                                                                                   (8, 8, 'ngothao', 'password105', 0, 0, null),
+                                                                                                   (9, 9, 'phamgiang', 'password106', 0, 0, null),
+                                                                                                   (10, 10, 'tranthuy', 'password107', 0, 0, null);
+INSERT INTO vouchers (idVoucher, code, amount, condition_amount)
+VALUES
+    (1, 'VOUCHER01', 100000.00, 500000.00),
+    (2, 'VOUCHER02', 20000.00, 200000.00),
+    (3, 'VOUCHER03', 150000.00, 750000.00),
+    (4, 'VOUCHER04', 300000.00, 1500000.00),
+    (5, 'VOUCHER05', 250000.00, 1000000.00);
+
+INSERT INTO `orders` (`id`, `timeOrder`, `idUser`, `idVoucher`, `statusOrder`, `totalPrice`, `lastPrice`) VALUES
+                                                                                                              (1, '2024-12-01 10:30:00', 1, 1, 'Đang giao', 150000.00, 135000.00),
+                                                                                                              (2, '2024-12-01 11:15:00', 2, NULL, 'Đã thanh toán', 200000.00, 200000.00),
+                                                                                                              (3, '2024-12-02 14:00:00', 3, 1, 'Đang thêm', 250000.00, 225000.00),
+                                                                                                              (4, '2024-12-03 09:45:00', 4, NULL, 'Đang thêm', 100000.00, 100000.00),
+                                                                                                              (5, '2024-12-03 12:00:00', 5, 3, 'Đã thanh toán', 300000.00, 270000.00),
+                                                                                                              (6, '2024-12-04 16:30:00', 6, NULL, 'Đã thanh toán', 50000.00, 50000.00),
+                                                                                                              (7, '2024-12-05 08:20:00', 7, 1, 'Đang thêm', 120000.00, 108000.00),
+                                                                                                              (8, '2024-12-05 19:00:00', 8, NULL, 'Đã thanh toán', 450000.00, 450000.00),
+                                                                                                              (9, '2024-12-06 11:50:00', 9, 2, 'Đang giao', 600000.00, 540000.00),
+                                                                                                              (10, '2024-12-07 15:10:00', 10, NULL, 'Đang thêm', 700000.00, 700000.00);
+INSERT INTO `order_details` (`id`, `idOrder`, `idStyle`, `quantity`, `totalPrice`, `weight`) VALUES
+                                                                                                 (1, 1, 23, 2, 300000.00, 1.5),
+                                                                                                 (2, 1, 45, 1, 150000.00, 0.7),
+                                                                                                 (3, 2, 67, 3, 450000.00, 2.0),
+                                                                                                 (4, 2, 89, 4, 600000.00, 3.2),
+                                                                                                 (5, 3, 12, 1, 120000.00, 0.5),
+                                                                                                 (6, 3, 34, 2, 240000.00, 1.0),
+                                                                                                 (7, 4, 56, 5, 750000.00, 4.0),
+                                                                                                 (8, 4, 78, 1, 150000.00, 0.8),
+                                                                                                 (9, 5, 90, 2, 300000.00, 1.4),
+                                                                                                 (10, 5, 123, 3, 450000.00, 2.1),
+                                                                                                 (11, 6, 234, 1, 150000.00, 0.6),
+                                                                                                 (12, 6, 345, 2, 300000.00, 1.2),
+                                                                                                 (13, 7, 156, 4, 600000.00, 2.5),
+                                                                                                 (14, 7, 267, 1, 120000.00, 0.4),
+                                                                                                 (15, 8, 378, 3, 450000.00, 1.9),
+                                                                                                 (16, 8, 189, 2, 300000.00, 1.3),
+                                                                                                 (17, 9, 11, 1, 150000.00, 0.7),
+                                                                                                 (18, 9, 22, 5, 750000.00, 3.8),
+                                                                                                 (19, 10, 33, 2, 300000.00, 1.4),
+                                                                                                 (20, 10, 44, 3, 450000.00, 2.0),
+                                                                                                 (21, 11, 55, 1, 150000.00, 0.8),
+                                                                                                 (22, 11, 66, 4, 600000.00, 3.1),
+                                                                                                 (23, 12, 77, 2, 300000.00, 1.2),
+                                                                                                 (24, 12, 88, 3, 450000.00, 2.1),
+                                                                                                 (25, 13, 99, 5, 750000.00, 4.5),
+                                                                                                 (26, 13, 110, 1, 150000.00, 0.9),
+                                                                                                 (27, 14, 121, 2, 300000.00, 1.4),
+                                                                                                 (28, 14, 132, 4, 600000.00, 2.8),
+                                                                                                 (29, 15, 143, 3, 450000.00, 2.0),
+                                                                                                 (30, 15, 154, 2, 300000.00, 1.3),
+                                                                                                 (31, 16, 165, 1, 150000.00, 0.7),
+                                                                                                 (32, 16, 176, 5, 750000.00, 3.9),
+                                                                                                 (33, 17, 187, 2, 300000.00, 1.2),
+                                                                                                 (34, 17, 198, 3, 450000.00, 2.4),
+                                                                                                 (35, 18, 209, 4, 600000.00, 3.0),
+                                                                                                 (36, 18, 220, 1, 150000.00, 0.8),
+                                                                                                 (37, 19, 231, 2, 300000.00, 1.5),
+                                                                                                 (38, 19, 242, 3, 450000.00, 2.3),
+                                                                                                 (39, 20, 253, 5, 750000.00, 4.7),
+                                                                                                 (40, 20, 264, 1, 150000.00, 0.9),
+                                                                                                 (41, 1, 23, 2, 300000.00, 1.5),
+                                                                                                 (42, 1, 45, 1, 150000.00, 0.7),
+                                                                                                 (43, 2, 67, 3, 450000.00, 2.0),
+                                                                                                 (44, 2, 89, 4, 600000.00, 3.2),
+                                                                                                 (45, 3, 12, 1, 120000.00, 0.5),
+                                                                                                 (46, 3, 34, 2, 240000.00, 1.0),
+                                                                                                 (47, 4, 56, 5, 750000.00, 4.0),
+                                                                                                 (48, 4, 78, 1, 150000.00, 0.8),
+                                                                                                 (49, 5, 90, 2, 300000.00, 1.4),
+                                                                                                 (50, 5, 123, 3, 450000.00, 2.1),
+                                                                                                 (51, 6, 234, 1, 150000.00, 0.6),
+                                                                                                 (52, 6, 345, 2, 300000.00, 1.2),
+                                                                                                 (53, 7, 156, 4, 600000.00, 2.5),
+                                                                                                 (54, 7, 267, 1, 120000.00, 0.4),
+                                                                                                 (55, 8, 378, 3, 450000.00, 1.9),
+                                                                                                 (56, 8, 189, 2, 300000.00, 1.3),
+                                                                                                 (57, 9, 11, 1, 150000.00, 0.7),
+                                                                                                 (58, 9, 22, 5, 750000.00, 3.8),
+                                                                                                 (59, 10, 33, 2, 300000.00, 1.4),
+                                                                                                 (60, 10, 44, 3, 450000.00, 2.0),
+                                                                                                 (61, 11, 55, 1, 150000.00, 0.8),
+                                                                                                 (62, 11, 66, 4, 600000.00, 3.1),
+                                                                                                 (63, 12, 77, 2, 300000.00, 1.2),
+                                                                                                 (64, 12, 88, 3, 450000.00, 2.1),
+                                                                                                 (65, 13, 99, 5, 750000.00, 4.5),
+                                                                                                 (66, 13, 110, 1, 150000.00, 0.9),
+                                                                                                 (67, 14, 121, 2, 300000.00, 1.4),
+                                                                                                 (68, 14, 132, 4, 600000.00, 2.8),
+                                                                                                 (69, 15, 143, 3, 450000.00, 2.0),
+                                                                                                 (70, 15, 154, 2, 300000.00, 1.3),
+                                                                                                 (71, 16, 165, 1, 150000.00, 0.7),
+                                                                                                 (72, 16, 176, 5, 750000.00, 3.9),
+                                                                                                 (73, 17, 187, 2, 300000.00, 1.2),
+                                                                                                 (74, 17, 198, 3, 450000.00, 2.4),
+                                                                                                 (75, 18, 209, 4, 600000.00, 3.0),
+                                                                                                 (76, 18, 220, 1, 150000.00, 0.8),
+                                                                                                 (77, 19, 231, 2, 300000.00, 1.5),
+                                                                                                 (78, 19, 242, 3, 450000.00, 2.3),
+                                                                                                 (79, 20, 253, 5, 750000.00, 4.7),
+                                                                                                 (80, 20, 264, 1, 150000.00, 0.9);
+
+
+INSERT INTO payments (idOrder, method, status, time, price)
+VALUES
+    (2, 1, 'Completed', '2024-12-17 10:00:00', 150.00),
+    (3, 2, 'Pending', '2024-12-17 11:00:00', 200.00),
+    (4, 1, 'Completed', '2024-12-17 12:00:00', 120.00),
+    (5, 2, 'Completed', '2024-12-17 14:00:00', 250.00);
+
+
+INSERT INTO deliveries (idOrder, idAddress, fullName, phoneNumber, area, deliveryFee, note, status, scheduledDateTime)
+VALUES
+    (1, 2, 'Nguyen Van A', '0901234567', 20.5, 50.00, 'Giao nhanh', 'Delivered', '2024-12-18 09:00:00'),
+    (2, 3, 'Tran Thi B', '0902345678', 15.0, 40.00, 'Giao qua app', 'Pending', '2024-12-18 10:30:00'),
+    (3, 4, 'Le Minh C', '0903456789', 25.0, 60.00, 'Khuyến mãi', 'Cancelled', '2024-12-18 12:00:00'),
+    (4, 5, 'Pham Thi D', '0904567890', 18.0, 45.00, 'Giao tận nơi', 'In transit', '2024-12-18 14:00:00'),
+    (5, 6, 'Hoang Minh E', '0905678901', 22.5, 55.00, 'Giao vào buổi tối', 'Delivered', '2024-12-18 17:30:00'),
+    (6, 2, 'Nguyen Van A', '0901234567', 20.5, 50.00, 'Giao nhanh', 'Delivered', '2024-12-18 09:00:00'),
+    (7, 3, 'Tran Thi B', '0902345678', 15.0, 40.00, 'Giao qua app', 'Pending', '2024-12-18 10:30:00'),
+    (8, 4, 'Le Minh C', '0903456789', 25.0, 60.00, 'Khuyến mãi', 'Cancelled', '2024-12-18 12:00:00'),
+    (9, 5, 'Pham Thi D', '0904567890', 18.0, 45.00, 'Giao tận nơi', 'In transit', '2024-12-18 14:00:00'),
+    (10, 6, 'Hoang Minh E', '0905678901', 22.5, 55.00, 'Giao vào buổi tối', 'Delivered', '2024-12-18 17:30:00');
+
+
+
