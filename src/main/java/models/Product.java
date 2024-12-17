@@ -2,6 +2,7 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Product implements Serializable {
     private int id;
@@ -15,9 +16,22 @@ public class Product implements Serializable {
     private Category category;
     private TechnicalInfo technicalInfo;
     private Price price;
+    private List<Style> styles;
 
     public int getId() {
         return id;
+    }
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public List<Style> getStyles() {
+        return styles;
+    }
+
+    public void setStyles(List<Style> styles) {
+        this.styles = styles;
     }
 
     public void setDateAdded(LocalDate dateAdded) {

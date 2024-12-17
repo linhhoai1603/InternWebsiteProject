@@ -36,15 +36,15 @@
     <c:forEach var="product" items="${requestScope.fabric}">
       <div class="card product-item position-relative">
         <!-- Thẻ span hiển thị phần trăm giảm giá -->
-        <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5">
-          Giảm ngay ${product.price.discountPercent}%
+        <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 formatted-discount">
+            -${product.price.discountPercent}
         </span>
 
         <img src="${product.image}" class="card-img-top h-50" alt="Hình ảnh sản phẩm" style="object-fit: cover;">
         <div class="card-body text-center">
           <h5 class="card-title">${product.name}</h5>
-          <h4 class="card-text text-success">Chỉ còn: <span class="formatted-price">${product.price.lastPrice}</span> VND</h4>
-          <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="formatted-price">${product.price.price}</span> VND</p>
+          <h4 class="card-text text-success">Chỉ còn: <span class="formatted-price">${product.price.lastPrice}</span></h4>
+          <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="formatted-price">${product.price.price}</span></p>
           <p class="cart-text ">Mô tả: ${product.description}</p>
           <div class="row" style="justify-content: center">
             <a href="detail-product?id=${product.id}" class="col-md-7 btn btn-warning mx-1">Thêm vào giỏ hàng</a>
@@ -83,8 +83,36 @@
 
 </div>
 
-<script src="js/fabric-product.js"></script>
 <%@ include file="includes/footer.jsp" %>
 <%@ include file="includes/link/footLink.jsp" %>
+<script >
+  document.addEventListener("DOMContentLoaded", function () {
+    // Hàm định dạng tiền Việt Nam Đồng với chữ "đ" ở cuối
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN').format(amount) + 'đ';
+    }
+
+    // Định dạng giá cả các phần tử có class .formatted-price
+    const priceElements = document.querySelectorAll('.formatted-price');
+    priceElements.forEach(element => {
+      // Lấy giá trị số, loại bỏ ký tự không phải số
+      let price = element.textContent.trim().replace(/[^\d.-]/g, "");
+      price = parseFloat(price);
+      if (!isNaN(price)) {
+        // Định dạng theo tiền Việt và thêm chữ "đ"
+        element.textContent = formatCurrency(price); // Thêm "đ" sau số tiền
+      }
+    });
+
+    // Định dạng phần trăm giảm giá (đảm bảo không có ".0")
+    const discountElements = document.querySelectorAll('.formatted-discount');
+    discountElements.forEach(element => {
+      let discount = parseFloat(element.textContent.trim().replace("%", ""));
+      if (!isNaN(discount)) {
+        element.textContent = Math.round(discount) + '%'; // Đảm bảo không có .0 ở phần trăm
+      }
+    });
+  });
+</script>
 </body>
 </html>

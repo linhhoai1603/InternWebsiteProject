@@ -1,4 +1,6 @@
-<%--
+<%@ page import="models.Style" %>
+<%@ page import="java.util.List" %>
+<%@ page import="dao.StyleDao" %><%--
   Created by IntelliJ IDEA.
   User: hoai1
   Date: 12/4/2024
@@ -21,7 +23,7 @@
                 <div class="row">
                    <c:forEach var="product" items="${sessionScope.fabricHotSelling}">
                        <!-- sản phẩm -->
-                       <div class="col-6 mb-4 category-item" onclick="window.location.href='product-fabric?option=4'" style="cursor: pointer;">
+                       <div class="col-6 mb-4 category-item" style="cursor: pointer;" onclick="navigateToProduct(${product.id})">
                            <img src="${product.image}" alt="Hình ảnh sản phẩm" class="w-100">
                            <div>${product.name}</div>
                        </div>
@@ -52,144 +54,36 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vailuacaocap.jpg" alt="Vải Lụa" class="img-fluid">
-                            <div class="product-title">Vải Lụa Cao Cấp</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/luacctrang.jpg');" data-img="images/luacctrang.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/luaccden.jpg');" data-img="images/luaccden.jpg"></div>
-                                <div class="square square-pink" style="background-image: url('images/luaccpink.jpg');" data-img="images/luaccpink.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/luaccblue.jpg');" data-img="images/luaccblue.jpg"></div>
-                            </div>
-                            <div class="product-old-price">469,000₫</div>
-                            <div class="product-price">390,000₫</div>
-                            <div class="product-discount">-17%</div>
-                            <button class="btn-buy">MUA NGAY</button>
-                        </div>
-                    </div>
+                    <!-- Thông tin sản phẩm -->
+                    <c:forEach var="product" items="${sessionScope.productHotSelling}">
+                        <div class="col-md-3 mb-4">
+                            <div class="product-card">
+                                <!-- Hình ảnh lớn -->
+                                <img id="mainImage${product.id}" src="${product.image}" alt="Hình ảnh sản phẩm" class="img-fluid main-image">
+                                <!-- Tên sản phẩm -->
+                                <div class="product-title">${product.name}</div>
+                                <!-- Các style -->
+                                <div class="product-squares d-flex justify-content-between mt-2">
+                                    <c:forEach var="style" items="${product.styles}">
+                                        <div
+                                                class="square square-white"
+                                                style="background-image: url('${style.image}');"
+                                                onmouseover="changeMainImage(${product.id}, '${style.image}')"
+                                                onmouseout="restoreMainImage(${product.id}, '${product.image}')">
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <!-- Thông tin giá -->
+                                <div class="product-old-price" data-original-price="${product.price.price}">${product.price.price} VND</div>
+                                <div class="product-price" style="font-size: 22px" data-last-price="${product.price.lastPrice}">${product.price.lastPrice}</div>
+                                <div class="product-discount" data-discount-percent="${product.price.discountPercent}">${product.price.discountPercent}%</div>
 
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vaicotton.jpg" alt="Vải Cotton" class="img-fluid">
-                            <div class="product-title">Vải Cotton Chất Lượng Cao</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/vaicotton1.jpg');" data-img="images/vaicotton1.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/vaicottonblack.jpg');" data-img="images/vaicottonblack.jpg"></div>
-                                <div class="square square-pink" style="background-image: url('images/vaicottonpink.jpg');" data-img="images/vaicottonpink.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/vaicottonblue.jpg');" data-img="images/vaicottonblue.jpg"></div>
+                                <!-- Nút mua -->
+                                <button class="btn-buy">MUA NGAY</button>
                             </div>
-                            <div class="product-old-price">469,000₫</div>
-                            <div class="product-price">390,000₫</div>
-                            <div class="product-discount">-17%</div>
-                            <button class="btn-buy">MUA NGAY</button>
                         </div>
-                    </div>
-
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vaimodal.jpg" alt="Vải Modal" class="img-fluid">
-                            <div class="product-title">Vải Modal Mềm Mại</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/vaimodaltrang.jpg');" data-img="images/vaimodaltrang.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/vaimodalden.jpg');" data-img="images/vaimodalden.jpg"></div>
-                                <div class="square square-pink" style="background-image: url('images/vaimodalpink.jpg');" data-img="images/vaimodalpink.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/vaimodalblue.jpg');" data-img="images/vaimodalblue.jpg"></div>
-                            </div>
-                            <div class="product-old-price">469,000₫</div>
-                            <div class="product-price">390,000₫</div>
-                            <div class="product-discount">-17%</div>
-                            <button class="btn-buy">MUA NGAY</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vaikakicc.jpg" alt="Vải Kaki" class="img-fluid">
-                            <div class="product-title">Vải Kaki Chắc Chắn</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/vaikakitrang.jpg');" data-img="images/vaikakitrang.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/vaikakiden.jpg');" data-img="images/vaikakiden.jpg"></div>
-                                <div class="square square-pink" style="background-image: url('images/vaikakihong.jpg');" data-img="images/vaikakihong.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/vaikakiblue.jpg');" data-img="images/vaikakiblue.jpg"></div>
-                            </div>
-                            <div class="product-old-price">469,000₫</div>
-                            <div class="product-price">390,000₫</div>
-                            <div class="product-discount">-17%</div>
-                            <button class="btn-buy">MUA NGAY</button>
-                        </div>
-                    </div>
-
-                    <!-- Các sản phẩm khác -->
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vaimuahe.jpg" alt="Vải Đặc Biệt" class="img-fluid">
-                            <div class="product-title">Vải Đặc Biệt Cho Mùa Hè</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/vaimuahetrang.jpg');" data-img="images/vaimuahetrang.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/vaimuaheden.jpg');" data-img="images/vaimuaheden.jpg"></div>
-                                <div class="square square-pink" style="background-image: url('images/vaimuahehong.jpg');" data-img="images/vaimuahehong.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/vaimuahexanhnuocbien.jpg');" data-img="images/vaimuahexanhnuocbien.jpg"></div>
-                            </div>
-                            <div class="product-old-price">429,000₫</div>
-                            <div class="product-price">366,000₫</div>
-                            <div class="product-discount">-15%</div>
-                            <button class="btn-buy">MUA NGAY</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vaimayaosomi.jpg" alt="Vải Cao Cấp" class="img-fluid">
-                            <div class="product-title">Vải Cao Cấp Cho Áo Sơ Mi</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/vaisomitrang.jpg');" data-img="images/vaisomitrang.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/vaisominam.jpg');" data-img="images/vaisominam.jpg"></div>
-                                <div class="square square-pink" style="background-image: url('images/vaisominamhong.jpg');" data-img="images/vaisominamhong.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/vaisominamblue.jpg');" data-img="images/vaisominamblue.jpg"></div>
-                            </div>
-                            <div class="product-old-price">429,000₫</div>
-                            <div class="product-price">366,000₫</div>
-                            <div class="product-discount">-15%</div>
-                            <button class="btn-buy">MUA NGAY</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vaithoitrang.jpg" alt="Vải Thời Trang" class="img-fluid">
-                            <div class="product-title">Vải Thời Trang Đẹp</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/vaifashionwhite.jpg');" data-img="images/vaifashionwhite.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/vaithoitrangden.jpg');" data-img="images/vaithoitrangden.jpg'"></div>
-                                <div class="square square-pink" style="background-image: url('images/vaithoitranghong.jpg');" data-img="images/vaithoitranghong.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/vaithoitrangmauxanh.jpg');" data-img="images/vaithoitrangmauxanh.jpg"></div>
-                            </div>
-                            <div class="product-old-price">429,000₫</div>
-                            <div class="product-price">366,000₫</div>
-                            <div class="product-discount">-15%</div>
-                            <button class="btn-buy">MUA NGAY</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3 mb-4">
-                        <div class="product-card" onclick="showDetailProduct()">
-                            <img src="images/vaidaydumausac.jpg" alt="Vải Đầy Đủ Màu Sắc" class="img-fluid">
-                            <div class="product-title">Vải Đầy Đủ Màu Sắc</div>
-                            <div class="product-squares d-flex justify-content-between mt-2">
-                                <div class="square square-white" style="background-image: url('images/vaisacmautrang.jpg');" data-img="images/vaisacmautrang.jpg"></div>
-                                <div class="square square-black" style="background-image: url('images/vaisacmauden.jpg');" data-img="images/vaisacmauden.jpg"></div>
-                                <div class="square square-pink" style="background-image: url('images/vaisacmauhong.jpg');" data-img="images/vaisacmauhong.jpg"></div>
-                                <div class="square square-blue" style="background-image: url('images/vaisacmauxanh.jpg');" data-img="images/vaisacmauxanh.jpg"></div>
-                            </div>
-                            <div class="product-old-price">429,000₫</div>
-                            <div class="product-price">366,000₫</div>
-                            <div class="product-discount">-15%</div>
-                            <button class="btn-buy">MUA NGAY</button>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
-
             </div>
         </div>
     </div>
@@ -260,70 +154,30 @@
             </p>
         </div>
         <div class="row">
-            <div class="col-md-3">
-                <div class="product-card" onclick="showDetailProduct()">
-                    <img src="images/vailuacaocap2.jpg" alt="Vải Lụa" class="img-fluid">
-                    <div class="product-title">Vải Lụa Cao Cấp</div>
-                    <div class="product-squares d-flex justify-content-between mt-2">
-                        <div class="square square-white" style="background-image: url('images/luacctrang.jpg');" data-img="images/luacctrang.jpg"></div>
-                        <div class="square square-black" style="background-image: url('images/luaccden.jpg');" data-img="images/luaccden.jpg"></div>
-                        <div class="square square-pink" style="background-image: url('images/luaccpink.jpg');" data-img="images/luaccpink.jpg"></div>
-                        <div class="square square-blue" style="background-image: url('images/luaccblue.jpg');" data-img="images/luaccblue.jpg"></div>
+            <!-- Thông tin sản phẩm -->
+            <c:forEach var="product" items="${sessionScope.productsMostDiscount}">
+                <div class="col-md-3">
+                    <div class="product-card" >
+                        <!-- Hình ảnh lớn -->
+                        <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="img-fluid main-image">
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-squares d-flex justify-content-between mt-2">
+                            <c:forEach var="style" items="${product.styles}">
+                                <div
+                                        class="square square-white"
+                                        style="background-image: url('${style.image}');"
+                                        onmouseover="changeMainImage(${product.id}, '${style.image}')"
+                                        onmouseout="restoreMainImage(${product.id}, '${product.image}')">
+                                </div>
+                            </c:forEach>
+                        </div>
+                        <div class="product-old-price">${product.price.price}₫</div>
+                        <div class="product-price"  style="font-size: 22px">${product.price.lastPrice}₫</div>
+                        <div class="product-discount">${product.price.discountPercent}₫</div>
+                        <button class="btn-buy">MUA NGAY</button>
                     </div>
-                    <div class="product-old-price">259,000₫</div>
-                    <div class="product-price">219,000₫</div>
-                    <div class="product-discount">-15%</div>
-                    <button class="btn-buy">MUA NGAY</button>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-card" onclick="showDetailProduct()">
-                    <img src="images/vaicotton2.jpg" alt="Vải Cotton" class="img-fluid">
-                    <div class="product-title">Vải Cotton Chất Lượng</div>
-                    <div class="product-squares d-flex justify-content-between mt-2">
-                        <div class="square square-white" style="background-image: url('images/vaicottonChatluongWhite.jpg');" data-img="images/vaicottonChatluongWhite.jpg"></div>
-                        <div class="square square-black" style="background-image: url('images/vaicotton2.jpg');" data-img="images/vaicotton2.jpg"></div>
-                        <div class="square square-pink" style="background-image: url('images/vaicotton3.jpg');" data-img="images/vaicotton3.jpg"></div>
-                        <div class="square square-blue" style="background-image: url('images/vaicottonclmauxanh.jpg');" data-img="images/vaicottonclmauxanh.jpg"></div>
-                    </div>
-                    <div class="product-old-price">259,000₫</div>
-                    <div class="product-price">219,000₫</div>
-                    <div class="product-discount">-15%</div>
-                    <button class="btn-buy">MUA NGAY</button>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-card" onclick="showDetailProduct()">
-                    <img src="images/vaimodal.jpg" alt="Vải Modal" class="img-fluid">
-                    <div class="product-title">Vải Modal Mềm Mại</div>
-                    <div class="product-squares d-flex justify-content-between mt-2">
-                        <div class="square square-white" style="background-image: url('images/vaimodaltrangne.jpg');" data-img="images/vaimodaltrangne.jpg"></div>
-                        <div class="square square-black" style="background-image: url('images/vaimodal2.jpg');" data-img="images/vaimodal2.jpg"></div>
-                        <div class="square square-pink" style="background-image: url('images/vaimodalhongne.jpg');" data-img="images/vaimodalhongne.jpg"></div>
-                        <div class="square square-blue" style="background-image: url('images/vaimodaldenne.jpg');" data-img="images/vaimodaldenne.jpg"></div>
-                    </div>
-                    <div class="product-old-price">259,000₫</div>
-                    <div class="product-price">219,000₫</div>
-                    <div class="product-discount">-15%</div>
-                    <button class="btn-buy">MUA NGAY</button>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product-card" onclick="showDetailProduct()">
-                    <img src="images/vaikakicc.jpg" alt="Vải Kaki" class="img-fluid">
-                    <div class="product-title">Vải Kaki Chắc Chắn</div>
-                    <div class="product-squares d-flex justify-content-between mt-2">
-                        <div class="square square-white" style="background-image: url('images/vaikakitrang.jpg');" data-img="images/vaikakitrang.jpg"></div>
-                        <div class="square square-black" style="background-image: url('images/vaikakidenne.jpg');" data-img="images/vaikakidenne.jpg"></div>
-                        <div class="square square-pink" style="background-image: url('images/vaikakihongne.jpg');" data-img="images/vaikakihongne.jpg"></div>
-                        <div class="square square-blue" style="background-image: url('images/vaikakixanhne.jpg');" data-img="images/vaikakixanhne.jpg"></div>
-                    </div>
-                    <div class="product-old-price">249,000₫</div>
-                    <div class="product-price">199,000₫</div>
-                    <div class="product-discount">-20%</div>
-                    <button class="btn-buy">MUA NGAY</button>
-                </div>
-            </div>
+            </c:forEach>
         </div>
 
     </div>
@@ -608,5 +462,5 @@
             </div>
         </div>
     </div>
-    <script src="js/content.js"></script>
+    <script src="includes/js/content.js"></script>
 <%@include file="link/footLink.jsp"%>

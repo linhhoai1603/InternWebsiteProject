@@ -30,23 +30,63 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-    const productCards = document.querySelectorAll('.product-card'); // Chọn tất cả các thẻ sản phẩm
+function navigateToProduct(productId) {
+    // Thêm logic xử lý trước khi chuyển trang, nếu cần
+    console.log("Navigating to product with ID:", productId);
+    window.location.href = `productDetail?id=${productId}`;
+}
+// Hàm thay đổi hình ảnh lớn
+function changeMainImage(productId, styleImage) {
+    const mainImage = document.getElementById(`mainImage${productId}`);
+    if (mainImage) {
+        mainImage.src = styleImage; // Cập nhật ảnh lớn bằng ảnh style
+    }
+}
 
-    productCards.forEach(card => {
-        const productImage = card.querySelector('img'); // Chọn hình ảnh sản phẩm trong thẻ hiện tại
-        const squares = card.querySelectorAll('.square'); // Chọn tất cả các khối vuông trong thẻ hiện tại
 
-        squares.forEach(square => {
-            square.addEventListener('mouseenter', function() { // Sử dụng mouseenter để thay đổi hình ảnh
-                const newImage = this.getAttribute('data-img'); // Lấy đường dẫn hình ảnh từ thuộc tính data-img
-                productImage.src = newImage; // Thay đổi hình ảnh sản phẩm trong thẻ hiện tại
-            });
 
-            // Thêm sự kiện mouseleave để trở lại hình ảnh gốc nếu cần
-            square.addEventListener('mouseleave', function() {
-                productImage.src = card.querySelector('img').src; // Đưa hình ảnh về ban đầu
-            });
-        });
+// Hàm khôi phục hình ảnh gốc
+function restoreMainImage(productId, originalImage) {
+    const mainImage = document.getElementById(`mainImage${productId}`);
+    if (mainImage) {
+        mainImage.src = originalImage; // Khôi phục lại ảnh ban đầu
+    }
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Hàm định dạng số tiền thành tiền Việt
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    // Hàm định dạng phần trăm giảm giá
+    function formatDiscount(discount) {
+        return Math.round(discount) + '%';
+    }
+
+    // Định dạng giá gốc
+    document.querySelectorAll(".product-old-price").forEach(el => {
+        const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+        if (originalPrice) {
+            el.textContent = formatCurrency(parseFloat(originalPrice));
+        }
+    });
+
+    // Định dạng giá sau khi giảm
+    document.querySelectorAll(".product-price").forEach(el => {
+        const lastPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+        if (lastPrice) {
+            el.textContent = formatCurrency(parseFloat(lastPrice));
+        }
+    });
+
+    // Định dạng phần trăm giảm giá
+    document.querySelectorAll(".product-discount").forEach(el => {
+        const discountPercent = el.textContent.trim().replace("%", "");
+        if (discountPercent) {
+            el.textContent = formatDiscount(parseFloat(discountPercent));
+        }
     });
 });
+
