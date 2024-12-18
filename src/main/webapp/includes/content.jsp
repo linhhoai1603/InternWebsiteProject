@@ -187,94 +187,21 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 product-list mt-5">
-                <h5>SẢN PHẨM BÁN CHẠY</h5>
+                <h5>MỘT SỐ SẢN PHẨM MỚI</h5>
                 <div class="best-sellers">
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img alt="Vải cotton cao cấp - Trắng" height="80" src="images/vaicaocaptrang.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải cotton cao cấp - Trắng</div>
-                            <div class="product-prices">
-                                <del class="old-price">469,000₫</del>
-                                <span class="price">390,000₫</span>
+                <!-- Thông tin sản phẩm -->
+                    <c:forEach var="product" items="${sessionScope.mostProductsNew}">
+                        <div class="product-item d-flex align-items-center mb-3">
+                            <img alt="${product.description}" height="80" src="${product.image}" width="80" class="product-image"/>
+                            <div class="ms-3 product-info">
+                                <div class="product-title">${product.name}</div>
+                                <div class="product-prices">
+                                    <del class="old-price product-old-price">${product.price.price}đ</del>
+                                    <span class="price product-price">${product.price.lastPrice}đ</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="product-item d-flex align-items-center mb-3 h-30">
-                        <img alt="Vải lanh thoáng khí - Xanh nhạt" height="80" src="images/vailanhthoangkhi.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải lanh thoáng khí - Xanh nhạt</div>
-                            <div class="product-prices">
-                                <del class="old-price">469,000₫</del>
-                                <span class="price">390,000₫</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img alt="Vải polyester chống nhăn - Trắng" height="80" src="images/vaipoly.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải polyester chống nhăn - Trắng</div>
-                            <div class="product-prices">
-                                <del class="old-price">259,000₫</del>
-                                <span class="price">219,000₫</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img alt="Vải khaki bền đẹp - Camel" height="80" src="images/vaikhaly.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải khaki bền đẹp - Camel</div>
-                            <div class="product-prices">
-                                <del class="old-price">429,000₫</del>
-                                <span class="price">366,000₫</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img alt="Vải chống thấm nước - Đen" height="80" src="images/vaithamden.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải chống thấm nước - Đen</div>
-                            <div class="product-prices">
-                                <del class="old-price">799,000₫</del>
-                                <span class="price">699,000₫</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img alt="Vải denim cao cấp - Xanh đậm" height="80" src="images/vaixanhdam.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải denim cao cấp - Xanh đậm</div>
-                            <div class="product-prices">
-                                <del class="old-price">550,000₫</del>
-                                <span class="price">495,000₫</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img alt="Vải tơ tằm - Hồng" height="80" src="images/vaipink.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải tơ tằm - Hồng</div>
-                            <div class="product-prices">
-                                <del class="old-price">1,200,000₫</del>
-                                <span class="price">1,100,000₫</span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="product-item d-flex align-items-center mb-3">
-                        <img alt="Vải thun co giãn - Đen" height="80" src="images/vaiblack.jpg" width="80" class="product-image"/>
-                        <div class="ms-3 product-info">
-                            <div class="product-title">Vải thun co giãn - Đen</div>
-                            <div class="product-prices">
-                                <del class="old-price">350,000₫</del>
-                                <span class="price">315,000₫</span>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
 

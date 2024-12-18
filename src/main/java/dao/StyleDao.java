@@ -20,9 +20,4 @@ public class StyleDao {
                     .list();
         });
     }
-
-    public static void main(String[] args) {
-        StyleDao dao = new StyleDao();
-        System.out.println(dao.getAllStylesByIDProduct(1));
-    }
 }
