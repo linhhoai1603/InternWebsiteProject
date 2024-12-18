@@ -129,7 +129,7 @@
                         <!-- Updated href -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="fabric-product.jsp"
+                        <a class="nav-link text-white" href="product-fabric?action=showProducts"
                         >Vải nội thất</a
                         >
                         <!-- Updated href -->

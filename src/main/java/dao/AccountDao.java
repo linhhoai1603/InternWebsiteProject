@@ -9,7 +9,6 @@ public class AccountDao {
     public AccountUser findByUsername(String username) {
         Jdbi jdbi = DBConnection.getConnetion();
         UserDao userDao = new UserDao();
-
         return jdbi.withHandle(handle ->
                 handle.createQuery("select * from account_user where username = :username")
                         .bind("username", username)
