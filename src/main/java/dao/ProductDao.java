@@ -15,10 +15,13 @@ public class ProductDao {
         jdbi = DBConnection.getConnetion();
     }
     public int getNumberPageProductByCategory(int idCategory, int pageSize) {
-        String query = "select count(*) from products where idCategory = ? ";
+        String categoryQuery = "";
+        if(idCategory != 0){
+            categoryQuery = " where idCategory = " + idCategory;
+        }
+        String query = "select count(*) from products "+categoryQuery;
         int size =  jdbi.withHandle(handle -> {
             return handle.createQuery(query)
-                    .bind(0, idCategory)
                     .mapTo(Integer.class).first();
         });
         return (size % pageSize == 0) ? size / pageSize : size / pageSize + 1;
@@ -29,6 +32,10 @@ public class ProductDao {
         String groupBy = "";
         String join = "";
         String sum = "";
+        String categoryQuery = "";
+        if (idCategory != 0) {
+            categoryQuery = " p.idCategory = " + idCategory + " AND ";
+        }
 
         switch (options) {
             case 1:
@@ -47,18 +54,18 @@ public class ProductDao {
                 sortBy = " totalProduct ";
                 sortOrder = " DESC ";
                 join = """
-                LEFT JOIN styles s ON s.idProduct = p.id
-                LEFT JOIN order_details od ON od.idStyle = s.id
-                """;
+            LEFT JOIN styles s ON s.idProduct = p.id
+            LEFT JOIN order_details od ON od.idStyle = s.id
+            """;
                 groupBy = """
-                GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
-                         p.area, p.selling, p.img, c.id, c.name, 
-                         t.id, t.specifications, t.manufactureDate, 
-                         pr.id, pr.price, pr.discountPercent, pr.lastPrice
-                """;
-                sum = ", SUM(od.quantity) AS totalProduct "; // tổng số lượng đã bán
+            GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
+                     p.area, p.selling, p.img, c.id, c.name, 
+                     t.id, t.specifications, t.manufactureDate, 
+                     pr.id, pr.price, pr.discountPercent, pr.lastPrice
+            """;
+                sum = ", SUM(od.quantity) AS totalProduct"; // tổng số lượng đã bán
                 break;
-            case 5 :
+            case 5:
                 sortBy = " pr.discountPercent ";
                 sortOrder = " DESC ";
                 break;
@@ -69,40 +76,40 @@ public class ProductDao {
         }
 
         String query = """
-        SELECT 
-            p.id AS idProduct,
-            p.name AS nameProduct,
-            p.quantity,
-            p.addedDate,
-            p.description,
-            p.area,
-            p.selling,
-            p.img,
-            c.id AS idCategory,
-            c.name AS categoryName,
-            t.id AS idTechnicalInfo,
-            t.specifications,
-            t.manufactureDate,
-            pr.id AS idPrice,
-            pr.price,
-            pr.discountPercent,
-            pr.lastPrice
-            """ + sum + """
-        FROM products p
-        JOIN categories c ON p.idCategory = c.id
-        JOIN technical_information t ON p.id = t.id
-        JOIN prices pr ON p.idPrice = pr.id
-        """ + join + """
-        WHERE p.idCategory = ? and p.quantity > 0 and p.selling > 0
-        """ + groupBy + """
-        ORDER BY """ + sortBy + " " + sortOrder + """
-        LIMIT ? OFFSET ?;
+    SELECT 
+        p.id AS idProduct,
+        p.name AS nameProduct,
+        p.quantity,
+        p.addedDate,
+        p.description,
+        p.area,
+        p.selling,
+        p.img,
+        c.id AS idCategory,
+        c.name AS categoryName,
+        t.id AS idTechnicalInfo,
+        t.specifications,
+        t.manufactureDate,
+        pr.id AS idPrice,
+        pr.price,
+        pr.discountPercent,
+        pr.lastPrice
+        """ + sum + """
+     FROM products p
+    JOIN categories c ON p.idCategory = c.id
+    JOIN technical_information t ON p.id = t.id
+    JOIN prices pr ON p.idPrice = pr.id
+    """ + join + """
+    WHERE """ + categoryQuery + """
+     p.quantity > 0 AND p.selling > 0
+    """ + groupBy + """
+    ORDER BY """ + sortBy + " " + sortOrder + """
+    LIMIT ? OFFSET ?;
     """;
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
-                .bind(0, idCategory)
-                .bind(1, pageSize)
-                .bind(2, (pageNumber - 1) * pageSize)
+                .bind(0, pageSize)
+                .bind(1, (pageNumber - 1) * pageSize)
                 .map((rs, ctx) -> {
                     // Product
                     Product product = new Product();
@@ -137,11 +144,6 @@ public class ProductDao {
                     product.setPrice(price);
 
                     return product;
-        }).list());
-    }
-
-    public static void main(String[] args) {
-        ProductDao dao = new ProductDao();
-        System.out.println(dao.getProductsByCategoryBySort(2, 1, 4, 4));
+                }).list());
     }
 }

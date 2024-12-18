@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.servlet.ServletException;
@@ -11,9 +10,8 @@ import models.Product;
 import services.ProductService;
 import services.StyleService;
 
-@WebServlet(name = "ProductFabricServlet", value = "/product-fabric")
-public class ProductFabricServlet extends HttpServlet {
-
+@WebServlet(name = "ProductsServlet", value = "/products")
+public class ProductsServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int option = request.getParameter("option") == null ? 0 : Integer.parseInt(request.getParameter("option"));
         option = (option < 0 || option > 5) ? 0 : option;
@@ -22,17 +20,18 @@ public class ProductFabricServlet extends HttpServlet {
 
         int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
 
-        List<Product> products = ps.getProductsByCategorySort(2, currentPage, 12, option);
+        List<Product> products = ps.getProductsByCategorySort(0, currentPage, 16, option);
         StyleService ss = new StyleService();
-        for (Product p : products) {
-            p.setStyles(ss.getAllStylesByIDProduct(p.getId()));
+        for (Product product : products) {
+            product.setStyles(ss.getAllStylesByIDProduct(product.getId()));
         }
 
-        request.setAttribute("fabric", products);
-        request.setAttribute("pageNumber", ps.getNumberOfPage(2, 12));
+        request.setAttribute("products", products);
+        request.setAttribute("pageNumber", ps.getNumberOfPage(0, 16));
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("option", option);
 
-        request.getRequestDispatcher("fabric-product.jsp").forward(request, response);
+        request.getRequestDispatcher("products.jsp").forward(request, response);
     }
+
 }

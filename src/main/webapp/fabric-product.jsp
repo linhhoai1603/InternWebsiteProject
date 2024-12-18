@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Vải nội thất</title>
-  <link rel="stylesheet" href="css/fabric-blog.css">
+  <link rel="stylesheet" href="css/fabric-product.css">
 </head>
 <body>
 <%@ include file="includes/header.jsp" %>
@@ -34,18 +34,33 @@
   <div class="d-flex product-container">
     <!-- Sản phẩm 1 -->
     <c:forEach var="product" items="${requestScope.fabric}">
-      <div class="card product-item position-relative">
+      <div class="card product-item position-relative" style="background-color: #ededed">
         <!-- Thẻ span hiển thị phần trăm giảm giá -->
         <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
-            -${product.price.discountPercent}
-        </span>
+        -${product.price.discountPercent}
+    </span>
 
-        <img src="${product.image}" class="card-img-top h-50" alt="Hình ảnh sản phẩm" style="object-fit: cover;">
+        <!-- Hình ảnh chính -->
+        <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="img-fluid main-image w-100 h-50" height="50%">
+
+
         <div class="card-body text-center">
           <h5 class="card-title">${product.name}</h5>
+          <!-- Danh sách các tùy chọn màu sắc -->
+          <div class="product-squares d-flex justify-content-center mt-2">
+            <c:forEach var="style" items="${product.styles}">
+              <div
+                      class="square"
+                      style="background-image: url('${style.image}'); background-size: cover; background-position: center; width: 40px; height: 40px; border: 1px solid #ccc; margin: 0 5px; cursor: pointer;"
+                      onmouseover="changeMainImage(${product.id}, '${style.image}')"
+                      onmouseout="restoreMainImage(${product.id}, '${product.image}')">
+              </div>
+            </c:forEach>
+          </div>
+
           <h4 class="card-text text-success">Chỉ còn: <span class="product-old-price">${product.price.lastPrice}</span></h4>
           <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="product-price">${product.price.price}</span></p>
-          <p class="cart-text ">Mô tả: ${product.description}</p>
+          <p class="cart-text">Mô tả: ${product.description}</p>
           <div class="row" style="justify-content: center">
             <a href="detail-product?id=${product.id}" class="col-md-7 btn btn-warning mx-1">Thêm vào giỏ hàng</a>
             <a href="detail-product?id=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
@@ -61,13 +76,13 @@
       <!-- Nút Previous -->
       <c:if test="${requestScope.currentPage > 1}">
         <li class="page-item">
-          <a class="page-link" href="product-fabric?active=previous&page=${requestScope.currentPage-1}&option=${requestScope.option}"> << </a>
+          <a class="page-link mx-2" href="product-fabric?page=${requestScope.currentPage-1}&option=${requestScope.option}"> << </a>
         </li>
       </c:if>
 
       <!-- Các trang -->
       <c:forEach var="i" begin="1" end="${requestScope.pageNumber}">
-        <li class="page-item ${i == requestScope.currentPage ? 'active' : ''}">
+        <li class="page-item mx-2 ${i == requestScope.currentPage ? 'active' : ''}">
           <a class="page-link" href="product-fabric?page=${i}&option=${requestScope.option}">${i}</a>
         </li>
       </c:forEach>
@@ -75,7 +90,7 @@
       <!-- Nút Next -->
       <c:if test="${requestScope.currentPage < requestScope.pageNumber}">
         <li class="page-item">
-          <a class="page-link" href="product-fabric?active=next&page=${requestScope.currentPage+1}&option=${requestScope.option}"> >> </a>
+          <a class="page-link mx-2" href="product-fabric?page=${requestScope.currentPage+1}&option=${requestScope.option}"> >> </a>
         </li>
       </c:if>
     </ul>
@@ -90,7 +105,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     // Hàm định dạng số tiền thành tiền Việt
     function formatCurrency(amount) {
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+      return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
     }
 
     // Hàm định dạng phần trăm giảm giá
@@ -122,6 +137,15 @@
       }
     });
   });
+  function changeMainImage(productId, imageUrl) {
+    document.getElementById("mainImage" + productId).src = imageUrl;
+  }
+
+  function restoreMainImage(productId, imageUrl) {
+    document.getElementById("mainImage" + productId).src = imageUrl;
+  }
+
+
 </script>
 </body>
 </html>
