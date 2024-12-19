@@ -23,10 +23,6 @@ public class ProductFabricServlet extends HttpServlet {
         int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
 
         List<Product> products = ps.getProductsByCategorySort(2, currentPage, 12, option);
-        StyleService ss = new StyleService();
-        for (Product p : products) {
-            p.setStyles(ss.getAllStylesByIDProduct(p.getId()));
-        }
 
         request.setAttribute("fabric", products);
         request.setAttribute("pageNumber", ps.getNumberOfPage(2, 12));

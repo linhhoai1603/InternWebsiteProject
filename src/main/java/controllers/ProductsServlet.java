@@ -21,10 +21,6 @@ public class ProductsServlet extends HttpServlet {
         int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
 
         List<Product> products = ps.getProductsByCategorySort(0, currentPage, 16, option);
-        StyleService ss = new StyleService();
-        for (Product product : products) {
-            product.setStyles(ss.getAllStylesByIDProduct(product.getId()));
-        }
 
         request.setAttribute("products", products);
         request.setAttribute("pageNumber", ps.getNumberOfPage(0, 16));
