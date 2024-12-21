@@ -2,11 +2,11 @@ package models;
 
 import java.io.Serializable;
 
-public class Price implements Serializable {
-     private int id;
-     private double price;
-     private double discountAmount;
-     private double lastPrice;
+    public class Price implements Serializable {
+         private int id;
+         private double price;
+         private double discountAmount;
+         private double lastPrice;
 
     public Price(int id, double price, double discountAmount, double lastPrice) {
         this.id = id;

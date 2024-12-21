@@ -11,12 +11,14 @@ import services.ProductService;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(value = "/may-mac" , name = "MayMac")
-public class MayMac extends HttpServlet {
+@WebServlet(name = "MayMac",value = "/may-mac")
+public class MayMacServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ProductService productService = new ProductService();
-        List<Product> products
+        List<Product> list = productService.getProductByCategory("Vải may mặc");
+        request.setAttribute("garment", list);
+        request.getRequestDispatcher("garment-product.jsp").forward(request,response);
     }
 
     @Override
