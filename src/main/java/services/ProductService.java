@@ -32,9 +32,23 @@ public class ProductService {
         }
         return products;
     }
+    public List<Product> getProductByCategory(String category,int psize,int nupa) {
+        List<Product> products = productDao.getProductByCategory(category,psize,nupa);
+        if (products.isEmpty()) {
+            System.out.println("Không tìm thấy sản phẩm nào thuộc danh mục: " + category);
+        }
+        return products;
+    }
+    public int getNumberOfPage(List<Product> products,int psize) {
+        int nuP = products.size();
+        return (nuP % psize == 0) ? nuP / psize : nuP / psize + 1;
+    }
 
     public static void main(String[] args) {
         ProductService productService = new ProductService();
-        System.out.println(productService.getProductByCategory("Vải may mặc"));
+        List<Product> products = productService.getProductByCategory("Vải may mặc",12,4);
+        int nu =productService.getNumberOfPage(products,12);
+        System.out.println(products);
+        System.out.println(nu);
     }
 }

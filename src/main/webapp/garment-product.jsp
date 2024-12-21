@@ -60,8 +60,23 @@
 <div class="pagination-container">
   <div class="pagination">
     <button class="page-btn" id="prev-btn">&lt</button>
-    <button class="page-btn" id="page-1" style="background-color: #339C87;">1</button>
-    <button class="page-btn active" id="page-2">2</button>
+    <%
+      int nuPage = Integer.parseInt(request.getAttribute("nuPage").toString());
+      int loca = Integer.parseInt(request.getAttribute("loca").toString());
+      for (int i = 1; i <= nuPage; i++) {
+        if(i == loca) {
+    %>
+    <button class="page-btn active" id="page-<%= i %>" style="background-color: #339C87;"><a href="may-mac?loca=<%= i %>"><%= i %></a></button>
+    <%
+    } else {
+    %>
+    <button class="page-btn" id="page-<%= i %>"><a href="may-mac?loca=<%= i %>"><%= i %></a></button>
+    <%
+        }
+      }
+    %>
+
+
     <button class="page-btn" id="next-btn">&gt</button>
   </div>
 </div>
