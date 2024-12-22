@@ -13,4 +13,5 @@ public class StyleService {
     public List<Style> getAllStylesByIDProduct(int idProduct){
         return styleDao.getAllStylesByIDProduct(idProduct);
     }
+
 }

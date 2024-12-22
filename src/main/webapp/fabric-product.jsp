@@ -1,26 +1,36 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="includes/link/headLink.jsp" %>
+<%@include file="includes/link/headLink.jsp"%>
 <html>
 <head>
-  <title>Vải nội thất</title>
-  <link rel="stylesheet" href="css/fabric-product.css">
+  <title>Danh mục sản phẩm vải nội thất</title>
+  <link rel="stylesheet" href="css/products.css">
 </head>
+<style>
+  /* Thay đổi giao diện khi người dùng chọn */
+  .product-style-image {
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  input[type="radio"]:checked + .product-style-image {
+    border-color: #007bff;
+    transform: scale(1.3);
+  }
+</style>
 <body>
-<%@ include file="includes/header.jsp" %>
-<%@ include file="includes/navbar.jsp" %>
+<%@include file="includes/header.jsp"%>
+<%@include file="includes/navbar.jsp"%>
 <c:if test="${requestScope.fabric == null}">
   <script>
     window.location.href = "product-fabric";
   </script>
 </c:if>
-
 <div class="container my-5">
   <!-- Thanh sắp xếp -->
-  <div class="header-right d-flex align-items-center justify-content-end">
+  <div class="header-right d-flex align-items-center justify-content-end my-4">
     <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+      <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
         Sắp xếp theo
-      </button>
+      </a>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <li><a class="dropdown-item" href="product-fabric?option=1&page=1">Mới nhất</a></li>
         <li><a class="dropdown-item" href="product-fabric?option=2&page=1">Giá: Cao -> Thấp</a></li>
@@ -31,41 +41,50 @@
     </div>
   </div>
 
-  <div class="d-flex product-container">
-    <!-- Sản phẩm 1 -->
+  <div class="product-container">
     <c:forEach var="product" items="${requestScope.fabric}">
       <div class="card product-item position-relative" style="background-color: #ededed">
         <!-- Thẻ span hiển thị phần trăm giảm giá -->
         <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
-        -${product.price.discountPercent}
-    </span>
+                     -${product.price.discountPercent}
+                </span>
 
         <!-- Hình ảnh chính -->
-        <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="img-fluid main-image w-100 h-50" height="50%">
+        <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="img-fluid main-image w-100 h-50">
 
-
-        <div class="card-body text-center">
-          <h5 class="card-title">${product.name}</h5>
-          <!-- Danh sách các tùy chọn màu sắc -->
-          <div class="product-squares d-flex justify-content-center mt-2">
+        <!-- Danh sách các tùy chọn màu sắc hiển thị dưới dạng ảnh -->
+        <form action="add-to-cart" method="post" class="product-options-form">
+          <input type="hidden" name="productID" value="${product.id}">
+          <div class="product-squares d-flex justify-content-center align-items-center flex-wrap mt-2">
             <c:forEach var="style" items="${product.styles}">
-              <div
-                      class="square"
-                      style="background-image: url('${style.image}'); background-size: cover; background-position: center; width: 40px; height: 40px; border: 1px solid #ccc; margin: 0 5px; cursor: pointer;"
-                      onmouseover="changeMainImage(${product.id}, '${style.image}')"
-                      onmouseout="restoreMainImage(${product.id}, '${product.image}')">
-              </div>
+              <label for="style${style.id}" class="product-style-label" style="cursor: pointer; margin: 5px;">
+                <input
+                        type="radio"
+                        name="selectedStyle"
+                        id="style${style.id}"
+                        value="${style.id}"
+                        style="display: none;"
+                        required>
+                <img
+                        src="${style.image}"
+                        alt="${style.name}"
+                        class="product-style-image rounded"
+                        style="width: 60px; height: 60px; border: 2px solid #ccc; padding: 2px;">
+              </label>
             </c:forEach>
           </div>
 
-          <h4 class="card-text text-success">Chỉ còn: <span class="product-old-price">${product.price.lastPrice}</span></h4>
-          <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="product-price">${product.price.price}</span></p>
-          <p class="cart-text">Mô tả: ${product.description}</p>
-          <div class="row" style="justify-content: center">
-            <a href="detail-product?id=${product.id}" class="col-md-7 btn btn-warning mx-1">Thêm vào giỏ hàng</a>
-            <a href="detail-product?id=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
+          <div class="card-body text-center">
+            <h5 class="card-title">${product.name}</h5>
+            <h4 class="card-text text-success">Chỉ còn: <span class="product-price text-success">${product.price.lastPrice}</span></h4>
+            <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="product-price">${product.price.price}</span></p>
+            <p class="cart-text">Mô tả: ${product.description}</p>
+            <div class="row mt-3" style="justify-content: center">
+              <button type="submit" class="col-md-7 btn btn-warning mx-1">Thêm vào giỏ hàng</button>
+              <a href="detail-product?id=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </c:forEach>
   </div>
@@ -95,57 +114,28 @@
       </c:if>
     </ul>
   </nav>
-
 </div>
-
-<%@ include file="includes/footer.jsp" %>
-<%@ include file="includes/link/footLink.jsp" %>
-<script >
-
+<%@include file="includes/footer.jsp"%>
+<script defer>
   document.addEventListener("DOMContentLoaded", function () {
-    // Hàm định dạng số tiền thành tiền Việt
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(amount);
-    }
-
-    // Hàm định dạng phần trăm giảm giá
-    function formatDiscount(discount) {
-      return Math.round(discount) + '%';
-    }
-
-    // Định dạng giá gốc
-    document.querySelectorAll(".product-old-price").forEach(el => {
-      const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
-      if (originalPrice) {
-        el.textContent = formatCurrency(parseFloat(originalPrice));
-      }
-    });
-
-    // Định dạng giá sau khi giảm
-    document.querySelectorAll(".product-price").forEach(el => {
-      const lastPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
-      if (lastPrice) {
-        el.textContent = formatCurrency(parseFloat(lastPrice));
-      }
-    });
-
-    // Định dạng phần trăm giảm giá
-    document.querySelectorAll(".product-discount").forEach(el => {
-      const discountPercent = el.textContent.trim().replace("%", "");
-      if (discountPercent) {
-        el.textContent = formatDiscount(parseFloat(discountPercent));
-      }
+    // Lắng nghe sự kiện thay đổi của tất cả các radio button
+    const styleInputs = document.querySelectorAll('input[type="radio"][name="selectedStyle"]');
+    styleInputs.forEach(input => {
+      input.addEventListener("change", function () {
+        const form = this.closest(".product-options-form");
+        const productId = form.querySelector('input[name="productID"]').value;
+        const imageUrl = this.nextElementSibling.src;
+        changeMainImage(productId, imageUrl);
+      });
     });
   });
+
   function changeMainImage(productId, imageUrl) {
-    document.getElementById("mainImage" + productId).src = imageUrl;
+    const mainImage = document.getElementById("mainImage" + productId);
+    if (mainImage) {
+      mainImage.src = imageUrl;
+    }
   }
-
-  function restoreMainImage(productId, imageUrl) {
-    document.getElementById("mainImage" + productId).src = imageUrl;
-  }
-
-
 </script>
 </body>
 </html>

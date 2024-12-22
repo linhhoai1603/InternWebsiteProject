@@ -3,15 +3,12 @@ package controllers;
 import java.io.*;
 import java.util.List;
 
-import dao.ProductDao;
-import dao.StyleDao;
-import dao.VoucherDao;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.Cart;
 import models.Product;
 import services.ProductService;
-import services.StyleService;
 import services.VoucherService;
 
 @WebServlet(name = "HomeServlet", value = "/home")
@@ -19,6 +16,9 @@ public class HomeServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         ProductService ps = new ProductService();
         HttpSession session = request.getSession();
+        // tạo ra shopping cart của người dùng
+        Cart cart = new Cart();
+        session.setAttribute("cart", cart);
         // danh sách sản phẩm nội thất bán chạy
         session.setAttribute("fabricHotSelling", ps.getProductsByCategorySort(2, 1, 4, 4));
         List<Product> productsHotSelling = ps.getProductsByCategorySort(1, 1, 8, 4);

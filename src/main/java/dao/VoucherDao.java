@@ -27,4 +27,12 @@ public class VoucherDao {
                     .mapToBean(Voucher.class).list();
         });
     }
+    public Voucher getVoucherByCode(String code){
+        String query = "SELECT * FROM vouchers WHERE code = ?;";
+        return jdbi.withHandle(handle -> {
+            return handle.createQuery(query)
+                    .bind(0, code)
+                    .mapToBean(Voucher.class).first();
+        });
+    }
 }

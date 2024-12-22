@@ -11,9 +11,12 @@ public class VoucherService {
         voucherDao = new VoucherDao();
     }
     public List<Voucher> getAllVouchers() {
-    return voucherDao.getAllVouchers();
+        return voucherDao.getAllVouchers();
     }
-        public List<Voucher> getVoucherByValid(int valid){
+    public List<Voucher> getVoucherByValid(int valid){
         return voucherDao.getVoucherByValid(valid);
+    }
+    public Voucher getVoucherByCode(String code){
+        return voucherDao.getVoucherByCode(code);
     }
 }

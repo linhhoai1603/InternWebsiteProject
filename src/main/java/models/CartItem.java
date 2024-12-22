@@ -7,17 +7,10 @@ public class CartItem {
    private int quantity;
    private double totalPrice;
    private double area;
-   public CartItem(Style product) {
-       this.product = product;
-       this.quantity = 1;
-       this.totalPrice = product.getProduct().getPrice().getLastPrice();
-       this.area = product.getProduct().getArea();
-   }
    public CartItem(Style product, int quantity) {
        this.product = product;
        this.quantity = quantity;
        this.totalPrice = quantity * product.getProduct().getPrice().getLastPrice();
-       this.area = quantity * product.getProduct().getArea();
    }
    public Style getProduct() {
        return product;
@@ -28,6 +21,16 @@ public class CartItem {
    public int getQuantity() {
        return quantity;
    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public void setArea(double area) {
+        this.area = area;
+    }
+
+    // method update số lượng sản phẩm
    public void setQuantity(int quantity) {
        this.quantity = quantity;
    }
@@ -37,14 +40,8 @@ public class CartItem {
    public void setTotalPrice(double totalPrice) {
        this.totalPrice = totalPrice;
    }
-   public double getArea() {
-       return area;
-   }
-   public void setArea(double area) {
-       this.area = area;
-   }
    public String toString(){
-       return this.product.toString() + " " + this.quantity + " " + this.totalPrice + " " + this.area;
+       return this.product.toString() + " " + this.quantity + " " + this.totalPrice ;
    }
 
 }

@@ -8,57 +8,92 @@ public class Cart {
     private int totalQuantity;
     private double totalPrice;
     private Voucher voucher;
-    private double totalArea;
     private double shippingFee;
-
-
+    private double lastPrice;
+    private double totalArea;
     // method add an item
     public void add(CartItem item) {
+        // kiểm tra số lượng là âm
+        if(item.getQuantity() < 0) return;
         int idStyle = item.getProduct().getId();
         // check contain
-        if(items.containsKey(idStyle)) {
+        if(!items.containsKey(idStyle) || items.get(idStyle) == null) {
+            items.put(idStyle, item);
+        }else{
             // increment quantity
             CartItem existing = items.get(idStyle);
             existing.setQuantity(existing.getQuantity() + item.getQuantity());
-        }else{
-            items.put(idStyle, item);
         }
-        totalQuantity += item.getQuantity();
-        totalPrice += item.getTotalPrice();
-        totalArea += item.getArea();
-        this.shippingFee = calculateShippingFee();
+        // method tính tổng số lượng sản phẩm, tổng số lượng tiền và tính tiền ship
+        this.calculateInfo();
     }
-
-    private double calculateShippingFee() {
+    // method tính các chi phí
+    private void calculateInfo() {
         int totalFabric = 0;
+        double price = 0.0;
+        int quantity = 0;
+        double area = 0.0;
         for(CartItem item : items.values()) {
+            quantity += item.getQuantity();
+            price += item.getTotalPrice();
             if(item.getProduct().getProduct().getCategory().getId() == 1 || item.getProduct().getProduct().getCategory().getId() == 2){
-                totalFabric++;
+                totalFabric += item.getQuantity();
+                area += item.getArea() * item.getQuantity();
             }
         }
         // phải trong 10 sản phẩm có ít nhất 5 sản phẩm là vải mới được miễn ship
         if(totalQuantity >= 10 && totalFabric >= 5){
-            return 0.0;
+            this.shippingFee =  0.0;
         }
         else{
             if(totalFabric <= 3){
-                return 30000.0; // nếu sản phẩm vải mà bé hơn 3 thì đồng giá 30k
+                this.shippingFee =  30000.0; // nếu sản phẩm vải mà bé hơn 3 thì đồng giá 30k
+            }else{
+                this.shippingFee = 5000.0 * totalFabric;
             }
         }
-        return 5000.0 * totalFabric;
+        // gán giá trị
+        this.totalQuantity = quantity;
+        this.totalPrice = price;
+        this.lastPrice = this.totalPrice + this.shippingFee;
+        if(this.voucher != null) {
+            if(this.lastPrice >= this.voucher.getConditionAmount()){
+                this.lastPrice = this.lastPrice - this.voucher.getDiscountAmount();
+            }
+        }
+    }
+    // method remove an item
+    public void remove(int idStyle){
+        items.remove(idStyle);
+        this.calculateInfo();
+    }
+    // method update quantity for item
+    public void updateQuantity(int idStyle, int quantity) {
+        CartItem item = items.get(idStyle);
+        item.setQuantity(quantity);
+        this.calculateInfo();
+    }
+    // method apply voucher
+    public void applyVoucher(Voucher voucher) {
+        this.voucher = voucher;
+       this.calculateInfo();
     }
 
-    // method remove an item
-    public boolean remove(int idStyle){
-        return items.remove(idStyle) != null;
-    }
     public Cart() {
         this.items = new HashMap<Integer, CartItem>();
         this.totalQuantity = 0;
         this.totalPrice = 0;
         this.voucher = null;
-        this.totalArea = 0;
         this.shippingFee = 0;
+        this.lastPrice = 0.0;
+    }
+
+    public double getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(double lastPrice) {
+        this.lastPrice = lastPrice;
     }
 
     public double getShippingFee() {
@@ -69,24 +104,19 @@ public class Cart {
         this.shippingFee = shippingFee;
     }
 
+    public Voucher getVoucher() {
+        return voucher;
+    }
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
     public double getTotalArea() {
         return totalArea;
     }
 
     public void setTotalArea(double totalArea) {
         this.totalArea = totalArea;
-    }
-
-    public Voucher getVoucher() {
-        return voucher;
-    }
-
-    public void setVoucher(Voucher voucher) {
-        this.voucher = voucher;
-    }
-
-    public double getTotalPrice() {
-        return totalPrice;
     }
 
     public void setTotalPrice(double totalPrice) {
@@ -116,7 +146,6 @@ public class Cart {
                 ", totalQuantity=" + totalQuantity +
                 ", totalPrice=" + totalPrice +
                 ", voucher=" + voucher +
-                ", totalArea=" + totalArea +
                 ", shippingFee=" + shippingFee +
                 '}';
     }
