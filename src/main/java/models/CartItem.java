@@ -33,6 +33,7 @@ public class CartItem {
     // method update số lượng sản phẩm
    public void setQuantity(int quantity) {
        this.quantity = quantity;
+       this.totalPrice = quantity * style.getProduct().getPrice().getLastPrice();
    }
    public double getTotalPrice() {
        return totalPrice;

@@ -13,5 +13,8 @@ public class StyleService {
     public List<Style> getAllStylesByIDProduct(int idProduct){
         return styleDao.getAllStylesByIDProduct(idProduct);
     }
+    public Style getStyleByID(int idStyle){
+        return styleDao.getStyleByID(idStyle);
+    }
 
 }

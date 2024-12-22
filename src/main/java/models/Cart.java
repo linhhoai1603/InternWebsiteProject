@@ -43,7 +43,7 @@ public class Cart {
             }
         }
         // phải trong 10 sản phẩm có ít nhất 5 sản phẩm là vải mới được miễn ship
-        if(totalQuantity >= 10 && totalFabric >= 5){
+        if(quantity >= 10 && totalFabric >= 5){
             this.shippingFee =  0.0;
         }
         else{
@@ -52,6 +52,9 @@ public class Cart {
             }else{
                 this.shippingFee = 5000.0 * totalFabric;
             }
+        }
+        if(quantity == 0){
+            this.shippingFee =  0.0;
         }
         // gán giá trị
         this.totalQuantity = quantity;
