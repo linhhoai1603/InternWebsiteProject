@@ -15,10 +15,18 @@
 <%@include file="includes/header.jsp"%>
 <%@include file="includes/navbar.jsp"%>
 <link rel="stylesheet" href="css/shopping-cart.css">
-
+<c:if test="${sessionScope.cart == null}">
+  <script>
+    window.location.href = "index.jsp";
+  </script>
+</c:if>
 <!-- Content -->
 <div class="container-fluid">
   <div class="row" style="background-color: rgb(231, 231, 231); padding-top: 10px">
+    <c:if test="${sessionScope.cart.items == null }">
+      <h4 class="text-center">Giỏ hàng của bạn đang trống!</h4>
+      <a href="index.jsp" class="btn btn-warning">Tiếp tục mua sắm</a>
+    </c:if>
     <div class="col-md-1"></div>
     <!-- Empty div-->
     <!-- Danh mục sản phẩm trong giỏ hàng -->
@@ -38,75 +46,37 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="images/cart2.jpg" alt="" style="width: 100%; height: 100%; text-align: center" />
+            <c:forEach var="item" items="${sessionScope.cart.values}">
+              <tr>
+                <td>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <img src="${item.style.image}" alt="${item.style.product.description}" style="width: 100%; height: 100%; text-align: center" />
+                    </div>
+                    <div class="col-md-9">
+                      <h5>${item.style.product.name}</h5>
+                      <p>Màu sắc: ${item.style.name}</p>
+                    </div>
                   </div>
-                  <div class="col-md-9">
-                    <h5>Vải lụa</h5>
-                    <p>Màu sắc: Trắng</p>
-                  </div>
-                </div>
-              </td>
-              <td>100.000đ</td>
-              <td>
-                <input type="number" value="1" min="1" style="width: 50px; text-align: center" />
-              </td>
-              <td>100.000đ</td>
-              <td>
-                <button class="rounded-circle text-danger">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="images/cart1.jpg" alt="" style="width: 100%; height: 100%" />
-                  </div>
-                  <div class="col-md-9">
-                    <h5>Vải kaki</h5>
-                    <p>Màu sắc: Xanh</p>
-                  </div>
-                </div>
-              </td>
-              <td>150.000đ</td>
-              <td>
-                <input type="number" value="1" min="1" style="width: 50px; text-align: center" />
-              </td>
-              <td>150.000đ</td>
-              <td>
-                <button class="rounded-circle text-danger">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="row">
-                  <div class="col-md-3">
-                    <img src="images/cart3.jpg" alt="" style="width: 100%; height: 100%" />
-                  </div>
-                  <div class="col-md-9">
-                    <h5>Vải nhung</h5>
-                    <p>Màu sắc: Đen</p>
-                  </div>
-                </div>
-              </td>
-              <td>200.000đ</td>
-              <td>
-                <input type="number" value="1" min="1" style="width: 50px; text-align: center" />
-              </td>
-              <td>200.000đ</td>
-              <td>
-                <button class="rounded-circle text-danger">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </td>
-            </tr>
+                </td>
+                <td class="price">${item.style.product.price.lastPrice}</td>
+                <td>
+
+                  <form action="cart?method=updateQuantity" method="post">
+
+                        <input type="number" value="${item.quantity}" min="1" style="width: 50px; text-align: center" name="quantity"/>
+                        <input type="hidden" value="${item.style.id}" name="idStyle"/>
+                      <button type="submit">Lưu</button>
+                  </form>
+                </td>
+                <td class="price">${item.totalPrice}</td>
+                <td>
+                  <a class="rounded-circle text-danger" href="cart?method=remove&idStyle=${item.style.id}">
+                    <i class="fa-solid fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+            </c:forEach>
             </tbody>
           </table>
         </div>
@@ -116,36 +86,36 @@
           <table class="table border">
             <thead>
             <tr>
-              <td colspan="2" scope="col" style="font-weight: 700">CỘNG GIỎ HÀNG</td>
+              <td colspan="2" scope="col" style="font-weight: 700">TỔNG CỘNG GIỎ HÀNG</td>
             </tr>
             </thead>
             <tbody>
             <tr>
               <td>Tạm tính</td>
-              <td class="text-right">450,000đ</td>
+              <td class="text-right price">${sessionScope.cart.totalPrice}</td>
             </tr>
             <tr>
               <td>Giao hàng</td>
-              <td class="text-right">Đồng giá 30,000đ</td>
+              <td class="text-right price">${sessionScope.cart.shippingFee}</td>
             </tr>
+
             <tr>
-              <td>Tổng</td>
-              <td class="text-right">480,000đ</td>
-            </tr>
-            <tr>
-              <td colspan="2" class="text-primary">
-                <i class="fa-solid fa-ticket"></i>&nbsp;Phiếu ưu đãi
-              </td>
+            <!-- thông tin khác -->
+              <td>Số lượng sản phẩm</td>
+              <td class="text-right">${sessionScope.cart.totalQuantity}</td>
             </tr>
             <tr>
               <td colspan="2">
-                <input type="text" name="voucher" id="voucher" placeholder="Mã ưu đãi" style="padding: 5px; width: 100%" />
+                  <form action="cart?method=applyVoucher" method="post">
+                    <i class="fa-solid fa-ticket"></i>&nbsp;Phiếu ưu đãi
+                    <input type="text" name="code" id="code" style="padding: 5px; width: 100%" value="${sessionScope.cart.voucher.code}"/>
+                    <button type="submit" class="btn btn-primary">Áp dụng</button>
+                  </form>
               </td>
             </tr>
             <tr>
-              <td colspan="2">
-                <button class="btn btn-primary">Áp dụng</button>
-              </td>
+              <td>Tổng tiền: </td>
+              <td class="text-right price">${sessionScope.cart.lastPrice}</td>
             </tr>
             <tr>
               <td style="text-align: center" colspan="2">
@@ -163,7 +133,26 @@
   </div>
 </div>
 <!-- End content -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Hàm định dạng số tiền thành tiền Việt
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
 
+    // Định dạng giá gốc
+    document.querySelectorAll(".price").forEach(el => {
+      const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+      if (originalPrice) {
+        el.textContent = formatCurrency(parseFloat(originalPrice));
+      }
+    });
+
+
+  });
+
+
+</script>
 <%@include file="includes/footer.jsp"%>
 <%@include file="includes/link/footLink.jsp"%>
 </body>

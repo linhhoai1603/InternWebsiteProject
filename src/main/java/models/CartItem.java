@@ -3,20 +3,20 @@ package models;
 import java.util.Map;
 
 public class CartItem {
-   private Style product;
+   private Style style;
    private int quantity;
    private double totalPrice;
    private double area;
    public CartItem(Style product, int quantity) {
-       this.product = product;
+       this.style = product;
        this.quantity = quantity;
        this.totalPrice = quantity * product.getProduct().getPrice().getLastPrice();
    }
-   public Style getProduct() {
-       return product;
+   public Style getStyle() {
+       return style;
    }
-   public void setProduct(Style product) {
-       this.product = product;
+   public void setStyle(Style product) {
+       this.style = product;
    }
    public int getQuantity() {
        return quantity;
@@ -41,7 +41,7 @@ public class CartItem {
        this.totalPrice = totalPrice;
    }
    public String toString(){
-       return this.product.toString() + " " + this.quantity + " " + this.totalPrice ;
+       return this.style.toString() + " " + this.quantity + " " + this.totalPrice ;
    }
 
 }

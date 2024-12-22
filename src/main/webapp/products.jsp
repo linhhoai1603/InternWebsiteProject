@@ -55,9 +55,17 @@
 
                 <!-- Danh sách các tùy chọn màu sắc hiển thị dưới dạng ảnh -->
                 <form action="cart?method=add" method="post" class="product-options-form">
+                    <input name="currentURL" type="hidden" value="products?page=${requestScope.currentPage}&option=${requestScope.option}">
                     <input type="hidden" name="productID" value="${product.id}">
                     <div class="product-squares d-flex justify-content-center align-items-center flex-wrap mt-2">
                         <c:forEach var="style" items="${product.styles}">
+
+                            <!-- Trường số lượng ẩn ban đầu -->
+                            <div class="quantity-container" style="display: none;">
+                                <label for="quantity" class="fw-bold">Số lượng:</label>
+                                <input name="quantity" id="quantity" class="quantity-input " type="number" min="1" value="1">
+                            </div>
+
                             <label for="style${style.id}" class="product-style-label" style="cursor: pointer; margin: 5px;">
                                 <input
                                         type="radio"
@@ -73,16 +81,19 @@
                                         style="width: 60px; height: 60px; border: 2px solid #ccc; padding: 2px;">
                             </label>
                         </c:forEach>
-                    </div>
 
+                    </div>
                 <div class="card-body text-center">
                     <h5 class="card-title">${product.name}</h5>
                     <h4 class="card-text text-success">Chỉ còn: <span class="product-price text-success">${product.price.lastPrice}</span></h4>
                     <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="product-price">${product.price.price}</span></p>
                     <p class="cart-text ">Mô tả: ${product.description}</p>
-                    <div class="row mt-3" style="justify-content: center">
-                        <button type="submit" class="col-md-7 btn btn-warning mx-1">Thêm vào giỏ hàng</button>
-                        <a href="detail-product?id=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 d-flex justify-content-between">
+                            <button type="button" class="btn btn-warning add-to-cart-button">+<i class="fa-solid fa-cart-shopping"></i></button>
+                            <button type="submit" class="btn btn-success submit-cart-button" style="display: none;">Xác nhận</button>
+                        </div>
+                        <a href="detail-product?id=${product.id}" class="btn btn-primary mx-1 col-md-4 text-center">Xem ngay</a>
                     </div>
                 </div>
                 </form>
@@ -143,6 +154,26 @@
             mainImage.src = imageUrl;
         }
     }
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy danh sách các nút "Thêm vào giỏ hàng"
+        const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                // Tìm container sản phẩm hiện tại
+                const productContainer = this.closest(".product-item");
+
+                // Lấy các phần tử cần thiết trong container hiện tại
+                const quantityContainer = productContainer.querySelector(".quantity-container");
+                const submitCartButton = productContainer.querySelector(".submit-cart-button");
+
+                // Hiển thị input số lượng và nút "Xác nhận"
+                quantityContainer.style.display = "block";
+                this.style.display = "none"; // Ẩn nút "Thêm vào giỏ hàng"
+                submitCartButton.style.display = "inline-block"; // Hiển thị nút "Xác nhận"
+            });
+        });
+    });
 
 </script>
 <script src="js/products.js"></script>

@@ -1,6 +1,8 @@
 package dao;
 
 import connection.DBConnection;
+import models.Category;
+import models.Price;
 import models.Product;
 import models.Style;
 import org.jdbi.v3.core.Jdbi;
@@ -22,10 +24,15 @@ public class StyleDao {
         });
     }
     public Style getStyleByID(int idStyle){
-        String query = "select * from styles where id = ?";
+        String query = "SELECT s.id, s.name, s.image, p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, c.id AS idCategory " +
+                "FROM styles s " +
+                "JOIN products p ON s.idProduct = p.id " +
+                "JOIN prices pr ON p.idPrice = pr.id " +
+                "JOIN categories c ON p.idCategory = c.id " +
+                "WHERE s.id = :idStyle";
         return jdbi.withHandle(handle -> {
            return handle.createQuery(query)
-                   .bind(0, idStyle)
+                   .bind("idStyle", idStyle)
                    .map((rs, ctx) ->{
                        Style style = new Style();
                        style.setId(rs.getInt("id"));
@@ -33,6 +40,15 @@ public class StyleDao {
                        style.setImage(rs.getString("image"));
                        Product product = new Product();
                        product.setId(rs.getInt("idProduct"));
+                       product.setName(rs.getString("nameProduct"));
+                       Price price = new Price();
+                       price.setId(rs.getInt("idPrice"));
+                       price.setLastPrice(rs.getDouble("lastPrice"));
+                       Category category = new Category();
+                       category.setId(rs.getInt("idCategory"));
+                       product.setCategory(category);
+                       product.setPrice(price);
+                       style.setProduct(product);
                        return style;
                    }).list().getFirst();
         });

@@ -1,6 +1,7 @@
 package models;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Cart {
@@ -15,7 +16,7 @@ public class Cart {
     public void add(CartItem item) {
         // kiểm tra số lượng là âm
         if(item.getQuantity() < 0) return;
-        int idStyle = item.getProduct().getId();
+        int idStyle = item.getStyle().getId();
         // check contain
         if(!items.containsKey(idStyle) || items.get(idStyle) == null) {
             items.put(idStyle, item);
@@ -36,7 +37,7 @@ public class Cart {
         for(CartItem item : items.values()) {
             quantity += item.getQuantity();
             price += item.getTotalPrice();
-            if(item.getProduct().getProduct().getCategory().getId() == 1 || item.getProduct().getProduct().getCategory().getId() == 2){
+            if(item.getStyle().getProduct().getCategory().getId() == 1 || item.getStyle().getProduct().getCategory().getId() == 2){
                 totalFabric += item.getQuantity();
                 area += item.getArea() * item.getQuantity();
             }
@@ -77,6 +78,9 @@ public class Cart {
     public void applyVoucher(Voucher voucher) {
         this.voucher = voucher;
        this.calculateInfo();
+    }
+    public List<CartItem> getValues(){
+        return items.values().stream().toList();
     }
 
     public Cart() {
