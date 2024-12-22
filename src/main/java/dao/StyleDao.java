@@ -11,7 +11,25 @@ public class StyleDao {
     public StyleDao() {
         jdbi = DBConnection.getConnetion();
     }
-    public List<Style> getAllStylesByIDProduct(int idProduct){
+    public Style findById(int id) {
+
+        String sql = "SELECT * FROM styles WHERE id = :id";
+        return jdbi.withHandle(h ->
+                h.createQuery(sql).mapToBean(Style.class).findOne().orElse(null));
+    }
+    public Style findById(String name) {
+
+        String sql = "SELECT * FROM styles WHERE name = :name";
+        return jdbi.withHandle(h ->
+                h.createQuery(sql).mapToBean(Style.class).findOne().orElse(null));
+    }
+    public List<Style> findAll() {
+
+        String sql = "SELECT * FROM styles";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql).mapToBean(Style.class).list());
+    }
+    public List<Style> getAllStylesByIDProduct(int idProduct) {
         String query = "select * from styles where idProduct = ?";
         return jdbi.withHandle(handle -> {
             return handle.createQuery(query)
