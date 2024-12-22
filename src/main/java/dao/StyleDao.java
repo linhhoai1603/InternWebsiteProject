@@ -29,7 +29,7 @@ public class StyleDao {
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql).mapToBean(Style.class).list());
     }
-    public List<Style> getAllStylesByIDProduct(int idProduct){
+    public List<Style> getAllStylesByIDProduct(int idProduct) {
         String query = "select * from styles where idProduct = ?";
         return jdbi.withHandle(handle -> {
             return handle.createQuery(query)
@@ -37,4 +37,5 @@ public class StyleDao {
                     .mapToBean(Style.class)
                     .list();
         });
+    }
 }
