@@ -6,6 +6,9 @@ body, .container-fluid {
     max-width: 100%;
     width: 100%;
 }
+.main-image {
+    transition: all 0.3s ease-in-out;
+}
 
 .category-title {
     background-color: #339C87; /* Chuyển đổi sang màu xanh lá cây */

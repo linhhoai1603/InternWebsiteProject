@@ -6,15 +6,25 @@ public class Voucher implements Serializable {
     private int id;
     private String code;
     private double discountAmount;
-    private double amount;
+    private double conditionAmount;
+    private int valid;
     public Voucher() {
 
     }
-    public Voucher(int id,String code, double discountAmount, double amount) {
+    public Voucher(int id,String code, double discountAmount, double amount, int valid) {
         this.id = id;
         this.code = code;
         this.discountAmount = discountAmount;
-        this.amount = amount;
+        this.conditionAmount = amount;
+        this.valid = valid;
+    }
+
+    public int getValid() {
+        return valid;
+    }
+
+    public void setValid(int valid) {
+        this.valid = valid;
     }
 
     public int getId() {
@@ -33,12 +43,12 @@ public class Voucher implements Serializable {
         this.discountAmount = discountAmount;
     }
 
-    public double getAmount() {
-        return amount;
+    public double getConditionAmount() {
+        return conditionAmount;
     }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
+    public void setConditionAmount(double amount) {
+        this.conditionAmount = amount;
     }
     public String getCode() {
         return code;
@@ -52,7 +62,7 @@ public class Voucher implements Serializable {
         return "Voucher{" +
                 "id=" + id +
                 ", discountAmount=" + discountAmount +
-                ", amount=" + amount +
+                ", amount=" + conditionAmount +
                 '}';
     }
 }

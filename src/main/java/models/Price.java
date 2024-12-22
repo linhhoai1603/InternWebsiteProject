@@ -2,17 +2,17 @@ package models;
 
 import java.io.Serializable;
 
-    public class Price implements Serializable {
-         private int id;
-         private double price;
-         private double discountAmount;
-         private double lastPrice;
+public class Price implements Serializable {
+     private int id;
+     private double price;
+     private double discountPercent;
+     private double lastPrice;
 
-    public Price(int id, double price, double discountAmount, double lastPrice) {
+    public Price(int id, double price, double discountPercent, double lastPrice) {
         this.id = id;
         this.price = price;
-        this.discountAmount = discountAmount;
-        this.lastPrice = price - (discountAmount * lastPrice);
+        this.discountPercent= discountPercent;
+        this.lastPrice = price - (discountPercent * lastPrice);
     }
     public Price(){
 
@@ -34,12 +34,12 @@ import java.io.Serializable;
         this.price = price;
     }
 
-    public double getDiscountAmount() {
-        return discountAmount;
+    public double getDiscountPercent() {
+        return discountPercent;
     }
 
-    public void setDiscountAmount(double discountAmount) {
-        this.discountAmount = discountAmount;
+    public void setDiscountPercent(double discountAmount) {
+        this.discountPercent = discountAmount;
     }
 
     public double getLastPrice() {
@@ -55,7 +55,7 @@ import java.io.Serializable;
         return "Price{" +
                 "id=" + id +
                 ", price=" + price +
-                ", discountAmount=" + discountAmount +
+                ", discountAmount=" + discountPercent +
                 ", lastPrice=" + lastPrice +
                 '}';
     }
