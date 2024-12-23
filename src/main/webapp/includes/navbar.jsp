@@ -123,7 +123,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="garment-product.jsp"
+                        <a class="nav-link text-white" href="${pageContext.request.contextPath}/may-mac"
                         >Vải may mặc</a
                         >
                         <!-- Updated href -->

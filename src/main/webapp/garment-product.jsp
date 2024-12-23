@@ -19,25 +19,60 @@
 
 <div class="container mt-1">
 
-  <div class="row" id="product-container" >
+  <div class="row " id="product-container" style="margin-bottom: 50px ;margin-top: 50px">
     <div class="col-6">
-      <img src="images/mayMac1.jpg" style="width: 100%; height: 100%; object-fit: cover;" alt="mayMac" class="img-fluid">
+      <img src="images/maymac1.png" style="width: 100%; height: 100%; object-fit: cover;" alt="mayMac" class="img-fluid">
     </div>
 
     <div class="col-6">
       <div class="title-product text-center mb-4">
-        <h2>Vải linen</h2>
+        <h2>May mặc tại thời trang</h2>
       </div>
 
       <div class="row">
-        <c:if test="${empty requestScope.garments}">
+        <c:if test="${empty requestScope.garment}">
           <h1>Không có sản phẩm</h1>
         </c:if>
-        <c:forEach var="p" items="${requestScope.garments}">
+        <c:forEach begin="0" end="5" items="${requestScope.garment}" var="p">
           <div class="col-4 products-section" onclick="showDetailProduct()">
             <div class="card product-card">
               <div class="position-relative">
-                <img src="${p.image}" class="card-img-top" alt="Sản phẩm">
+                <img src="${p.image}" class="card-img-top" alt="Sản phẩm" style="object-fit: cover; height: 200px;">
+                <div class="product-buttons position-absolute start-50 translate-middle">
+                  <button class="btn"><i class="fas fa-shopping-cart"></i></button>
+                  <button class="btn">Mua</button>
+                </div>
+              </div>
+              <div class="card-body text-center">
+                <h5 class="card-title">${p.name}</h5>
+                <p class="card-text">
+                  <span class="text-danger text-decoration-line-through small">${p.price.price}</span>
+                  <span class="small" style="color: #339C87;">${p.price.lastPrice}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </c:forEach>
+      </div>
+  </div>
+</div>
+  <div class="row " id="product-container" style="margin-bottom: 50px ;margin-top: 50px">
+
+
+    <div class="col-6">
+      <div class="title-product text-center mb-4">
+        <h2>May mặc cơ bản </h2>
+      </div>
+
+      <div class="row">
+        <c:if test="${empty requestScope.garment}">
+          <h1>Không có sản phẩm</h1>
+        </c:if>
+        <c:forEach begin="6" end="11" items="${requestScope.garment}" var="p">
+          <div class="col-4 products-section" onclick="showDetailProduct()">
+            <div class="card product-card">
+              <div class="position-relative">
+                <img src="${p.image}" class="card-img-top" alt="Sản phẩm" style="object-fit: cover; height: 200px;">
                 <div class="product-buttons position-absolute start-50 translate-middle">
                   <button class="btn"><i class="fas fa-shopping-cart"></i></button>
                   <button class="btn">Mua</button>
@@ -55,18 +90,39 @@
         </c:forEach>
       </div>
     </div>
-  </div>
-
-  <div class="pagination-container">
-    <div class="pagination">
-      <button class="page-btn" id="prev-btn">&lt</button>
-      <button class="page-btn" id="page-1" style="background-color: #339C87;">1</button>
-      <button class="page-btn active" id="page-2">2</button>
-      <button class="page-btn" id="next-btn">&gt</button>
+    <div class="col-6">
+      <img src="images/maymac2.png" style="width: 100%; height: 100%; object-fit: cover;" alt="mayMac" class="img-fluid">
     </div>
   </div>
 
-  <%@include file="includes/footer.jsp"%>
-  <%@include file="includes/link/footLink.jsp"%>
+<div class="pagination-container">
+  <div class="pagination">
+    <button class="page-btn" id="prev-btn">&lt</button>
+    <%
+      int nuPage = Integer.parseInt(request.getAttribute("nuPage").toString());
+      int loca = Integer.parseInt(request.getAttribute("loca").toString());
+      for (int i = 1; i <= nuPage; i++) {
+        if(i == loca) {
+    %>
+    <button class="page-btn active" id="page-<%= i %>" style="background-color: #339C87;"><a href="may-mac?loca=<%= i %>"><%= i %></a></button>
+    <%
+    } else {
+    %>
+    <button class="page-btn" id="page-<%= i %>"><a href="may-mac?loca=<%= i %>"><%= i %></a></button>
+    <%
+        }
+      }
+    %>
+
+
+    <button class="page-btn" id="next-btn">&gt</button>
+  </div>
+</div>
+
+
+
+
+<%@include file="includes/footer.jsp"%>
+<%@include file="includes/link/footLink.jsp"%>
 </body>
 </html>
