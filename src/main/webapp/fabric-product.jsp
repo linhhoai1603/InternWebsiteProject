@@ -47,16 +47,23 @@
         <!-- Thẻ span hiển thị phần trăm giảm giá -->
         <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
                      -${product.price.discountPercent}%
-                </span>
+        </span>
 
         <!-- Hình ảnh chính -->
         <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="img-fluid main-image w-100 h-50">
 
         <!-- Danh sách các tùy chọn màu sắc hiển thị dưới dạng ảnh -->
-        <form action="add-to-cart" method="post" class="product-options-form">
+        <form action="cart?method=add" method="post" class="product-options-form">
+          <input name="currentURL" type="hidden" value="product-fabric?page=${requestScope.currentPage}&option=${requestScope.option}">
           <input type="hidden" name="productID" value="${product.id}">
           <div class="product-squares d-flex justify-content-center align-items-center flex-wrap mt-2">
             <c:forEach var="style" items="${product.styles}">
+              <!-- Trường số lượng ẩn ban đầu -->
+              <div class="quantity-container" style="display: none;">
+                <label for="quantity${style.id}" class="fw-bold">Số lượng:</label>
+                <input name="quantity" id="quantity${style.id}" class="quantity-input" type="number" min="1" value="1">
+              </div>
+
               <label for="style${style.id}" class="product-style-label" style="cursor: pointer; margin: 5px;">
                 <input
                         type="radio"
@@ -80,7 +87,8 @@
             <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="product-price">${product.price.price}</span></p>
             <p class="cart-text">Mô tả: ${product.description}</p>
             <div class="row mt-3" style="justify-content: center">
-              <button type="submit" class="col-md-7 btn btn-warning mx-1">Thêm vào giỏ hàng</button>
+              <button type="button" class="col-md-4 btn btn-warning add-to-cart-button mx-1">+<i class="fa-solid fa-cart-shopping"></i></button>
+              <button type="submit" class="col-md-4 btn btn-success submit-cart-button mx-1" style="display: none;">Xác nhận</button>
               <a href="detail-product?id=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
             </div>
           </div>
@@ -128,6 +136,20 @@
         changeMainImage(productId, imageUrl);
       });
     });
+
+    // Hiển thị trường số lượng và nút "Xác nhận"
+    const addToCartButtons = document.querySelectorAll(".add-to-cart-button");
+    addToCartButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        const productContainer = this.closest(".product-item");
+        const quantityContainer = productContainer.querySelector(".quantity-container");
+        const submitCartButton = productContainer.querySelector(".submit-cart-button");
+
+        quantityContainer.style.display = "block";
+        this.style.display = "none";
+        submitCartButton.style.display = "inline-block";
+      });
+    });
   });
 
   function changeMainImage(productId, imageUrl) {
@@ -136,25 +158,6 @@
       mainImage.src = imageUrl;
     }
   }
-  document.addEventListener("DOMContentLoaded", function () {
-    // Hàm định dạng số tiền thành tiền Việt
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-    }
-
-    // Hàm định dạng phần trăm giảm giá
-    function formatDiscount(discountPercent) {
-      return `-${discountPercent}%`;
-    }
-
-    // Định dạng giá gốc
-    document.querySelectorAll(".product-price").forEach(el => {
-      const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
-      if (originalPrice) {
-        el.textContent = formatCurrency(parseFloat(originalPrice));
-      }
-    });
-  });
 </script>
 </body>
 </html>
