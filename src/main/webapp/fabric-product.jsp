@@ -46,7 +46,7 @@
       <div class="card product-item position-relative" style="background-color: #ededed">
         <!-- Thẻ span hiển thị phần trăm giảm giá -->
         <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
-                     -${product.price.discountPercent}
+                     -${product.price.discountPercent}%
                 </span>
 
         <!-- Hình ảnh chính -->
@@ -136,6 +136,25 @@
       mainImage.src = imageUrl;
     }
   }
+  document.addEventListener("DOMContentLoaded", function () {
+    // Hàm định dạng số tiền thành tiền Việt
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    // Hàm định dạng phần trăm giảm giá
+    function formatDiscount(discountPercent) {
+      return `-${discountPercent}%`;
+    }
+
+    // Định dạng giá gốc
+    document.querySelectorAll(".product-price").forEach(el => {
+      const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+      if (originalPrice) {
+        el.textContent = formatCurrency(parseFloat(originalPrice));
+      }
+    });
+  });
 </script>
 </body>
 </html>
