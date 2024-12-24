@@ -32,7 +32,7 @@ public class VoucherDao {
         return jdbi.withHandle(handle -> {
             return handle.createQuery(query)
                     .bind(0, code)
-                    .mapToBean(Voucher.class).first();
+                    .mapToBean(Voucher.class).findOne().orElse(null);
         });
     }
 }
