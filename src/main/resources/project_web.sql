@@ -89,9 +89,9 @@ CREATE TABLE `prices`(
                          `lastPrice` DOUBLE AS (`price` * (1 - `discountPercent` / 100)) STORED
 );
 CREATE TABLE `technical_information`(
-                                        `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                                        `specifications` VARCHAR(255) NOT NULL,
-                                        `manufactureDate` DATE NOT NULL
+                            `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                            `specifications` VARCHAR(255) NOT NULL,
+                            `manufactureDate` DATE NOT NULL
 );
 CREATE TABLE `users`(
                         `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -103,7 +103,7 @@ CREATE TABLE `users`(
 );
 CREATE TABLE `message`(
                           `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                          `idUser` INT NOT NULL,
+                          `idUser` INT NULL,
                           `title` VARCHAR(255) NOT NULL,
                           `content` VARCHAR(255) NOT NULL
 );
