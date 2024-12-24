@@ -46,13 +46,23 @@
               <div class="card-body text-center">
                 <h5 class="card-title">${p.name}</h5>
                 <p class="card-text">
-                  <span class="text-danger text-decoration-line-through small">${p.price.price}</span>
-                  <span class="small" style="color: #339C87;">${p.price.lastPrice}</span>
+                <div class="price-container">
+                  <strong class="text-danger text-decoration-line-through small">
+                    <fmt:formatNumber value="${p.price.price}" type="number" />₫
+                  </strong>
+                  <strong class="small" style="color: #339C87;">
+                    <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
+                  </strong>
+                </div>
+                <div class="text-danger small">
+                  <strong>-${p.price.discountPercent}%</strong>
+                </div>
                 </p>
               </div>
             </div>
           </div>
         </c:forEach>
+
       </div>
   </div>
 </div>
@@ -81,13 +91,23 @@
               <div class="card-body text-center">
                 <h5 class="card-title">${p.name}</h5>
                 <p class="card-text">
-                  <span class="text-danger text-decoration-line-through small">${p.price.price}</span>
-                  <span class="small" style="color: #339C87;">${p.price.lastPrice}</span>
+                <div class="price-container">
+                  <strong class="text-danger text-decoration-line-through small">
+                    <fmt:formatNumber value="${p.price.price}" type="number" />₫
+                  </strong>
+                  <strong class="small" style="color: #339C87;">
+                    <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
+                  </strong>
+                </div>
+                <div class="text-danger small">
+                  <strong>-${p.price.discountPercent}%</strong>
+                </div>
                 </p>
               </div>
             </div>
           </div>
         </c:forEach>
+
       </div>
     </div>
     <div class="col-6">
