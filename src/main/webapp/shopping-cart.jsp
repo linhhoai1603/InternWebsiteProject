@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="css/shopping-cart.css">
 <c:if test="${sessionScope.cart == null}">
   <script>
-    window.location.href = "index.jsp";
+    window.location.href = "home";
   </script>
 </c:if>
 <!-- Content -->
@@ -107,15 +107,16 @@
             <tr>
               <td colspan="2">
                   <form action="cart?method=applyVoucher" method="post">
-                    <i class="fa-solid fa-ticket"></i>&nbsp;Phiếu ưu đãi
-                    <input type="text" name="code" id="code" style="padding: 5px; width: 100%" value="${sessionScope.cart.voucher.code}"/>
+                    <i class="fa-solid fa-ticket"></i>&nbsp;Phiếu ưu đãi &nbsp;
+                    <input type="text" name="code" id="code" style="padding: 5px; width: 100%" required value="${sessionScope.cart.voucher.code}"/>
+                    <span class="text-danger product-price text-right">${requestScope.message}</span><br>
                     <button type="submit" class="btn btn-primary">Áp dụng</button>
                   </form>
               </td>
             </tr>
             <tr>
-              <td>Tổng tiền: </td>
-              <td class="text-right price">${sessionScope.cart.lastPrice}</td>
+              <td><strong>Tổng tiền: </strong></td>
+              <td class="text-right price fw-bold">${sessionScope.cart.lastPrice}</td>
             </tr>
             <tr>
               <td style="text-align: center" colspan="2">

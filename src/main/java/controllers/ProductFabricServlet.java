@@ -13,7 +13,9 @@ import services.StyleService;
 
 @WebServlet(name = "ProductFabricServlet", value = "/product-fabric")
 public class ProductFabricServlet extends HttpServlet {
-
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int option = request.getParameter("option") == null ? 0 : Integer.parseInt(request.getParameter("option"));
         option = (option < 0 || option > 5) ? 0 : option;

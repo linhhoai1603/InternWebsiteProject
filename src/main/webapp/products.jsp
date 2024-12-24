@@ -3,10 +3,7 @@
 <html>
 <head>
     <title>Danh mục sản phẩm</title>
-<<<<<<< HEAD
     <link rel="stylesheet" href="css/products.css">
-=======
->>>>>>> ca3190846b8f1e6628c7a54b9f7912b229dd9326
 </head>
 <style>
     /* Thay đổi giao diện khi người dùng chọn */

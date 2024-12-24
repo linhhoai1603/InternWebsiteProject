@@ -291,9 +291,4 @@ public class ProductDao {
                         .list()
         );
     }
-
-    public static void main(String[] args) {
-        ProductDao dao = new ProductDao();
-        System.out.println(dao.getProductsByCategoryBySort(2, 1, 4, 4));
-    }
 }

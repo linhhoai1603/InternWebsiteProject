@@ -78,9 +78,14 @@ public class Cart {
         this.calculateInfo();
     }
     // method apply voucher
-    public void applyVoucher(Voucher voucher) {
-        this.voucher = voucher;
-       this.calculateInfo();
+    public boolean applyVoucher(Voucher voucher) {
+      if(totalPrice >= voucher.getConditionAmount()){
+          this.voucher = voucher;
+          this.calculateInfo();
+          return true;
+      }
+          return false;
+
     }
     public List<CartItem> getValues(){
         return items.values().stream().toList();

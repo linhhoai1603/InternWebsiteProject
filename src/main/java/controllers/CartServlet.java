@@ -1,20 +1,24 @@
 package controllers;
 
 import java.io.*;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Cart;
 import models.CartItem;
+import models.Voucher;
 import services.StyleService;
+import services.VoucherService;
 
 @WebServlet(name = "CartServlet", value = "/cart")
 public class CartServlet extends HttpServlet {
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
     }
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String method = request.getParameter("method");
         if("add".equals(method)) {
             addToCart(request, response);
@@ -25,13 +29,47 @@ public class CartServlet extends HttpServlet {
         if("remove".equals(method)) {
             remove(request, response);
         }
+        if("applyVoucher".equals(method)) {
+            applyVoucher(request, response);
+        }
 
+    }
+
+    private void applyVoucher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String code = request.getParameter("code");
+        VoucherService vs = new VoucherService();
+        Voucher voucher = vs.getVoucherByCode(code);
+        if(voucher == null) {
+            request.setAttribute("message", "Mã giảm giá sai!");
+        }else{
+            Cart cart = (Cart) request.getSession().getAttribute("cart");
+            if(!cart.applyVoucher(voucher)){
+                // Định dạng tiền Việt
+                Locale vietnam = new Locale("vi", "VN");
+                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
+                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
+                request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
+            }else{
+                request.setAttribute("message", "Giảm giá thành công!");
+            }
+
+        }
+        request.getRequestDispatcher("shopping-cart.jsp").forward(request,response);
     }
 
     private void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idStyle = Integer.parseInt(request.getParameter("idStyle"));
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         cart.remove(idStyle);
+       try{
+           if(cart.getVoucher() != null) {
+               if(cart.getTotalPrice() < cart.getVoucher().getConditionAmount()){
+                   cart.applyVoucher(null);
+               }
+           }
+       }catch (NullPointerException e){
+           e.printStackTrace();
+       }
         request.getSession().setAttribute("cart", cart);
         request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     }
@@ -58,4 +96,5 @@ public class CartServlet extends HttpServlet {
         String currentURL = request.getParameter("currentURL");
         request.getRequestDispatcher(currentURL).forward(request,response);
     }
+
 }
