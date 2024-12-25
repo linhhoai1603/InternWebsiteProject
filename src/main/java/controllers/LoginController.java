@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.User;
 import services.AuthenServies;
-import services.PasswordUtils;
+
 
 import java.io.IOException;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("Hello, Servlet!");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     @Override
@@ -23,8 +23,7 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         AuthenServies authen = new AuthenServies();
-        PasswordUtils pw = new PasswordUtils();
-        User user = authen.checkLogin(username, pw.encodeToBase64(password));
+        User user = authen.checkLogin(username, password);
         if(user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);

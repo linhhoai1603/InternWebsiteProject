@@ -1,6 +1,5 @@
 package filter;
 
-import dao.AccountDao;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.AccountUser;
 import models.User;
+import services.AcountServies;
 
 import java.io.IOException;
 
@@ -26,8 +26,8 @@ public class AdminFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        AccountDao accountDao = new AccountDao();
-        AccountUser acc = accountDao.findByUserId(user.getId());
+        AcountServies accountService = new AcountServies();
+        AccountUser acc = accountService.findByUserId(user.getId());
 
         if (acc.getRole()<1 && acc==null) {
             response.sendRedirect("login.jsp");

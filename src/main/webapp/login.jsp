@@ -22,7 +22,7 @@
         <p class="text-center">Vui lòng đăng nhập để truy cập tài khoản của bạn</p>
         <form id="loginForm">
             <div class="mb-3">
-                <input class="form-control" id="email" placeholder="Email *" required type="email" aria-label="Email"/>
+                <input class="form-control" id="username" placeholder="Username *" required type="text" aria-label="Username"/>
             </div>
             <div class="mb-3">
                 <input class="form-control" id="password" placeholder="Mật khẩu *" required type="password" aria-label="Mật khẩu"/>
@@ -30,8 +30,8 @@
             <div class="text-center">
                 <button class="btn btn-primary" type="submit">Đăng nhập</button>
             </div>
-            <a href="register.jsp" class="register-link">Chưa có tài khoản? Đăng ký</a>
         </form>
+        <a href="register.jsp" class="register-link">Chưa có tài khoản? Đăng ký</a>
     </div>
 </div>
 <%@include file="includes/link/footLink.jsp"%>

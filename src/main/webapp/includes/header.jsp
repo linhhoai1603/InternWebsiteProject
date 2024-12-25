@@ -45,7 +45,7 @@
                 <a href="shopping-cart.jsp" class="btn text-white btn-bg" id="shoppingCart">
                     <i class="fa-solid fa-cart-shopping"></i>&nbsp;Giỏ hàng
                 </a>
-                <a href="login.jsp" class="btn text-white btn-bg" id="loginButton">
+                <a href="${pageContext.request.contextPath}/login" class="btn text-white btn-bg" id="loginButton">
                     <i class="fa-solid fa-right-to-bracket"></i>&nbsp;Đăng nhập
                 </a>
                 <a href="register.jsp" class="btn text-white btn-bg" id="registerButton">

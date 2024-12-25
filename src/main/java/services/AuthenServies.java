@@ -7,7 +7,7 @@ import models.User;
 
 public class AuthenServies {
     public User checkLogin(String username, String password) {
-        AccountDao accDao = new AccountDao();
+        AcountServies accDao = new AcountServies();
         AccountUser acc = accDao.findByUsername(username);
         User user = null;
         if (acc == null) return null;
