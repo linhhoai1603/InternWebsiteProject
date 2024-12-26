@@ -37,44 +37,46 @@
 
       <!-- Cột thông tin người dùng -->
       <div class="col-md-9">
+      <form id="personalForm" method="post" action="personal">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="" required>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="${user.email}" required>
         </div>
 
         <div class="form-group">
           <label for="fullName">Họ và tên</label>
-          <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Nhập họ và tên" value="" required>
+          <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Nhập họ và tên" value="${user.fullName}" required>
         </div>
 
         <div class="form-group">
           <label for="phoneNumber">Số điện thoại</label>
-          <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại" value="" required>
+          <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại" value="${user.phoneNumber}" required>
         </div>
 
         <!-- Địa chỉ -->
         <div class="form-group">
           <label for="province">Tỉnh</label>
-          <input type="text" class="form-control" id="province" name="province" placeholder="Nhập tỉnh" value="" required>
+          <input type="text" class="form-control" id="province" name="province" placeholder="Nhập tỉnh" value="${user.address.province}" required>
         </div>
 
         <div class="form-group">
           <label for="commune">Xã</label>
-          <input type="text" class="form-control" id="commune" name="commune" placeholder="Nhập xã" value="" required>
+          <input type="text" class="form-control" id="commune" name="commune" placeholder="Nhập xã" value="${user.address.commune}" required>
         </div>
 
         <div class="form-group">
           <label for="city">Thành phố</label>
-          <input type="text" class="form-control" id="city" name="city" placeholder="Nhập thành phố" value="" required>
+          <input type="text" class="form-control" id="city" name="city" placeholder="Nhập thành phố" value="${user.address.city}" required>
         </div>
 
         <div class="form-group">
           <label for="street">Đường</label>
-          <input type="text" class="form-control" id="street" name="street" placeholder="Nhập đường" value="" required>
+          <input type="text" class="form-control" id="street" name="street" placeholder="Nhập đường" value="${user.address.street}" required>
         </div>
 
         <!-- Nút lưu thông tin -->
         <button type="submit" class="btn mt-3" style="background: #339C87 ;color: white ">Lưu thông tin</button>
+      </form>
       </div>
     </div>
   </form>
