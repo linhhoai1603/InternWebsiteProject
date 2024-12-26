@@ -25,10 +25,7 @@ public class AdminFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        AcountServies accountService = new AcountServies();
-        AccountUser acc = accountService.findByUserId(user.getId());
-
+        AccountUser acc = (AccountUser) session.getAttribute("acc");
         if (acc.getRole()<1 && acc==null) {
             response.sendRedirect("login.jsp");
             return;

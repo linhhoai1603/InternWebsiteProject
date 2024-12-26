@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import models.AccountUser;
 import models.User;
 import services.AuthenServies;
 
@@ -23,10 +24,12 @@ public class LoginController extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         AuthenServies authen = new AuthenServies();
-        User user = authen.checkLogin(username, password);
+        AccountUser acc = authen.checkLogin(username, password);
+        User user = acc.getUser();
         if(user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            session.setAttribute("account", acc);
             response.sendRedirect("index.jsp");
         }else {
             request.setAttribute("error", "Invalid username or password");

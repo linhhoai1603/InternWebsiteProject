@@ -9,6 +9,15 @@ public class AccountUser implements Serializable {
     private String password;
     private int role;
     private int locked;
+    private int code;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     public int getId() {
         return id;

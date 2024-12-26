@@ -11,7 +11,5 @@ public class AcountServies {
     public AccountUser findByUsername (String username) {
         return accountDao.findByUsername(username);
     }
-    public AccountUser findByUserId (int id) {
-        return accountDao.findByUserId(id);
-    }
+
 }
