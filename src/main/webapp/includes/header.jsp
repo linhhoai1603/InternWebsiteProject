@@ -1,4 +1,4 @@
-<%--
+<%@ page import="models.User" %><%--
   Created by IntelliJ IDEA.
   User: hoai1
   Date: 12/4/2024
@@ -45,15 +45,28 @@
                 <a href="shopping-cart.jsp" class="btn text-white btn-bg" id="shoppingCart">
                     <i class="fa-solid fa-cart-shopping"></i>&nbsp;Giỏ hàng
                 </a>
+                <%
+                    User user = (User) session.getAttribute("user");
+                    if (user == null) {
+                %>
                 <a href="${pageContext.request.contextPath}/login" class="btn text-white btn-bg" id="loginButton">
                     <i class="fa-solid fa-right-to-bracket"></i>&nbsp;Đăng nhập
                 </a>
                 <a href="register.jsp" class="btn text-white btn-bg" id="registerButton">
                     <i class="fa-solid fa-pen-to-square"></i>&nbsp;Đăng ký
                 </a>
+                <%
+                    }else {
+                %>
                 <a href="${pageContext.request.contextPath}/personal" class="btn text-white btn-bg" id="accountButton">
-                    <i class="fa-solid fa-user"></i>&nbsp;Cá nhân
-                </a>
+                    <i class="fa-solid fa-user"></i>&nbsp;Cá nhân</a>
+                <a href="${pageContext.request.contextPath}/logout" class="btn text-white btn-bg"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
+                <%
+                    }
+                %>
+
+
+
             </div>
         </div>
     </div>
