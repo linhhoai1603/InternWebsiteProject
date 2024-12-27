@@ -107,25 +107,36 @@
             <!-- Nút Previous -->
             <c:if test="${requestScope.currentPage > 1}">
                 <li class="page-item">
-                    <a class="page-link mx-2" href="products?page=${requestScope.currentPage-1}&option=${requestScope.option}"> << </a>
+                    <a class="page-link mx-2" href="products?page=${requestScope.currentPage-1}&option=${requestScope.option}"><<</a>
                 </li>
             </c:if>
 
-            <!-- Các trang -->
+            <!-- Hiển thị tối đa 5 trang -->
             <c:forEach var="i" begin="1" end="${requestScope.pageNumber}">
-                <li class="page-item mx-2 ${i == requestScope.currentPage ? 'active' : ''}">
-                    <a class="page-link" href="products?page=${i}&option=${requestScope.option}">${i}</a>
-                </li>
+                <c:choose>
+                    <c:when test="${i == 1 || i == requestScope.pageNumber || (i >= requestScope.currentPage - 2 && i <= requestScope.currentPage + 2)}">
+                        <li class="page-item ${i == requestScope.currentPage ? 'active' : ''}">
+                            <a class="page-link" href="products?page=${i}&option=${requestScope.option}">${i}</a>
+                        </li>
+                    </c:when>
+                    <c:when test="${i == 2 && requestScope.currentPage > 4}">
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    </c:when>
+                    <c:when test="${i == requestScope.pageNumber - 1 && requestScope.currentPage < requestScope.pageNumber - 3}">
+                        <li class="page-item disabled"><span class="page-link">...</span></li>
+                    </c:when>
+                </c:choose>
             </c:forEach>
 
             <!-- Nút Next -->
             <c:if test="${requestScope.currentPage < requestScope.pageNumber}">
                 <li class="page-item">
-                    <a class="page-link mx-2" href="products?page=${requestScope.currentPage+1}&option=${requestScope.option}"> >> </a>
+                    <a class="page-link mx-2" href="products?page=${requestScope.currentPage+1}&option=${requestScope.option}">>></a>
                 </li>
             </c:if>
         </ul>
     </nav>
+
 </div>
 
 <%@include file="includes/footer.jsp"%>
