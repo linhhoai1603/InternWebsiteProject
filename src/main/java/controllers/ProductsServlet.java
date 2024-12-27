@@ -22,14 +22,17 @@ public class ProductsServlet extends HttpServlet {
 
         int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
         List<Product> products;
+        int nupage ;
         if(search == null){
              products = ps.getProductsByCategorySort(0, currentPage, 16, option);
+            nupage = ps.getNumberOfPage(0, 16);
         }else {
              products = ps.getProductsBySearch(0, currentPage, 16, option,search);
+            nupage = ps.getNumberOfPage(products,16);
         }
 
         request.setAttribute("products", products);
-        request.setAttribute("pageNumber", ps.getNumberOfPage(0, 16));
+        request.setAttribute("pageNumber", nupage);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("option", option);
 

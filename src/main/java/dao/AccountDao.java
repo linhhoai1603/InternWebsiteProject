@@ -11,7 +11,7 @@ public class AccountDao {
     public AccountDao() {
         this.jdbi = DBConnection.getConnetion();
     }
-    public AccountUser findByUsername(String username) {
+    public AccountUser findByUsername(String username,String password) {
         String sql = """
                         SELECT 
                             u.id AS user_id, u.email, u.fullName, u.phoneNumber, u.image,
@@ -24,11 +24,12 @@ public class AccountDao {
                         JOIN 
                             addresses a ON u.idAddress = a.id 
                         WHERE 
-                            au.username = :username
+                            au.username = :username AND au.password = :password
                             """;
         return jdbi.withHandle(handle -> {
             return handle.createQuery(sql)
                     .bind("username", username)
+                    .bind("password", password)
                     .map((rs, ctx) -> {
                         // Ánh xạ thông tin từ bảng users
                         User user = new User();

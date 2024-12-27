@@ -20,7 +20,7 @@
   <h3 class="text-center  mb-4 title" >Thông tin người dùng</h3>
 
   <!-- Form để chỉnh sửa thông tin người dùng -->
-  <form action="saveUserInfo.jsp" method="post" enctype="multipart/form-data">
+  <form action="personal" method="post" enctype="multipart/form-data">
     <div class="row">
       <!-- Cột ảnh đại diện -->
       <div class="col-md-3 text-center">
@@ -36,7 +36,7 @@
 
       <!-- Cột thông tin người dùng -->
       <div class="col-md-9">
-      <form id="personalForm" method="post" action="personal">
+
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="${sessionScope.user.email}" required>
@@ -75,7 +75,6 @@
 
         <!-- Nút lưu thông tin -->
         <button type="submit" class="btn mt-3" style="background: #339C87 ;color: white ">Lưu thông tin</button>
-      </form>
       </div>
     </div>
   </form>
