@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Personal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         if (session != null) {
             User user = (User) session.getAttribute("user");
             if (user != null) {

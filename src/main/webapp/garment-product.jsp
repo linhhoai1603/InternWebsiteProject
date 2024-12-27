@@ -119,29 +119,35 @@
 
 <div class="pagination-container">
   <div class="pagination">
-    <button class="page-btn" id="prev-btn">&lt</button>
     <%
       int nuPage = Integer.parseInt(request.getAttribute("nuPage").toString());
       int loca = Integer.parseInt(request.getAttribute("loca").toString());
+    %>
+    <%
+      if (loca>1){
+    %>
+    <a class="page-btn" id="prev-btn" href="may-mac?loca=<%=loca-1%>">&lt</a>
+    <%
+      }
       for (int i = 1; i <= nuPage; i++) {
         if(i == loca) {
     %>
-    <button class="page-btn active" id="page-<%= i %>" style="background-color: #339C87;"><a href="may-mac?loca=<%= i %>"><%= i %></a></button>
+    <a href="may-mac?loca=<%=i%>" class="page-btn active" id="page-<%= i %>" style="background-color: #339C87;"><%= i %></a>
     <%
     } else {
     %>
-    <button class="page-btn" id="page-<%= i %>"><a href="may-mac?loca=<%= i %>"><%= i %></a></button>
+    <a class="page-btn" id="page-<%= i %>" href="may-mac?loca=<%= i %>"><%= i %></a>
     <%
         }
       }
+      if (loca< nuPage){
     %>
-
-
-    <button class="page-btn" id="next-btn">&gt</button>
+    <a class="page-btn" id="next-btn" href="may-mac?loca=<%=loca+1%>" >&gt</a>
+    <%
+      }
+    %>
   </div>
 </div>
-
-
 
 
 <%@include file="includes/footer.jsp"%>

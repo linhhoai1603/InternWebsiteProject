@@ -8,8 +8,12 @@ public class AcountServies {
     public AcountServies() {
         accountDao = new AccountDao();
     }
-    public AccountUser findByUsername (String username) {
-        return accountDao.findByUsername(username);
+    public AccountUser findByUsername (String username, String password) {
+        AccountUser acc = accountDao.findByUsername(username, password);
+        if(acc == null) {
+            return null;
+        }
+        return acc;
     }
 
 }

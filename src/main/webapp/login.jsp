@@ -21,16 +21,20 @@
         String error= (String) request.getAttribute("error");
         String username= request.getParameter("username");
         if(error==null) error = "";
+        request.setAttribute("error", error);
         if(username==null) username = "";
     %>
-    <p><%= error %></p>
+
     <div class="form-section">
         <h2>ĐĂNG NHẬP</h2>
         <p class="text-center">Vui lòng đăng nhập để truy cập tài khoản của bạn</p>
-
+            <div style="color: red;">
+                    ${error}
+            </div>
         <form id="loginForm" method="post" action="login">
+
             <div class="mb-3">
-                <input class="form-control" id="username" placeholder="Username *" required type="text" name="username" aria-label="Username"/>
+                <input class="form-control" id="username" placeholder="Tài khoản *" required type="text" name="username" aria-label="Username" value="${username}"/>
             </div>
             <div class="mb-3">
                 <input class="form-control" id="password" placeholder="Mật khẩu *" required type="password" name="password" aria-label="Mật khẩu"/>
