@@ -1713,7 +1713,7 @@ INSERT INTO `styles` (`id`, `idProduct`, `name`, `image`, `quantity`) VALUES
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
-INSERT INTO 'addresses' ('id', 'city', 'province', 'commune', 'street') VALUES
+INSERT INTO `addresses` (id, city, province, commune, street) VALUES
     (1, 'Hà Nội', 'Hà Nội', 'Cầu Giấy', 'Duy Tân'),
     (2, 'Hà Nội', 'Hà Nội', 'Đống Đa', 'Xã Đàn'),
     (3, 'Hồ Chí Minh', 'Hồ Chí Minh', 'Quận 1', 'Nguyễn Huệ'),

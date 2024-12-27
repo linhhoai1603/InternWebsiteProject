@@ -53,7 +53,9 @@ public class ProductService {
         int nuP = products.size();
         return (nuP % psize == 0) ? nuP / psize : nuP / psize + 1;
     }
-
+    public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options,String inputName){
+        return productDao.getProductsBySearch(idCategory, pageNumber, pageSize, options, inputName);
+    }
     public static void main(String[] args) {
         ProductService productService = new ProductService();
         List<Product> products = productService.getProductByCategory("Vải may mặc",12,4);
@@ -61,4 +63,6 @@ public class ProductService {
         System.out.println(products);
         System.out.println(nu);
     }
+
+
 }
