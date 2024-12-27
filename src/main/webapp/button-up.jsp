@@ -1,509 +1,206 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hoai1
-  Date: 12/4/2024
-  Time: 2:03 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="includes/link/headLink.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Nút áo</title>
+  <title>Nút áo</title>
+  <c:import url="includes/link/headLink.jsp" />
+  <link rel="stylesheet" href="css/button_up.css">
 </head>
 <body>
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
-<link rel="stylesheet" href="css/button_up.css">
+<c:import url="includes/header.jsp" />
+<c:import url="includes/navbar.jsp" />
 
-<!-- Container chính -->
-<div class="container mt-3">
-  <!-- Breadcrumb -->
+<c:if test="${buttonUp == null}">
+  <script>
+    window.location.href = "product-buttonUp";
+  </script>
+</c:if>
 
+<div class="container my-5">
   <div class="row">
-    <!-- Sidebar -->
+    <!-- Sidebar bộ lọc -->
     <div class="col-md-3">
-      <div class="sidebar">
-        <h5>Giá</h5>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input price-filter"
-                  id="price1"
-                  type="checkbox"
-                  data-min="0"
-                  data-max="10000"
-          />
-          <label class="form-check-label" for="price1">Dưới 10.000đ</label>
-        </div>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input price-filter"
-                  id="price2"
-                  type="checkbox"
-                  data-min="10000"
-                  data-max="20000"
-          />
-          <label class="form-check-label" for="price2"
-          >10.000đ - 20.000đ</label
-          >
-        </div>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input price-filter"
-                  id="price3"
-                  type="checkbox"
-                  data-min="20000"
-                  data-max="50000"
-          />
-          <label class="form-check-label" for="price3"
-          >20.000đ - 50.000đ</label
-          >
-        </div>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input price-filter"
-                  id="price4"
-                  type="checkbox"
-                  data-min="50000"
-                  data-max="100000"
-          />
-          <label class="form-check-label" for="price4"
-          >50.000đ - 100.000đ</label
-          >
-        </div>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input price-filter"
-                  id="price5"
-                  type="checkbox"
-                  data-min="100000"
-                  data-max=""
-          />
-          <label class="form-check-label" for="price5">Trên 100.000đ</label>
-        </div>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input brand-filter"
-                  id="brand2"
-                  type="checkbox"
-                  data-brand="StyleButtons"
-          />
-          <label class="form-check-label" for="brand2">StyleButtons</label>
-        </div>
-        <div class="form-check mb-2">
-          <input
-                  class="form-check-input brand-filter"
-                  id="brand3"
-                  type="checkbox"
-                  data-brand="ElegantButtons"
-          />
-          <label class="form-check-label" for="brand3"
-          >ElegantButtons</label
-          >
-        </div>
+      <h5>Giá</h5>
+
+      <!-- Dưới 10.000đ -->
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price1" data-min="0" data-max="10000"
+               <c:if test="${minPrice != null && minPrice == 0 && maxPrice == 10000}">checked</c:if> >
+        <label class="form-check-label" for="price1">Dưới 10.000đ</label>
+      </div>
+
+      <!-- 10.000đ - 20.000đ -->
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price2" data-min="10000" data-max="20000"
+               <c:if test="${minPrice != null && minPrice == 10000 && maxPrice == 20000}">checked</c:if> >
+        <label class="form-check-label" for="price2">10.000đ - 20.000đ</label>
+      </div>
+
+      <!-- 20.000đ - 50.000đ -->
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price3" data-min="20000" data-max="50000"
+               <c:if test="${minPrice != null && minPrice == 20000 && maxPrice == 50000}">checked</c:if> >
+        <label class="form-check-label" for="price3">20.000đ - 50.000đ</label>
+      </div>
+
+      <!-- 50.000đ - 100.000đ -->
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price4" data-min="50000" data-max="100000"
+               <c:if test="${minPrice != null && minPrice == 50000 && maxPrice == 100000}">checked</c:if> >
+        <label class="form-check-label" for="price4">50.000đ - 100.000đ</label>
+      </div>
+
+      <!-- Trên 100.000đ -->
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price5" data-min="100000" data-max=""
+               <c:if test="${minPrice != null && minPrice == 100000 && maxPrice == null}">checked</c:if> >
+        <label class="form-check-label" for="price5">Trên 100.000đ</label>
       </div>
     </div>
+
     <!-- Nội dung chính -->
     <div class="col-md-9">
-      <!-- Header Controls: Title, Sort, Pagination -->
-      <div
-              class="d-flex justify-content-between align-items-center mb-3 header-controls"
-      >
-        <div class="header-left">
-          <h5 class="mb-0">Phụ Kiện Nút Áo Cao Cấp</h5>
-        </div>
-        <div class="header-right d-flex align-items-center">
-          <!-- Loại bỏ view-toggle -->
-          <select class="form-select d-inline-block w-auto" id="sortSelect">
-            <option value="newest" selected>Mới Nhất</option>
-            <option value="best-selling">Bán chạy Nhất</option>
-            <option value="price-asc">Từ thấp đến cao</option>
-            <option value="price-desc">Từ cao đến thấp</option>
-          </select>
-          <!-- Phân trang ở trên bên phải -->
-          <nav aria-label="Page navigation example" class="ms-3">
-            <ul class="pagination mb-0" id="paginationTop">
-              <li class="page-item disabled" data-page="prev">
-                <a
-                        class="page-link"
-                        href="#"
-                        tabindex="-1"
-                        aria-disabled="true"
-                >Trước</a
-                >
-              </li>
-              <li
-                      class="page-item active"
-                      aria-current="page"
-                      data-page="1"
-              >
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item" data-page="2">
-                <a class="page-link" href="#">2</a>
-              </li>
-              <li class="page-item" data-page="3">
-                <a class="page-link" href="#">3</a>
-              </li>
-              <li class="page-item" data-page="next">
-                <a class="page-link" href="#">Sau</a>
-              </li>
-            </ul>
-          </nav>
+      <!-- Thanh sắp xếp -->
+      <div class="header-right d-flex align-items-center justify-content-end mb-4">
+        <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            Sắp xếp theo
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="product-buttonUp?option=1&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Mới nhất</a></li>
+            <li><a class="dropdown-item" href="product-buttonUp?option=2&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Giá: Cao -> Thấp</a></li>
+            <li><a class="dropdown-item" href="product-buttonUp?option=3&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Giá: Thấp -> Cao</a></li>
+            <li><a class="dropdown-item" href="product-buttonUp?option=4&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Bán chạy nhất</a></li>
+            <li><a class="dropdown-item" href="product-buttonUp?option=5&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Giảm giá: Cao -> Thấp</a></li>
+          </ul>
         </div>
       </div>
 
-      <!-- Product Grid -->
-      <div class="row product-grid">
-        <!-- Sản phẩm 1 -->
-        <div class="col-md-4 mb-4" data-price="8000" data-brand="ButtonPro" data-date="2024-04-01" data-sales="150">
-          <div class="card h-100">
-            <img
-                    src="images/nutaothantienmautrang.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Thần Tiên - Màu Trắng"
-            />
-            <!-- Các nút Thêm vào Giỏ và Yêu Thích -->
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Thần Tiên - Màu Trắng</h5>
-              <p class="card-text description">
-                Nút áo chất liệu cao cấp, bền bỉ, phù hợp cho mọi loại trang
-                phục.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-10%</span>
-                <span class="discounted-price">8,000đ</span>
-                <span class="original-price">8,888đ</span>
+      <!-- Danh sách sản phẩm -->
+      <div class="row product-container">
+        <c:forEach var="product" items="${buttonUp}">
+          <div class="col-md-4 mb-4">
+            <div class="card product-item position-relative h-100">
+              <!-- Thẻ hiển thị giảm giá -->
+              <c:if test="${product.price.discountPercent > 0}">
+                <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
+                  -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0" />%
+                </span>
+              </c:if>
+              <img src="${product.image}" class="card-img-top h-50" alt="Hình ảnh sản phẩm" style="object-fit: cover;">
+              <div class="card-body text-center d-flex flex-column">
+                <h5 class="card-title">${product.name}</h5>
+                <h4 class="card-text text-success">
+                  Chỉ còn:
+                  <span class="product-old-price">
+                    <fmt:formatNumber value="${product.price.lastPrice}" type="currency" currencySymbol="₫" />
+                  </span>
+                </h4>
+                <p class="text-danger text-decoration-line-through">
+                  Giá gốc:
+                  <span class="product-price">
+                    <fmt:formatNumber value="${product.price.price}" type="currency" currencySymbol="₫" />
+                  </span>
+                </p>
+                <p class="cart-text">Mô tả: ${product.description}</p>
+                <div class="mt-auto">
+                  <a href="detail-product?id=${product.id}" class="btn btn-warning w-100 mb-2">Thêm vào giỏ hàng</a>
+                  <a href="detail-product?id=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Sản phẩm 2 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="12000"
-                data-brand="StyleButtons"
-                data-date="2024-03-15"
-                data-sales="200"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/nutaostyleblue.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Style - Màu Xanh Dương"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Style - Màu Xanh Dương</h5>
-              <p class="card-text description">
-                Nút áo thiết kế hiện đại, đa màu sắc, phù hợp với nhiều
-                phong cách.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-15%</span>
-                <span class="discounted-price">12,000đ</span>
-                <span class="original-price">14,117đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 3 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="15000"
-                data-brand="ElegantButtons"
-                data-date="2024-02-20"
-                data-sales="250"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/nutaoelegantred.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Elegant - Màu Đỏ"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Elegant - Màu Đỏ</h5>
-              <p class="card-text description">
-                Nút áo sang trọng, thiết kế tinh tế, phù hợp cho các dịp đặc
-                biệt.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-20%</span>
-                <span class="discounted-price">15,000đ</span>
-                <span class="original-price">18,750đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 4 -->
-        <div class="col-md-4 mb-4" data-price="5000" data-brand="ButtonPro" data-date="2024-05-10" data-sales="100">
-          <div class="card h-100">
-            <img
-                    src="images/nutaothanhtheocochai.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Thánh Thiểu - Cổ Chai"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Thánh Thiểu - Cổ Chai</h5>
-              <p class="card-text description">
-                Nút áo cổ chai, phù hợp với các loại áo sơ mi cổ điển.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-5%</span>
-                <span class="discounted-price">5,000đ</span>
-                <span class="original-price">5,263đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 5 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="7000"
-                data-brand="StyleButtons"
-                data-date="2024-04-18"
-                data-sales="180"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/nutaostylexanhla.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Style - Màu Xanh Lá"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Style - Màu Xanh Lá</h5>
-              <p class="card-text description">
-                Nút áo màu xanh lá, tạo điểm nhấn cho trang phục hàng ngày.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-10%</span>
-                <span class="discounted-price">7,000đ</span>
-                <span class="original-price">7,778đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 6 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="9000"
-                data-brand="ElegantButtons"
-                data-date="2024-03-25"
-                data-sales="220"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/nutaoelexanhduong.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Elegant - Màu Xanh Dương"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Elegant - Màu Xanh Dương</h5>
-              <p class="card-text description">
-                Nút áo màu xanh dương, phong cách và hiện đại cho mọi loại
-                áo.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-15%</span>
-                <span class="discounted-price">9,000đ</span>
-                <span class="original-price">10,588đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 7 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="11000"
-                data-brand="ButtonPro"
-                data-date="2024-02-05"
-                data-sales="300"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/nutaothanthietmauvang.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Thần Thiết - Màu Vàng"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Thần Thiết - Màu Vàng</h5>
-              <p class="card-text description">
-                Nút áo màu vàng, nổi bật và thu hút ánh nhìn cho trang phục.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-20%</span>
-                <span class="discounted-price">11,000đ</span>
-                <span class="original-price">13,750đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 8 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="6000"
-                data-brand="StyleButtons"
-                data-date="2024-04-10"
-                data-sales="130"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/nutaomaubac.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Style - Màu Bạc"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Style - Màu Bạc</h5>
-              <p class="card-text description">
-                Nút áo màu bạc, tinh tế và thanh lịch cho trang phục công
-                sở.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-5%</span>
-                <span class="discounted-price">6,000đ</span>
-                <span class="original-price">6,316đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 16 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="16000"
-                data-brand="ElegantButtons"
-                data-date="2024-04-12"
-                data-sales="240"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/nutaothanhtheoocochai4.jpg"
-                    class="card-img-top"
-                    alt="Nút Áo Thần Thiết - Cổ Chai 4"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Nút Áo Thần Thiết - Cổ Chai 4</h5>
-              <p class="card-text description">
-                Nút áo màu trắng, tinh tế và phù hợp với các loại áo formal.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-20%</span>
-                <span class="discounted-price">16,000đ</span>
-                <span class="original-price">20,000đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        </c:forEach>
       </div>
 
-      <!-- Phân trang ở dưới bên phải -->
-      <nav aria-label="Page navigation example" class="mt-3">
-        <ul class="pagination" id="paginationBottom">
-          <li class="page-item disabled" data-page="prev">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-            >Trước</a
-            >
-          </li>
-          <li class="page-item active" aria-current="page" data-page="1">
-            <a class="page-link" href="#">1</a>
-          </li>
-          <li class="page-item" data-page="2">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item" data-page="3">
-            <a class="page-link" href="#">3</a>
-          </li>
-          <li class="page-item" data-page="next">
-            <a class="page-link" href="#">Sau</a>
-          </li>
+      <!-- Phân trang -->
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-3">
+          <!-- Nút Previous -->
+          <c:if test="${currentPage > 1}">
+            <li class="page-item">
+              <a class="page-link" href="product-buttonUp?option=${option}&page=${currentPage - 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>"> << </a>
+            </li>
+          </c:if>
+
+          <!-- Các trang -->
+          <c:forEach var="i" begin="1" end="${pageNumber}">
+            <li class="page-item ${i == currentPage ? 'active' : ''}">
+              <a class="page-link" href="product-buttonUp?option=${option}&page=${i}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">${i}</a>
+            </li>
+          </c:forEach>
+
+          <!-- Nút Next -->
+          <c:if test="${currentPage < pageNumber}">
+            <li class="page-item">
+              <a class="page-link" href="product-buttonUp?option=${option}&page=${currentPage + 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>"> >> </a>
+            </li>
+          </c:if>
         </ul>
       </nav>
     </div>
   </div>
 </div>
+
 <!-- Nút Back to Top -->
 <button id="back-to-top" class="back-to-top">
   <i class="fas fa-arrow-up"></i>
 </button>
-<%@include file="includes/footer.jsp"%>
-<%@include file="includes/link/footLink.jsp"%>
+
+<c:import url="includes/footer.jsp" />
+<c:import url="includes/link/footLink.jsp" />
+
+<!-- JavaScript đã được cập nhật -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Xử lý lọc giá
+    document.querySelectorAll('.price-filter').forEach(filter => {
+      filter.addEventListener('change', () => {
+        if (filter.checked) {
+          // Bỏ chọn tất cả các checkbox khác
+          document.querySelectorAll('.price-filter').forEach(otherFilter => {
+            if (otherFilter !== filter) {
+              otherFilter.checked = false;
+            }
+          });
+        }
+
+        // Lấy checkbox được chọn
+        const selectedFilter = Array.from(document.querySelectorAll('.price-filter:checked'))[0];
+        let minPrice = null;
+        let maxPrice = null;
+
+        if (selectedFilter) {
+          minPrice = parseFloat(selectedFilter.getAttribute('data-min'));
+          maxPrice = selectedFilter.getAttribute('data-max') === "" ? null : parseFloat(selectedFilter.getAttribute('data-max'));
+        }
+
+        const url = new URL(window.location.href);
+        if (minPrice !== null) {
+          url.searchParams.set('minPrice', minPrice);
+        } else {
+          url.searchParams.delete('minPrice');
+        }
+        if (maxPrice !== null) {
+          url.searchParams.set('maxPrice', maxPrice);
+        } else {
+          url.searchParams.delete('maxPrice');
+        }
+
+        // Reset về trang đầu khi lọc
+        url.searchParams.set('page', 1);
+        window.location.href = url.toString();
+      });
+    });
+
+    // Hàm định dạng giá tiền (nếu cần)
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+  });
+</script>
 </body>
 </html>
+
