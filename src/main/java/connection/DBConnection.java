@@ -6,6 +6,15 @@ import org.jdbi.v3.core.Jdbi;
 public class DBConnection {
     static Jdbi jdbi;
 
+
+    public static Jdbi getJdbi() {
+        if (jdbi == null) {
+            getConnetion();
+        }
+        return jdbi;
+    }
+
+
     // cung cấp kết nối Jdbi
     public static Jdbi getConnetion() {
         MysqlDataSource dataSource = new MysqlDataSource();
