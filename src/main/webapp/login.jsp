@@ -19,7 +19,7 @@
 <div class="container ">
     <%
         String error= (String) request.getAttribute("error");
-        String username= request.getParameter("username");
+        String username=(String) request.getAttribute("username");
         if(error==null) error = "";
         if(username==null) username = "";
     %>

@@ -56,7 +56,6 @@ public class User implements Serializable {
         this.image = image;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
