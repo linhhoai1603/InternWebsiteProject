@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-5 text-center pt-4">
                 <!-- a line search-->
-                <form action="\user?method=search" method="post">
+                <form action="${pageContext.request.contextPath}/products" method="get">
                     <div class="input-group">
                         <input
                                 type="text"

@@ -21,10 +21,10 @@ public class Personal extends HttpServlet {
                 request.setAttribute("user", user);
                 request.getRequestDispatcher("user.jsp").forward(request, response);
             }else{
-                response.sendRedirect("login.jsp");
+                response.sendRedirect(request.getContextPath() + "/login");
             }
         }else {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect(request.getContextPath() + "/login");
         }
     }
 

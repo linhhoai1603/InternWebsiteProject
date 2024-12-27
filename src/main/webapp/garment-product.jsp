@@ -47,15 +47,16 @@
                 <h5 class="card-title">${p.name}</h5>
                 <p class="card-text">
                 <div class="price-container">
-                  <strong class="text-danger text-decoration-line-through small">
-                    <fmt:formatNumber value="${p.price.price}" type="number" />₫
-                  </strong>
+                  <span style="font-weight: bold; color: #339C87; font-size: 16px;">Giá</span>
+                  <span  class="text-decoration-line-through small" style="color: #555; font-size: 0.9em;">
+                    <fmt:formatNumber value="${p.price.price}" type="number" />
+                  </span >
                   <strong class="small" style="color: #339C87;">
                     <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
                   </strong>
                 </div>
                 <div class="text-danger small">
-                  <strong>-${p.price.discountPercent}%</strong>
+                  <strong>Giảm ${p.price.discountPercent}%</strong>
                 </div>
                 </p>
               </div>
@@ -92,15 +93,16 @@
                 <h5 class="card-title">${p.name}</h5>
                 <p class="card-text">
                 <div class="price-container">
-                  <strong class="text-danger text-decoration-line-through small">
-                    <fmt:formatNumber value="${p.price.price}" type="number" />₫
-                  </strong>
+                <span style="font-weight: bold; color: #339C87; font-size: 16px;">Giá</span>
+                  <span  class="text-decoration-line-through small" style="color: #555; font-size: 0.9em;">
+                    <fmt:formatNumber value="${p.price.price}" type="number" />
+                  </span >
                   <strong class="small" style="color: #339C87;">
                     <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
                   </strong>
                 </div>
                 <div class="text-danger small">
-                  <strong>-${p.price.discountPercent}%</strong>
+                  <strong>Giảm ${p.price.discountPercent}%</strong>
                 </div>
                 </p>
               </div>
