@@ -9,8 +9,8 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet(name ="/Logout" , value = "/logout")
-public class Logout extends HttpServlet {
+@WebServlet(name ="Logout" , value = "/logout")
+public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

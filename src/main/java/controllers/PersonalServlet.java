@@ -11,8 +11,8 @@ import services.UserInForServies;
 
 import java.io.IOException;
 
-@WebServlet(name = "/Personal" , value = "/personal")
-public class Personal extends HttpServlet {
+@WebServlet(name = "Personal" , value = "/personal")
+public class PersonalServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();

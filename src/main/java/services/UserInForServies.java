@@ -16,7 +16,7 @@ public class UserInForServies {
         try {
             // Bắt đầu giao dịch
             userDao.beginTransaction();
-            
+
 
             // Cập nhật thông tin user
             boolean userUpdated = userDao.updateInfo(idUser, email, name, phone);
@@ -47,6 +47,7 @@ public class UserInForServies {
             userDao.closeTransaction();
         }
     }
+    
 
     public static void main(String[] args) {
         UserInForServies user = new UserInForServies();
