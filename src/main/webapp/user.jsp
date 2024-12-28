@@ -10,6 +10,10 @@
 <html>
 <head>
   <title>Thông tin người dùng</title>
+  <style>
+    .success { color: green; }
+    .error { color: red; }
+  </style>
 </head>
 <body>
 <%@include file="includes/header.jsp"%>
@@ -19,7 +23,7 @@
   <!-- Header -->
   <h3 class="text-center  mb-4 title" >Thông tin người dùng</h3>
   <c:if test="${not empty message}">
-    <p class="${messageType}">${message}</p>
+    <h4 class="${messageType}">${message}</h4>
   </c:if>
   <!-- Form để chỉnh sửa thông tin người dùng -->
   <form action="personal" method="post">
