@@ -29,7 +29,7 @@
           <img src="images/avatar.jpg" alt="User Avatar" id="userAvatar">
 
           <!-- Nút chọn ảnh -->
-          <label for="avatarInput" class="col-md-6 file-label w-100">Chọn ảnh</label>
+          <label for="avatarInput" class="col-md-6 file-label w-100">Sửa ảnh</label>
           <input type="file" id="avatarInput" name="avatar" accept="image/*" class="file-input" >
         </div>
       </div>

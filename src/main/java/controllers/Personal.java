@@ -30,6 +30,13 @@ public class Personal extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String email = request.getParameter("email");
+        String fullname = request.getParameter("fullName");
+        String phone = request.getParameter("numberPhone");
+        String province = request.getParameter("province");
+        String city = request.getParameter("city");
+        String commune = request.getParameter("commune");
+        String street = request.getParameter("street");
 
     }
 }
