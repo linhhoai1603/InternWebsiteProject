@@ -18,9 +18,11 @@
 <div class="container mt-5">
   <!-- Header -->
   <h3 class="text-center  mb-4 title" >Thông tin người dùng</h3>
-
+  <c:if test="${not empty message}">
+    <p class="${messageType}">${message}</p>
+  </c:if>
   <!-- Form để chỉnh sửa thông tin người dùng -->
-  <form action="personal" method="post" enctype="multipart/form-data">
+  <form action="personal" method="post">
     <div class="row">
       <!-- Cột ảnh đại diện -->
       <div class="col-md-3 text-center">
@@ -29,7 +31,7 @@
           <img src="images/avatar.jpg" alt="User Avatar" id="userAvatar">
 
           <!-- Nút chọn ảnh -->
-          <label for="avatarInput" class="col-md-6 file-label w-100">Chọn ảnh</label>
+          <label for="avatarInput" class="col-md-6 file-label w-100">Sửa ảnh</label>
           <input type="file" id="avatarInput" name="avatar" accept="image/*" class="file-input" >
         </div>
       </div>
