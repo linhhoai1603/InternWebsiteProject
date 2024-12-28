@@ -65,4 +65,24 @@ public class ProductService {
     }
 
 
+    // Phương thức mới để lấy sản phẩm có bộ lọc giá duy nhất
+    public List<Product> getProductsByCategorySortButton(int idCategory, int pageNumber, int pageSize, int option, Double minPrice, Double maxPrice){
+        return productDao.getProductsByCategoryBySortButton(idCategory, pageNumber, pageSize, option, minPrice, maxPrice);
+    }
+
+    // Phương thức mới để lấy số trang dựa trên bộ lọc giá
+    public int getNumberOfPageButton(int idCategory, int pageSize, Double minPrice, Double maxPrice){
+        return productDao.getNumberPageProductByCategoryButton(idCategory, pageSize, minPrice, maxPrice);
+    }
+
+    // Phương thức mới để lấy sản phẩm có bộ lọc giá duy nhất
+    public List<Product> getProductsByCategorySortZipStar(int idCategory, int pageNumber, int pageSize, int option, Double minPrice, Double maxPrice){
+        return productDao.getProductsByCategoryBySortButton(idCategory, pageNumber, pageSize, option, minPrice, maxPrice);
+    }
+
+    // Phương thức mới để lấy số trang dựa trên bộ lọc giá
+    public int getNumberOfPageZipStar(int idCategory, int pageSize, Double minPrice, Double maxPrice){
+        return productDao.getNumberPageProductByCategoryZipStar(idCategory, pageSize, minPrice, maxPrice);
+    }
+
 }
