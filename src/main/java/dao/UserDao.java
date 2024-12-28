@@ -2,6 +2,7 @@ package dao;
 
 import connection.DBConnection;
 import models.User;
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
 import java.sql.PreparedStatement;
@@ -10,6 +11,7 @@ import java.sql.Statement;
 
 public class UserDao {
     Jdbi jdbi;
+    private Handle handle;
     public UserDao() {
         jdbi = DBConnection.getConnetion();
     }
@@ -32,25 +34,38 @@ public class UserDao {
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
-                        .bind("fullName", name)
+                        .bind("name", name)
                         .bind("email", email)
-                        .bind("phoneNumber", phone)
+                        .bind("phone", phone)
                         .execute() > 0
         );
     }
     public void beginTransaction() {
-        jdbi.useHandle(handle -> handle.begin());
+        handle = jdbi.open();
+        handle.begin();
     }
 
     public void commitTransaction() {
-        jdbi.useHandle(handle -> handle.commit());
+        if (handle != null) {
+            handle.commit();
+        }
     }
 
     public void rollbackTransaction() {
-        jdbi.useHandle(handle -> handle.rollback());
-    }
-    public void closeTransaction() {
-        jdbi.useHandle(handle -> handle.close());
+        if (handle != null) {
+            handle.rollback();
+        }
     }
 
+    public void closeTransaction() {
+        if (handle != null) {
+            handle.close();
+            handle = null;
+        }
+    }
+
+    public static void main(String[] args) {
+        UserDao dao = new UserDao();
+        System.out.println(dao.updateInfo(1,"hung@gmail.com","Lê Đình Hưng","0330099958"));
+    }
 }

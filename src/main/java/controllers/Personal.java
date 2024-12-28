@@ -33,6 +33,13 @@ public class Personal extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
+        int idUser = user.getId();
+        int idAddress = user.getAddress() != null ? user.getAddress().getId() : -1;
+
+        if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
 
         String email = request.getParameter("email");
         String fullname = request.getParameter("fullName");
@@ -41,8 +48,18 @@ public class Personal extends HttpServlet {
         String city = request.getParameter("city");
         String commune = request.getParameter("commune");
         String street = request.getParameter("street");
+
         UserInForServies sv = new UserInForServies();
-        if(sv.updateInfo(user, email, fullname, phone, province, city, commune, street)) {
+
+        email = (email == null || email.isEmpty()) ? user.getEmail() : email;
+        fullname = (fullname == null || fullname.isEmpty()) ? user.getFullName() : fullname;
+        phone = (phone == null || phone.isEmpty()) ? user.getNumberPhone() : phone;
+        province = (province == null || province.isEmpty()) ? user.getAddress().getProvince() : province;
+        city = (city == null || city.isEmpty()) ? user.getAddress().getCity() : city;
+        commune = (commune == null || commune.isEmpty()) ? user.getAddress().getCommune() : commune;
+        street = (street == null || street.isEmpty()) ? user.getAddress().getStreet() : street;
+
+        if(sv.updateInfo(idUser,idAddress, email, fullname, phone, province, city, commune, street)) {
             user.setEmail(email);
             user.setFullName(fullname);
             user.setNumberPhone(phone);

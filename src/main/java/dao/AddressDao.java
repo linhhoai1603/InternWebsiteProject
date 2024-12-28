@@ -2,41 +2,34 @@ package dao;
 
 import connection.DBConnection;
 import models.Address;
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
 public class AddressDao {
     Jdbi jdbi;
+    Handle handle;
     public AddressDao() {
         jdbi = DBConnection.getConnetion();
     }
     public boolean updateAddress(int id , String province , String city , String street , String commune) {
         String sql = """
-                Update address SET province = ? ,city = ? ,street = ? ,commune = ?
-                WHERE id = ?
+                Update addresses SET province = :province ,city = :city ,street = :street ,commune = :commune
+                WHERE id = :id
                 """;
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
-                        .bind(4, id)
-                        .bind(0,province )
-                        .bind(1, city)
-                        .bind(2, street)
-                        .bind(3,commune)
+                        .bind("id", id)
+                        .bind("province",province )
+                        .bind("city", city)
+                        .bind("street", street)
+                        .bind("commune",commune)
                         .execute() > 0
         );
     }
-    public void beginTransaction() {
-        jdbi.useHandle(handle -> handle.begin());
-    }
 
-    public void commitTransaction() {
-        jdbi.useHandle(handle -> handle.commit());
-    }
-
-    public void rollbackTransaction() {
-        jdbi.useHandle(handle -> handle.rollback());
-    }
-    public void closeTransaction() {
-        jdbi.useHandle(handle -> handle.close());
+    public static void main(String[] args) {
+        AddressDao dao = new AddressDao();
+        System.out.println(dao.updateAddress(1,"Đồng Nai","Biên Hòa","Yêết Kiu","Lonng Bình"));
     }
 
 }
