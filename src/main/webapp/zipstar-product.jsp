@@ -1,20 +1,21 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hoai1
-  Date: 12/4/2024
-  Time: 2:25 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="includes/link/headLink.jsp"%>
+<%@ include file="includes/link/headLink.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
   <title>Các mẫu thiết kế</title>
+  <link rel="stylesheet" href="css/zipstar-product.css">
 </head>
 <body>
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
-<link rel="stylesheet" href="css/zipstar-product.css">
+<%@ include file="includes/header.jsp" %>
+<%@ include file="includes/navbar.jsp" %>
+
+<c:if test="${zippers == null}">
+  <script>
+    window.location.href = "product-zippers";
+  </script>
+</c:if>
 
 <!-- Container chính -->
 <div class="container-fluid mt-3">
@@ -23,346 +24,262 @@
     <div class="col-md-3">
       <div class="sidebar">
         <h5>Giá</h5>
+        <!-- Dưới 10.000đ -->
         <div class="form-check mb-2">
           <input
                   class="form-check-input price-filter"
-                  id="price1"
                   type="checkbox"
+                  id="price1"
                   data-min="0"
                   data-max="10000"
+                  <c:if test="${minPrice != null && minPrice == 0 && maxPrice == 10000}">checked</c:if>
           />
           <label class="form-check-label" for="price1">Dưới 10.000đ</label>
         </div>
+        <!-- 10.000đ - 20.000đ -->
         <div class="form-check mb-2">
           <input
                   class="form-check-input price-filter"
-                  id="price2"
                   type="checkbox"
+                  id="price2"
                   data-min="10000"
                   data-max="20000"
+                  <c:if test="${minPrice != null && minPrice == 10000 && maxPrice == 20000}">checked</c:if>
           />
-          <label class="form-check-label" for="price2">
-            10.000đ - 20.000đ
-          </label>
+          <label class="form-check-label" for="price2">10.000đ - 20.000đ</label>
         </div>
+        <!-- 20.000đ - 50.000đ -->
         <div class="form-check mb-2">
           <input
                   class="form-check-input price-filter"
-                  id="price3"
                   type="checkbox"
+                  id="price3"
                   data-min="20000"
                   data-max="50000"
+                  <c:if test="${minPrice != null && minPrice == 20000 && maxPrice == 50000}">checked</c:if>
           />
-          <label class="form-check-label" for="price3">
-            20.000đ - 50.000đ
-          </label>
+          <label class="form-check-label" for="price3">20.000đ - 50.000đ</label>
         </div>
+        <!-- 50.000đ - 100.000đ -->
         <div class="form-check mb-2">
           <input
                   class="form-check-input price-filter"
-                  id="price4"
                   type="checkbox"
+                  id="price4"
                   data-min="50000"
                   data-max="100000"
+                  <c:if test="${minPrice != null && minPrice == 50000 && maxPrice == 100000}">checked</c:if>
           />
-          <label class="form-check-label" for="price4">
-            50.000đ - 100.000đ
-          </label>
+          <label class="form-check-label" for="price4">50.000đ - 100.000đ</label>
         </div>
+        <!-- Trên 100.000đ -->
         <div class="form-check mb-2">
           <input
                   class="form-check-input price-filter"
-                  id="price5"
                   type="checkbox"
+                  id="price5"
                   data-min="100000"
                   data-max=""
+                  <c:if test="${minPrice != null && minPrice == 100000 && maxPrice == null}">checked</c:if>
           />
           <label class="form-check-label" for="price5">Trên 100.000đ</label>
         </div>
-
-
       </div>
     </div>
     <!-- End Sidebar -->
 
     <!-- Nội dung chính -->
     <div class="col-md-9">
-      <!-- Header Controls: Title, Sort, Pagination -->
-      <div
-              class="d-flex justify-content-between align-items-center mb-3 header-controls"
-      >
+      <!-- Header Controls: Title, Sort -->
+      <div class="d-flex justify-content-between align-items-center mb-3 header-controls">
         <div class="header-left">
           <h5 class="mb-0">Phụ Kiện Dây Kéo Cao Cấp</h5>
         </div>
         <div class="header-right d-flex align-items-center">
-          <!-- Loại bỏ view-toggle -->
+          <!-- Dropdown để chọn cách sắp xếp -->
           <select class="form-select d-inline-block w-auto" id="sortSelect">
-            <option value="newest" selected>Mới Nhất</option>
-            <option value="best-sellers">Bán chạy nhất</option>
-            <option value="price-asc">Từ thấp đến cao</option>
-            <option value="price-desc">Từ cao đến thấp</option>
+            <option value="newest" <c:if test="${option == 1}">selected</c:if>>Mới Nhất</option>
+            <option value="best-sellers" <c:if test="${option == 4}">selected</c:if>>Bán chạy nhất</option>
+            <option value="price-asc" <c:if test="${option == 3}">selected</c:if>>Từ thấp đến cao</option>
+            <option value="price-desc" <c:if test="${option == 2}">selected</c:if>>Từ cao đến thấp</option>
           </select>
         </div>
       </div>
 
       <!-- Product Grid -->
       <div class="row product-grid">
-        <!-- Sản phẩm 1 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="8000"
-                data-brand="ZipperPro"
-                data-date="2024-04-01"
-                data-sales="150"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/daykeothantientrang.jpg"
-                    class="card-img-top"
-                    alt="Dây Kéo Thần Tiên - Màu Trắng"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
-            />
-            <!-- Các nút Thêm vào Giỏ và Yêu Thích -->
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Dây Kéo Thần Tiên - Màu Trắng</h5>
-              <p class="card-text description">
-                Dây kéo chất liệu cao cấp, bền bỉ, phù hợp cho mọi loại
-                trang phục.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-10%</span>
-                <span class="discounted-price">8,000đ</span>
-                <span class="original-price">8,888đ</span>
+        <c:forEach var="product" items="${zippers}">
+          <div class="col-md-4 mb-4">
+            <div class="card h-100 position-relative">
+              <!-- Thẻ hiển thị giảm giá -->
+              <c:if test="${product.price.discountPercent > 0}">
+                                <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
+                                    -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0"/>%
+                                </span>
+              </c:if>
+              <!-- Hình ảnh sản phẩm -->
+              <c:choose>
+                <c:when test="${not empty product.image}">
+                  <img
+                          src="${product.image}"
+                          class="card-img-top"
+                          alt="${product.name}"
+                          onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                  />
+                </c:when>
+                <c:otherwise>
+                  <img
+                          src="https://via.placeholder.com/200x200?text=No+Image"
+                          class="card-img-top"
+                          alt="${product.name}"
+                  />
+                </c:otherwise>
+              </c:choose>
+              <!-- Các nút Thêm vào Giỏ và Yêu Thích -->
+              <div class="card-actions">
+                <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
+                  <i class="fas fa-shopping-cart"></i>
+                </button>
+                <button class="btn btn-favorite" title="Yêu thích">
+                  <i class="fas fa-heart"></i>
+                </button>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="card-text description">
+                    ${product.description}
+                </p>
+                <div class="pricing mt-auto">
+                  <c:if test="${product.price.discountPercent > 0}">
+                                        <span class="discount-badge">-<fmt:formatNumber
+                                                value="${product.price.discountPercent}" pattern="##0"/>%</span>
+                  </c:if>
+                  <span class="discounted-price">
+                                        <fmt:formatNumber value="${product.price.lastPrice}" type="currency"
+                                                          currencySymbol="₫"/>
+                                    </span>
+                  <c:if test="${product.price.discountPercent > 0}">
+                                        <span class="original-price">
+                                            <fmt:formatNumber value="${product.price.price}" type="currency"
+                                                              currencySymbol="₫"/>
+                                        </span>
+                  </c:if>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </c:forEach>
+      </div>
 
-        <!-- Sản phẩm 2 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="12000"
-                data-brand="SmoothZips"
-                data-date="2024-03-15"
-                data-sales="200"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/daykeosmoothblue.jpg"
-                    class="card-img-top"
-                    alt="Dây Kéo Smooth - Màu Xanh Dương"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Dây Kéo Smooth - Màu Xanh Dương</h5>
-              <p class="card-text description">
-                Dây kéo thiết kế hiện đại, mượt mà, phù hợp với nhiều phong
-                cách.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-15%</span>
-                <span class="discounted-price">12,000đ</span>
-                <span class="original-price">14,117đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- Phân trang -->
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-3">
+          <!-- Nút Previous -->
+          <c:if test="${currentPage > 1}">
+            <li class="page-item">
+              <a class="page-link"
+                 href="product-zippers?option=${option}&page=${currentPage - 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Trước</a>
+            </li>
+          </c:if>
 
-        <!-- Sản phẩm 3 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="15000"
-                data-brand="ElegantZips"
-                data-date="2024-02-20"
-                data-sales="180"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/daykeoelegantrong.jpg"
-                    class="card-img-top"
-                    alt="Dây Kéo Elegant - Màu Đỏ"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Dây Kéo Elegant - Màu Đỏ</h5>
-              <p class="card-text description">
-                Dây kéo sang trọng, thiết kế tinh tế, phù hợp cho các dịp
-                đặc biệt.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-20%</span>
-                <span class="discounted-price">15,000đ</span>
-                <span class="original-price">18,750đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
+          <!-- Các trang -->
+          <c:forEach var="i" begin="1" end="${pageNumber}">
+            <li class="page-item ${i == currentPage ? 'active' : ''}">
+              <a class="page-link"
+                 href="product-zippers?option=${option}&page=${i}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">${i}</a>
+            </li>
+          </c:forEach>
 
-        <!-- Sản phẩm 4 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="5000"
-                data-brand="ZipperPro"
-                data-date="2024-05-10"
-                data-sales="90"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/daykeothanhtheocochai.jpg"
-                    class="card-img-top"
-                    alt="Dây Kéo Thánh Thiểu - Cổ Chai"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Dây Kéo Thánh Thiểu - Cổ Chai</h5>
-              <p class="card-text description">
-                Dây kéo cổ chai, phù hợp với các loại áo sơ mi cổ điển.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-5%</span>
-                <span class="discounted-price">5,000đ</span>
-                <span class="original-price">5,263đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 5 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="7000"
-                data-brand="SmoothZips"
-                data-date="2024-03-05"
-                data-sales="120"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/daykeosmoothgreen.jpg"
-                    class="card-img-top"
-                    alt="Dây Kéo Smooth - Màu Xanh Lá"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Dây Kéo Smooth - Màu Xanh Lá</h5>
-              <p class="card-text description">
-                Dây kéo màu xanh lá, tạo điểm nhấn cho trang phục hàng ngày.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-10%</span>
-                <span class="discounted-price">7,000đ</span>
-                <span class="original-price">7,778đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sản phẩm 6 -->
-        <div
-                class="col-md-4 mb-4"
-                data-price="9000"
-                data-brand="ElegantZips"
-                data-date="2024-01-25"
-                data-sales="160"
-        >
-          <div class="card h-100">
-            <img
-                    src="images/daykeoelegantblack.jpg"
-                    class="card-img-top"
-                    alt="Dây Kéo Elegant - Màu Đen"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
-            />
-            <div class="card-actions">
-              <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
-                <i class="fas fa-shopping-cart"></i>
-              </button>
-              <button class="btn btn-favorite" title="Yêu thích">
-                <i class="fas fa-heart"></i>
-              </button>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Dây Kéo Elegant - Màu Đen</h5>
-              <p class="card-text description">
-                Dây kéo màu đen, tinh tế và phù hợp với nhiều loại áo khác
-                nhau.
-              </p>
-              <div class="pricing mt-auto">
-                <span class="discount-badge">-15%</span>
-                <span class="discounted-price">9,000đ</span>
-                <span class="original-price">10,588đ</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      <!-- Phân trang ở dưới bên phải -->
-      <nav aria-label="Page navigation example" class="mt-3">
-        <ul class="pagination justify-content-center" id="paginationBottom">
-          <li class="page-item disabled" data-page="prev">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true"
-            >Trước</a
-            >
-          </li>
-          <li class="page-item active" aria-current="page" data-page="1">
-            <a class="page-link" href="#">1</a>
-          </li>
-          <li class="page-item" data-page="2">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item" data-page="3">
-            <a class="page-link" href="#">3</a>
-          </li>
-          <li class="page-item" data-page="next">
-            <a class="page-link" href="#">Sau</a>
-          </li>
+          <!-- Nút Next -->
+          <c:if test="${currentPage < pageNumber}">
+            <li class="page-item">
+              <a class="page-link"
+                 href="product-zippers?option=${option}&page=${currentPage + 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Sau</a>
+            </li>
+          </c:if>
         </ul>
       </nav>
+
     </div>
   </div>
 </div>
 <!-- End Container chính -->
 
-<%@include file="includes/footer.jsp"%>
-<%@include file="includes/link/footLink.jsp"%>
-<script src="js/zipstar-product.js"></script>
+<%@ include file="includes/footer.jsp" %>
+<%@ include file="includes/link/footLink.jsp" %>
+
+<!-- JavaScript đã được cập nhật -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Xử lý lọc giá
+    document.querySelectorAll('.price-filter').forEach(filter => {
+      filter.addEventListener('change', () => {
+        if (filter.checked) {
+          // Bỏ chọn tất cả các checkbox khác
+          document.querySelectorAll('.price-filter').forEach(otherFilter => {
+            if (otherFilter !== filter) {
+              otherFilter.checked = false;
+            }
+          });
+        }
+
+        // Lấy checkbox được chọn
+        const selectedFilter = Array.from(document.querySelectorAll('.price-filter:checked'))[0];
+        let minPrice = null;
+        let maxPrice = null;
+
+        if (selectedFilter) {
+          minPrice = parseFloat(selectedFilter.getAttribute('data-min'));
+          maxPrice = selectedFilter.getAttribute('data-max') === "" ? null : parseFloat(selectedFilter.getAttribute('data-max'));
+        }
+
+        const url = new URL(window.location.href);
+        if (minPrice !== null) {
+          url.searchParams.set('minPrice', minPrice);
+        } else {
+          url.searchParams.delete('minPrice');
+        }
+        if (maxPrice !== null) {
+          url.searchParams.set('maxPrice', maxPrice);
+        } else {
+          url.searchParams.delete('maxPrice');
+        }
+
+        // Reset về trang đầu khi lọc
+        url.searchParams.set('page', 1);
+        window.location.href = url.toString();
+      });
+    });
+
+    // Xử lý sắp xếp
+    const sortSelect = document.getElementById('sortSelect');
+    sortSelect.addEventListener('change', function () {
+      const selectedOption = this.value;
+      let optionValue = 0; // Giá trị mặc định
+
+      switch (selectedOption) {
+        case 'newest':
+          optionValue = 1;
+          break;
+        case 'best-sellers':
+          optionValue = 4;
+          break;
+        case 'price-asc':
+          optionValue = 3;
+          break;
+        case 'price-desc':
+          optionValue = 2;
+          break;
+        default:
+          optionValue = 0;
+      }
+
+      const url = new URL(window.location.href);
+      url.searchParams.set('option', optionValue);
+      url.searchParams.set('page', 1);
+      window.location.href = url.toString();
+    });
+  });
+</script>
 </body>
 </html>

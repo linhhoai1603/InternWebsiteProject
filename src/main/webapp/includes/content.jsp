@@ -79,7 +79,7 @@
                                 <div class="product-discount" data-discount-percent="${product.price.discountPercent}">${product.price.discountPercent}%</div>
 
                                 <!-- Nút mua -->
-                                <button class="btn-buy">MUA NGAY</button>
+                                <button class="btn-buy">XEM NGAY</button>
                             </div>
                         </div>
                     </c:forEach>
@@ -174,7 +174,7 @@
                         <div class="product-old-price">${product.price.price}₫</div>
                         <div class="product-price"  style="font-size: 22px">${product.price.lastPrice}₫</div>
                         <div class="product-discount">${product.price.discountPercent}₫</div>
-                        <button class="btn-buy">MUA NGAY</button>
+                        <button class="btn-buy">XEM NGAY</button>
                     </div>
                 </div>
             </c:forEach>
