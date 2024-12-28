@@ -38,6 +38,19 @@ public class UserDao {
                         .execute() > 0
         );
     }
+    public void beginTransaction() {
+        jdbi.useHandle(handle -> handle.begin());
+    }
 
+    public void commitTransaction() {
+        jdbi.useHandle(handle -> handle.commit());
+    }
+
+    public void rollbackTransaction() {
+        jdbi.useHandle(handle -> handle.rollback());
+    }
+    public void closeTransaction() {
+        jdbi.useHandle(handle -> handle.close());
+    }
 
 }

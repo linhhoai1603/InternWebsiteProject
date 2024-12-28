@@ -18,9 +18,11 @@
 <div class="container mt-5">
   <!-- Header -->
   <h3 class="text-center  mb-4 title" >Thông tin người dùng</h3>
-
+  <c:if test="${not empty message}">
+    <p class="${messageType}">${message}</p>
+  </c:if>
   <!-- Form để chỉnh sửa thông tin người dùng -->
-  <form action="personal" method="post" enctype="multipart/form-data">
+  <form action="personal" method="post">
     <div class="row">
       <!-- Cột ảnh đại diện -->
       <div class="col-md-3 text-center">
