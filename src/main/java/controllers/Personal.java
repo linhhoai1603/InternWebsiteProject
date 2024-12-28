@@ -38,5 +38,6 @@ public class Personal extends HttpServlet {
         String commune = request.getParameter("commune");
         String street = request.getParameter("street");
 
+
     }
 }
