@@ -47,6 +47,9 @@ public class UserInForServies {
             userDao.closeTransaction();
         }
     }
+    public boolean updateAvatar(int idUser, String path) {
+        return userDao.updateAvatar(idUser,path);
+    }
     
 
     public static void main(String[] args) {

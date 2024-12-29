@@ -14,9 +14,12 @@ import java.sql.Statement;
 public class UserDao {
 
     private Jdbi jdbi;
-
+    Handle handle;
     public UserDao(Jdbi jdbi) {
         this.jdbi = jdbi;
+    }
+    public UserDao(){
+        this.jdbi = DBConnection.getJdbi();
     }
 
     public User findUserById(int id) {
@@ -41,6 +44,18 @@ public class UserDao {
                         .bind("name", name)
                         .bind("email", email)
                         .bind("phone", phone)
+                        .execute() > 0
+        );
+    }
+    public boolean updateAvatar(int id , String url) {
+        String sql = """
+                UPDATE users SET image = :image 
+                WHERE id = :id
+                """;
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(sql)
+                        .bind("id",id)
+                        .bind("image",url)
                         .execute() > 0
         );
     }
@@ -71,8 +86,8 @@ public class UserDao {
 
     public static void main(String[] args) {
         UserDao dao = new UserDao();
-        System.out.println(dao.updateInfo(1,"hung@gmail.com","Lê Đình Hưng","0330099958"));
-
+        System.out.println(dao.updateInfo(1, "hung@gmail.com", "Lê Đình Hưng", "0330099958"));
+    }
     public boolean emailExists(String email) {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT COUNT(*) FROM account_users au JOIN users u ON au.idUser = u.id WHERE u.email = :email")
