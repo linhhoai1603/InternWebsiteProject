@@ -90,13 +90,16 @@ public class UserDao {
     }
     public boolean emailExists(String email) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT COUNT(*) FROM account_users au JOIN users u ON au.idUser = u.id WHERE u.email = :email")
+                handle.createQuery(
+                                "SELECT COUNT(*) FROM account_users au "
+                                        + "JOIN users u ON au.idUser = u.id " // Sửa: idUser = u.id
+                                        + "WHERE u.email = :email"
+                        )
                         .bind("email", email)
                         .mapTo(Integer.class)
                         .one() > 0
         );
     }
-
 
     public int insertUser(String email, String fullName, String phoneNumber, int idAddress, String image) {
         return jdbi.withHandle(handle ->
