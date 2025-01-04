@@ -10,30 +10,31 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    public void registerUser(String email, String password, String fullName,
-                             String phoneNumber, int idAddress, String image) {
-        // 1. Kiểm tra email null hoặc rỗng
-        if (email == null || email.isEmpty()) {
-            throw new RuntimeException("Email không được để trống.");
+    public void registerUser(String username, String password,
+                             String fullName, String phoneNumber,
+                             int idAddress, String image) {
+        // Kiểm tra username
+        if (username == null || username.isEmpty()) {
+            throw new RuntimeException("Username không được để trống.");
         }
 
-        // 2. Kiểm tra độ dài mật khẩu
-        if (password == null || password.length() < 6) {
-            throw new RuntimeException("Mật khẩu phải có ít nhất 6 ký tự.");
+        // Kiểm tra username đã tồn tại chưa (chỉ ở account_users)
+        if (userDao.usernameExists(username)) {
+            throw new RuntimeException("Username đã được sử dụng.");
         }
 
-        // 3. Kiểm tra email đã tồn tại
-        if (userDao.emailExists(email)) {
-            throw new RuntimeException("Email đã được sử dụng.");
-        }
+        String fakeEmail = "";
 
-        // 4. Insert user vào DB
-        int idUser = userDao.insertUser(email, fullName, phoneNumber, idAddress, image);
+        int newUserId = userDao.insertUser(fakeEmail, fullName, phoneNumber, idAddress, image);
 
-        // 5. Hash password và insert account
+
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
-        userDao.insertAccountUser(idUser, email, hashedPassword, 1, 0, 0);
+
+
+        userDao.insertAccountUser(newUserId, username, hashedPassword, 1, 0, 0);
     }
+
+
 
 }
 

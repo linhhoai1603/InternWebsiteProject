@@ -39,26 +39,38 @@
       <div class="form-section">
         <h2 class="text-center mb-4">ĐĂNG KÝ TÀI KHOẢN</h2>
 
-        <!-- Hiển thị thông báo lỗi từ Servlet (nếu có) -->
+        <!--
+            1) Hiển thị thông báo lỗi từ Servlet (nếu có)
+        -->
         <c:if test="${not empty error}">
           <div class="alert alert-danger show" role="alert">
             <c:out value="${error}" />
           </div>
         </c:if>
 
-        <!-- Form Đăng Ký -->
-        <!-- CHỈNH SỬA Ở ĐÂY: action="register" (trùng với @WebServlet(value="/register")) -->
+        <!--
+            2) Hiển thị thông báo thành công từ Servlet (nếu có)
+        -->
+        <c:if test="${not empty success}">
+          <div class="alert alert-success show" role="alert">
+            <c:out value="${success}" />
+          </div>
+        </c:if>
+
+        <!--
+            3) Form Đăng Ký
+        -->
         <form id="registrationForm" action="register" method="post" novalidate>
-          <!-- Email -->
+          <!-- Username -->
           <div class="form-group mb-3">
-            <label for="email" class="form-label">Email *</label>
+            <label for="username" class="form-label">Username *</label>
             <input
                     class="form-control"
-                    id="email"
-                    name="email"
-                    placeholder="Nhập địa chỉ Email của bạn"
+                    id="username"
+                    name="username"
+                    placeholder="Nhập Username của bạn"
                     required
-                    type="email"
+                    type="text"
             />
           </div>
 
@@ -93,10 +105,18 @@
             <button class="btn btn-primary w-100" type="submit">ĐĂNG KÝ</button>
           </div>
         </form>
+
+
+        <div class="text-center mt-3">
+          <a class="btn btn-secondary w-100" href="index.jsp">QUAY LẠI TRANG CHỦ</a>
+        </div>
+
       </div>
     </div>
   </div>
 </div>
+
+<!-- Link JS hoặc script cuối trang (nếu có) -->
 <%@ include file="includes/link/footLink.jsp" %>
 </body>
 </html>
