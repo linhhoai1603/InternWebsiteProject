@@ -36,6 +36,17 @@ public class AddressDao {
                         .orElse(null)    // Return null if not found
         );
     }
+    public boolean addAddress(Address address){
+        String query = "insert into address values (?,?,?,?)";
+        return jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind(1, address.getCity())
+                    .bind(2, address.getProvince())
+                    .bind(3, address.getCommune())
+                    .bind(4, address.getStreet())
+                    .execute() > 0;
+        });
+    }
 
     public static void main(String[] args) {
         AddressDao dao = new AddressDao();
