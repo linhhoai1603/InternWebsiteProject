@@ -21,10 +21,13 @@
 <div class="container">
   <div class="row mt-5">
     <p>Bạn có mã ưu đãi?<a id="voucher">&nbsp;Ấn vào đây để nhập mã?</a></p>
+    <span class="text-danger">${requestScope.message}</span>
     <div id="inputVoucher">
       <h5>Nếu bạn có mã giảm giá, vui lòng điền vào phía bên dưới.</h5>
-      <input type="text" placeholder="Mã ưu đãi" style="padding: 10px" />
-      <button type="submit" class="btn btn-primary">Áp dụng</button>
+      <form action="payment?method=applyVoucher" method="post">
+        <input name="code" type="text" placeholder="Mã ưu đãi" style="padding: 10px" />
+        <button type="submit" class="btn btn-primary">Áp dụng</button>
+      </form>
     </div>
   </div>
   <div class="row">
@@ -226,59 +229,43 @@
         <thead>
         <tr>
           <div class="row">
-            <div class="col-md-3 fw-bold text-center">Sản phẩm</div>
-            <div class="col-md-3 fw-bold text-center">Tên</div>
-            <div class="col-md-3 fw-bold text-center">Số lượng</div>
-            <div class="col-md-3 fw-bold text-center">Tổng cộng</div>
+            <div class="col-md-4 fw-bold text-center">Sản phẩm</div>
+            <div class="col-md-2 fw-bold text-center">Tên</div>
+            <div class="col-md-2 fw-bold text-center">Giá sản phẩm</div>
+            <div class="col-md-2 fw-bold text-center">Số lượng</div>
+            <div class="col-md-2 fw-bold text-center">Tổng cộng</div>
           </div>
         </tr>
         </thead>
         <hr />
         <tbody>
+      <c:forEach var="item" items="${sessionScope.cart.values}">
         <tr>
           <div class="row">
-            <div class="col-md-3 text-center">
-              <img src="images/cart2.jpg" alt="" class="img-pay" />
+            <div class="col-md-4 text-center">
+              <img src="${item.style.image}" alt="" class="Images of product" height="100%" width="70%"/>
             </div>
-            <div class="col-md-3 text-center">Vải lụa</div>
-            <div class="col-md-3 text-center">1</div>
-            <div class="col-md-3 text-center">100,000đ</div>
+            <div class="col-md-2 text-center">${item.style.product.name}</div>
+            <div class="col-md-2 text-center">${item.quantity}</div>
+            <div class="col-md-2 text-center price">${item.style.product.price.lastPrice}</div>
+            <div class="col-md-2 text-center price">${item.totalPrice}</div>
           </div>
         </tr>
         <hr />
-        <tr>
-          <div class="row">
-            <div class="col-md-3 text-center">
-              <img src="images/cart1.jpg" alt="" class="img-pay" />
-            </div>
-            <div class="col-md-3 text-center">Vải kaki</div>
-            <div class="col-md-3 text-center">1</div>
-            <div class="col-md-3 text-center">150,000đ</div>
-          </div>
-        </tr>
-        <hr />
-        <tr>
-          <div class="row">
-            <div class="col-md-3 text-center">
-              <img src="images/cart3.jpg" alt="" class="img-pay" />
-            </div>
-            <div class="col-md-3 text-center">Vải nhung</div>
-            <div class="col-md-3 text-center">1</div>
-            <div class="col-md-3 text-center">200,000đ</div>
-          </div>
-        </tr>
+      </c:forEach>
+      <!-- Thong tin thanh toan-->
         <hr />
         <tr>
           <div class="row">
             <div class="col-md-3 fw-bold text-center">Tạm tính</div>
             <div class="col-md-6"></div>
-            <div class="col-md-3 fw-bold text-center">450,000đ</div>
+            <div class="col-md-3 fw-bold text-center price">${sessionScope.cart.totalPrice}</div>
           </div>
           <div class="row">
             <div class="col-md-3 fw-bold text-center">Giao hàng</div>
             <div class="col-md-6"></div>
-            <div class="col-md-3 fw-bold text-center">
-               30,000đ
+            <div class="col-md-3 fw-bold text-center price">
+                ${sessionScope.cart.shippingFee}
             </div>
           </div>
           <div class="row">
@@ -286,8 +273,8 @@
               Tổng
             </div>
             <div class="col-md-6"></div>
-            <div class="col-md-3 fw-bold text-center text-primary">
-              480,000đ
+            <div class="col-md-3 fw-bold text-center text-primary price">
+              ${sessionScope.cart.lastPrice}
             </div>
           </div>
         </tr>
@@ -348,6 +335,22 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Hàm định dạng số tiền thành tiền Việt
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    // Định dạng giá gốc
+    document.querySelectorAll(".price").forEach(el => {
+      const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+      if (originalPrice) {
+        el.textContent = formatCurrency(parseFloat(originalPrice));
+      }
+    });
+  });
+</script>
 <!-- End payment -->
 <%@include file="includes/footer.jsp"%>
 <%@include file="includes/link/footLink.jsp"%>

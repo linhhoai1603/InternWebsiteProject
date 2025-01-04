@@ -148,8 +148,6 @@
         el.textContent = formatCurrency(parseFloat(originalPrice));
       }
     });
-
-
   });
 
 

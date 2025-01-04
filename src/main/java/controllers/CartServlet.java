@@ -52,7 +52,6 @@ public class CartServlet extends HttpServlet {
             }else{
                 request.setAttribute("message", "Giảm giá thành công!");
             }
-
         }
         request.getRequestDispatcher("shopping-cart.jsp").forward(request,response);
     }
