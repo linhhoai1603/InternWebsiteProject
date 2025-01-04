@@ -12,7 +12,7 @@ import services.UserService;
 
 import java.io.IOException;
 
-@WebServlet("/RegisterServlet")
+@WebServlet(name = "RegisterServlet", value = "/register")
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserService userService;

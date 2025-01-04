@@ -58,10 +58,11 @@ public class ProductService {
     }
     public static void main(String[] args) {
         ProductService productService = new ProductService();
-        List<Product> products = productService.getProductByCategory("Vải may mặc",12,4);
-        int nu =productService.getNumberOfPage(products,12);
-        System.out.println(products);
-        System.out.println(nu);
+//        List<Product> products = productService.getProductByCategory("Vải may mặc",12,4);
+//        int nu =productService.getNumberOfPage(products,12);
+//        System.out.println(products);
+//        System.out.println(nu);
+        System.out.println(productService.getProductsByCategorySort(2, 1, 4, 4));
     }
 
 

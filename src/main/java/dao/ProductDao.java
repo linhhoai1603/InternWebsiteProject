@@ -170,7 +170,7 @@ public class ProductDao {
                     return product;
         }).list());
     }
-    public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options,String inputName) {
+    public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options, String inputName) {
         String input = "%"+inputName+"%";
         String sortBy = "";
         String sortOrder = "";
@@ -253,9 +253,9 @@ public class ProductDao {
     """;
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
-                .bind(0,input)
-                .bind(1, pageSize)
-                .bind(2, (pageNumber - 1) * pageSize)
+                .bind(1,input)
+                .bind(2, pageSize)
+                .bind(3, (pageNumber - 1) * pageSize)
                 .map((rs, ctx) -> {
                     // Product
                     Product product = new Product();
