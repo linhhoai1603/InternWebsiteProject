@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="css/register.css">
   <title>Đăng ký</title>
   <style>
-    /* Thêm một số CSS tùy chỉnh nếu cần */
     body, html {
       height: 100%;
     }
@@ -36,17 +35,20 @@
 <body>
 <div class="container">
   <div class="row w-100">
-    <div class="col-md-6 mx-auto"> <!-- Đặt form vào giữa với mx-auto -->
+    <div class="col-md-6 mx-auto">
       <div class="form-section">
         <h2 class="text-center mb-4">ĐĂNG KÝ TÀI KHOẢN</h2>
-        <!-- Hiển thị thông báo lỗi từ Servlet -->
+
+        <!-- Hiển thị thông báo lỗi từ Servlet (nếu có) -->
         <c:if test="${not empty error}">
           <div class="alert alert-danger show" role="alert">
             <c:out value="${error}" />
           </div>
         </c:if>
+
         <!-- Form Đăng Ký -->
-        <form id="registrationForm" action="RegisterServlet" method="post" novalidate>
+        <!-- CHỈNH SỬA Ở ĐÂY: action="register" (trùng với @WebServlet(value="/register")) -->
+        <form id="registrationForm" action="register" method="post" novalidate>
           <!-- Email -->
           <div class="form-group mb-3">
             <label for="email" class="form-label">Email *</label>
@@ -57,7 +59,6 @@
                     placeholder="Nhập địa chỉ Email của bạn"
                     required
                     type="email"
-                    aria-describedby="emailHelp"
             />
           </div>
 
@@ -71,7 +72,6 @@
                     placeholder="Nhập mật khẩu"
                     required
                     type="password"
-                    aria-describedby="passwordHelp"
             />
           </div>
 
@@ -85,7 +85,6 @@
                     placeholder="Nhập lại mật khẩu"
                     required
                     type="password"
-                    aria-describedby="confirmPasswordHelp"
             />
           </div>
 
