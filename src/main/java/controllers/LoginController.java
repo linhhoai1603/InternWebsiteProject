@@ -25,14 +25,16 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         AuthenServies authen = new AuthenServies();
         AccountUser acc = authen.checkLogin(username, password);
-        User user = acc.getUser();
-        if(user != null) {
+
+        if(acc != null) {
+            User user = acc.getUser();
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("account", acc);
             response.sendRedirect(request.getContextPath() + "/home");
         }else {
-            request.setAttribute("error", "Invalid username or password");
+            request.setAttribute("username",username);
+            request.setAttribute("error", "Tài khoản hoặc mật khẩu sai");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }

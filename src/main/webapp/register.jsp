@@ -1,34 +1,59 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: hoai1
-  Date: 12/4/2024
-  Time: 2:25 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="includes/link/headLink.jsp"%>
+<%@ include file="includes/link/headLink.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
   <link rel="stylesheet" href="css/register.css">
   <title>Đăng ký</title>
+  <style>
+    /* Thêm một số CSS tùy chỉnh nếu cần */
+    body, html {
+      height: 100%;
+    }
+    .container {
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .form-section {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      background-color: #f8f9fa;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .alert {
+      display: none;
+    }
+    .alert.show {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-<a href="index.jsp"><-- Quay lại trang chủ</a>
-<!-- Nội Dung Chính: Form Đăng Ký -->
 <div class="container">
-  <div class="row">
-    <div class="con-md-6">
+  <div class="row w-100">
+    <div class="col-md-6 mx-auto"> <!-- Đặt form vào giữa với mx-auto -->
       <div class="form-section">
-        <h2 class="text-center">ĐĂNG KÝ TÀI KHOẢN</h2>
-        <span id="message" class="bg-danger"></span>
+        <h2 class="text-center mb-4">ĐĂNG KÝ TÀI KHOẢN</h2>
+        <!-- Hiển thị thông báo lỗi từ Servlet -->
+        <c:if test="${not empty error}">
+          <div class="alert alert-danger show" role="alert">
+            <c:out value="${error}" />
+          </div>
+        </c:if>
         <!-- Form Đăng Ký -->
-        <form id="registrationForm" novalidate class="form-control">
+        <form id="registrationForm" action="RegisterServlet" method="post" novalidate>
           <!-- Email -->
-          <div class="mb-3">
+          <div class="form-group mb-3">
             <label for="email" class="form-label">Email *</label>
             <input
                     class="form-control"
                     id="email"
+                    name="email"
                     placeholder="Nhập địa chỉ Email của bạn"
                     required
                     type="email"
@@ -37,31 +62,33 @@
           </div>
 
           <!-- Mật khẩu -->
-          <div class="mb-3">
+          <div class="form-group mb-3">
             <label for="password" class="form-label">Mật khẩu *</label>
             <input
                     class="form-control"
                     id="password"
+                    name="password"
                     placeholder="Nhập mật khẩu"
                     required
                     type="password"
                     aria-describedby="passwordHelp"
             />
           </div>
+
           <!-- Xác nhận Mật khẩu -->
-          <div class="mb-3">
-            <label for="confirmPassword" class="form-label"
-            >Xác nhận Mật khẩu *</label
-            >
+          <div class="form-group mb-4">
+            <label for="confirmPassword" class="form-label">Xác nhận Mật khẩu *</label>
             <input
                     class="form-control"
                     id="confirmPassword"
+                    name="confirmPassword"
                     placeholder="Nhập lại mật khẩu"
                     required
                     type="password"
                     aria-describedby="confirmPasswordHelp"
             />
           </div>
+
           <!-- Nút Đăng Ký -->
           <div class="text-center">
             <button class="btn btn-primary w-100" type="submit">ĐĂNG KÝ</button>
@@ -71,6 +98,6 @@
     </div>
   </div>
 </div>
-<%@include file="includes/link/footLink.jsp"%>
+<%@ include file="includes/link/footLink.jsp" %>
 </body>
 </html>

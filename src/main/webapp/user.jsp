@@ -10,6 +10,10 @@
 <html>
 <head>
   <title>Thông tin người dùng</title>
+  <style>
+    .success { color: green; }
+    .error { color: red; }
+  </style>
 </head>
 <body>
 <%@include file="includes/header.jsp"%>
@@ -18,9 +22,11 @@
 <div class="container mt-5">
   <!-- Header -->
   <h3 class="text-center  mb-4 title" >Thông tin người dùng</h3>
-
+  <c:if test="${not empty message}">
+    <h4 class="${messageType}">${message}</h4>
+  </c:if>
   <!-- Form để chỉnh sửa thông tin người dùng -->
-  <form action="saveUserInfo.jsp" method="post" enctype="multipart/form-data">
+  <form action="personal" method="post">
     <div class="row">
       <!-- Cột ảnh đại diện -->
       <div class="col-md-3 text-center">
@@ -29,14 +35,14 @@
           <img src="images/avatar.jpg" alt="User Avatar" id="userAvatar">
 
           <!-- Nút chọn ảnh -->
-          <label for="avatarInput" class="col-md-6 file-label w-100">Chọn ảnh</label>
+          <label for="avatarInput" class="col-md-6 file-label w-100">Sửa ảnh</label>
           <input type="file" id="avatarInput" name="avatar" accept="image/*" class="file-input" >
         </div>
       </div>
 
       <!-- Cột thông tin người dùng -->
       <div class="col-md-9">
-      <form id="personalForm" method="post" action="personal">
+
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="${sessionScope.user.email}" required>
@@ -75,7 +81,6 @@
 
         <!-- Nút lưu thông tin -->
         <button type="submit" class="btn mt-3" style="background: #339C87 ;color: white ">Lưu thông tin</button>
-      </form>
       </div>
     </div>
   </form>
