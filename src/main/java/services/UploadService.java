@@ -7,36 +7,71 @@ import java.io.File;
 import java.util.Map;
 
 public class UploadService {
-    private Cloudinary cloudinary;
+    private final Cloudinary cloudinary;
 
     public UploadService() {
-        cloudinary = new Cloudinary(ObjectUtils.asMap(
-                "cloud_name", "dqrcnihrz",
-                "api_key", "814626227372912"
+        // Tạo Cloudinary instance với cấu hình từ biến môi trường
+        this.cloudinary = createCloudinary();
+    }
+
+    /**
+     * Cấu hình Cloudinary bằng biến môi trường
+     */
+    private Cloudinary createCloudinary() {
+        String cloudName = System.getenv("CLOUD_NAME");
+        String apiKey = System.getenv("API_KEY");
+        String apiSecret = System.getenv("API_SECRET");
+
+        if (cloudName == null || apiKey == null || apiSecret == null) {
+            throw new IllegalStateException("Cloudinary configuration is missing. Please set CLOUD_NAME, API_KEY, and API_SECRET as environment variables.");
+        }
+
+        return new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", cloudName,
+                "api_key", apiKey,
+                "api_secret", apiSecret
         ));
     }
 
+    /**
+     * Upload file lên Cloudinary
+     *
+     * @param fileName Tên file trên Cloudinary
+     * @param file     File cần upload
+     * @return URL của ảnh đã upload
+     */
     public String uploadCloud(String fileName, File file) {
-        String imageUrl = "";
-        try {
+        if (file == null || !file.exists()) {
+            System.err.println("File không tồn tại hoặc null.");
+            return null;
+        }
 
-            Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.asMap(
+        try {
+            Map<String, Object> uploadOptions = ObjectUtils.asMap(
                     "upload_preset", "loadImgLTW",
                     "public_id", fileName,
                     "folder", "ecommerce/avatarUsers"
-            ));
+            );
+
+            Map<String, Object> uploadResult = cloudinary.uploader().upload(file, uploadOptions);
+
             if (uploadResult.containsKey("secure_url")) {
-                imageUrl = (String) uploadResult.get("secure_url");
+                String imageUrl = (String) uploadResult.get("secure_url");
                 System.out.println("Upload thành công! URL: " + imageUrl);
                 return imageUrl;
             } else {
-                System.out.println("Upload thất bại! Không tìm thấy secure_url.");
+                System.err.println("Upload thất bại! Không tìm thấy secure_url.");
                 return null;
             }
         } catch (Exception e) {
+            System.err.println("Có lỗi xảy ra khi tải lên Cloudinary:");
             e.printStackTrace();
-            System.out.println("Có lỗi xảy ra khi tải lên: " + e.getMessage());
             return null;
         }
+    }
+
+    public static void main(String[] args) {
+        String cloudName = System.getenv("CLOUD_NAME");
+        System.out.println(cloudName);
     }
 }
