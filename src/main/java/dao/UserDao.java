@@ -103,21 +103,31 @@ public class UserDao {
 
     public int insertUser(String email, String fullName, String phoneNumber, int idAddress, String image) {
         return jdbi.withHandle(handle ->
-                handle.createUpdate("INSERT INTO users (email, fullName, phoneNumber, idAddress, image) VALUES (:email, :fullName, :phoneNumber, :idAddress, :image)")
-                        .bind("email", email)
+                handle.createUpdate(
+                                "INSERT INTO users (email, fullName, phoneNumber, idAddress, image) " +
+                                        "VALUES (:email, :fullName, :phoneNumber, :idAddress, :image)"
+                        )
+                        .bind("email", email)       // Dùng email
                         .bind("fullName", fullName)
                         .bind("phoneNumber", phoneNumber)
                         .bind("idAddress", idAddress)
                         .bind("image", image)
-                        .executeAndReturnGeneratedKeys("id")
+                        .executeAndReturnGeneratedKeys("id") // Lấy id auto-increment
                         .mapTo(Integer.class)
                         .one()
         );
     }
 
-    public void insertAccountUser(int idUser, String username, String password, int role, int locked, int code) {
+
+
+
+    public void insertAccountUser(int idUser, String username, String password,
+                                  int role, int locked, int code) {
         jdbi.useHandle(handle ->
-                handle.createUpdate("INSERT INTO account_users (idUser, username, password, role, locked, code) VALUES (:idUser, :username, :password, :role, :locked, :code)")
+                handle.createUpdate(
+                                "INSERT INTO account_users (idUser, username, password, role, locked, code) " +
+                                        "VALUES (:idUser, :username, :password, :role, :locked, :code)"
+                        )
                         .bind("idUser", idUser)
                         .bind("username", username)
                         .bind("password", password)
@@ -127,6 +137,20 @@ public class UserDao {
                         .execute()
         );
     }
+
+
+    public boolean usernameExists(String username) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery(
+                                "SELECT COUNT(*) FROM account_users " +
+                                        "WHERE username = :username"
+                        )
+                        .bind("username", username)
+                        .mapTo(Integer.class)
+                        .one() > 0
+        );
+    }
+
 }
 
 
