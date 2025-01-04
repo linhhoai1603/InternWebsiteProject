@@ -60,7 +60,7 @@
                 %>
                 <a href="${pageContext.request.contextPath}/personal" class="btn text-white btn-bg" id="accountButton">
                     <i class="fa-solid fa-user"></i>&nbsp;Cá nhân</a>
-                <a href="${pageContext.request.contextPath}/logout" class="btn text-white btn-bg"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
+                <a href="${pageContext.request.contextPath}/logout-user" class="btn text-white btn-bg"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
                 <%
                     }
                 %>
