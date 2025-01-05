@@ -29,23 +29,25 @@
 
     <div class="row">
       <!-- Cột ảnh đại diện -->
-      <form action="personal" method="post" enctype="multipart/form-data" id="avatarForm">
+
         <div class="col-md-3 text-center">
           <div class="col-md-6 avatar-container">
+            <form action="personal" method="post" enctype="multipart/form-data" id="avatarForm">
             <!-- Hiển thị ảnh người dùng -->
             <img src="${sessionScope.user.image}" alt="User Avatar" id="userAvatar" class="img-fluid rounded-circle">
 
             <!-- Nút chọn ảnh -->
             <label for="avatarInput" class="file-label w-100 mt-3">Sửa ảnh</label>
             <input type="file" id="avatarInput" name="avatar" accept="image/*" class="file-input" onchange="previewImageAndSubmit(event)">
+            </form>
           </div>
         </div>
-      </form>
 
-      <form action="personal" method="post">
+
+
       <!-- Cột thông tin người dùng -->
       <div class="col-md-9">
-
+        <form action="personal" method="post">
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="${sessionScope.user.email}" required>
@@ -84,9 +86,9 @@
 
         <!-- Nút lưu thông tin -->
         <button type="submit" class="btn mt-3" style="background: #339C87 ;color: white ">Lưu thông tin</button>
+        </form>
       </div>
     </div>
-  </form>
 </div>
 <script>
 
