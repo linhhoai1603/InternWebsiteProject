@@ -17,8 +17,10 @@ public class HomeServlet extends HttpServlet {
         ProductService ps = new ProductService();
         HttpSession session = request.getSession();
         // tạo ra shopping cart của người dùng
-        Cart cart = new Cart();
-        session.setAttribute("cart", cart);
+        if(request.getSession().getAttribute("cart") == null){
+            Cart cart = new Cart();
+            session.setAttribute("cart", cart);
+        } // kiem tra da co gio hang hay chua
         // danh sách sản phẩm nội thất bán chạy
         session.setAttribute("fabricHotSelling", ps.getProductsByCategorySort(2, 1, 4, 4));
         List<Product> productsHotSelling = ps.getProductsByCategorySort(1, 1, 8, 4);

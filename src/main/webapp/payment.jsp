@@ -207,12 +207,10 @@
         <tr>
           <div class="row">
             <div class="col-md-8"></div>
-            <a
-                    href="payment-success.jsp"
+            <a  href="payment-success.jsp"
                     type="submit"
                     class="btn btn-warning col-md-4 text-white"
-            >Đặt hàng</a
-            >
+            >Đặt hàng</a>
           </div>
         </tr>
         </tbody>

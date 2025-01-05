@@ -14,12 +14,27 @@ import services.VoucherService;
 @WebServlet(name = "PamentServlet", value = "/payment")
 public class PamentServlet extends HttpServlet {
 
+    protected  void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String method = request.getParameter("method");
         if("applyVoucher".equals(method)) {
             applyVoucher(request, response);
         }
+        if("start".equals(method)){
+            startPayment(request, response);
+        }
 
+    }
+
+    private void startPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getSession().getAttribute("user") == null){
+            request.setAttribute("error" , "Vui lòng đăng nhập trước khi thanh toán!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }else{
+            response.sendRedirect("payment.jsp");
+        }
     }
 
     private void applyVoucher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
