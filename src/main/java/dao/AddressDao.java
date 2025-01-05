@@ -26,10 +26,32 @@ public class AddressDao {
                         .execute() > 0
         );
     }
+    public Address getAddressByID(int id) {
+        String query = "SELECT * FROM addresses WHERE id = :id";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("id", id)  // Bind parameter by name
+                        .mapToBean(Address.class)
+                        .findOne()
+                        .orElse(null)    // Return null if not found
+        );
+    }
+    public boolean addAddress(Address address){
+        String query = "insert into address values (?,?,?,?)";
+        return jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind(1, address.getCity())
+                    .bind(2, address.getProvince())
+                    .bind(3, address.getCommune())
+                    .bind(4, address.getStreet())
+                    .execute() > 0;
+        });
+    }
 
     public static void main(String[] args) {
         AddressDao dao = new AddressDao();
-        System.out.println(dao.updateAddress(1,"Đồng Nai","Biên Hòa","Yêết Kiu","Lonng Bình"));
+//        System.out.println(dao.updateAddress(1,"Đồng Nai","Biên Hòa","Yêết Kiu","Lonng Bình"));
+        System.out.println(dao.getAddressByID(3));
     }
 
 }

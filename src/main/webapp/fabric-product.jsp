@@ -158,6 +158,42 @@
       mainImage.src = imageUrl;
     }
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Hàm định dạng số tiền thành tiền Việt
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    // Hàm định dạng phần trăm giảm giá
+    function formatDiscount(discount) {
+      return Math.round(discount) + '%';
+    }
+
+    // Định dạng giá gốc
+    document.querySelectorAll(".product-old-price").forEach(el => {
+      const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+      if (originalPrice) {
+        el.textContent = formatCurrency(parseFloat(originalPrice));
+      }
+    });
+
+    // Định dạng giá sau khi giảm
+    document.querySelectorAll(".product-price").forEach(el => {
+      const lastPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+      if (lastPrice) {
+        el.textContent = formatCurrency(parseFloat(lastPrice));
+      }
+    });
+
+    // Định dạng phần trăm giảm giá
+    document.querySelectorAll(".product-discount").forEach(el => {
+      const discountPercent = el.textContent.trim().replace("%", "");
+      if (discountPercent) {
+        el.textContent = formatDiscount(parseFloat(discountPercent));
+      }
+    });
+  });
 </script>
 </body>
 </html>

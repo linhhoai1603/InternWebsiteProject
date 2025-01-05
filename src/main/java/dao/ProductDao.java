@@ -128,12 +128,12 @@ public class ProductDao {
      p.quantity > 0 AND p.selling > 0
     """ + groupBy + """
     ORDER BY """ + sortBy + " " + sortOrder + """
-    LIMIT ? OFFSET ?;
+    LIMIT :pageSize OFFSET :value;
     """;
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
-                .bind(0, pageSize)
-                .bind(1, (pageNumber - 1) * pageSize)
+                .bind("pageSize", pageSize)
+                .bind("value", (pageNumber - 1) * pageSize)
                 .map((rs, ctx) -> {
                     // Product
                     Product product = new Product();
@@ -171,7 +171,7 @@ public class ProductDao {
         }).list());
     }
     public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options, String inputName) {
-        String input = "%"+inputName+"%";
+        String input = "%" + inputName + "%";
         String sortBy = "";
         String sortOrder = "";
         String groupBy = "";
@@ -199,14 +199,14 @@ public class ProductDao {
                 sortBy = " totalProduct ";
                 sortOrder = " DESC ";
                 join = """
-            LEFT JOIN styles s ON s.idProduct = p.id
-            LEFT JOIN order_details od ON od.idStyle = s.id
+                LEFT JOIN styles s ON s.idProduct = p.id
+                LEFT JOIN order_details od ON od.idStyle = s.id
             """;
                 groupBy = """
-            GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
-                     p.area, p.selling, p.img, c.id, c.name, 
-                     t.id, t.specifications, t.manufactureDate, 
-                     pr.id, pr.price, pr.discountPercent, pr.lastPrice
+                GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
+                        p.area, p.selling, p.img, c.id, c.name, 
+                        t.id, t.specifications, t.manufactureDate, 
+                        pr.id, pr.price, pr.discountPercent, pr.lastPrice
             """;
                 sum = ", SUM(od.quantity) AS totalProduct"; // tổng số lượng đã bán
                 break;
@@ -221,48 +221,48 @@ public class ProductDao {
         }
 
         String query = """
-    SELECT 
-        p.id AS idProduct,
-        p.name AS nameProduct,
-        p.quantity,
-        p.addedDate,
-        p.description,
-        p.area,
-        p.selling,
-        p.img,
-        c.id AS idCategory,
-        c.name AS categoryName,
-        t.id AS idTechnicalInfo,
-        t.specifications,
-        t.manufactureDate,
-        pr.id AS idPrice,
-        pr.price,
-        pr.discountPercent,
-        pr.lastPrice
-        """ + sum + """
-     FROM products p
-    JOIN categories c ON p.idCategory = c.id
-    JOIN technical_information t ON p.id = t.id
-    JOIN prices pr ON p.idPrice = pr.id
-    """ + join + """
-    WHERE p.name LIKE ? AND """  + categoryQuery +"""
-     p.quantity > 0 AND p.selling > 0
-    """ + groupBy + """
-    ORDER BY """ + sortBy + " " + sortOrder + """
-    LIMIT ? OFFSET ?;
+        SELECT 
+            p.id AS idProduct,
+            p.name AS nameProduct,
+            p.quantity,
+            p.addedDate,
+            p.description,
+            p.area,
+            p.selling,
+            p.img,
+            c.id AS idCategory,
+            c.name AS categoryName,
+            t.id AS idTechnicalInfo,
+            t.specifications,
+            t.manufactureDate,
+            pr.id AS idPrice,
+            pr.price,
+            pr.discountPercent,
+            pr.lastPrice
+            """ + sum + """
+        FROM products p
+        JOIN categories c ON p.idCategory = c.id
+        JOIN technical_information t ON p.id = t.id
+        JOIN prices pr ON p.idPrice = pr.id
+        """ + join + """
+        WHERE p.name LIKE ? AND """  + categoryQuery +"""
+        p.quantity > 0 AND p.selling > 0
+        """ + groupBy + """
+        ORDER BY """ + sortBy + " " + sortOrder + """
+        LIMIT ? OFFSET ?;
     """;
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
-                .bind(1,input)
-                .bind(2, pageSize)
-                .bind(3, (pageNumber - 1) * pageSize)
+                .bind(0, input)
+                .bind(1, pageSize)
+                .bind(2, (pageNumber - 1) * pageSize)
                 .map((rs, ctx) -> {
                     // Product
                     Product product = new Product();
                     product.setId(rs.getInt("idProduct"));
                     product.setName(rs.getString("nameProduct"));
                     product.setQuantity(rs.getInt("quantity"));
-                    product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    product.setDateAdded(rs.getDate("addedDate") != null ? rs.getDate("addedDate").toLocalDate() : null);
                     product.setDescription(rs.getString("description"));
                     product.setArea(rs.getDouble("area"));
                     product.setSelling(rs.getInt("selling"));
@@ -292,6 +292,7 @@ public class ProductDao {
                     return product;
                 }).list());
     }
+
     public List<Product> getProductByCategory(String name) {
         Jdbi jdbi = DBConnection.getConnetion();
         String sql = """
