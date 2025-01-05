@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Các mẫu thiết kế</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <link rel="stylesheet" href="css/login.css">
@@ -17,13 +18,20 @@
 <!-- Header with Navbar -->
         <a class="btn-back-home" href="index.jsp"><-- Về trang chủ</a>
 <div class="container ">
-    <%
-        String error= (String) request.getAttribute("error");
-        String username=(String) request.getAttribute("username");
-        if(error==null) error = "";
-        request.setAttribute("error", error);
-        if(username==null) username = "";
-    %>
+    <!-- Lấy giá trị error và username từ request scope -->
+    <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}" />
+    <c:set var="username" value="${not empty requestScope.username ? requestScope.username : ''}" />
+
+    <!-- Hiển thị thông báo nếu có lỗi -->
+    <c:if test="${not empty error}">
+        <script type="text/javascript">
+            Swal.fire({
+                icon: 'error',
+                title: 'Thông báo',
+                text: "${error}"
+            });
+        </script>
+    </c:if>
 
     <div class="form-section">
         <h2>ĐĂNG NHẬP</h2>

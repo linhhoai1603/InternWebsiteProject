@@ -29,13 +29,25 @@ public class PamentServlet extends HttpServlet {
     }
 
     private void startPayment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getSession().getAttribute("user") == null){
-            request.setAttribute("error" , "Vui lòng đăng nhập trước khi thanh toán!");
+        // Kiểm tra xem người dùng đã đăng nhập chưa
+        if (request.getSession().getAttribute("user") == null) {
+            request.setAttribute("error", "Vui lòng đăng nhập trước khi thanh toán!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
-        }else{
-            response.sendRedirect("payment.jsp");
+            return; // Dừng xử lý thêm, không cần tiếp tục
         }
+
+        // Kiểm tra xem giỏ hàng có trống không
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+        if (cart == null || cart.getItems().values().isEmpty()) {
+            request.setAttribute("error", "Không thể tiến hành thanh toán vì giỏ hàng trống!");
+            request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
+            return; // Dừng xử lý thêm, không cần tiếp tục
+        }
+
+        // Nếu người dùng đã đăng nhập và giỏ hàng không trống, chuyển hướng đến trang thanh toán
+        response.sendRedirect("payment.jsp");
     }
+
 
     private void applyVoucher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String code = request.getParameter("code");
