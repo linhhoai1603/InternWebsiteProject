@@ -71,4 +71,21 @@
                        }).list().getFirst();
             });
         }
+
+
+        //Thêm một phương thức mới trong StyleDao để lấy các styles liên quan đến dây kéo:
+        public List<Style> getZipperStylesByIDProduct(int idProduct) {
+            String query = "SELECT * FROM styles WHERE idProduct = ? AND " +
+                    "(LOWER(image) LIKE '%zipper%' OR LOWER(image) LIKE '%dây kéo%' " +
+                    "OR LOWER(image) LIKE '%pull%' OR LOWER(image) LIKE '%buckle%')";
+            return jdbi.withHandle(handle -> {
+                return handle.createQuery(query)
+                        .bind(0, idProduct)
+                        .mapToBean(Style.class)
+                        .list();
+            });
+        }
+
+
+
     }

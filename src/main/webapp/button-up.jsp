@@ -17,19 +17,17 @@
     }
     .style-option {
       position: relative;
-    }
-    .style-option input[type="radio"] {
-      display: none;
+      cursor: pointer;
     }
     .style-option img {
       width: 60px;
       height: 60px;
       border: 2px solid #ccc;
       border-radius: 5px;
-      cursor: pointer;
       transition: transform 0.2s, border-color 0.2s;
+      padding: 2px;
     }
-    .style-option input[type="radio"]:checked + img {
+    .style-option.selected img {
       border-color: #007bff;
       transform: scale(1.1);
     }
@@ -117,34 +115,53 @@
       <div class="row product-container">
         <c:forEach var="product" items="${buttonUp}">
           <div class="col-md-4 mb-4">
-            <div class="card product-item position-relative h-100" style="background-color: #ededed">
+            <div class="card product-item position-relative h-100">
               <!-- Thẻ hiển thị giảm giá -->
               <c:if test="${product.price.discountPercent > 0}">
-                <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
-                  -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0" />%
-                </span>
+                  <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
+                    -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0" />%
+                  </span>
               </c:if>
-              <img src="${product.image}" class="card-img-top h-50" alt="Hình ảnh sản phẩm" style="object-fit: cover;">
+
+              <!-- Hình ảnh chính của sản phẩm -->
+              <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="card-img-top main-product-image" style="object-fit: cover; cursor: pointer;">
+
+              <!-- Modal để hiển thị hình ảnh lớn -->
+              <div class="modal fade" id="imageModal${product.id}" tabindex="-1" aria-labelledby="imageModalLabel${product.id}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <img src="${product.image}" class="img-fluid" id="modalImage${product.id}" alt="Hình ảnh lớn">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title">${product.name}</h5>
                 <h4 class="card-text text-success">
                   Chỉ còn:
                   <span class="product-old-price">
-                    <fmt:formatNumber value="${product.price.lastPrice}" type="currency" currencySymbol="₫" />
-                  </span>
+                      <fmt:formatNumber value="${product.price.lastPrice}" type="currency" currencySymbol="₫" />
+                    </span>
                 </h4>
                 <p class="text-danger text-decoration-line-through">
                   Giá gốc:
                   <span class="product-price">
-                    <fmt:formatNumber value="${product.price.price}" type="currency" currencySymbol="₫" />
-                  </span>
+                      <fmt:formatNumber value="${product.price.price}" type="currency" currencySymbol="₫" />
+                    </span>
                 </p>
-                <p class="cart-text">Mô tả: ${product.description}</p>
+                <p class="cart-text description">Mô tả: ${product.description}</p>
 
                 <!-- Form Thêm Vào Giỏ Hàng -->
-                <form action="cart?method=add" method="post" class="mt-auto">
+                <form action="cart?method=add" method="post" class="mt-auto product-options-form">
                   <!-- Hidden Inputs -->
                   <input type="hidden" name="currentURL" value="product-buttonUp?page=${currentPage}&option=${option}<c:if test='${minPrice != null || maxPrice != null}'> &amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">
+                  <input type="hidden" name="productID" value="${product.id}">
+                  <input type="hidden" name="selectedStyle" id="selectedStyle${product.id}" value="">
 
                   <!-- Chọn Style (nếu sản phẩm có nhiều style) -->
                   <c:if test="${not empty product.styles}">
@@ -152,11 +169,8 @@
                       <label class="form-label">Chọn Style:</label>
                       <div class="style-selection">
                         <c:forEach var="style" items="${product.styles}">
-                          <div class="style-option">
-                            <input class="form-check-input" type="radio" name="selectedStyle" id="style${style.id}" value="${style.id}" required>
-                            <label class="form-check-label" for="style${style.id}">
-                              <img src="${style.image}" alt="${style.name}">
-                            </label>
+                          <div class="style-option" data-style-id="${style.id}" data-image-url="${style.image}">
+                            <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
                           </div>
                         </c:forEach>
                       </div>
@@ -164,13 +178,14 @@
                   </c:if>
 
                   <!-- Số lượng sản phẩm -->
-                  <div class="mb-3">
+                  <div class="mb-3 quantity-container" style="display: none;">
                     <label for="quantity${product.id}" class="form-label">Số lượng:</label>
-                    <input type="number" class="form-control" id="quantity${product.id}" name="quantity" min="1" value="1" required>
+                    <input type="number" class="form-control quantity-input" id="quantity${product.id}" name="quantity" min="1" value="1" required>
                   </div>
 
-                  <!-- Nút Thêm Vào Giỏ Hàng -->
-                  <button type="submit" class="btn btn-warning w-100 mb-2">Thêm vào giỏ hàng</button>
+                  <!-- Nút Thêm Vào Giỏ Hàng / Xác Nhận -->
+                  <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
+                  <button type="submit" class="btn btn-success w-100 mb-2 submit-cart-button" style="display: none;">Xác nhận</button>
                 </form>
 
                 <!-- Nút Xem Ngay -->
@@ -187,25 +202,53 @@
           <!-- Nút Previous -->
           <c:if test="${currentPage > 1}">
             <li class="page-item">
-              <a class="page-link" href="product-buttonUp?option=${option}&page=${currentPage - 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>"> << </a>
+              <a class="page-link" href="<c:url value='product-buttonUp'>
+        <c:param name='option' value='${option}'/>
+        <c:param name='page' value='${currentPage - 1}'/>
+        <c:if test='${minPrice != null || maxPrice != null}'>
+          <c:param name='minPrice' value='${minPrice}'/>
+          <c:param name='maxPrice' value='${maxPrice}'/>
+        </c:if>
+      </c:url>">
+                &laquo;
+              </a>
             </li>
           </c:if>
 
-          <!-- Các trang -->
+          <!-- Danh sách số trang -->
           <c:forEach var="i" begin="1" end="${pageNumber}">
-            <li class="page-item ${i == currentPage ? 'active' : ''}">
-              <a class="page-link" href="product-buttonUp?option=${option}&page=${i}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">${i}</a>
+            <li class="page-item <c:if test='${i == currentPage}'>active</c:if>">
+              <a class="page-link" href="<c:url value='product-buttonUp'>
+        <c:param name='option' value='${option}'/>
+        <c:param name='page' value='${i}'/>
+        <c:if test='${minPrice != null || maxPrice != null}'>
+          <c:param name='minPrice' value='${minPrice}'/>
+          <c:param name='maxPrice' value='${maxPrice}'/>
+        </c:if>
+      </c:url>">
+                  ${i}
+              </a>
             </li>
           </c:forEach>
 
           <!-- Nút Next -->
           <c:if test="${currentPage < pageNumber}">
             <li class="page-item">
-              <a class="page-link" href="product-buttonUp?option=${option}&page=${currentPage + 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>"> >> </a>
+              <a class="page-link" href="<c:url value='product-buttonUp'>
+        <c:param name='option' value='${option}'/>
+        <c:param name='page' value='${currentPage + 1}'/>
+        <c:if test='${minPrice != null || maxPrice != null}'>
+          <c:param name='minPrice' value='${minPrice}'/>
+          <c:param name='maxPrice' value='${maxPrice}'/>
+        </c:if>
+      </c:url>">
+                &raquo;
+              </a>
             </li>
           </c:if>
         </ul>
       </nav>
+
     </div>
   </div>
 </div>
@@ -271,9 +314,9 @@
 
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
-        backToTopButton.style.display = "block";
+        backToTopButton.classList.add('show');
       } else {
-        backToTopButton.style.display = "none";
+        backToTopButton.classList.remove('show');
       }
     });
 
@@ -284,7 +327,7 @@
       });
     });
 
-    // Xử lý hiển thị thông báo khi thêm vào giỏ hàng thành công
+    // Xử lý hiển thị thông báo khi thêm vào giỏ hàng thành công hoặc lỗi
     const alertMessage = document.getElementById("alert-message");
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('message') === 'success') {
@@ -305,10 +348,40 @@
       }, 3000);
     }
 
-    // Hàm định dạng giá tiền (nếu cần)
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-    }
+    // JavaScript để thay đổi hình ảnh chính khi chọn Style
+    const styleOptions = document.querySelectorAll('.style-option');
+    styleOptions.forEach(option => {
+      option.addEventListener("click", function () {
+        const form = this.closest(".product-options-form");
+        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
+        const quantityContainer = form.querySelector('.quantity-container');
+        const addToCartButton = form.querySelector('.add-to-cart-button');
+        const submitCartButton = form.querySelector('.submit-cart-button');
+        const styleId = this.getAttribute('data-style-id');
+        const imageUrl = this.getAttribute('data-image-url');
+
+        // Cập nhật giá trị cho trường ẩn
+        selectedStyleInput.value = styleId;
+
+        // Cập nhật hình ảnh chính
+        const productId = form.querySelector('input[name="productID"]').value;
+        const mainImage = document.getElementById("mainImage" + productId);
+        if (mainImage) {
+          mainImage.src = imageUrl;
+        }
+
+        // Đánh dấu Style được chọn
+        form.querySelectorAll('.style-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+
+        // Hiển thị trường số lượng và nút "Xác nhận"
+        quantityContainer.style.display = "block";
+        addToCartButton.style.display = "none";
+        submitCartButton.style.display = "block";
+      });
+    });
   });
 </script>
 </body>

@@ -17,4 +17,10 @@ public class StyleService {
         return styleDao.getStyleByID(idStyle);
     }
 
+
+    //Thêm phương thức mới trong StyleService để sử dụng phương thức vừa tạo:
+    public List<Style> getZipperStylesByIDProduct(int idProduct) {
+        return styleDao.getZipperStylesByIDProduct(idProduct);
+    }
+
 }

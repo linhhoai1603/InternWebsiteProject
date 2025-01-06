@@ -2,6 +2,7 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Product implements Serializable {
@@ -16,7 +17,11 @@ public class Product implements Serializable {
     private Category category;
     private TechnicalInfo technicalInfo;
     private Price price;
-    private List<Style> styles;
+    private List<Style> styles = new ArrayList<>();
+    //biến mới thêm
+    private int totalProduct;
+
+
 
     public int getId() {
         return id;
@@ -125,7 +130,10 @@ public class Product implements Serializable {
         this.category = category;
         this.technicalInfo = technicalInfo;
         this.price = price;
+        //Dòng mới thêm
+        this.styles = new ArrayList<>(); // Khởi tạo danh sách trống
     }
+
 
     public Product() {
 
@@ -147,4 +155,9 @@ public class Product implements Serializable {
                 ;
     }
 
+
+    //Dòng mới thêm
+    public void setTotalProduct(int totalProduct) {
+        this.totalProduct = totalProduct;
+    }
 }

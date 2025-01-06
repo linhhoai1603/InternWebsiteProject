@@ -1,10 +1,7 @@
 package dao;
 
 import connection.DBConnection;
-import models.Category;
-import models.Price;
-import models.Product;
-import models.TechnicalInfo;
+import models.*;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
@@ -414,6 +411,141 @@ public class ProductDao {
         );
     }
 
+//    public List<Product> getProductsByCategoryBySortButton(int idCategory, int pageNumber, int pageSize, int option, Double minPrice, Double maxPrice) {
+//        String sortBy = "";
+//        String sortOrder = "";
+//        String groupBy = "";
+//        String join = "";
+//        String sum = "";
+//
+//        switch (option) {
+//            case 1:
+//                sortBy = "p.addedDate";
+//                sortOrder = "DESC";
+//                break;
+//            case 2:
+//                sortBy = "pr.lastPrice";
+//                sortOrder = "DESC";
+//                break;
+//            case 3:
+//                sortBy = "pr.lastPrice";
+//                sortOrder = "ASC";
+//                break;
+//            case 4:
+//                sortBy = "totalProduct";
+//                sortOrder = "DESC";
+//                join = "LEFT JOIN styles s ON s.idProduct = p.id " +
+//                        "LEFT JOIN order_details od ON od.idStyle = s.id ";
+//                groupBy = "GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, " +
+//                        "p.area, p.selling, p.img, c.id, c.name, " +
+//                        "t.id, t.specifications, t.manufactureDate, " +
+//                        "pr.id, pr.price, pr.discountPercent, pr.lastPrice ";
+//                sum = ", SUM(od.quantity) AS totalProduct ";
+//                break;
+//            case 5:
+//                sortBy = "pr.discountPercent";
+//                sortOrder = "DESC";
+//                break;
+//            default:
+//                sortBy = "p.id";
+//                sortOrder = "ASC";
+//                break;
+//        }
+//
+//        StringBuilder query = new StringBuilder();
+//        query.append("SELECT p.id AS idProduct, ")
+//                .append("p.name AS nameProduct, ")
+//                .append("p.quantity, ")
+//                .append("p.addedDate, ")
+//                .append("p.description, ")
+//                .append("p.area, ")
+//                .append("p.selling, ")
+//                .append("p.img, ")
+//                .append("c.id AS idCategory, ")
+//                .append("c.name AS categoryName, ")
+//                .append("t.id AS idTechnicalInfo, ")
+//                .append("t.specifications, ")
+//                .append("t.manufactureDate, ")
+//                .append("pr.id AS idPrice, ")
+//                .append("pr.price, ")
+//                .append("pr.discountPercent, ")
+//                .append("pr.lastPrice ")
+//                .append(sum)
+//                .append("FROM products p ")
+//                .append("JOIN categories c ON p.idCategory = c.id ")
+//                .append("JOIN prices pr ON p.idPrice = pr.id ")
+//                .append("JOIN technical_information t ON p.idTechnical = t.id ")
+//                .append(join)
+//                .append("WHERE p.idCategory = :idCategory ")
+//                .append("AND p.quantity > 0 ")
+//                .append("AND p.selling > 0 ");
+//
+//        if (minPrice != null) {
+//            query.append("AND pr.lastPrice >= :minPrice ");
+//        }
+//        if (maxPrice != null) {
+//            query.append("AND pr.lastPrice <= :maxPrice ");
+//        }
+//
+//        if (option == 4) { // Best-selling
+//            query.append(groupBy);
+//        }
+//
+//        query.append("ORDER BY ").append(sortBy).append(" ").append(sortOrder).append(" ");
+//        query.append("LIMIT :pageSize OFFSET :offset;");
+//
+//        // Logging truy vấn và các tham số
+//        System.out.println("Executing SQL Query: " + query.toString());
+//        System.out.println("Parameters - idCategory: " + idCategory + ", pageSize: " + pageSize + ", offset: " + ((pageNumber - 1) * pageSize) + ", minPrice: " + minPrice + ", maxPrice: " + maxPrice);
+//
+//        return jdbi.withHandle(handle -> {
+//            var q = handle.createQuery(query.toString())
+//                    .bind("idCategory", idCategory)
+//                    .bind("pageSize", pageSize)
+//                    .bind("offset", (pageNumber - 1) * pageSize);
+//
+//            if (minPrice != null) {
+//                q.bind("minPrice", minPrice);
+//            }
+//            if (maxPrice != null) {
+//                q.bind("maxPrice", maxPrice);
+//            }
+//            return q.map((rs, ctx) -> {
+//                Product product = new Product();
+//                product.setId(rs.getInt("idProduct"));
+//                product.setName(rs.getString("nameProduct"));
+//                product.setQuantity(rs.getInt("quantity"));
+//                product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+//                product.setDescription(rs.getString("description"));
+//                product.setArea(rs.getDouble("area"));
+//                product.setSelling(rs.getInt("selling"));
+//                product.setImage(rs.getString("img"));
+//
+//                Category category = new Category();
+//                category.setId(rs.getInt("idCategory"));
+//                category.setName(rs.getString("categoryName"));
+//                product.setCategory(category);
+//
+//                TechnicalInfo technicalInfo = new TechnicalInfo();
+//                technicalInfo.setId(rs.getInt("idTechnicalInfo"));
+//                technicalInfo.setSpecification(rs.getString("specifications"));
+//                technicalInfo.setManufactureDate(rs.getDate("manufactureDate"));
+//                product.setTechnicalInfo(technicalInfo);
+//
+//                Price price = new Price();
+//                price.setId(rs.getInt("idPrice"));
+//                price.setPrice(rs.getDouble("price"));
+//                price.setDiscountPercent(rs.getDouble("discountPercent"));
+//                price.setLastPrice(rs.getDouble("lastPrice"));
+//                product.setPrice(price);
+//
+//                return product;
+//            }).list();
+//        });
+//    }
+
+
+    //Dòng chỉnh sửa ở đây
     public List<Product> getProductsByCategoryBySortButton(int idCategory, int pageNumber, int pageSize, int option, Double minPrice, Double maxPrice) {
         String sortBy = "";
         String sortOrder = "";
@@ -440,10 +572,9 @@ public class ProductDao {
                 join = "LEFT JOIN styles s ON s.idProduct = p.id " +
                         "LEFT JOIN order_details od ON od.idStyle = s.id ";
                 groupBy = "GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, " +
-                        "p.area, p.selling, p.img, c.id, c.name, " +
-                        "t.id, t.specifications, t.manufactureDate, " +
-                        "pr.id, pr.price, pr.discountPercent, pr.lastPrice ";
-                sum = ", SUM(od.quantity) AS totalProduct ";
+                        "p.area, p.selling, p.img, c.id, c.name, t.id, t.specifications, t.manufactureDate, " +
+                        "pr.id, pr.price, pr.discountPercent, pr.lastPrice";
+                sum = ", SUM(od.quantity) AS totalProduct "; // Thêm dòng này
                 break;
             case 5:
                 sortBy = "pr.discountPercent";
@@ -456,63 +587,33 @@ public class ProductDao {
         }
 
         StringBuilder query = new StringBuilder();
-        query.append("SELECT p.id AS idProduct, ")
-                .append("p.name AS nameProduct, ")
-                .append("p.quantity, ")
-                .append("p.addedDate, ")
-                .append("p.description, ")
-                .append("p.area, ")
-                .append("p.selling, ")
-                .append("p.img, ")
-                .append("c.id AS idCategory, ")
-                .append("c.name AS categoryName, ")
-                .append("t.id AS idTechnicalInfo, ")
-                .append("t.specifications, ")
-                .append("t.manufactureDate, ")
-                .append("pr.id AS idPrice, ")
-                .append("pr.price, ")
-                .append("pr.discountPercent, ")
-                .append("pr.lastPrice ")
-                .append(sum)
+        query.append("SELECT DISTINCT p.id AS idProduct, p.name AS nameProduct, p.quantity, p.addedDate, ")
+                .append("p.description, p.area, p.selling, p.img, c.id AS idCategory, c.name AS categoryName, ")
+                .append("t.id AS idTechnicalInfo, t.specifications, t.manufactureDate, ")
+                .append("pr.id AS idPrice, pr.price, pr.discountPercent, pr.lastPrice ")
+                .append(sum) // Kết hợp tổng sản phẩm
                 .append("FROM products p ")
                 .append("JOIN categories c ON p.idCategory = c.id ")
                 .append("JOIN prices pr ON p.idPrice = pr.id ")
                 .append("JOIN technical_information t ON p.idTechnical = t.id ")
                 .append(join)
-                .append("WHERE p.idCategory = :idCategory ")
-                .append("AND p.quantity > 0 ")
-                .append("AND p.selling > 0 ");
+                .append("WHERE p.idCategory = :idCategory AND p.quantity > 0 AND p.selling > 0 ");
 
-        if (minPrice != null) {
-            query.append("AND pr.lastPrice >= :minPrice ");
-        }
-        if (maxPrice != null) {
-            query.append("AND pr.lastPrice <= :maxPrice ");
-        }
+        if (minPrice != null) query.append("AND pr.lastPrice >= :minPrice ");
+        if (maxPrice != null) query.append("AND pr.lastPrice <= :maxPrice ");
+        if (!groupBy.isEmpty()) query.append(groupBy).append(" ");
 
-        if (option == 4) { // Best-selling
-            query.append(groupBy);
-        }
-
-        query.append("ORDER BY ").append(sortBy).append(" ").append(sortOrder).append(" ");
-        query.append("LIMIT :pageSize OFFSET :offset;");
-
-        // Logging truy vấn và các tham số
-        System.out.println("Executing SQL Query: " + query.toString());
-        System.out.println("Parameters - idCategory: " + idCategory + ", pageSize: " + pageSize + ", offset: " + ((pageNumber - 1) * pageSize) + ", minPrice: " + minPrice + ", maxPrice: " + maxPrice);
+        query.append("ORDER BY ").append(sortBy).append(" ").append(sortOrder)
+                .append(" LIMIT :pageSize OFFSET :offset;");
 
         return jdbi.withHandle(handle -> {
             var q = handle.createQuery(query.toString())
                     .bind("idCategory", idCategory)
                     .bind("pageSize", pageSize)
                     .bind("offset", (pageNumber - 1) * pageSize);
+            if (minPrice != null) q.bind("minPrice", minPrice);
+            if (maxPrice != null) q.bind("maxPrice", maxPrice);
 
-            if (minPrice != null) {
-                q.bind("minPrice", minPrice);
-            }
-            if (maxPrice != null) {
-                q.bind("maxPrice", maxPrice);
-            }
             return q.map((rs, ctx) -> {
                 Product product = new Product();
                 product.setId(rs.getInt("idProduct"));
@@ -542,10 +643,46 @@ public class ProductDao {
                 price.setLastPrice(rs.getDouble("lastPrice"));
                 product.setPrice(price);
 
+                // Gán totalProduct nếu option=4
+                if (option == 4) {
+                    product.setTotalProduct(rs.getInt("totalProduct"));
+                }
+
                 return product;
             }).list();
         });
     }
+
+
+
+
+//    public int getNumberPageProductByCategoryButton(int idCategory, int pageSize, Double minPrice, Double maxPrice) {
+//        StringBuilder query = new StringBuilder("SELECT COUNT(*) FROM products p ");
+//        query.append("JOIN prices pr ON p.idPrice = pr.id ");
+//        query.append("WHERE p.idCategory = :idCategory AND p.quantity > 0 AND p.selling > 0 ");
+//
+//        if (minPrice != null) {
+//            query.append("AND pr.lastPrice >= :minPrice ");
+//        }
+//        if (maxPrice != null) {
+//            query.append("AND pr.lastPrice <= :maxPrice ");
+//        }
+//
+//        Integer count = jdbi.withHandle(handle -> {
+//            var q = handle.createQuery(query.toString())
+//                    .bind("idCategory", idCategory);
+//            if (minPrice != null) {
+//                q.bind("minPrice", minPrice);
+//            }
+//            if (maxPrice != null) {
+//                q.bind("maxPrice", maxPrice);
+//            }
+//            return q.mapTo(Integer.class).one();
+//        });
+//
+//        return (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
+//    }
+
 
     public int getNumberPageProductByCategoryButton(int idCategory, int pageSize, Double minPrice, Double maxPrice) {
         StringBuilder query = new StringBuilder("SELECT COUNT(*) FROM products p ");
@@ -573,6 +710,7 @@ public class ProductDao {
 
         return (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
     }
+
 
     public int getNumberPageProductByCategoryZipStar(int idCategory, int pageSize, Double minPrice, Double maxPrice) {
         StringBuilder query = new StringBuilder("SELECT COUNT(*) FROM products p ");
