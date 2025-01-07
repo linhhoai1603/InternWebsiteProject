@@ -55,7 +55,7 @@
       </form>
     </div>
   </div>
-  <form action="payment" method="post">
+  <form action="order" method="post">
   <div class="row">
     <div class="col-md-6">
       <h4 style="color: #339c87" class="mt-4 mb-3">Thông tin giao hàng</h4>
@@ -86,7 +86,7 @@
         <!-- Checkbox và thông tin giao hàng khác -->
         <div class="row mt-3">
           <div class="col-md-12">
-            <input type="checkbox" name="otherAddress" id="otherAddress" onclick="toggleOtherAddress()" />
+            <input type="checkbox" name="otherAddress" id="otherAddress" onclick="toggleOtherAddress()" value = "1" />
             <label for="otherAddress">Giao hàng tới địa chỉ khác</label>
           </div>
         </div>
@@ -107,14 +107,14 @@
               <input type="text" name="o-street" id="o-street" class="form-control" placeholder="Nhập tên đường" />
             </div>
             <div class="col-md-6">
-              <label class="fw-bold" for="o-ward">Xã</label>
-              <input type="text" name="o-ward" id="o-ward" class="form-control" placeholder="Nhập tên xã" />
+              <label class="fw-bold" for="o-commune">Xã</label>
+              <input type="text" name="o-commune" id="o-commune" class="form-control" placeholder="Nhập tên xã" />
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-6">
-              <label class="fw-bold" for="o-district">Huyện</label>
-              <input type="text" name="o-district" id="o-district" class="form-control" placeholder="Nhập tên huyện" />
+              <label class="fw-bold" for="o-city">Huyện</label>
+              <input type="text" name="o-city" id="o-city" class="form-control" placeholder="Nhập tên huyện" />
             </div>
             <div class="col-md-6">
               <label class="fw-bold" for="o-province">Tỉnh</label>
@@ -193,14 +193,14 @@
           <h5 style="margin-left: 5px">Phương thức thanh toán</h5>
           <div class="row">
             <div class="col-md-5 text-center">
-              <input type="radio" name="payment" id="payment-online" />
+              <input type="radio" name="payment" id="payment-online" value="online"/>
               <label for="payment-online">Thanh toán chuyển khoản</label>
             </div>
           </div>
           <div class="row" id="messageOnline" style="display: none">
             <div class="col-md-1"></div>
             <div class="col-md-10">
-              <p>
+              <p class="text-warning">
                 Thực hiện thanh toán vào ngay tài khoản ngân hàng của
                 chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn trong phần
                 Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã
@@ -217,6 +217,7 @@
                       type="radio"
                       name="payment"
                       id="payment-cash"
+                      value="cash"
                       checked
               />
               <label for="payment-cash">Thanh toán khi nhận hàng</label>
@@ -224,7 +225,7 @@
             <div class="row" id="messageCash">
               <div class="col-md-1"></div>
               <div class="col-md-10">
-                <p>Trả tiền mặt khi nhận hàng.</p>
+                <p class="text-warning">Trả tiền mặt khi nhận hàng.</p>
               </div>
               <div class="col-md-1"></div>
             </div>
