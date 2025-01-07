@@ -120,7 +120,7 @@
             </tr>
             <tr>
               <td style="text-align: center" colspan="2">
-                <a href="payment.jsp" class="btn btn-warning">TIẾN HÀNH THANH TOÁN</a>
+                <a href="payment?method=start" class="btn btn-warning">TIẾN HÀNH THANH TOÁN</a>
               </td>
             </tr>
             </tbody>
@@ -148,8 +148,6 @@
         el.textContent = formatCurrency(parseFloat(originalPrice));
       }
     });
-
-
   });
 
 
