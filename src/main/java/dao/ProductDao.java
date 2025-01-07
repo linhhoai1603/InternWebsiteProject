@@ -14,11 +14,59 @@ public class ProductDao {
     public ProductDao() {
         jdbi = DBConnection.getConnetion();
     }
-    public Product getProductById(int id  ) {
-        String sql = "select * from products where id = :id";
-        return jdbi.withHandle(h->
-                h.createQuery(sql).bind("id",id)
-                        .mapToBean(Product.class)
+    public Product getProductById(int id ) {
+        String sql = """
+       SELECT
+           p.id, p.name, p.quantity, p.addedDate, p.description, p.area, p.selling, p.img,
+           c.id AS category_id, c.name AS category_name,
+           pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
+           ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
+       FROM
+           products p
+       JOIN
+           categories c ON p.idCategory = c.id
+       JOIN
+           prices pr ON p.idPrice = pr.id
+       LEFT JOIN
+           technical_information ti ON p.idTechnical = ti.id
+       WHERE
+           p.id = :id;
+    """;
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("id", id)
+                        .map((rs, ctx) -> {
+
+                            Category category = new Category();
+                            category.setId(rs.getInt("category_id"));
+                            category.setName(rs.getString("category_name"));
+
+                            Product product = new Product();
+                            product.setId(rs.getInt("id"));
+                            product.setName(rs.getString("name"));
+                            product.setQuantity(rs.getInt("quantity"));
+                            product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                            product.setDescription(rs.getString("description"));
+                            product.setArea(rs.getDouble("area"));
+                            product.setSelling(rs.getInt("selling"));
+                            product.setImage(rs.getString("img"));
+                            product.setCategory(category); // Gắn Category vào Product
+
+                            TechnicalInfo technicalInfo = new TechnicalInfo();
+                            technicalInfo.setId(rs.getInt("technical_info_id"));
+                            technicalInfo.setSpecification(rs.getString("specifications"));
+                            technicalInfo.setManufactureDate(rs.getDate("manufactureDate"));
+                            product.setTechnicalInfo(technicalInfo);
+
+                            Price price = new Price();
+                            price.setId(rs.getInt("price_id"));
+                            price.setPrice(rs.getDouble("price"));
+                            price.setDiscountPercent(rs.getDouble("discountPercent"));
+                            price.setLastPrice(rs.getDouble("lastPrice"));
+                            product.setPrice(price);
+
+                            return product;
+                        })
                         .findOne().orElse(null)
         );
     }
@@ -28,7 +76,7 @@ public class ProductDao {
         List<Product> list = jdbi.withHandle(handle -> handle.createQuery(sql).mapToBean(Product.class).list());
         return list;
     }
-    public Product getProductById(String name) {
+    public Product getProductByName(String name) {
         Jdbi j = DBConnection.getConnetion();
         String sql = "select * from products where name = :name";
         return j.withHandle(h->
@@ -351,7 +399,7 @@ public class ProductDao {
         );
     }
     public List<Product> getProductByCategory(String name , int psize, int pageNumber) {
-        Jdbi jdbi = DBConnection.getConnetion();
+
 
         String sql = """
        SELECT
@@ -600,5 +648,5 @@ public class ProductDao {
 
         return (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
     }
-
+    
 }
