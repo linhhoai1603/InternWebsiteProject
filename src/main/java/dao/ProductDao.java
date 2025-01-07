@@ -169,7 +169,7 @@ public class ProductDao {
                 }).list());
     }
 
-    public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options, String inputName) {
+    public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options,String inputName) {
         String input = "%"+inputName+"%";
         String sortBy = "";
         String sortOrder = "";
