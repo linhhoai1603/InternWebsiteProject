@@ -1,6 +1,7 @@
 package models;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Style  implements Serializable {
     private int id;
@@ -72,4 +73,20 @@ public class Style  implements Serializable {
                 ", quantity=" + quantity +
                 '}';
     }
+
+    //Dong moi them
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Style style = (Style) o;
+        return id == style.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+
 }

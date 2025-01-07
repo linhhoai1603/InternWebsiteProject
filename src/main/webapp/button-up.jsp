@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -7,6 +8,39 @@
   <title>Nút áo</title>
   <c:import url="includes/link/headLink.jsp" />
   <link rel="stylesheet" href="css/button_up.css">
+  <style>
+    /* Thêm một số CSS cho việc chọn Style */
+    .style-selection {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    .style-option {
+      position: relative;
+      cursor: pointer;
+    }
+    .style-option img {
+      width: 60px;
+      height: 60px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      transition: transform 0.2s, border-color 0.2s;
+      padding: 2px;
+    }
+    .style-option.selected img {
+      border-color: #007bff;
+      transform: scale(1.1);
+    }
+    /* Hiển thị thông báo */
+    .alert-message {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: none;
+    }
+  </style>
 </head>
 <body>
 <c:import url="includes/header.jsp" />
@@ -85,30 +119,79 @@
             <div class="card product-item position-relative h-100">
               <!-- Thẻ hiển thị giảm giá -->
               <c:if test="${product.price.discountPercent > 0}">
-                <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
-                  -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0" />%
-                </span>
+                  <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
+                    -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0" />%
+                  </span>
               </c:if>
-              <img src="${product.image}" class="card-img-top h-50" alt="Hình ảnh sản phẩm" style="object-fit: cover;">
+
+              <!-- Hình ảnh chính của sản phẩm -->
+              <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="card-img-top main-product-image" style="object-fit: cover; cursor: pointer;">
+
+              <!-- Modal để hiển thị hình ảnh lớn -->
+              <div class="modal fade" id="imageModal${product.id}" tabindex="-1" aria-labelledby="imageModalLabel${product.id}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-body">
+                      <img src="${product.image}" class="img-fluid" id="modalImage${product.id}" alt="Hình ảnh lớn">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="card-body text-center d-flex flex-column">
                 <h5 class="card-title">${product.name}</h5>
                 <h4 class="card-text text-success">
                   Chỉ còn:
                   <span class="product-old-price">
-                    <fmt:formatNumber value="${product.price.lastPrice}" type="currency" currencySymbol="₫" />
-                  </span>
+                      <fmt:formatNumber value="${product.price.lastPrice}" type="currency" currencySymbol="₫" />
+                    </span>
                 </h4>
                 <p class="text-danger text-decoration-line-through">
                   Giá gốc:
                   <span class="product-price">
-                    <fmt:formatNumber value="${product.price.price}" type="currency" currencySymbol="₫" />
-                  </span>
+                      <fmt:formatNumber value="${product.price.price}" type="currency" currencySymbol="₫" />
+                    </span>
                 </p>
-                <p class="cart-text">Mô tả: ${product.description}</p>
-                <div class="mt-auto">
-                  <a href="detail-product?id=${product.id}" class="btn btn-warning w-100 mb-2">Thêm vào giỏ hàng</a>
-                  <a href="detail-product?id=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
-                </div>
+                <p class="cart-text description">Mô tả: ${product.description}</p>
+
+                <!-- Form Thêm Vào Giỏ Hàng -->
+                <form action="cart?method=add" method="post" class="mt-auto product-options-form">
+                  <!-- Hidden Inputs -->
+                  <input type="hidden" name="currentURL" value="product-buttonUp?page=${currentPage}&option=${option}<c:if test='${minPrice != null || maxPrice != null}'> &amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">
+                  <input type="hidden" name="productID" value="${product.id}">
+                  <input type="hidden" name="selectedStyle" id="selectedStyle${product.id}" value="">
+
+                  <!-- Chọn Style (nếu sản phẩm có nhiều style) -->
+                  <c:if test="${not empty product.styles}">
+                    <div class="mb-3">
+                      <label class="form-label">Chọn Style:</label>
+                      <div class="style-selection">
+                        <c:forEach var="style" items="${product.styles}">
+                          <div class="style-option" data-style-id="${style.id}" data-image-url="${style.image}">
+                            <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
+                          </div>
+                        </c:forEach>
+
+                      </div>
+                    </div>
+                  </c:if>
+
+                  <!-- Số lượng sản phẩm -->
+                  <div class="mb-3 quantity-container" style="display: none;">
+                    <label for="quantity${product.id}" class="form-label">Số lượng:</label>
+                    <input type="number" class="form-control quantity-input" id="quantity${product.id}" name="quantity" min="1" value="1" required>
+                  </div>
+
+                  <!-- Nút Thêm Vào Giỏ Hàng / Xác Nhận -->
+                  <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
+                  <button type="submit" class="btn btn-success w-100 mb-2 submit-cart-button" style="display: none;">Xác nhận</button>
+                </form>
+
+                <!-- Nút Xem Ngay -->
+                <a href="detail-product?id=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
               </div>
             </div>
           </div>
@@ -121,25 +204,53 @@
           <!-- Nút Previous -->
           <c:if test="${currentPage > 1}">
             <li class="page-item">
-              <a class="page-link" href="product-buttonUp?option=${option}&page=${currentPage - 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>"> << </a>
+              <a class="page-link" href="<c:url value='product-buttonUp'>
+        <c:param name='option' value='${option}'/>
+        <c:param name='page' value='${currentPage - 1}'/>
+        <c:if test='${minPrice != null || maxPrice != null}'>
+          <c:param name='minPrice' value='${minPrice}'/>
+          <c:param name='maxPrice' value='${maxPrice}'/>
+        </c:if>
+      </c:url>">
+                &laquo;
+              </a>
             </li>
           </c:if>
 
-          <!-- Các trang -->
+          <!-- Danh sách số trang -->
           <c:forEach var="i" begin="1" end="${pageNumber}">
-            <li class="page-item ${i == currentPage ? 'active' : ''}">
-              <a class="page-link" href="product-buttonUp?option=${option}&page=${i}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">${i}</a>
+            <li class="page-item <c:if test='${i == currentPage}'>active</c:if>">
+              <a class="page-link" href="<c:url value='product-buttonUp'>
+        <c:param name='option' value='${option}'/>
+        <c:param name='page' value='${i}'/>
+        <c:if test='${minPrice != null || maxPrice != null}'>
+          <c:param name='minPrice' value='${minPrice}'/>
+          <c:param name='maxPrice' value='${maxPrice}'/>
+        </c:if>
+      </c:url>">
+                  ${i}
+              </a>
             </li>
           </c:forEach>
 
           <!-- Nút Next -->
           <c:if test="${currentPage < pageNumber}">
             <li class="page-item">
-              <a class="page-link" href="product-buttonUp?option=${option}&page=${currentPage + 1}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>"> >> </a>
+              <a class="page-link" href="<c:url value='product-buttonUp'>
+        <c:param name='option' value='${option}'/>
+        <c:param name='page' value='${currentPage + 1}'/>
+        <c:if test='${minPrice != null || maxPrice != null}'>
+          <c:param name='minPrice' value='${minPrice}'/>
+          <c:param name='maxPrice' value='${maxPrice}'/>
+        </c:if>
+      </c:url>">
+                &raquo;
+              </a>
             </li>
           </c:if>
         </ul>
       </nav>
+
     </div>
   </div>
 </div>
@@ -148,6 +259,11 @@
 <button id="back-to-top" class="back-to-top">
   <i class="fas fa-arrow-up"></i>
 </button>
+
+<!-- Thêm thẻ thông báo -->
+<div class="alert-message alert alert-success" role="alert" id="alert-message">
+  <!-- Nội dung thông báo sẽ được thêm bằng JavaScript -->
+</div>
 
 <c:import url="includes/footer.jsp" />
 <c:import url="includes/link/footLink.jsp" />
@@ -195,12 +311,93 @@
       });
     });
 
-    // Hàm định dạng giá tiền (nếu cần)
-    function formatCurrency(amount) {
-      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    // Xử lý nút "Thêm vào giỏ hàng"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+    addToCartButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        const form = this.closest(".product-options-form");
+        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
+        const quantityContainer = form.querySelector('.quantity-container');
+        const submitCartButton = form.querySelector('.submit-cart-button');
+
+        // Kiểm tra nếu đã chọn Style
+        if (selectedStyleInput.value) {
+          // Hiển thị số lượng và nút "Xác nhận"
+          quantityContainer.style.display = "block";
+          this.style.display = "none"; // Ẩn nút "Thêm vào giỏ hàng"
+          submitCartButton.style.display = "block"; // Hiển thị nút "Xác nhận"
+        } else {
+          // Hiển thị thông báo yêu cầu chọn Style
+          alert("Vui lòng chọn Style trước khi thêm vào giỏ hàng!");
+        }
+      });
+    });
+
+    // Xử lý khi chọn Style
+    const styleOptions = document.querySelectorAll('.style-option');
+    styleOptions.forEach(option => {
+      option.addEventListener("click", function () {
+        const form = this.closest(".product-options-form");
+        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
+        const mainImage = form.closest('.product-item').querySelector('.main-product-image'); // Sử dụng relative selector
+        const styleId = this.getAttribute('data-style-id');
+        const imageUrl = this.getAttribute('data-image-url');
+
+        // Cập nhật Style đã chọn vào input ẩn
+        selectedStyleInput.value = styleId;
+
+        // Thay thế hình ảnh trên Card bằng hình ảnh của Style được chọn
+        if (mainImage) {
+          mainImage.src = imageUrl; // Gán URL ảnh của Style vào ảnh chính
+        } else {
+          console.error("Không tìm thấy phần tử hình ảnh chính.");
+        }
+
+        // Đánh dấu Style được chọn
+        form.querySelectorAll('.style-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+      });
+    });
+
+    // Hiển thị nút Back to Top khi cuộn xuống 300px
+    const backToTopButton = document.getElementById("back-to-top");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
+      }
+    });
+    backToTopButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    // Hiển thị thông báo khi thêm vào giỏ hàng thành công hoặc lỗi
+    const alertMessage = document.getElementById("alert-message");
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('message') === 'success') {
+      alertMessage.textContent = "Thêm vào giỏ hàng thành công!";
+      alertMessage.classList.remove('alert-success', 'alert-danger');
+      alertMessage.classList.add('alert-success');
+      alertMessage.style.display = "block";
+      setTimeout(() => {
+        alertMessage.style.display = "none";
+      }, 3000);
+    } else if (urlParams.get('message') === 'error') {
+      alertMessage.textContent = "Đã xảy ra lỗi khi thêm vào giỏ hàng!";
+      alertMessage.classList.remove('alert-success', 'alert-danger');
+      alertMessage.classList.add('alert-danger');
+      alertMessage.style.display = "block";
+      setTimeout(() => {
+        alertMessage.style.display = "none";
+      }, 3000);
     }
   });
 </script>
 </body>
 </html>
-
