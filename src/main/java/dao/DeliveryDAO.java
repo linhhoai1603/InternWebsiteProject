@@ -9,18 +9,18 @@ public class DeliveryDAO {
     public DeliveryDAO(){this.jdbi = DBConnection.getConnetion();
     }
     public boolean insertDelivery(Delivery delivery){
-        String query = "insert into deliveries values (?,?,?,?,?,?,?,?,?)";
+        String query = "insert into deliveries (idOrder, idAddress, fullName, phoneNumber, area, deliveryFee, note, status, scheduledDateTime) values (?,?,?,?,?,?,?,?,?)";
         return jdbi.withHandle(handle -> {
             return handle.createUpdate(query)
-                    .bind(1, delivery.getIdOrder())
-                    .bind(2, delivery.getIdAddress())
-                    .bind(3, delivery.getFullName())
-                    .bind(4, delivery.getPhoneNumber())
-                    .bind(5, delivery.getArea())
-                    .bind(6, delivery.getDeliveryFee())
-                    .bind(7, delivery.getNote())
-                    .bind(8, delivery.getStatus())
-                    .bind(9, delivery.getScheduledDateTime())
+                    .bind(0, delivery.getIdOrder())
+                    .bind(1, delivery.getIdAddress())
+                    .bind(2, delivery.getFullName())
+                    .bind(3, delivery.getPhoneNumber())
+                    .bind(4, delivery.getArea())
+                    .bind(5, delivery.getDeliveryFee())
+                    .bind(6, delivery.getNote())
+                    .bind(7, delivery.getStatus())
+                    .bind(8, delivery.getScheduledDateTime())
                     .execute() > 0;
         });
     }

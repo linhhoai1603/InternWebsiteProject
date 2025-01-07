@@ -19,7 +19,6 @@ public class OrderServlet extends HttpServlet {
         // get method payment
         String methodPay = request.getParameter("payment");
         if("cash".equals(methodPay)) {
-            // create order
           Ordered ordered = createOrder(request, response);
             // remove cart
             removeCart(request, response);
@@ -81,9 +80,8 @@ public class OrderServlet extends HttpServlet {
             if (user.getAddress() == null) {
                 throw new IllegalStateException("Người dùng không có địa chỉ mặc định.");
             }
-            int idAddress = user.getAddress().getId();
             delivery = new Delivery(
-                    idOrder, idAddress, user.getFullName(), user.getNumberPhone(),
+                    idOrder, user.getAddress().getId(), user.getFullName(), user.getNumberPhone(),
                     cart.getTotalArea(), cart.getShippingFee(), note, "Đang giao hàng"
             );
         } else {

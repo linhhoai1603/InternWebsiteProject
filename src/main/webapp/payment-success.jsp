@@ -39,13 +39,13 @@
                 <hr />
             </div>
             <!-- Lặp qua các sản phẩm trong đơn hàng -->
-            <c:forEach var="item" items="${requestScope.ordered.cart.items.values}">
+            <c:forEach var="item" items="${requestScope.ordered.cart.values}">
                 <div class="row info-product">
                     <p class="col-md-4 text-center">
                         <a href="detail-product.jsp" style="text-decoration: none">${item.style.product.name} - ${item.style.name}</a>
                     </p>
                     <p class="col-md-4 text-center">${item.quantity}</p>
-                    <p class="col-md-4 text-center">${item.totalPrice}đ</p>
+                    <p class="col-md-4 text-center price">${item.totalPrice}đ</p>
                     <hr />
                 </div>
             </c:forEach>
@@ -55,19 +55,19 @@
             </div>
             <div class="row">
                 <p class="col-md-6 fw-bold text-center">Tổng tiền sản phẩm</p>
-                <p class="col-md-6 fw-bold text-center">${ordered.cart.totalPrice}đ</p>
+                <p class="col-md-6 fw-bold text-center price">${requestScope.ordered.cart.totalPrice}đ</p>
                 <hr style="margin-top: -5px" />
                 <p class="col-md-6 fw-bold text-center">Giao nhận hàng</p>
-                <p class="col-md-6 text-center">${ordered.cart.shippingFee}đ</p>
+                <p class="col-md-6 text-center price">${requestScope.ordered.cart.shippingFee}đ</p>
                 <hr style="margin-top: -5px" />
                 <p class="col-md-6 fw-bold text-center">Phương thức thanh toán</p>
-                <p class="col-md-6 text-center">${ordered.methodPayment}</p>
+                <p class="col-md-6 text-center">${requestScope.ordered.methodPayment}</p>
                 <hr style="margin-top: -5px" />
                 <p class="col-md-6 fw-bold text-center">Tổng cộng</p>
-                <p class="col-md-6 fw-bold text-center">${ordered.cart.lastPrice}đ</p>
+                <p class="col-md-6 fw-bold text-center price">${requestScope.ordered.cart.lastPrice}đ</p>
                 <hr style="margin-top: -5px" />
                 <p class="col-md-6 fw-bold text-center">Lưu ý</p>
-                <p class="col-md-6 text-center">${ordered.note}</p>
+                <p class="col-md-6 text-center">${requestScope.ordered.note}</p>
                 <hr style="margin-top: -5px" />
             </div>
         </div>
@@ -79,17 +79,32 @@
                 Cảm ơn quý khách đã mua hàng, đơn hàng sẽ được giao tới trong 24h tới.
             </h5>
             <ul>
-                <li>Mã đơn hàng: <b>${ordered.idOrder}</b></li>
-                <li>Thời gian mua hàng: <b>${ordered.timeOrdered}</b></li>
-                <li>Người mua hàng: <b>${ordered.personName}</b></li>
-                <li>Địa chỉ nhận hàng: <b>${ordered.address}</b></li>
-                <li>Tổng cộng: <b>${ordered.cart.lastPrice }</b></li>
+                <li>Mã đơn hàng: <b>${requestScope.ordered.idOrder}</b></li>
+                <li>Thời gian mua hàng: <b>${requestScope.ordered.timeOrdered}</b></li>
+                <li>Người mua hàng: <b>${requestScope.ordered.personName}</b></li>
+                <li>Địa chỉ nhận hàng: <b>${requestScope.ordered.address}</b></li>
+                <li>Tổng cộng: <b class=" price">${requestScope.ordered.cart.lastPrice }</b></li>
             </ul>
         </div>
     </div>
 </div>
 <!-- End content -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Hàm định dạng số tiền thành tiền Việt
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+        }
 
+        // Định dạng giá gốc
+        document.querySelectorAll(".price").forEach(el => {
+            const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+            if (originalPrice) {
+                el.textContent = formatCurrency(parseFloat(originalPrice));
+            }
+        });
+    });
+</script>
 <%@ include file="includes/footer.jsp" %>
 <%@ include file="includes/link/footLink.jsp" %>
 </body>

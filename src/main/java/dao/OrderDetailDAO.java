@@ -13,12 +13,12 @@ public class OrderDetailDAO {
         String query = "insert into order_details values (?,?,?,?,?,?)";
         return jdbi.withHandle(handle -> {
             return handle.createUpdate(query)
-                    .bind(1, detail.getId())
-                    .bind(2, detail.getIdOrder())
-                    .bind(3, detail.getStyle().getId())
-                    .bind(4, detail.getQuantity())
-                    .bind(5, detail.getTotalPrice())
-                    .bind(6, detail.getWeight())
+                    .bind(0, detail.getId())
+                    .bind(1, detail.getIdOrder())
+                    .bind(2, detail.getStyle().getId())
+                    .bind(3, detail.getQuantity())
+                    .bind(4, detail.getTotalPrice())
+                    .bind(5, detail.getWeight())
                     .execute() > 0;
         });
     }

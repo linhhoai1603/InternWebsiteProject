@@ -21,7 +21,5 @@ public class OrderService {
                 return "Unknown";
         }
     }
-    public int getLastId(){
-        return dao.getLastId();
-    }
+
 }
