@@ -1,3 +1,4 @@
+
 package models;
 
 import java.util.HashMap;
@@ -79,12 +80,12 @@ public class Cart {
     }
     // method apply voucher
     public boolean applyVoucher(Voucher voucher) {
-      if(totalPrice >= voucher.getConditionAmount()){
-          this.voucher = voucher;
-          this.calculateInfo();
-          return true;
-      }
-          return false;
+        if(totalPrice >= voucher.getConditionAmount()){
+            this.voucher = voucher;
+            this.calculateInfo();
+            return true;
+        }
+        return false;
 
     }
     public List<CartItem> getValues(){

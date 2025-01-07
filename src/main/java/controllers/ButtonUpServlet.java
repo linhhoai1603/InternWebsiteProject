@@ -1,3 +1,4 @@
+
 package controllers;
 
 import jakarta.servlet.ServletException;
@@ -106,4 +107,3 @@ public class ButtonUpServlet extends HttpServlet {
         request.getRequestDispatcher("button-up.jsp").forward(request, response);
     }
 }
-

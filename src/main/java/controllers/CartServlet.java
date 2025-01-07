@@ -62,15 +62,15 @@ public class CartServlet extends HttpServlet {
         int idStyle = Integer.parseInt(request.getParameter("idStyle"));
         Cart cart = (Cart) request.getSession().getAttribute("cart");
         cart.remove(idStyle);
-       try{
-           if(cart.getVoucher() != null) {
-               if(cart.getTotalPrice() < cart.getVoucher().getConditionAmount()){
-                   cart.applyVoucher(null);
-               }
-           }
-       }catch (NullPointerException e){
-           e.printStackTrace();
-       }
+        try{
+            if(cart.getVoucher() != null) {
+                if(cart.getTotalPrice() < cart.getVoucher().getConditionAmount()){
+                    cart.applyVoucher(null);
+                }
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
         request.getSession().setAttribute("cart", cart);
         request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     }

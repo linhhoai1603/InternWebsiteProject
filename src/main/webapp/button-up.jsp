@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -173,6 +174,7 @@
                             <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
                           </div>
                         </c:forEach>
+
                       </div>
                     </div>
                   </c:if>
@@ -309,9 +311,58 @@
       });
     });
 
+    // Xử lý nút "Thêm vào giỏ hàng"
+    const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+    addToCartButtons.forEach(button => {
+      button.addEventListener("click", function () {
+        const form = this.closest(".product-options-form");
+        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
+        const quantityContainer = form.querySelector('.quantity-container');
+        const submitCartButton = form.querySelector('.submit-cart-button');
+
+        // Kiểm tra nếu đã chọn Style
+        if (selectedStyleInput.value) {
+          // Hiển thị số lượng và nút "Xác nhận"
+          quantityContainer.style.display = "block";
+          this.style.display = "none"; // Ẩn nút "Thêm vào giỏ hàng"
+          submitCartButton.style.display = "block"; // Hiển thị nút "Xác nhận"
+        } else {
+          // Hiển thị thông báo yêu cầu chọn Style
+          alert("Vui lòng chọn Style trước khi thêm vào giỏ hàng!");
+        }
+      });
+    });
+
+    // Xử lý khi chọn Style
+    const styleOptions = document.querySelectorAll('.style-option');
+    styleOptions.forEach(option => {
+      option.addEventListener("click", function () {
+        const form = this.closest(".product-options-form");
+        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
+        const mainImage = form.closest('.product-item').querySelector('.main-product-image'); // Sử dụng relative selector
+        const styleId = this.getAttribute('data-style-id');
+        const imageUrl = this.getAttribute('data-image-url');
+
+        // Cập nhật Style đã chọn vào input ẩn
+        selectedStyleInput.value = styleId;
+
+        // Thay thế hình ảnh trên Card bằng hình ảnh của Style được chọn
+        if (mainImage) {
+          mainImage.src = imageUrl; // Gán URL ảnh của Style vào ảnh chính
+        } else {
+          console.error("Không tìm thấy phần tử hình ảnh chính.");
+        }
+
+        // Đánh dấu Style được chọn
+        form.querySelectorAll('.style-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        this.classList.add('selected');
+      });
+    });
+
     // Hiển thị nút Back to Top khi cuộn xuống 300px
     const backToTopButton = document.getElementById("back-to-top");
-
     window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
         backToTopButton.classList.add('show');
@@ -319,7 +370,6 @@
         backToTopButton.classList.remove('show');
       }
     });
-
     backToTopButton.addEventListener("click", () => {
       window.scrollTo({
         top: 0,
@@ -327,7 +377,7 @@
       });
     });
 
-    // Xử lý hiển thị thông báo khi thêm vào giỏ hàng thành công hoặc lỗi
+    // Hiển thị thông báo khi thêm vào giỏ hàng thành công hoặc lỗi
     const alertMessage = document.getElementById("alert-message");
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('message') === 'success') {
@@ -347,41 +397,6 @@
         alertMessage.style.display = "none";
       }, 3000);
     }
-
-    // JavaScript để thay đổi hình ảnh chính khi chọn Style
-    const styleOptions = document.querySelectorAll('.style-option');
-    styleOptions.forEach(option => {
-      option.addEventListener("click", function () {
-        const form = this.closest(".product-options-form");
-        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
-        const quantityContainer = form.querySelector('.quantity-container');
-        const addToCartButton = form.querySelector('.add-to-cart-button');
-        const submitCartButton = form.querySelector('.submit-cart-button');
-        const styleId = this.getAttribute('data-style-id');
-        const imageUrl = this.getAttribute('data-image-url');
-
-        // Cập nhật giá trị cho trường ẩn
-        selectedStyleInput.value = styleId;
-
-        // Cập nhật hình ảnh chính
-        const productId = form.querySelector('input[name="productID"]').value;
-        const mainImage = document.getElementById("mainImage" + productId);
-        if (mainImage) {
-          mainImage.src = imageUrl;
-        }
-
-        // Đánh dấu Style được chọn
-        form.querySelectorAll('.style-option').forEach(opt => {
-          opt.classList.remove('selected');
-        });
-        this.classList.add('selected');
-
-        // Hiển thị trường số lượng và nút "Xác nhận"
-        quantityContainer.style.display = "block";
-        addToCartButton.style.display = "none";
-        submitCartButton.style.display = "block";
-      });
-    });
   });
 </script>
 </body>

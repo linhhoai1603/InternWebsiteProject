@@ -1,3 +1,4 @@
+
 package dao;
 
 import connection.DBConnection;
@@ -165,8 +166,9 @@ public class ProductDao {
                     product.setPrice(price);
 
                     return product;
-        }).list());
+                }).list());
     }
+
     public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options, String inputName) {
         String input = "%"+inputName+"%";
         String sortBy = "";
