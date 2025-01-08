@@ -10,6 +10,7 @@ public class User implements Serializable {
     private Address address;
     private String image;
 
+
     public User() {
 
     }
@@ -79,4 +80,7 @@ public class User implements Serializable {
                 ", address=" + address.toString() +
                 '}';
     }
+
+
+
 }

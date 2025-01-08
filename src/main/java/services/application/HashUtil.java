@@ -10,4 +10,10 @@ public class HashUtil {
         String saltedPassword = SALT1 + password + SALT2;
         return Base64.getEncoder().encodeToString(saltedPassword.getBytes());
     }
+
+    public static void main(String[] args) {
+        String password ="123456";
+        System.out.println(encodePasswordBase64(password));
+
+    }
 }

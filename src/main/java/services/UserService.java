@@ -10,7 +10,6 @@ public class UserService {
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
-
     public UserService() {
         this.userDao = new UserDao();
     }
@@ -34,11 +33,10 @@ public class UserService {
 
         userDao.insertAccountUser(newUserId, username, password, 1, 0, 0); // add accont_user
     }
-    public boolean checkHaveEmail(String username ,String email) {
-        return userDao.checkHaveEmail(username,email);
-    }
-    public boolean checkHaveUsername(String username) {
-        return userDao.usernameExists(username);
+
+
+    public boolean checkHaveEmail(String username, String email) {
+        return userDao.checkHaveEmail(username, email);
     }
 }
 
