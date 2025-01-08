@@ -63,4 +63,33 @@ public class AccountDao {
                     .orElse(null);
         });
     }
+    public void updateCode(String username, int code) {
+        jdbi.useHandle(handle -> {
+            handle.createUpdate("UPDATE account_users SET code = :code WHERE username = :username")
+                    .bind("code", code)
+                    .bind("username", username)
+                    .execute();
+        });
+    }
+    public boolean checkCode(String username, int code) {
+        String sql = "SELECT 1 FROM account_users WHERE username = :username AND code = :code LIMIT 1";
+        return jdbi.withHandle(handle -> {
+            Integer result = handle.createQuery(sql)
+                    .bind("username", username)
+                    .bind("code", code)
+                    .mapTo(Integer.class)
+                    .findFirst()
+                    .orElse(null);
+            return result != null;
+        });
+    }
+    public void resetPassword(String username, String password) {
+        jdbi.useHandle(handle -> {
+            handle.createUpdate("UPDATE account_users SET password = :password WHERE username = :username")
+                    .bind("password", password)
+                    .bind("username", username)
+                    .execute();
+        });
+    }
+
 }

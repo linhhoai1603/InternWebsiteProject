@@ -11,6 +11,10 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    public UserService() {
+        this.userDao = new UserDao();
+    }
+
     public void registerUser(String username, String password,
                              String fullName, String phoneNumber,
                              int idAddress, String image) {
@@ -30,7 +34,11 @@ public class UserService {
 
         userDao.insertAccountUser(newUserId, username, password, 1, 0, 0); // add accont_user
     }
-
-
+    public boolean checkHaveEmail(String username ,String email) {
+        return userDao.checkHaveEmail(username,email);
+    }
+    public boolean checkHaveUsername(String username) {
+        return userDao.usernameExists(username);
+    }
 }
 

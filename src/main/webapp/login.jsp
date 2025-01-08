@@ -52,6 +52,7 @@
             </div>
         </form>
         <a href="register.jsp" class="register-link">Chưa có tài khoản? Đăng ký</a>
+        <a href="confirm-email.jsp" class="register-link">Bạn quên mật khẩu?</a>
     </div>
 </div>
 <%@include file="includes/link/footLink.jsp"%>
