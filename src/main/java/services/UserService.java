@@ -1,7 +1,8 @@
 package services;
 
 import dao.UserDao;
-import org.mindrot.jbcrypt.BCrypt;
+// Đảm bảo bạn import HashUtil từ package services
+import services.HashUtil;
 
 public class UserService {
     private UserDao userDao;
@@ -27,14 +28,9 @@ public class UserService {
 
         int newUserId = userDao.insertUser(fakeEmail, fullName, phoneNumber, idAddress, image);
 
+        // Sử dụng HashUtil để mã hóa mật khẩu bằng Base64
+        String encodedPassword = HashUtil.encodePasswordBase64(password);
 
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
-
-
-        userDao.insertAccountUser(newUserId, username, hashedPassword, 1, 0, 0);
+        userDao.insertAccountUser(newUserId, username, encodedPassword, 1, 0, 0);
     }
-
-
-
 }
-
