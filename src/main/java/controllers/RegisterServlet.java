@@ -1,3 +1,5 @@
+// filepath: /src/main/java/controllers/RegisterServlet.java
+
 package controllers;
 
 import connection.DBConnection;
@@ -8,6 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.Jdbi;
+import services.HashUtil;
 import services.UserService;
 
 import java.io.IOException;
@@ -58,10 +61,9 @@ public class RegisterServlet extends HttpServlet {
         }
 
         try {
-
             userService.registerUser(
                     username,
-                    password,
+                    HashUtil.encodePasswordBase64(password),
                     "Default Name",
                     "0000000000",
                     1,
@@ -69,16 +71,13 @@ public class RegisterServlet extends HttpServlet {
             );
 
             request.setAttribute("success", "Đăng ký tài khoản thành công!");
-
             request.getRequestDispatcher("register.jsp").forward(request, response);
 
         } catch (RuntimeException e) {
-
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
-
 
     private boolean isValidUsername(String username) {
         // Regex: Cho phép chữ cái, chữ số, dấu chấm, gạch dưới, gạch ngang. Ít nhất 3 ký tự.
