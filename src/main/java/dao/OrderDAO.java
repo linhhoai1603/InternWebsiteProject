@@ -18,7 +18,7 @@ public class OrderDAO {
             return handle.createUpdate(query)
                     .bind(0, order.getTimeOrdered())
                     .bind(1, order.getUser().getId())
-                    .bind(2, (order.getVoucher().getIdVoucher()))
+                    .bind(2, order.getVoucher() != null ? order.getVoucher().getIdVoucher() : null) // Kiểm tra voucher null
                     .bind(3, order.getStatus())
                     .bind(4, order.getTotalPrice())
                     .bind(5, order.getLastPrice())
@@ -27,4 +27,5 @@ public class OrderDAO {
                     .findOnly();
         });
     }
+
 }

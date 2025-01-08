@@ -93,7 +93,7 @@ public class OrderServlet extends HttpServlet {
             Address address = new Address(idAddress, street, commune, city, province);
             addressService.insertAddress(address);
 
-            String fullName = request.getParameter("o-fullname");
+            String fullName = request.getParameter("o-fullName");
             String phone = request.getParameter("o-phone");
             delivery = new Delivery(
                     idOrder, idAddress, fullName, phone,

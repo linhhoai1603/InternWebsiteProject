@@ -14,6 +14,11 @@ public class ContactServlet extends HttpServlet {
         String title = request.getParameter("title");
         String content = request.getParameter("content");
         User user = (User) request.getSession().getAttribute("user");
+        if(user == null) {
+            request.setAttribute("error", "Vui lòng đăng nhập để gửi tin nhắn!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+            return;
+        }
         int idUser = user.getId();
         // Call the service to insert the contact
         MessageService messageService = new MessageService();

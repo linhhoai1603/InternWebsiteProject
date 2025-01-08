@@ -37,21 +37,15 @@ public class AddressDao {
         );
     }
     public boolean addAddress(Address address){
-        String query = "insert into address values (?,?,?,?)";
+        String query = "insert into addresses (city, province, commune, street) values (?,?,?,?)";
         return jdbi.withHandle(handle -> {
             return handle.createUpdate(query)
-                    .bind(1, address.getCity())
-                    .bind(2, address.getProvince())
-                    .bind(3, address.getCommune())
-                    .bind(4, address.getStreet())
+                    .bind(0, address.getCity())
+                    .bind(1, address.getProvince())
+                    .bind(2, address.getCommune())
+                    .bind(3, address.getStreet())
                     .execute() > 0;
         });
-    }
-
-    public static void main(String[] args) {
-        AddressDao dao = new AddressDao();
-//        System.out.println(dao.updateAddress(1,"Đồng Nai","Biên Hòa","Yêết Kiu","Lonng Bình"));
-        System.out.println(dao.getAddressByID(3));
     }
 
     public int getLastId() {

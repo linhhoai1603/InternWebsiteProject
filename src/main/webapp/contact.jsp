@@ -17,7 +17,6 @@
 <%@include file="includes/navbar.jsp"%>
 <link rel="stylesheet" href="css/contact.css">
 <section class="contact-section">
-  <!-- Lấy giá trị error và username từ request scope -->
   <c:set var="message" value="${not empty requestScope.message ? requestScope.message : ''}" />
 
   <!-- Hiển thị thông báo nếu có lỗi -->
@@ -31,8 +30,6 @@
     </script>
   </c:if>
   <div class="container">
-    <!-- Breadcrumb Navigation -->
-
     <!-- Section Title -->
     <div class="section-title">
       <h2>Thông tin liên hệ</h2>
