@@ -7,6 +7,8 @@ import models.User;
 import org.jdbi.v3.core.Jdbi;
 import org.mindrot.jbcrypt.BCrypt;
 
+import java.util.Base64;
+
 public class AccountDao {
     Jdbi jdbi;
     public AccountDao() {
@@ -28,6 +30,7 @@ public class AccountDao {
                             au.username = :username AND au.password = :password
                             """;
         return jdbi.withHandle(handle -> {
+
             return handle.createQuery(sql)
                     .bind("username", username)
                     .bind("password", password)
@@ -64,5 +67,4 @@ public class AccountDao {
                     .orElse(null);
         });
     }
-
 }

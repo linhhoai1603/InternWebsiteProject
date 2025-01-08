@@ -47,7 +47,7 @@
 
       <!-- Cột thông tin người dùng -->
       <div class="col-md-9">
-        <form action="personal" method="post">
+        <form action="personal-servlet" method="post">
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="${sessionScope.user.email}" required>

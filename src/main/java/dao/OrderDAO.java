@@ -1,14 +1,9 @@
 package dao;
 
 import connection.DBConnection;
-import models.Address;
 import models.Order;
-import models.User;
-import models.Voucher;
 import org.jdbi.v3.core.Jdbi;
-import services.OrderService;
 
-import java.time.LocalDateTime;
 
 public class OrderDAO {
     Jdbi jdbi;
@@ -23,7 +18,7 @@ public class OrderDAO {
             return handle.createUpdate(query)
                     .bind(0, order.getTimeOrdered())
                     .bind(1, order.getUser().getId())
-                    .bind(2, (order.getVoucher() != null) ? order.getVoucher().getId() : null)
+                    .bind(2, (order.getVoucher().getIdVoucher()))
                     .bind(3, order.getStatus())
                     .bind(4, order.getTotalPrice())
                     .bind(5, order.getLastPrice())
@@ -32,5 +27,4 @@ public class OrderDAO {
                     .findOnly();
         });
     }
-
 }
