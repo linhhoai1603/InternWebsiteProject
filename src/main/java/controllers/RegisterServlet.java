@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jdbi.v3.core.Jdbi;
-import services.HashUtil;
+import services.application.HashUtil;
 import services.UserService;
 
 import java.io.IOException;

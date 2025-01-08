@@ -2,7 +2,7 @@ package services;
 
 import dao.UserDao;
 // Đảm bảo bạn import HashUtil từ package services
-import services.HashUtil;
+
 
 public class UserService {
     private UserDao userDao;
@@ -26,14 +26,11 @@ public class UserService {
 
         String fakeEmail = "";
 
-        int newUserId = userDao.insertUser(fakeEmail, fullName, phoneNumber, idAddress, image);
+        int newUserId = userDao.insertUser(fakeEmail, fullName, phoneNumber, idAddress, image); // add user
 
-        // Sử dụng HashUtil để mã hóa mật khẩu bằng Base64
-        String encodedPassword = HashUtil.encodePasswordBase64(password);
-
-        userDao.insertAccountUser(newUserId, username, encodedPassword, 1, 0, 0);
+        userDao.insertAccountUser(newUserId, username, password, 1, 0, 0); // add accont_user
     }
-<<<<<<< HEAD
+
 
 }
 
