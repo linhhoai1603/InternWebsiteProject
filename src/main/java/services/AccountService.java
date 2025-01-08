@@ -25,4 +25,11 @@ public class AccountService {
     public void resetPassword(String username, String password) {
         accountDao.resetPassword(username, password);
     }
+
+
+    public boolean checkPass(String username, String password) {
+        return accountDao.checkPass(username, password);
+
+    }
+
 }

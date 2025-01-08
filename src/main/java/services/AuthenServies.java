@@ -1,6 +1,7 @@
 package services;
 
 import models.AccountUser;
+import models.User;
 
 public class AuthenServies {
     public AccountUser checkLogin(String username, String password) {
