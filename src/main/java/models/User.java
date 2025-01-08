@@ -10,6 +10,10 @@ public class User implements Serializable {
     private Address address;
     private String image;
 
+    public User() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -53,6 +57,15 @@ public class User implements Serializable {
         return image;
     }
     public void setImage(String image) {
+        this.image = image;
+    }
+
+    public User(int id, String email, String fullName, String numberPhone, Address address, String image) {
+        this.id = id;
+        this.email = email;
+        this.fullName = fullName;
+        this.numberPhone = numberPhone;
+        this.address = address;
         this.image = image;
     }
 

@@ -95,8 +95,7 @@ public class Delivery implements Serializable {
         this.scheduledDateTime = scheduledDateTime;
     }
 
-    public Delivery(int id, int idOrder, int idAddress, String fullName, String phoneNumber, double area, double deliveryFee, String note, String status, LocalDateTime scheduledDateTime) {
-        this.id = id;
+    public Delivery(int idOrder, int idAddress, String fullName, String phoneNumber, double area, double deliveryFee, String note, String status) {
         this.idOrder = idOrder;
         this.idAddress = idAddress;
         this.fullName = fullName;
@@ -105,11 +104,12 @@ public class Delivery implements Serializable {
         this.deliveryFee = deliveryFee;
         this.note = note;
         this.status = status;
-        this.scheduledDateTime = scheduledDateTime;
+        this.scheduledDateTime = LocalDateTime.now().plusDays(2); // Ngày hiện tại + 2 ngày
     }
     public Delivery() {
 
     }
+
 
     @Override
     public String toString() {

@@ -56,14 +56,11 @@ public class AccountDao {
                         accountUser.setRole(rs.getInt("role"));
                         accountUser.setLocked(rs.getInt("locked"));
                         accountUser.setCode(rs.getInt("code"));
-
                         accountUser.setUser(user);
-
                         return accountUser;
                     })
                     .findOne()
                     .orElse(null);
         });
     }
-
 }

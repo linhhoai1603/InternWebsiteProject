@@ -398,6 +398,20 @@
       }, 3000);
     }
   });
+  document.addEventListener("DOMContentLoaded", function () {
+    // Hàm định dạng số tiền thành tiền Việt
+    function formatCurrency(amount) {
+      return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+    }
+
+    // Định dạng giá gốc
+    document.querySelectorAll(".price").forEach(el => {
+      const originalPrice = el.textContent.trim().replace("VND", "").replace(/,/g, "");
+      if (originalPrice) {
+        el.textContent = formatCurrency(parseFloat(originalPrice));
+      }
+    });
+  });
 </script>
 </body>
 </html>

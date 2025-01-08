@@ -10,6 +10,8 @@
 <html>
 <head>
   <title>Thanh toán</title>
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <%@include file="includes/header.jsp"%>
@@ -20,8 +22,31 @@
 <!-- Create payment with col-md-6, input infor delivery, right col-md-6 infor product, both table-->
 <div class="container">
   <div class="row mt-5">
-    <p>Bạn có mã ưu đãi?<a id="voucher">&nbsp;Ấn vào đây để nhập mã?</a></p>
-    <span class="text-danger">${requestScope.message}</span>
+    <p >Bạn có mã ưu đãi?<a id="voucher" class="text-primary">&nbsp;Ấn vào đây để nhập mã?</a></p>
+    <!-- Lấy giá trị thông báo từ request scope -->
+    <c:set var="message" value="${not empty requestScope.message ? requestScope.message : ''}" />
+
+    <!-- Hiển thị thông báo nếu có message -->
+    <c:if test="${not empty message}">
+      <script type="text/javascript">
+        var iconType = 'error';  // Mặc định là biểu tượng lỗi
+        var title = 'Thông báo';  // Tiêu đề mặc định
+
+        // Kiểm tra nếu message là "Giảm giá thành công!"
+        if ("Giảm giá thành công!" === "${message}") {
+          iconType = 'success';  // Đổi thành biểu tượng thành công
+          title = 'Thành công';  // Tiêu đề cho thông báo thành công
+        }
+
+        // Hiển thị thông báo với SweetAlert
+        Swal.fire({
+          icon: iconType,  // Biểu tượng, có thể là 'error', 'success', 'warning', etc.
+          title: title,  // Tiêu đề
+          text: "${message}"  // Nội dung thông báo
+        });
+      </script>
+    </c:if>
+
     <div id="inputVoucher">
       <h5>Nếu bạn có mã giảm giá, vui lòng điền vào phía bên dưới.</h5>
       <form action="payment?method=applyVoucher" method="post">
@@ -30,10 +55,11 @@
       </form>
     </div>
   </div>
+  <form action="order" method="post">
   <div class="row">
     <div class="col-md-6">
       <h4 style="color: #339c87" class="mt-4 mb-3">Thông tin giao hàng</h4>
-      <form action="payment" method="post">
+
         <!-- Thông tin giao hàng chính -->
         <div class="row">
           <div class="col-md-6">
@@ -51,8 +77,8 @@
             <input type="text" class="form-control" id="address" name="address" value="${sessionScope.user.address.street}/${sessionScope.user.address.commune}/${sessionScope.user.address.city}/${sessionScope.user.address.province}" />
           </div>
           <div class="col-md-6">
-            <label class="fw-bold" for="otherPhone">Số điện thoại khác: <span class="text-red">*</span></label>
-            <input type="text" name="otherPhone" id="otherPhone" class="form-control" placeholder="Nhập số điện thoại khác" />
+            <label class="fw-bold" for="otherPhone">Số điện thoại nhận hàng: <span class="text-red">*</span></label>
+            <input type="text" name="otherPhone" id="otherPhone" class="form-control" placeholder="Nhập số điện thoại nhận hàng"/>
           </div>
         </div>
 
@@ -60,7 +86,7 @@
         <!-- Checkbox và thông tin giao hàng khác -->
         <div class="row mt-3">
           <div class="col-md-12">
-            <input type="checkbox" name="otherAddress" id="otherAddress" onclick="toggleOtherAddress()" />
+            <input type="checkbox" name="otherAddress" id="otherAddress" onclick="toggleOtherAddress()" value = "1" />
             <label for="otherAddress">Giao hàng tới địa chỉ khác</label>
           </div>
         </div>
@@ -81,14 +107,14 @@
               <input type="text" name="o-street" id="o-street" class="form-control" placeholder="Nhập tên đường" />
             </div>
             <div class="col-md-6">
-              <label class="fw-bold" for="o-ward">Xã</label>
-              <input type="text" name="o-ward" id="o-ward" class="form-control" placeholder="Nhập tên xã" />
+              <label class="fw-bold" for="o-commune">Xã</label>
+              <input type="text" name="o-commune" id="o-commune" class="form-control" placeholder="Nhập tên xã" />
             </div>
           </div>
           <div class="row mt-3">
             <div class="col-md-6">
-              <label class="fw-bold" for="o-district">Huyện</label>
-              <input type="text" name="o-district" id="o-district" class="form-control" placeholder="Nhập tên huyện" />
+              <label class="fw-bold" for="o-city">Huyện</label>
+              <input type="text" name="o-city" id="o-city" class="form-control" placeholder="Nhập tên huyện" />
             </div>
             <div class="col-md-6">
               <label class="fw-bold" for="o-province">Tỉnh</label>
@@ -167,14 +193,14 @@
           <h5 style="margin-left: 5px">Phương thức thanh toán</h5>
           <div class="row">
             <div class="col-md-5 text-center">
-              <input type="radio" name="payment" id="payment-online" />
+              <input type="radio" name="payment" id="payment-online" value="online"/>
               <label for="payment-online">Thanh toán chuyển khoản</label>
             </div>
           </div>
           <div class="row" id="messageOnline" style="display: none">
             <div class="col-md-1"></div>
             <div class="col-md-10">
-              <p>
+              <p class="text-warning">
                 Thực hiện thanh toán vào ngay tài khoản ngân hàng của
                 chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn trong phần
                 Nội dung thanh toán. Đơn hàng sẽ đươc giao sau khi tiền đã
@@ -191,6 +217,7 @@
                       type="radio"
                       name="payment"
                       id="payment-cash"
+                      value="cash"
                       checked
               />
               <label for="payment-cash">Thanh toán khi nhận hàng</label>
@@ -198,7 +225,7 @@
             <div class="row" id="messageCash">
               <div class="col-md-1"></div>
               <div class="col-md-10">
-                <p>Trả tiền mặt khi nhận hàng.</p>
+                <p class="text-warning">Trả tiền mặt khi nhận hàng.</p>
               </div>
               <div class="col-md-1"></div>
             </div>
@@ -207,17 +234,16 @@
         <tr>
           <div class="row">
             <div class="col-md-8"></div>
-            <a  href="payment-success.jsp"
+            <input
                     type="submit"
-                    class="btn btn-warning col-md-4 text-white"
-            >Đặt hàng</a>
+                    class="btn btn-warning col-md-4 text-white" value="Đặt hàng">
           </div>
         </tr>
         </tbody>
       </table>
     </div>
-    </form>
   </div>
+  </form>
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function () {

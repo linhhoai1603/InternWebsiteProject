@@ -10,6 +10,9 @@
 <html>
 <head>
   <title>Giỏ hàng</title>
+  <!-- SweetAlert -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 <%@include file="includes/header.jsp"%>
@@ -23,10 +26,20 @@
 <!-- Content -->
 <div class="container-fluid">
   <div class="row" style="background-color: rgb(231, 231, 231); padding-top: 10px">
-    <c:if test="${sessionScope.cart.items == null }">
+    <c:if test="${empty sessionScope.cart.items || sessionScope.cart.items.values().isEmpty()}">
       <h4 class="text-center">Giỏ hàng của bạn đang trống!</h4>
-      <a href="index.jsp" class="btn btn-warning">Tiếp tục mua sắm</a>
+      <a href="products.jsp" class="btn btn-warning">Tiếp tục mua sắm</a>
     </c:if>
+    <c:if test="${not empty requestScope.error}">
+      <script type="text/javascript">
+        Swal.fire({
+          icon: 'error',
+          title: 'Có lỗi xảy ra',
+          text: "${requestScope.error}"
+        });
+      </script>
+    </c:if>
+
     <div class="col-md-1"></div>
     <!-- Empty div-->
     <!-- Danh mục sản phẩm trong giỏ hàng -->
@@ -109,7 +122,29 @@
                   <form action="cart?method=applyVoucher" method="post">
                     <i class="fa-solid fa-ticket"></i>&nbsp;Phiếu ưu đãi &nbsp;
                     <input type="text" name="code" id="code" style="padding: 5px; width: 100%" required value="${sessionScope.cart.voucher.code}"/>
-                    <span class="text-danger product-price text-right">${requestScope.message}</span><br>
+                    <!-- Lấy giá trị thông báo từ request scope -->
+                    <c:set var="message" value="${not empty requestScope.message ? requestScope.message : ''}" />
+
+                    <!-- Hiển thị thông báo nếu có message -->
+                    <c:if test="${not empty message}">
+                      <script type="text/javascript">
+                        var iconType = 'error';  // Mặc định là biểu tượng lỗi
+                        var title = 'Thông báo';  // Tiêu đề mặc định
+
+                        // Kiểm tra nếu message là "Giảm giá thành công!"
+                        if ("Giảm giá thành công!" === "${message}") {
+                          iconType = 'success';  // Đổi thành biểu tượng thành công
+                          title = 'Thành công';  // Tiêu đề cho thông báo thành công
+                        }
+
+                        // Hiển thị thông báo với SweetAlert
+                        Swal.fire({
+                          icon: iconType,  // Biểu tượng, có thể là 'error', 'success', 'warning', etc.
+                          title: title,  // Tiêu đề
+                          text: "${message}"  // Nội dung thông báo
+                        });
+                      </script>
+                    </c:if>
                     <button type="submit" class="btn btn-primary">Áp dụng</button>
                   </form>
               </td>

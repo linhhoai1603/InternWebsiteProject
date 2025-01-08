@@ -54,4 +54,13 @@ public class AddressDao {
         System.out.println(dao.getAddressByID(3));
     }
 
+    public int getLastId() {
+        String query = "select max(id) from addresses";
+        return jdbi.withHandle(handle -> {
+            return handle.createQuery(query)
+                    .mapTo(Integer.class)
+                    .one();
+        });
+    }
+
 }

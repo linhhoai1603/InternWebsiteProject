@@ -139,6 +139,7 @@ public class UserDao {
     }
 
 
+
     public boolean usernameExists(String username) {
         return jdbi.withHandle(handle ->
                 handle.createQuery(

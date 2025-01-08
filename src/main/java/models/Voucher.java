@@ -3,7 +3,7 @@ package models;
 import java.io.Serializable;
 
 public class Voucher implements Serializable {
-    private int id;
+    private int idVoucher;
     private String code;
     private double discountAmount;
     private double conditionAmount;
@@ -11,8 +11,8 @@ public class Voucher implements Serializable {
     public Voucher() {
 
     }
-    public Voucher(int id,String code, double discountAmount, double amount, int valid) {
-        this.id = id;
+    public Voucher(int idVoucher,String code, double discountAmount, double amount, int valid) {
+        this.idVoucher = idVoucher;
         this.code = code;
         this.discountAmount = discountAmount;
         this.conditionAmount = amount;
@@ -27,12 +27,12 @@ public class Voucher implements Serializable {
         this.valid = valid;
     }
 
-    public int getId() {
-        return id;
+    public int getIdVoucher() {
+        return idVoucher;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdVoucher(int id) {
+        this.idVoucher = id;
     }
 
     public double getDiscountAmount() {
@@ -60,7 +60,7 @@ public class Voucher implements Serializable {
     @Override
     public String toString() {
         return "Voucher{" +
-                "id=" + id +
+                "id=" + idVoucher +
                 ", discountAmount=" + discountAmount +
                 ", amount=" + conditionAmount +
                 '}';
