@@ -20,6 +20,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+        // Khởi tạo kết nối & UserDao
         Jdbi jdbi = DBConnection.getJdbi();
         UserDao userDAO = new UserDao(jdbi);
         userService = new UserService(userDAO);
@@ -30,45 +31,59 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        String email = request.getParameter("email");
+        // Lấy tham số từ form
+        String username = request.getParameter("username");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
 
-
-        // Kiểm tra độ dài mật khẩu
+        // 1) Kiểm tra độ dài mật khẩu
         if (password.length() < 6) {
             request.setAttribute("error", "Mật khẩu phải có ít nhất 6 ký tự.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
+        // 2) Kiểm tra mật khẩu và confirmPassword
         if (!password.equals(confirmPassword)) {
             request.setAttribute("error", "Mật khẩu và xác nhận mật khẩu không khớp.");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
-        if (!isValidEmail(email)) {
-            request.setAttribute("error", "Email không hợp lệ.");
+        // 3) Kiểm tra định dạng username
+        if (!isValidUsername(username)) {
+            request.setAttribute("error", "Username không hợp lệ (ít nhất 3 ký tự, không chứa khoảng trắng).");
             request.getRequestDispatcher("register.jsp").forward(request, response);
             return;
         }
 
         try {
-            userService.registerUser(email, password, "Default Name", "0000000000", 1, "default.png");
-            // Thay vì sendRedirect(...):
-            request.getRequestDispatcher("register_success.jsp").forward(request, response);
+
+            userService.registerUser(
+                    username,
+                    password,
+                    "Default Name",
+                    "0000000000",
+                    1,
+                    "default.png"
+            );
+
+            request.setAttribute("success", "Đăng ký tài khoản thành công!");
+
+            request.getRequestDispatcher("register.jsp").forward(request, response);
+
         } catch (RuntimeException e) {
+
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
-
     }
 
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
-        return email.matches(emailRegex);
-    }
 
+    private boolean isValidUsername(String username) {
+        // Regex: Cho phép chữ cái, chữ số, dấu chấm, gạch dưới, gạch ngang. Ít nhất 3 ký tự.
+        // Không chứa khoảng trắng.
+        String usernameRegex = "^[A-Za-z0-9._-]{3,}$";
+        return username != null && username.matches(usernameRegex);
+    }
 }
-

@@ -1,3 +1,4 @@
+
 package dao;
 
 import connection.DBConnection;
@@ -49,26 +50,41 @@ public class StyleDao {
                 "JOIN categories c ON p.idCategory = c.id " +
                 "WHERE s.id = :idStyle";
         return jdbi.withHandle(handle -> {
-           return handle.createQuery(query)
-                   .bind("idStyle", idStyle)
-                   .map((rs, ctx) ->{
-                       Style style = new Style();
-                       style.setId(rs.getInt("id"));
-                       style.setName(rs.getString("name"));
-                       style.setImage(rs.getString("image"));
-                       Product product = new Product();
-                       product.setId(rs.getInt("idProduct"));
-                       product.setName(rs.getString("nameProduct"));
-                       Price price = new Price();
-                       price.setId(rs.getInt("idPrice"));
-                       price.setLastPrice(rs.getDouble("lastPrice"));
-                       Category category = new Category();
-                       category.setId(rs.getInt("idCategory"));
-                       product.setCategory(category);
-                       product.setPrice(price);
-                       style.setProduct(product);
-                       return style;
-                   }).list().getFirst();
+            return handle.createQuery(query)
+                    .bind("idStyle", idStyle)
+                    .map((rs, ctx) ->{
+                        Style style = new Style();
+                        style.setId(rs.getInt("id"));
+                        style.setName(rs.getString("name"));
+                        style.setImage(rs.getString("image"));
+                        Product product = new Product();
+                        product.setId(rs.getInt("idProduct"));
+                        product.setName(rs.getString("nameProduct"));
+                        Price price = new Price();
+                        price.setId(rs.getInt("idPrice"));
+                        price.setLastPrice(rs.getDouble("lastPrice"));
+                        Category category = new Category();
+                        category.setId(rs.getInt("idCategory"));
+                        product.setCategory(category);
+                        product.setPrice(price);
+                        style.setProduct(product);
+                        return style;
+                    }).list().getFirst();
         });
     }
+
+
+    //Thêm một phương thức mới trong StyleDao để lấy các styles liên quan đến dây kéo:
+    public List<Style> getZipperStylesByIDProduct(int idProduct) {
+        String query = "SELECT * FROM styles WHERE idProduct = ? AND " +
+                "(LOWER(image) LIKE '%zipper%' OR LOWER(image) LIKE '%dây kéo%' " +
+                "OR LOWER(image) LIKE '%pull%' OR LOWER(image) LIKE '%buckle%')";
+        return jdbi.withHandle(handle -> {
+            return handle.createQuery(query)
+                    .bind(0, idProduct)
+                    .mapToBean(Style.class)
+                    .list();
+        });
+    }
+
 }
