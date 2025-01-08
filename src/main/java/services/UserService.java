@@ -35,5 +35,6 @@ public class UserService {
         userDao.insertAccountUser(idUser, email, hashedPassword, 1, 0, 0);
     }
 
+
 }
 

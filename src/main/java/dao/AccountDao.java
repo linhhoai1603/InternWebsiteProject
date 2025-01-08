@@ -5,6 +5,7 @@ import models.AccountUser;
 import models.Address;
 import models.User;
 import org.jdbi.v3.core.Jdbi;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class AccountDao {
     Jdbi jdbi;
@@ -56,9 +57,7 @@ public class AccountDao {
                         accountUser.setRole(rs.getInt("role"));
                         accountUser.setLocked(rs.getInt("locked"));
                         accountUser.setCode(rs.getInt("code"));
-
                         accountUser.setUser(user);
-
                         return accountUser;
                     })
                     .findOne()
