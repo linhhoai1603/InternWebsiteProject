@@ -17,7 +17,6 @@
 <div class="container my-5">
   <!-- Lấy giá trị error và username từ request scope -->
   <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}" />
-
   <!-- Hiển thị thông báo nếu có lỗi -->
   <c:if test="${not empty error}">
     <script type="text/javascript">
