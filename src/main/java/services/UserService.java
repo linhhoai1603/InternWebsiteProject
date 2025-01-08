@@ -10,9 +10,6 @@ public class UserService {
     public UserService(UserDao userDao) {
         this.userDao = userDao;
     }
-    public UserService() {
-        this.userDao = new UserDao();
-    }
 
     public void registerUser(String username, String password,
                              String fullName, String phoneNumber,
@@ -33,6 +30,7 @@ public class UserService {
 
         userDao.insertAccountUser(newUserId, username, password, 1, 0, 0); // add accont_user
     }
+
 
 }
 

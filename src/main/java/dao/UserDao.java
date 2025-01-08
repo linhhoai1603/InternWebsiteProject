@@ -151,6 +151,35 @@ public class UserDao {
                         .one() > 0
         );
     }
+    public boolean checkHaveEmail(String username, String email) {
+        Integer idUser = getIdUserByUsername(username); // Lấy idUser dựa trên username
+        if (idUser == null) {
+            return false; // Trả về false nếu username không tồn tại
+        }
+        return jdbi.withHandle(handle ->
+                handle.createQuery(
+                                "SELECT COUNT(*) FROM users " +
+                                        "WHERE id = :idUser AND email = :email"
+                        )
+                        .bind("idUser", idUser)
+                        .bind("email", email)
+                        .mapTo(Integer.class)
+                        .one() > 0
+        );
+    }
+
+    public Integer getIdUserByUsername(String username) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery(
+                                "SELECT idUser FROM account_users " +
+                                        "WHERE username = :username"
+                        )
+                        .bind("username", username)
+                        .mapTo(Integer.class)
+                        .findOnly()
+        );
+    }
+
 
 }
 

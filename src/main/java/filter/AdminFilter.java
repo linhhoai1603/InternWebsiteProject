@@ -6,8 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.AccountUser;
-import models.User;
-import services.AcountServies;
 
 import java.io.IOException;
 
