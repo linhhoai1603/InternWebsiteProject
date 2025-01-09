@@ -56,7 +56,7 @@
                 %>
                 <div class="dropdown d-inline-block">
                     <a href="#" class="btn text-white btn-bg dropdown-toggle" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>&nbsp;Cá nhân
+                        <i class="fa-solid fa-user"></i>&nbsp;${sessionScope.account.username}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
                         <li>
