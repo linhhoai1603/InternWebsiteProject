@@ -27,8 +27,7 @@ public class AdminFilter implements Filter {
 
         // Kiểm tra nếu người dùng chưa đăng nhập hoặc không có quyền admin
         if (acc == null || acc.getRole() < 1) {
-            request.setAttribute("error", "Vui lòng đăng nhập với tài khoản admin");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            response.sendRedirect("../index.jsp");
             return;
         }
 

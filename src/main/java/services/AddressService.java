@@ -17,4 +17,7 @@ public class AddressService {
     public Address getAddressById(int id){
         return dao.getAddressByID(id);
     }
+    public boolean deleteAddress(int id){
+        return dao.deleteAddress(id);
+    }
 }

@@ -1,6 +1,10 @@
 package services;
 
 import dao.UserDao;
+import models.AccountUser;
+import models.User;
+
+import java.util.List;
 // Đảm bảo bạn import HashUtil từ package services
 
 
@@ -37,6 +41,12 @@ public class UserService {
 
     public boolean checkHaveEmail(String username, String email) {
         return userDao.checkHaveEmail(username, email);
+    }
+    public List<AccountUser> getAllUser() {
+        return userDao.getAllUser();
+    }
+    public boolean lockUser(int id) {
+        return userDao.lockUser(id);
     }
 }
 

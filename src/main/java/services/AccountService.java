@@ -31,5 +31,8 @@ public class AccountService {
         return accountDao.checkPass(username, password);
 
     }
+    public boolean deleteAccountUserByIDUser(int id) {
+        return accountDao.deleteAccountUserByIDUser(id);
+    }
 
 }
