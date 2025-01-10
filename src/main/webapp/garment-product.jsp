@@ -87,12 +87,14 @@
                       <p class="h2 text-danger fw-bold">
                         <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
                       </p>
-                      <form action="cart?method=add" method="POST">
+                      <form action="cart?method=add" method="post">
 
                         <div class="mb-3">
                           <p class="fw-bold">Kiểu vải </p>
                           <div class="d-flex gap-2">
                             <c:forEach var="style" items="${p.styles}">
+                              <input name="currentURL" type="hidden" value="may-mac?loca=${requestScope.loca}">
+                              <input type="hidden" name="productID" value="${p.id}">
                               <label for="style${style.id}" class="product-style-label" style="margin: 5px;">
                                 <input
                                         type="radio"
@@ -130,8 +132,6 @@
             </div>
           </div>
         </c:forEach>
-
-
       </div>
   </div>
 </div>
@@ -148,12 +148,14 @@
           <h1>Không có sản phẩm</h1>
         </c:if>
         <c:forEach begin="6" end="11" items="${requestScope.garment}" var="p">
-          <div class="col-4 products-section" onclick="showDetailProduct()">
+          <div class="col-4 products-section" onclick="showDetailProduct(${p.id})">
             <div class="card product-card">
               <div class="position-relative">
                 <img src="${p.image}" class="card-img-top" alt="Sản phẩm" style="object-fit: cover; height: 200px;">
                 <div class="product-buttons position-absolute start-50 translate-middle">
-                  <button class="btn"data-bs-toggle="modal" data-bs-target="#orderDetailsModal"><i class="fas fa-shopping-cart"></i></button>
+                  <button class="btn" data-bs-toggle="modal" data-bs-target="#orderDetailsModal${p.id}">
+                    <i class="fas fa-shopping-cart"></i>
+                  </button>
                   <button class="btn">Mua</button>
                 </div>
               </div>
@@ -161,10 +163,10 @@
                 <h5 class="card-title">${p.name}</h5>
                 <p class="card-text">
                 <div class="price-container">
-                <span style="font-weight: bold; color: #339C87; font-size: 16px;">Giá</span>
-                  <span  class="text-decoration-line-through small" style="color: #555; font-size: 0.9em;">
-                    <fmt:formatNumber value="${p.price.price}" type="number" />
-                  </span >
+                  <span style="font-weight: bold; color: #339C87; font-size: 16px;">Giá</span>
+                  <span class="text-decoration-line-through small" style="color: #555; font-size: 0.9em;">
+              <fmt:formatNumber value="${p.price.price}" type="number" />
+            </span>
                   <strong class="small" style="color: #339C87;">
                     <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
                   </strong>
@@ -173,6 +175,73 @@
                   <strong>Giảm ${p.price.discountPercent}%</strong>
                 </div>
                 </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal for this specific product -->
+          <div class="modal fade" id="orderDetailsModal${p.id}" tabindex="-1" aria-labelledby="orderDetailsModalLabel${p.id}" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="orderDetailsModalLabel${p.id}">Chi tiết sản phẩm</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <!-- Image Carousel Section -->
+                    <div class="col-md-6">
+                      <img src="${p.image}" class="d-block w-100" alt="Product Image 3">
+                    </div>
+                    <div class="col-md-6">
+                      <h3 class="text" style="color: #008080">${p.name}</h3>
+                      <p class="h4 text-decoration-line-through text-warning">
+                        <fmt:formatNumber value="${p.price.price}" type="number" />₫
+                      </p>
+                      <p class="h2 text-danger fw-bold">
+                        <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
+                      </p>
+                      <form action="cart?method=add" method="post">
+
+                        <div class="mb-3">
+                          <p class="fw-bold">Kiểu vải </p>
+                          <div class="d-flex gap-2">
+                            <c:forEach var="style" items="${p.styles}">
+                              <input name="currentURL" type="hidden" value="may-mac?loca=${requestScope.loca}">
+                              <input type="hidden" name="productID" value="${p.id}">
+                              <label for="style${style.id}" class="product-style-label" style="margin: 5px;">
+                                <input
+                                        type="radio"
+                                        name="selectedStyle"
+                                        id="style${style.id}"
+                                        value="${style.id}"
+                                        required
+                                        style="display: none;">
+                                <img
+                                        src="${style.image}"
+                                        alt="${style.name}"
+                                        class="product-style-image rounded"
+                                        style="width: 60px; height: 60px; border: 2px solid #ccc; padding: 2px;">
+                              </label>
+                            </c:forEach>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="input-group">
+                              <input type="number" name="quantity" class="form-control text-center" value="1" style="max-width: 50px">
+                            </div>
+                          </div>
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100" style="background-color: #339c87">Thêm vào giỏ hàng</button>
+                      </form>
+                      <div class="alert alert-light mt-3" role="alert">
+                        <i class="bi bi-truck"></i>
+                        Giao hàng: Mua hàng từ 10 sản phẩm (trong đó có trên 5 loại là vải) thì được freeship.
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -216,7 +285,26 @@
     %>
   </div>
 </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Lắng nghe sự kiện thay đổi của tất cả các radio button
+      const styleInputs = document.querySelectorAll('input[type="radio"][name="selectedStyle"]');
+      styleInputs.forEach(input => {
+        input.addEventListener("change", function () {
+          // Lấy productId từ form chứa radio button
+          const form = this.closest(".product-options-form");
+          const productId = form.querySelector('input[name="productID"]').value;
 
+          // Lấy URL của ảnh từ <img> liền kề radio button
+          const imageUrl = this.nextElementSibling.src;
+
+          // Gọi hàm thay đổi ảnh chính
+          changeMainImage(productId, imageUrl);
+        });
+      });
+    });
+
+  </script>
 
 <%@include file="includes/footer.jsp"%>
 <%@include file="includes/link/footLink.jsp"%>
