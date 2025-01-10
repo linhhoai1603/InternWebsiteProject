@@ -112,6 +112,7 @@
                           </c:forEach>
                           </div>
                         </div>
+                        <p class="fw-bold">Số lượng </p>
                         <div class="row">
                           <div class="col-6">
                             <div class="input-group">
@@ -226,7 +227,9 @@
                             </c:forEach>
                           </div>
                         </div>
+                        <p class="fw-bold">Số lượng </p>
                         <div class="row">
+
                           <div class="col-6">
                             <div class="input-group">
                               <input type="number" name="quantity" class="form-control text-center" value="1" style="max-width: 50px">
