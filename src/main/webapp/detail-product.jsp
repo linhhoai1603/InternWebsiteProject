@@ -15,7 +15,38 @@
 <%@include file="includes/header.jsp"%>
 <%@include file="includes/navbar.jsp"%>
 <link rel="stylesheet" href="css/detail-product.css">
+<style>
+    .color-option {
+        border-radius : 15% 2px;
+        transition: border 0.3s, transform 0.3s; /* Hiệu ứng chuyển động mượt */
+        cursor: pointer; /* Thay đổi con trỏ khi hover */
+    }
 
+    /* Khi ảnh được chọn */
+    .color-option.selected-style  {
+        border: 4px solid #339C87; /* Viền màu xanh lá */
+        transform: scale(1.1); /* Phóng to nhẹ ảnh khi chọn */
+    }
+
+    /* Hiệu ứng hover cho tất cả ảnh */
+    .color-option:hover {
+        transform: scale(1.05); /* Phóng to nhẹ khi hover */
+        border-color: #aaa; /* Đổi viền khi hover */
+    }
+    /* Ẩn spinner trên Chrome, Edge, Safari */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Ẩn spinner trên Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+
+</style>
 <div class="container mt-3">
     <div class="row">
         <!-- Image Carousel Section -->
@@ -26,27 +57,17 @@
                     data-bs-ride="carousel"
             >
                 <div class="carousel-inner">
+                    <c:forEach var="style" items="${product.styles}">
                     <div class="carousel-item active">
                         <img
-                                src="images/vaiGamHoaVanXanh.jpg"
+                                src="${style.image}"
                                 class="d-block w-100"
-                                alt="Product Image 1"
+                                alt="${style.name}"
+                                style="width: 300px; height: 500px; object-fit: cover;"
                         />
+
                     </div>
-                    <div class="carousel-item">
-                        <img
-                                src="images/vaiGamHongThienPhuc.jpg"
-                                class="d-block w-100"
-                                alt="Product Image 2"
-                        />
-                    </div>
-                    <div class="carousel-item">
-                        <img
-                                src="images/vaiGamLucThienPhuc.jpg"
-                                class="d-block w-100"
-                                alt="Product Image 3"
-                        />
-                    </div>
+                    </c:forEach>
                 </div>
                 <button
                         class="carousel-control-prev"
@@ -77,74 +98,42 @@
 
         <!-- Product Details Section -->
         <div class="col-md-6">
-            <h3 class="text" style="color: #008080">
-                Áo sơ mi nam dài tay Café-DriS khử mùi
-            </h3>
-            <p class="h4 text-decoration-line-through text-warning">600,000đ</p>
+            <h1 class="text" style="color: #008080">
+                ${requestScope.product.name}
+            </h1>
+            <p class="h4 text-decoration-line-through text-warning"><fmt:formatNumber value="${product.price.price}" type="number" />₫</p>
             <p class="h2 text-danger fw-bold">
-                390,000₫
+                <fmt:formatNumber value="${product.price.lastPrice}" type="number" />₫
             </p>
 
             <!-- Màu sắc -->
             <div class="mb-3">
                 <p class="fw-bold">Màu sắc</p>
                 <div class="d-flex gap-2">
-                    <img
-                            src="images/vaiDoChamHoaXanh.jpg"
-                            alt="Color 1"
-                            class="color-option border rounded"
-                            data-color="vaiDoChamHoaXanh"
-                            style="width: 40px; height: 40px"
-                    />
-                    <img
-                            src="images/vaiGamHoaVanLaVang.jpg"
-                            alt="Color 2"
-                            class="color-option border rounded"
-                            data-color="vaiGamHoaVanLaVang"
-                            style="width: 40px; height: 40px"
-                    />
-                    <img
-                            src="images/vaiGamHoaVanTim.webp"
-                            alt="Color 3"
-                            class="color-option border rounded"
-                            data-color="vaiGamHoaVanTim"
-                            style="width: 40px; height: 40px"
-                    />
-                    <img
-                            src="images/vaiGamHoaVanTrang.webp"
-                            alt="Color 4"
-                            class="color-option border rounded"
-                            data-color="vaiGamHoaVanTrang"
-                            style="width: 40px; height: 40px"
-                    />
-                </div>
-            </div>
-
-            <!-- Size Options -->
-            <div class="mb-3">
-                <p class="fw-bold">Size</p>
-                <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-outline-secondary size-option" data-size="2XL">2XL</button>
-                    <button type="button" class="btn btn-outline-secondary size-option" data-size="L">L</button>
-                    <button type="button" class="btn btn-outline-secondary size-option" data-size="M">M</button>
-                    <button type="button" class="btn btn-outline-secondary size-option" data-size="S">S</button>
-                    <button type="button" class="btn btn-outline-secondary size-option" data-size="XL">XL</button>
+                    <c:forEach var="style" items="${product.styles}">
+                        <img
+                                src="${style.image}"
+                                alt="${style.name}"
+                                class="color-option"
+                                style="width: 60px; height: 60px; cursor: pointer;"
+                                data-style-id="${style.id}"
+                        />
+                    </c:forEach>
                 </div>
             </div>
 
             <!-- Form to Submit Data -->
-            <form action="/checkout" method="POST">
-                <!-- Color and Size Hidden Fields -->
-                <input type="hidden" name="selected_color" id="selected_color" value="" />
-                <input type="hidden" name="selected_size" id="selected_size" value="" />
+            <form action="cart?method=add" method="post">
+                <input name="currentURL" type="hidden" value="detail-product?productId=${requestScope.product.id}">
+                <input type="hidden" name="selectedStyle" id="selectedStyle" value="">
 
                 <!-- Quantity and Add to Cart Button -->
                 <div class="row">
                     <div class="col-3">
                         <div class="input-group">
-                            <button class="btn btn-outline-secondary" type="button">-</button>
-                            <input type="text" class="form-control text-center" value="1" style="max-width: 50px" />
-                            <button class="btn btn-outline-secondary" type="button">+</button>
+                            <button class="btn btn-outline-secondary decrement-btn" type="button">-</button>
+                            <input type="number" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 50px" min="1">
+                            <button class="btn btn-outline-secondary increment-btn" type="button">+</button>
                         </div>
                     </div>
                     <button type="submit" class="col-3 btn btn-custom w-10 mb-2" style="background-color: #339c87">
@@ -160,7 +149,7 @@
             <!-- Shipping Information -->
             <div class="alert alert-light mt-3" role="alert">
                 <i class="bi bi-truck"></i>
-                Giao hàng: Miễn phí giao hàng toàn quốc với đơn hàng > 400k hoặc mua 3 sản phẩm bất kỳ.
+                Giao hàng: Miễn phí giao hàng khi mua từ 10 sản phẩm trở lên (Trong đó có trên 5 sản phẩm vải)
             </div>
         </div>
     </div>
@@ -175,14 +164,75 @@
                     <h5 class="mb-0">MÔ TẢ SẢN PHẨM</h5>
                 </div>
             </div>
-            <p>Đây sẽ là chiếc áo đầu tiên trong tủ đồ của bạn với chất liệu bền vững và thân thiện với môi trường!</p>
+            <p>${requestScope.product.description}</p>
+            <p>${requestScope.product.technicalInfo.specification}</p>
         </div>
     </div>
     <div class="container">
         <img src="images/poster.png" alt="Poster" class="img-fluid" />
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colorOptions = document.querySelectorAll('.color-option');
+        const selectedStyleInput = document.getElementById('selectedStyle');
 
+        // Khởi tạo giá trị ban đầu (style đầu tiên)
+        if (colorOptions.length > 0) {
+            colorOptions[0].classList.add('selected-style'); // Chọn style đầu tiên
+            selectedStyleInput.value = colorOptions[0].getAttribute('data-style-id');
+        }
+
+        // Cập nhật giá trị khi chọn style
+        colorOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                // Xóa lớp selected-style khỏi tất cả các ảnh
+                colorOptions.forEach(opt => opt.classList.remove('selected-style'));
+
+                // Thêm lớp selected-style vào ảnh được chọn
+                this.classList.add('selected-style');
+
+                // Cập nhật giá trị input
+                selectedStyleInput.value = this.getAttribute('data-style-id');
+            });
+        });
+    });
+    document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function () {
+            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected-style'));
+
+            this.classList.add('selected-style');
+
+            console.log(this.classList.contains('selected-style')); // Kết quả true nếu đúng
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const decrementButtons = document.querySelectorAll('.decrement-btn');
+        const incrementButtons = document.querySelectorAll('.increment-btn');
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+
+        // Xử lý nút giảm (-)
+        decrementButtons.forEach((button, index) => {
+            button.addEventListener('click', function () {
+                const input = quantityInputs[index]; // Lấy input tương ứng
+                let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
+                if (value > 1) {
+                    input.value = value - 1; // Giảm giá trị xuống 1
+                }
+            });
+        });
+
+        // Xử lý nút tăng (+)
+        incrementButtons.forEach((button, index) => {
+            button.addEventListener('click', function () {
+                const input = quantityInputs[index]; // Lấy input tương ứng
+                let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
+                input.value = value + 1; // Tăng giá trị lên 1
+            });
+        });
+    });
+
+</script>
 <script src="js/detail-product.js"></script>
 <%@include file="includes/footer.jsp"%>
 <%@include file="includes/link/footLink.jsp"%>

@@ -24,6 +24,9 @@ public class CartServlet extends HttpServlet {
         if("add".equals(method)) {
             addToCart(request, response);
         }
+        if("changeStyle".equals(method)) {
+
+        }
         if("updateQuantity".equals(method)) {
             updateQuantity(request, response);
         }
@@ -132,6 +135,13 @@ public class CartServlet extends HttpServlet {
             String currentURL = request.getParameter("currentURL");
             response.sendRedirect(currentURL + (currentURL.contains("?") ? "&" : "?") + "message=error");
         }
+    }
+    private void changeStyle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int idOld = Integer.parseInt(request.getParameter("oldStyle"));
+        int idNew = Integer.parseInt(request.getParameter("newStyle"));
+        StyleService styleService = new StyleService();
+
+
     }
 
 

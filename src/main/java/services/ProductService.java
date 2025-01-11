@@ -29,10 +29,12 @@ public class ProductService {
     }
 
     public Product getDetail(String in) {
+        StyleService ss = new StyleService();
         try {
             int id = Integer.parseInt(in);
-            return productDao.getProductById(id);
-
+            Product product = productDao.getProductById(id);
+            product.setStyles(ss.getAllStylesByIDProduct(product.getId()));
+            return product;
         }catch (NumberFormatException e){
             return null;
         }
@@ -46,6 +48,10 @@ public class ProductService {
     }
     public List<Product> getProductByCategory(String category,int psize,int nupa) {
         List<Product> products = productDao.getProductByCategory(category,psize,nupa);
+        StyleService ss = new StyleService();
+        for(Product product : products){
+            product.setStyles(ss.getAllStylesByIDProduct(product.getId()));
+        }
         if (products.isEmpty()) {
             System.out.println("Không tìm thấy sản phẩm nào thuộc danh mục: " + category);
         }

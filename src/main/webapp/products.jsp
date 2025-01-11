@@ -93,7 +93,7 @@
                             <button type="button" class="btn btn-warning add-to-cart-button">+<i class="fa-solid fa-cart-shopping"></i></button>
                             <button type="submit" class="btn btn-success submit-cart-button" style="display: none;">Xác nhận</button>
                         </div>
-                        <a href="detail-product?id=${product.id}" class="btn btn-primary mx-1 col-md-4 text-center">Xem ngay</a>
+                        <a href="detail-product?productId=${product.id}" class="btn btn-primary mx-1 col-md-4 text-center">Xem ngay</a>
                     </div>
                 </div>
                 </form>

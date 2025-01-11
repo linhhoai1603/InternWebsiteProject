@@ -119,6 +119,7 @@
             <div class="card product-item position-relative h-100">
               <!-- Thẻ hiển thị giảm giá -->
               <c:if test="${product.price.discountPercent > 0}">
+
                   <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
                     -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0" />%
                   </span>
@@ -142,6 +143,7 @@
               </div>
 
               <div class="card-body text-center d-flex flex-column">
+
                 <h5 class="card-title">${product.name}</h5>
                 <h4 class="card-text text-success">
                   Chỉ còn:
@@ -155,6 +157,7 @@
                       <fmt:formatNumber value="${product.price.price}" type="currency" currencySymbol="₫" />
                     </span>
                 </p>
+
                 <p class="cart-text description">Mô tả: ${product.description}</p>
 
                 <form action="cart?method=add" method="post" class="mt-auto product-options-form">
@@ -175,6 +178,7 @@
                         </c:forEach>
                       </div>
                     </div>
+
                   </c:if>
 
                   <!-- Số lượng sản phẩm -->
@@ -196,6 +200,7 @@
           </div>
         </c:forEach>
       </div>
+
 
       <!-- Phân trang -->
       <nav aria-label="Page navigation">
