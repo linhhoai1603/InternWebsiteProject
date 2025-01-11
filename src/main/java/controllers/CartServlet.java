@@ -95,12 +95,6 @@ public class CartServlet extends HttpServlet {
             StyleService styleService = new StyleService();
             Style selectedStyle = styleService.getStyleByID(idStyle);
 
-            if (selectedStyle == null) {
-                // Nếu Style không hợp lệ, chuyển hướng về trang hiện tại với thông báo lỗi
-                response.sendRedirect(currentURL + (currentURL.contains("?") ? "&" : "?") + "message=error");
-                return;
-            }
-
             // Tạo CartItem mới
             CartItem itemNew = new CartItem(selectedStyle, quantity);
 
@@ -133,52 +127,4 @@ public class CartServlet extends HttpServlet {
             response.sendRedirect(currentURL + (currentURL.contains("?") ? "&" : "?") + "message=error");
         }
     }
-
-
-//    private void addToCartButton(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        try {
-//            // Lấy thông tin từ form
-//            int idStyle = Integer.parseInt(request.getParameter("selectedStyle"));
-//            int quantity = Integer.parseInt(request.getParameter("quantity"));
-//            String currentURL = request.getParameter("currentURL");
-//
-//            // Lấy Style từ Service
-//            StyleService styleService = new StyleService();
-//            Style selectedStyle = styleService.getStyleByID(idStyle);
-//
-//            if (selectedStyle == null) {
-//                response.sendRedirect(currentURL + "?message=error");
-//                return;
-//            }
-//
-//            // Tạo CartItem mới
-//            CartItem itemNew = new CartItem(selectedStyle, quantity);
-//
-//            // Lấy Cart hiện tại từ Session hoặc tạo mới nếu chưa tồn tại
-//            HttpSession session = request.getSession();
-//            Cart cart = (Cart) session.getAttribute("cart");
-//            if (cart == null) {
-//                cart = new Cart();
-//            }
-//
-//            // Thêm sản phẩm vào giỏ hàng
-//            cart.add(itemNew);
-//
-//            // Cập nhật Cart vào Session
-//            session.setAttribute("cart", cart);
-//
-//            // Chuyển hướng người dùng về trang hiện tại với thông báo thành công
-//            response.sendRedirect(currentURL + "?message=success");
-//        } catch (NumberFormatException e) {
-//            e.printStackTrace();
-//            String currentURL = request.getParameter("currentURL");
-//            response.sendRedirect(currentURL + "?message=error");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            String currentURL = request.getParameter("currentURL");
-//            response.sendRedirect(currentURL + "?message=error");
-//        }
-//    }
-
-
 }

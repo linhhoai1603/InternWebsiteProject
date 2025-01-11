@@ -11,8 +11,8 @@ import models.Cart;
 import models.Voucher;
 import services.VoucherService;
 
-@WebServlet(name = "PamentServlet", value = "/payment")
-public class PamentServlet extends HttpServlet {
+@WebServlet(name = "PaymentServlet", value = "/payment")
+public class PaymentServlet extends HttpServlet {
 
     protected  void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);

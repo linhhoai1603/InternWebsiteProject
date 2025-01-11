@@ -48,7 +48,7 @@
 <%@include file="menu-admin.jsp"%>
 <c:if test="${requestScope.accounts == null}">
     <script>
-        window.location.href = "../admin-manager-users?method=getAllUsers";
+        window.location.href = "admin-manager-users?method=getAllUsers";
     </script>
 </c:if>
 <c:set var="message" value="${not empty requestScope.message ? requestScope.message : ''}" />

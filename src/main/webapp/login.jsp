@@ -26,7 +26,6 @@
     <c:if test="${not empty error}">
         <script type="text/javascript">
             Swal.fire({
-                icon: 'error',
                 title: 'Thông báo',
                 text: "${error}"
             });

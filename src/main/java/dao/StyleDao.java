@@ -43,7 +43,7 @@ public class StyleDao {
         });
     }
     public Style getStyleByID(int idStyle){
-        String query = "SELECT s.id, s.name, s.image, p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, c.id AS idCategory " +
+        String query = "SELECT s.id, s.name, s.image, s.quantity AS styleQuantity, p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, c.id AS idCategory, p.quantity " +
                 "FROM styles s " +
                 "JOIN products p ON s.idProduct = p.id " +
                 "JOIN prices pr ON p.idPrice = pr.id " +
@@ -57,9 +57,11 @@ public class StyleDao {
                         style.setId(rs.getInt("id"));
                         style.setName(rs.getString("name"));
                         style.setImage(rs.getString("image"));
+                        style.setQuantity(rs.getInt("styleQuantity"));
                         Product product = new Product();
                         product.setId(rs.getInt("idProduct"));
                         product.setName(rs.getString("nameProduct"));
+                        product.setQuantity(rs.getInt("quantity"));
                         Price price = new Price();
                         price.setId(rs.getInt("idPrice"));
                         price.setLastPrice(rs.getDouble("lastPrice"));
@@ -84,6 +86,24 @@ public class StyleDao {
                     .bind(0, idProduct)
                     .mapToBean(Style.class)
                     .list();
+        });
+    }
+    public void updateQuantityForStyle(int idStyle, int quantity){
+        String query = "UPDATE styles SET quantity = ? WHERE id = ?";
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind(0, quantity)
+                    .bind(1, idStyle)
+                    .execute();
+        });
+    }
+    public void updateQuantityForProduct(int idProduct, int quantity){
+        String query = "UPDATE products SET quantity = ? WHERE id = ?";
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind(0, quantity)
+                    .bind(1, idProduct)
+                    .execute();
         });
     }
 
