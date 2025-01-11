@@ -226,6 +226,60 @@ public class UserDao {
                         .execute() > 0
         );
     }
+    public boolean unlockUser(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE account_users SET locked = 0 WHERE idUser = :id")
+                        .bind("id", id)
+                        .execute() > 0
+        );
+    }
+    public List<AccountUser> findUserByName(String name) {
+        String query = "SELECT u.id AS userId, u.email, u.fullName, u.phoneNumber, " +
+                "a.id AS addressId, a.province, a.city, a.commune, a.street, " +
+                "COUNT(o.id) AS orderCount, SUM(o.lastPrice) AS totalSpent, acc.locked " +
+                "FROM users u " +
+                "JOIN addresses a ON u.idAddress = a.id " +
+                "JOIN account_users acc ON u.id = acc.idUser " +
+                "LEFT JOIN orders o ON u.id = o.idUser " +
+                "WHERE u.fullName LIKE :name " +
+                "GROUP BY u.id, a.id";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("name", "%" + name + "%")
+                        .map((rs, ctx) -> {
+                            // Tạo đối tượng User
+                            User user = new User();
+                            user.setId(rs.getInt("userId"));
+                            user.setEmail(rs.getString("email"));
+                            user.setFullName(rs.getString("fullName"));
+                            user.setNumberPhone(rs.getString("phoneNumber"));
+
+                            // Tạo đối tượng Address
+                            Address address = new Address();
+                            address.setId(rs.getInt("addressId"));
+                            address.setProvince(rs.getString("province"));
+                            address.setCity(rs.getString("city"));
+                            address.setCommune(rs.getString("commune"));
+                            address.setStreet(rs.getString("street"));
+
+                            // Gán Address vào User
+                            user.setAddress(address);
+
+                            // Tạo đối tượng AccountUser
+                            AccountUser accountUser = new AccountUser();
+                            accountUser.setLocked(rs.getInt("locked"));
+                            accountUser.setUser(user);
+
+                            // Gán số lượng đơn hàng và tổng tiền đã chi vào User
+                            user.setOrderCount(rs.getInt("orderCount"));
+                            user.setTotalSpent(rs.getDouble("totalSpent"));
+
+                            return accountUser;
+                        })
+                        .list()
+        );
+    }
 }
 
 

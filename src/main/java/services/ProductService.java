@@ -161,4 +161,8 @@ public class ProductService {
         return productDao.getNumberPageProductByCategoryZipStar(idCategory, pageSize, minPrice, maxPrice);
     }
 
+    public int getTotalProductCount() {
+        return productDao.getTotalProductCount();
+    }
+
 }

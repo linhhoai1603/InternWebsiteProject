@@ -118,11 +118,4 @@ public class AccountDao {
         });
     }
 
-    public static void main(String[] args) {
-        String userName = "linhhoai";
-        String pass = "dmpiYXZ2dmFidmFidmJhdmFoYmh2YWJoaGJhbGluaGhvYWk3OTY2NTZAIyQlUUAjZmNmdnlnYg==";
-        AccountDao accountDao = new AccountDao();
-        System.out.println(accountDao.checkPass(userName, pass));
-
-    }
 }

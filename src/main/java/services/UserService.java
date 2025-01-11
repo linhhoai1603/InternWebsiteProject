@@ -48,5 +48,11 @@ public class UserService {
     public boolean lockUser(int id) {
         return userDao.lockUser(id);
     }
+    public boolean unlockUser(int id) {
+        return userDao.unlockUser(id);
+    }
+    public List<AccountUser> searchUser(String name) {
+        return userDao.findUserByName(name);
+    }
 }
 
