@@ -56,7 +56,12 @@ public class ProductService {
         return (nuP % psize == 0) ? nuP / psize : nuP / psize + 1;
     }
     public List<Product> getProductsBySearch(int idCategory, int pageNumber, int pageSize, int options,String inputName){
-        return productDao.getProductsBySearch(idCategory, pageNumber, pageSize, options, inputName);
+        List<Product> products =  productDao.getProductsBySearch(idCategory, pageNumber, pageSize, options, inputName);
+        StyleService styleService = new StyleService();
+        for(Product product : products){
+            product.setStyles(styleService.getAllStylesByIDProduct(product.getId()));
+        }
+        return products;
     }
     public static void main(String[] args) {
         ProductService productService = new ProductService();

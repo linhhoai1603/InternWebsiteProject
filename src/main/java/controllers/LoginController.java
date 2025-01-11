@@ -37,6 +37,12 @@ public class LoginController extends HttpServlet {
         AccountUser acc = authen.checkLogin(username, HashUtil.encodePasswordBase64(password));
 
         if(acc != null) {
+            if(acc.getLocked() == 1) {
+                request.setAttribute("username", username);
+                request.setAttribute("error", "Tài khoản đã bị khóa, vui lòng liên hệ quản trị viên");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                return;
+            }
             // Lưu thông tin người dùng vào session
             User user = acc.getUser();
             HttpSession session = request.getSession();
