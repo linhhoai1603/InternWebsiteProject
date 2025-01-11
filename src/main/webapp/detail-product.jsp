@@ -33,6 +33,18 @@
         transform: scale(1.05); /* Phóng to nhẹ khi hover */
         border-color: #aaa; /* Đổi viền khi hover */
     }
+    /* Ẩn spinner trên Chrome, Edge, Safari */
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Ẩn spinner trên Firefox */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
 
 </style>
 <div class="container mt-3">
@@ -194,6 +206,32 @@
             console.log(this.classList.contains('selected-style')); // Kết quả true nếu đúng
         });
     });
+    document.addEventListener('DOMContentLoaded', function () {
+        const decrementButtons = document.querySelectorAll('.decrement-btn');
+        const incrementButtons = document.querySelectorAll('.increment-btn');
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+
+        // Xử lý nút giảm (-)
+        decrementButtons.forEach((button, index) => {
+            button.addEventListener('click', function () {
+                const input = quantityInputs[index]; // Lấy input tương ứng
+                let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
+                if (value > 1) {
+                    input.value = value - 1; // Giảm giá trị xuống 1
+                }
+            });
+        });
+
+        // Xử lý nút tăng (+)
+        incrementButtons.forEach((button, index) => {
+            button.addEventListener('click', function () {
+                const input = quantityInputs[index]; // Lấy input tương ứng
+                let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
+                input.value = value + 1; // Tăng giá trị lên 1
+            });
+        });
+    });
+
 </script>
 <script src="js/detail-product.js"></script>
 <%@include file="includes/footer.jsp"%>
