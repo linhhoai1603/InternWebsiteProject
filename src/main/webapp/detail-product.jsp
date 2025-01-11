@@ -131,9 +131,7 @@
                 <div class="row">
                     <div class="col-3">
                         <div class="input-group">
-                            <button class="btn btn-outline-secondary decrement-btn" type="button">-</button>
                             <input type="number" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 50px" min="1">
-                            <button class="btn btn-outline-secondary increment-btn" type="button">+</button>
                         </div>
                     </div>
                     <button type="submit" class="col-3 btn btn-custom w-10 mb-2" style="background-color: #339c87">

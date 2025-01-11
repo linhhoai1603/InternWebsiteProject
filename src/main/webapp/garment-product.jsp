@@ -16,7 +16,53 @@
 <%@include file="includes/header.jsp"%>
 <%@include file="includes/navbar.jsp"%>
 <link rel="stylesheet" href="css/garment-product.css">
+<style>
 
+  /* Container for style selection */
+  .product-style-label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px;
+    border: 2px solid #ccc;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  /* Hover effect on style selection */
+  .product-style-label:hover {
+    border-color: #339C87;
+    transform: scale(1.05);
+  }
+
+  /* Highlight selected style */
+  .product-style-label.selected {
+    border-color: #339C87;
+    background-color: #e8f9f5;
+  }
+
+  /* Style image (displayed in the style selection) */
+  .product-style-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    padding: 2px;
+    transition: transform 0.3s ease;
+  }
+
+  /* Hover effect for style images */
+  .product-style-image:hover {
+    transform: scale(1.1);
+  }
+
+  /* Active effect for selected style image */
+  .product-style-label.selected .product-style-image {
+    border-color: #339C87;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+
+
+</style>
 <div class="container mt-1">
 
   <div class="row " id="product-container" style="margin-bottom: 50px ;margin-top: 50px">
@@ -42,7 +88,7 @@
                   <button class="btn" data-bs-toggle="modal" data-bs-target="#orderDetailsModal${p.id}">
                     <i class="fas fa-shopping-cart"></i>
                   </button>
-                  <a class="btn" href="detail-product?productId=${p.id}">Xem</a>
+                  <button class="btn" ><a style="color: white !important;text-decoration: none;font-weight: bold;" href="detail-product?productId=${p.id}">Xem</a></button>
                 </div>
               </div>
               <div class="card-body text-center">
@@ -115,7 +161,7 @@
                         <div class="row">
                           <div class="col-6">
                             <div class="input-group">
-                              <input type="number" name="quantity" class="form-control text-center" value="1" style="max-width: 50px">
+                              <input type="number" id="quantity-${p.id}" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 100px" min="1">
                             </div>
                           </div>
                         </div>
@@ -156,7 +202,7 @@
                   <button class="btn" data-bs-toggle="modal" data-bs-target="#orderDetailsModal${p.id}">
                     <i class="fas fa-shopping-cart"></i>
                   </button>
-                  <button class="btn">Mua</button>
+                  <button class="btn" ><a style="color: white !important;text-decoration: none;font-weight: bold; " href="detail-product?productId=${p.id}">Xem</a></button>
                 </div>
               </div>
               <div class="card-body text-center">
@@ -222,6 +268,7 @@
                                         style="width: 60px; height: 60px; border: 2px solid #ccc; padding: 2px;">
                               </label>
                             </c:forEach>
+
                           </div>
                         </div>
                         <p class="fw-bold">Số lượng </p>
@@ -229,7 +276,7 @@
 
                           <div class="col-6">
                             <div class="input-group">
-                              <input type="number" name="quantity" class="form-control text-center" value="1" style="max-width: 50px">
+                              <input type="number" id="quantity-${p.id}" name="quantity" class="form-control text-center quantity-input mb2" value="1" style="max-width: 100px" min="1">
                             </div>
                           </div>
                         </div>
@@ -286,24 +333,41 @@
   </div>
 </div>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      // Lắng nghe sự kiện thay đổi của tất cả các radio button
-      const styleInputs = document.querySelectorAll('input[type="radio"][name="selectedStyle"]');
-      styleInputs.forEach(input => {
-        input.addEventListener("change", function () {
-          // Lấy productId từ form chứa radio button
-          const form = this.closest(".product-options-form");
-          const productId = form.querySelector('input[name="productID"]').value;
+    function showDetailProduct(productId) {
+      const modal = document.getElementById(`orderDetailsModal${productId}`);
+      const modalInstance = new bootstrap.Modal(modal);
+      modalInstance.show();
+    }
 
-          // Lấy URL của ảnh từ <img> liền kề radio button
-          const imageUrl = this.nextElementSibling.src;
-
-          // Gọi hàm thay đổi ảnh chính
-          changeMainImage(productId, imageUrl);
+    document.querySelectorAll('.product-style-label').forEach(label => {
+      label.addEventListener('click', function() {
+        const selectedStyle = this.querySelector('input');
+        document.querySelectorAll('.product-style-label').forEach(otherLabel => {
+          otherLabel.classList.remove('selected');
         });
+        label.classList.add('selected');
       });
     });
 
+    document.getElementById('product-list').addEventListener('click', function(event) {
+      const target = event.target;
+      const productId = target.getAttribute('data-id');  // Lấy ID của sản phẩm từ thuộc tính data-id
+
+      // Xử lý sự kiện cho nút "+"
+      if (target.classList.contains('increment-btn')) {
+        const input = document.getElementById(`quantity-${productId}`);
+        input.value = parseInt(input.value) + 1;
+      }
+
+      // Xử lý sự kiện cho nút "-"
+      if (target.classList.contains('decrement-btn')) {
+        const input = document.getElementById(`quantity-${productId}`);
+        let currentValue = parseInt(input.value);
+        if (currentValue > 1) {
+          input.value = currentValue - 1;
+        }
+      }
+    });
   </script>
 
 <%@include file="includes/footer.jsp"%>
