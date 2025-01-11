@@ -42,7 +42,7 @@
                   <button class="btn" data-bs-toggle="modal" data-bs-target="#orderDetailsModal${p.id}">
                     <i class="fas fa-shopping-cart"></i>
                   </button>
-                  <button class="btn">Mua</button>
+                  <a class="btn" href="detail-product?productId=${p.id}">Xem</a>
                 </div>
               </div>
               <div class="card-body text-center">
@@ -88,12 +88,11 @@
                         <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
                       </p>
                       <form action="cart?method=add" method="post">
-
+                        <input name="currentURL" type="hidden" value="may-mac?loca=${requestScope.loca}">
                         <div class="mb-3">
                           <p class="fw-bold">Kiểu vải </p>
                           <div class="d-flex gap-2">
                             <c:forEach var="style" items="${p.styles}">
-                              <input name="currentURL" type="hidden" value="may-mac?loca=${requestScope.loca}">
                               <input type="hidden" name="productID" value="${p.id}">
                               <label for="style${style.id}" class="product-style-label" style="margin: 5px;">
                                 <input
@@ -203,13 +202,11 @@
                         <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
                       </p>
                       <form action="cart?method=add" method="post">
-
+                        <input name="currentURL" type="hidden" value="may-mac?loca=${requestScope.loca}">
                         <div class="mb-3">
                           <p class="fw-bold">Kiểu vải </p>
                           <div class="d-flex gap-2">
                             <c:forEach var="style" items="${p.styles}">
-                              <input name="currentURL" type="hidden" value="may-mac?loca=${requestScope.loca}">
-                              <input type="hidden" name="productID" value="${p.id}">
                               <label for="style${style.id}" class="product-style-label" style="margin: 5px;">
                                 <input
                                         type="radio"
