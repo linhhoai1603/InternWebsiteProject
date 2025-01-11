@@ -9,7 +9,8 @@ public class User implements Serializable {
     private String numberPhone;
     private Address address;
     private String image;
-
+    private int orderCount;
+    private double totalSpent;
 
     public User() {
 
@@ -59,6 +60,22 @@ public class User implements Serializable {
     }
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public double getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(double totalSpent) {
+        this.totalSpent = totalSpent;
     }
 
     public User(int id, String email, String fullName, String numberPhone, Address address, String image) {

@@ -9,7 +9,7 @@
 <%@include file="includes/link/headLink.jsp"%>
 <html>
 <head>
-    <title>Các mẫu thiết kế</title>
+    <title> Đăng nhập </title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>

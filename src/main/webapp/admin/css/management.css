@@ -17,5 +17,27 @@
 h2{
     color: #2c8b73;
 }
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pagination a:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
 
 

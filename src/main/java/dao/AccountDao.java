@@ -109,12 +109,13 @@ public class AccountDao {
             return result != null;
         });
     }
-
-    public static void main(String[] args) {
-        String userName = "linhhoai";
-        String pass = "dmpiYXZ2dmFidmFidmJhdmFoYmh2YWJoaGJhbGluaGhvYWk3OTY2NTZAIyQlUUAjZmNmdnlnYg==";
-        AccountDao accountDao = new AccountDao();
-        System.out.println(accountDao.checkPass(userName, pass));
-
+    public boolean deleteAccountUserByIDUser(int id) {
+        String sql = "DELETE FROM account_users WHERE idUser = :id";
+        return jdbi.withHandle(handle -> {
+            return handle.createUpdate(sql)
+                    .bind("id", id)
+                    .execute() > 0;
+        });
     }
+
 }

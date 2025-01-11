@@ -56,5 +56,13 @@ public class AddressDao {
                     .one();
         });
     }
+    public boolean deleteAddress(int id) {
+        String query = "delete from addresses where id = :id";
+        return jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind("id", id)
+                    .execute() > 0;
+        });
+    }
 
 }
