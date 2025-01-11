@@ -170,4 +170,10 @@ public class ProductService {
         return productDao.getTotalProductCount();
     }
 
+    public int addProduct(Product product) {
+      return  productDao.addProduct(product);
+    }
+    public List<Product> getProductsByID(int idCategory, int pageNumber, int pageSize, int option, int id){
+        return productDao.getProductsById(idCategory, pageNumber, pageSize, option, id);
+    }
 }

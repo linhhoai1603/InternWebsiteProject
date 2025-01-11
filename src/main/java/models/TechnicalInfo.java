@@ -7,7 +7,7 @@ import java.time.LocalDate;
 public class TechnicalInfo implements Serializable {
    private int id;
    private String specification;
-   private Date manufactureDate;
+   private LocalDate manufactureDate;
 
     public int getId() {
         return id;
@@ -25,11 +25,11 @@ public class TechnicalInfo implements Serializable {
         this.specification = specification;
     }
 
-    public Date getManufactureDate() {
+    public LocalDate getManufactureDate() {
         return manufactureDate;
     }
 
-    public void setManufactureDate(Date manufactureDate) {
+    public void setManufactureDate(LocalDate manufactureDate) {
         this.manufactureDate = manufactureDate;
     }
 
