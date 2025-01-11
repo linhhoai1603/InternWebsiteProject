@@ -10,15 +10,26 @@
 <html>
 <head>
     <title>Liên hệ</title>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <%@include file="includes/header.jsp"%>
 <%@include file="includes/navbar.jsp"%>
 <link rel="stylesheet" href="css/contact.css">
 <section class="contact-section">
-  <div class="container">
-    <!-- Breadcrumb Navigation -->
+  <c:set var="message" value="${not empty requestScope.message ? requestScope.message : ''}" />
 
+  <!-- Hiển thị thông báo nếu có lỗi -->
+  <c:if test="${not empty message}">
+    <script type="text/javascript">
+      Swal.fire({
+        icon: 'success',
+        title: 'Thông báo',
+        text: "${message}"
+      });
+    </script>
+  </c:if>
+  <div class="container">
     <!-- Section Title -->
     <div class="section-title">
       <h2>Thông tin liên hệ</h2>
@@ -97,12 +108,13 @@
           >
             Đã xảy ra lỗi khi gửi yêu cầu. Vui lòng thử lại sau.
           </div>
-          <form id="contactForm" novalidate>
+          <form id="contactForm"  action="contact" method="post">
             <div class="form-floating mb-4">
               <input
                       type="text"
                       class="form-control"
                       id="subject"
+                      name="title"
                       placeholder="Nhập tiêu đề"
                       required
               />
@@ -115,6 +127,7 @@
                   <textarea
                           class="form-control"
                           id="message"
+                          name="content"
                           placeholder="Nhập nội dung"
                           style="height: 150px"
                           required
@@ -124,26 +137,7 @@
               >
               <div class="invalid-feedback">Vui lòng nhập nội dung.</div>
             </div>
-            <!-- Honeypot Field -->
-            <div
-                    class="mb-4 honeypot-field"
-                    aria-hidden="true"
-                    tabindex="-1"
-            >
-              <label for="contactTime"
-              >Nếu bạn là người thật, hãy bỏ trống trường này:</label
-              >
-              <input
-                      type="text"
-                      id="contactTime"
-                      name="contactTime"
-                      class="form-control"
-                      autocomplete="off"
-              />
-            </div>
-            <button type="submit" class="btn btn-warning w-100">
-              Gửi yêu cầu
-            </button>
+            <input type="submit" class="btn btn-warning w-100" value="Gửi yêu cầu">
           </form>
         </div>
       </div>
@@ -153,6 +147,5 @@
 
 <%@include file="includes/footer.jsp"%>
 <%@include file="includes/link/footLink.jsp"%>
-<script src="js/contact.js"></script>
 </body>
 </html>

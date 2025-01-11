@@ -14,47 +14,29 @@ public class UserInForServies {
     public boolean updateInfo(int idUser, int idAddress, String email, String name, String phone,
                               String province, String city, String commune, String street) {
         try {
-            // Bắt đầu giao dịch
-            userDao.beginTransaction();
-
-
             // Cập nhật thông tin user
             boolean userUpdated = userDao.updateInfo(idUser, email, name, phone);
             if (!userUpdated) {
-                userDao.rollbackTransaction();
-                return false;
+                return false; // Dừng nếu cập nhật thông tin user thất bại
             }
 
             // Cập nhật thông tin địa chỉ
             boolean addressUpdated = addressDao.updateAddress(idAddress, province, city, commune, street);
             if (!addressUpdated) {
-                userDao.rollbackTransaction();
-                return false;
+                return false; // Dừng nếu cập nhật địa chỉ thất bại
             }
 
-            // Commit giao dịch nếu tất cả cập nhật thành công
-            userDao.commitTransaction();
+            // Trả về true nếu tất cả cập nhật thành công
             return true;
 
         } catch (Exception e) {
-            // Rollback nếu xảy ra lỗi
-            userDao.rollbackTransaction();
-            e.printStackTrace();
-            return false;
-
-        } finally {
-            // Đóng giao dịch (tự động đóng Handle)
-            userDao.closeTransaction();
+            e.printStackTrace(); // Ghi log lỗi
+            return false; // Trả về false nếu xảy ra lỗi
         }
     }
+
     public boolean updateAvatar(int idUser, String path) {
         return userDao.updateAvatar(idUser,path);
-    }
-    
-
-    public static void main(String[] args) {
-        UserInForServies user = new UserInForServies();
-        System.out.println(user.updateInfo(1,1,"hung1@gmail.com","Lê Đình Hưng", "0337057878", "Đồng Nai","Long Bình","Yết Kiêu","Biên Hòa"));
     }
 
 }

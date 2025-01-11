@@ -59,7 +59,9 @@ public class Address implements Serializable {
     public Address() {
         super();
     }
-
+    public String getAddressDetail(){
+        return this.street + ", " + this.commune + ", " + this.city + ", " + this.province;
+    }
     @Override
     public String toString() {
         return "Address{" +

@@ -9,6 +9,12 @@ public class User implements Serializable {
     private String numberPhone;
     private Address address;
     private String image;
+    private int orderCount;
+    private double totalSpent;
+
+    public User() {
+
+    }
 
     public int getId() {
         return id;
@@ -56,6 +62,31 @@ public class User implements Serializable {
         this.image = image;
     }
 
+    public int getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public double getTotalSpent() {
+        return totalSpent;
+    }
+
+    public void setTotalSpent(double totalSpent) {
+        this.totalSpent = totalSpent;
+    }
+
+    public User(int id, String email, String fullName, String numberPhone, Address address, String image) {
+        this.id = id;
+        this.email = email;
+        this.fullName = fullName;
+        this.numberPhone = numberPhone;
+        this.address = address;
+        this.image = image;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -66,4 +97,7 @@ public class User implements Serializable {
                 ", address=" + address.toString() +
                 '}';
     }
+
+
+
 }

@@ -6,8 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.AccountUser;
-import models.User;
-import services.AcountServies;
 
 import java.io.IOException;
 
@@ -24,14 +22,19 @@ public class AdminFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        HttpSession session = request.getSession();
-        AccountUser acc = (AccountUser) session.getAttribute("account");
-        if (acc.getRole()<1 && acc==null) {
-            response.sendRedirect("login.jsp");
+        HttpSession session = request.getSession(false); // Lấy session hiện tại, không tạo mới
+        AccountUser acc = (session != null) ? (AccountUser) session.getAttribute("account") : null;
+
+        // Kiểm tra nếu người dùng chưa đăng nhập hoặc không có quyền admin
+        if (acc == null || acc.getRole() < 1) {
+            response.sendRedirect("../index.jsp");
             return;
         }
+
+        // Nếu người dùng có quyền, cho phép tiếp tục
         filterChain.doFilter(request, response);
     }
+
 
     @Override
     public void destroy() {

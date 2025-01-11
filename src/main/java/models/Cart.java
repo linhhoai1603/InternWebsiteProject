@@ -1,3 +1,4 @@
+
 package models;
 
 import java.io.Serializable;
@@ -80,12 +81,12 @@ public class Cart implements Serializable {
     }
     // method apply voucher
     public boolean applyVoucher(Voucher voucher) {
-      if(totalPrice >= voucher.getConditionAmount()){
-          this.voucher = voucher;
-          this.calculateInfo();
-          return true;
-      }
-          return false;
+        if(totalPrice >= voucher.getConditionAmount()){
+            this.voucher = voucher;
+            this.calculateInfo();
+            return true;
+        }
+        return false;
 
     }
     public List<CartItem> getValues(){

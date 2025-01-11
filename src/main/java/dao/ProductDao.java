@@ -340,6 +340,10 @@ public class ProductDao {
                     return product;
                 }).list());
     }
+    public int getTotalProductCount() {
+        String sql = "SELECT COUNT(*) FROM products";
+        return jdbi.withHandle(handle -> handle.createQuery(sql).mapTo(Integer.class).one());
+    }
     public List<Product> getProductByCategory(String name) {
         Jdbi jdbi = DBConnection.getConnetion();
         String sql = """
@@ -648,5 +652,5 @@ public class ProductDao {
 
         return (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
     }
-    
+
 }

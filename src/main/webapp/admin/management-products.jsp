@@ -14,11 +14,17 @@
 </head>
 <body>
 <%@include file="menu-admin.jsp"%>
+<c:if test="${requestScope.products == null}">
+    <script>
+        window.location.href = "../admin/admin-manager-products?method=getAllProducts";
+    </script>
+
+</c:if>
 <div class="container-fluid mt-4">
     <h2 class="center-text mb-4 text-center" style="color: #2c8b73">Danh Sách Sản Phẩm</h2>
     <!-- Nút kích hoạt Modal -->
     <button type="button" class="btn btn-primary float-end my-3 me-5" data-bs-toggle="modal" data-bs-target="#addProductModal">
-       Thêm sản phẩm
+        Thêm sản phẩm
     </button>
     <!-- Bảng thông tin sản phẩm -->
     <table class="table custom-table">
@@ -33,36 +39,23 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Ví dụ sản phẩm 1 -->
-        <tr>
-            <td>001</td>
-            <td>Sản phẩm A</td>
-            <td>50</td>
-            <td>2024-11-01</td>
-            <td>Vải mặc</td>
-            <td>
-                <a class="btn btn-warning" href="management-detail-products.jsp">Xem chi tiết</a>
-                <a class="btn btn-secondary" href="product-details">Ngừng bán</a>
-                <a class="btn btn-danger" href="product-details">Xóa</a>
-            </td>
-        </tr>
-        <!-- Ví dụ sản phẩm 2 -->
-        <tr>
-            <td>002</td>
-            <td>Sản phẩm B</td>
-            <td>30</td>
-            <td>2024-10-15</td>
-            <td>Phụ kiện</td>
-            <td>
-                <a class="btn btn-warning" href="management-detail-products.jsp">Xem chi tiết</a>
-                <a class="btn btn-success" href="product-details">Tiếp tục bán</a>
-                <a class="btn btn-danger" href="product-details">Xóa</a>
-            </td>
-        </tr>
-        <!-- Các sản phẩm khác -->
+        <c:forEach var="product" items="${requestScope.products}">
+            <!-- Ví dụ sản phẩm 1 -->
+            <tr>
+                <td>${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.quantity}</td>
+                <td>${product.dateAdded}</td>
+                <td>${product.category.name}</td>
+                <td>
+                    <a class="btn btn-warning" href="admin/admin-manager-products?method=detailProduct">Xem chi tiết</a>
+                    <a class="btn btn-secondary" href="admin/admin-manager-products?method=stopBuy">Ngừng bán</a>
+                    <a class="btn btn-danger" href="admin/admin-manager-products?method=delete">Xóa</a>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
-
     <!-- Modal -->
     <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -111,7 +104,6 @@
             </div>
         </div>
     </div>
-<%@include file="../includes/link/footLink.jsp"%>
+    <%@include file="../includes/link/footLink.jsp"%>
 </body>
 </html>
-

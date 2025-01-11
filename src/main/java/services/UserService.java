@@ -1,13 +1,21 @@
 package services;
 
 import dao.UserDao;
-import org.mindrot.jbcrypt.BCrypt;
+import models.AccountUser;
+import models.User;
+
+import java.util.List;
+// Đảm bảo bạn import HashUtil từ package services
+
 
 public class UserService {
     private UserDao userDao;
 
     public UserService(UserDao userDao) {
         this.userDao = userDao;
+    }
+    public UserService() {
+        this.userDao = new UserDao();
     }
 
     public void registerUser(String username, String password,
@@ -25,16 +33,26 @@ public class UserService {
 
         String fakeEmail = "";
 
-        int newUserId = userDao.insertUser(fakeEmail, fullName, phoneNumber, idAddress, image);
+        int newUserId = userDao.insertUser(fakeEmail, fullName, phoneNumber, idAddress, image); // add user
 
-
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
-
-
-        userDao.insertAccountUser(newUserId, username, hashedPassword, 1, 0, 0);
+        userDao.insertAccountUser(newUserId, username, password, 1, 0, 0); // add accont_user
     }
 
 
-
+    public boolean checkHaveEmail(String username, String email) {
+        return userDao.checkHaveEmail(username, email);
+    }
+    public List<AccountUser> getAllUser() {
+        return userDao.getAllUser();
+    }
+    public boolean lockUser(int id) {
+        return userDao.lockUser(id);
+    }
+    public boolean unlockUser(int id) {
+        return userDao.unlockUser(id);
+    }
+    public List<AccountUser> searchUser(String name) {
+        return userDao.findUserByName(name);
+    }
 }
 

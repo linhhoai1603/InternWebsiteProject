@@ -1,13 +1,9 @@
-<%@ page import="models.User" %><%--
-  Created by IntelliJ IDEA.
-  User: hoai1
-  Date: 12/4/2024
-  Time: 10:53 AM
-  To change this template use File | Settings | File Templates.
---%>
+<!-- filepath: /path/to/header.jsp -->
+<%@ page import="models.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="includes/css/header.css">
-<%@include file="link/headLink.jsp"%>
+<%@ include file="link/headLink.jsp" %>
+
 <div class="container-fluid">
     <div class="row intro text-white bg">
         <div class="col-md-12">
@@ -19,12 +15,12 @@
             <div class="col-md-2 text-center">
                 <img
                         src="images/logo.png"
-                        alt=""
+                        alt="Logo"
                         style="width: 100%; height: 100%"
                 />
             </div>
             <div class="col-md-5 text-center pt-4">
-                <!-- a line search-->
+                <!-- Search Form -->
                 <form action="${pageContext.request.contextPath}/products" method="get">
                     <div class="input-group">
                         <input
@@ -39,7 +35,7 @@
                         </button>
                     </div>
                 </form>
-                <!-- end a line search-->
+                <!-- End Search Form -->
             </div>
             <div class="col-md-5 text-center pt-4">
                 <a href="shopping-cart.jsp" class="btn text-white btn-bg" id="shoppingCart">
@@ -56,21 +52,46 @@
                     <i class="fa-solid fa-pen-to-square"></i>&nbsp;Đăng ký
                 </a>
                 <%
-                    }else {
+                } else {
                 %>
-                <a href="${pageContext.request.contextPath}/personal" class="btn text-white btn-bg" id="accountButton">
-                    <i class="fa-solid fa-user"></i>&nbsp;Cá nhân</a>
-                <a href="${pageContext.request.contextPath}/logout-user" class="btn text-white btn-bg"><i class="fa fa-sign-out-alt"></i> Đăng xuất</a>
+                <div class="dropdown d-inline-block">
+                    <a href="#" class="btn text-white btn-bg dropdown-toggle" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i>&nbsp;${sessionScope.account.username}
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/personal-servlet">
+                                Hồ sơ
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/changePassword.jsp">
+                                Thay đổi mật khẩu
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <a href="${pageContext.request.contextPath}/logout-user" class="btn text-white btn-bg">
+                    <i class="fa fa-sign-out-alt"></i>&nbsp;Đăng xuất
+                </a>
                 <%
                     }
                 %>
-
-
-
             </div>
         </div>
     </div>
 </div>
-<%@include file="link/footLink.jsp"%>
 
+<%@ include file="link/footLink.jsp" %>
 
+<!-- CSS cho Dropdown -->
+<style>
+    /* Hiển thị dropdown khi rê chuột */
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-menu {
+        margin-top: 0; /* Điều chỉnh khoảng cách nếu cần */
+    }
+</style>

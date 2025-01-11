@@ -98,6 +98,13 @@
             <version>2.2.4</version>
         </dependency>
 
+            <!-- JavaMail API -->
+            <dependency>
+                <groupId>com.sun.mail</groupId>
+                <artifactId>javax.mail</artifactId>
+                <version>1.6.2</version> <!-- Bạn có thể thay đổi phiên bản nếu cần -->
+            </dependency>
+
     </dependencies>
 
     <build>
