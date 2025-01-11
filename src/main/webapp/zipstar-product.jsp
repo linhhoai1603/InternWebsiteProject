@@ -113,28 +113,32 @@
             <div class="card h-100 position-relative">
               <!-- Thẻ hiển thị giảm giá -->
               <c:if test="${product.price.discountPercent > 0}">
-                                <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
-                                    -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0"/>%
-                                </span>
+                    <span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">
+                        -<fmt:formatNumber value="${product.price.discountPercent}" pattern="##0"/>%
+                    </span>
               </c:if>
-              <!-- Hình ảnh sản phẩm -->
-              <c:choose>
-                <c:when test="${not empty product.image}">
-                  <img
-                          src="${product.image}"
-                          class="card-img-top"
-                          alt="${product.name}"
-                          onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
-                  />
-                </c:when>
-                <c:otherwise>
-                  <img
-                          src="https://via.placeholder.com/200x200?text=No+Image"
-                          class="card-img-top"
-                          alt="${product.name}"
-                  />
-                </c:otherwise>
-              </c:choose>
+              <!-- Link tới chi tiết sản phẩm -->
+              <a href="detail-product?productId=${product.id}" class="stretched-link">
+                <!-- Hình ảnh sản phẩm -->
+                <c:choose>
+                  <c:when test="${not empty product.image}">
+                    <img
+                            src="${product.image}"
+                            class="card-img-top"
+                            alt="${product.name}"
+                            onerror="this.onerror=null; this.src='https://via.placeholder.com/200x200?text=No+Image';"
+                    />
+                  </c:when>
+                  <c:otherwise>
+                    <img
+                            src="https://via.placeholder.com/200x200?text=No+Image"
+                            class="card-img-top"
+                            alt="${product.name}"
+                    />
+                  </c:otherwise>
+                </c:choose>
+              </a>
+
               <!-- Các nút Thêm vào Giỏ và Yêu Thích -->
               <div class="card-actions">
                 <button class="btn btn-add-to-cart" title="Thêm vào giỏ">
@@ -144,6 +148,7 @@
                   <i class="fas fa-heart"></i>
                 </button>
               </div>
+
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">${product.name}</h5>
                 <p class="card-text description">
@@ -151,18 +156,18 @@
                 </p>
                 <div class="pricing mt-auto">
                   <c:if test="${product.price.discountPercent > 0}">
-                                        <span class="discount-badge">-<fmt:formatNumber
-                                                value="${product.price.discountPercent}" pattern="##0"/>%</span>
+                            <span class="discount-badge">-<fmt:formatNumber
+                                    value="${product.price.discountPercent}" pattern="##0"/>%</span>
                   </c:if>
                   <span class="discounted-price">
-                                        <fmt:formatNumber value="${product.price.lastPrice}" type="currency"
-                                                          currencySymbol="₫"/>
-                                    </span>
+                            <fmt:formatNumber value="${product.price.lastPrice}" type="currency"
+                                              currencySymbol="₫"/>
+                        </span>
                   <c:if test="${product.price.discountPercent > 0}">
-                                        <span class="original-price">
-                                            <fmt:formatNumber value="${product.price.price}" type="currency"
-                                                              currencySymbol="₫"/>
-                                        </span>
+                            <span class="original-price">
+                                <fmt:formatNumber value="${product.price.price}" type="currency"
+                                                  currencySymbol="₫"/>
+                            </span>
                   </c:if>
                 </div>
               </div>
@@ -170,6 +175,7 @@
           </div>
         </c:forEach>
       </div>
+
 
       <!-- Phân trang -->
       <nav aria-label="Page navigation">

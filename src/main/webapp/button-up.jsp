@@ -106,8 +106,8 @@
                 </p>
                 <p class="cart-text">Mô tả: ${product.description}</p>
                 <div class="mt-auto">
-                  <a href="detail-product?id=${product.id}" class="btn btn-warning w-100 mb-2">Thêm vào giỏ hàng</a>
-                  <a href="detail-product?id=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
+                  <a href="detail-product?productId=${product.id}" class="btn btn-warning w-100 mb-2">Thêm vào giỏ hàng</a>
+                  <a href="detail-product?productId=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
                 </div>
               </div>
             </div>
