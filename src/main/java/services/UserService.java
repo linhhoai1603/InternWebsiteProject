@@ -35,7 +35,7 @@ public class UserService {
 
         int newUserId = userDao.insertUser(fakeEmail, fullName, phoneNumber, idAddress, image); // add user
 
-        userDao.insertAccountUser(newUserId, username, password, 1, 0, 0); // add accont_user
+        userDao.insertAccountUser(newUserId, username, password, 0, 0, 0); // add accont_user
     }
 
 
