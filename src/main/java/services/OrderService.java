@@ -2,6 +2,7 @@ package services;
 
 import dao.OrderDAO;
 import models.Order;
+import models.OrderDetail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,12 @@ public class OrderService {
             default:
                 return "Unknown";
         }
+    }
+    public Order getOrder(int orderId){
+        OrderDetailService orderService = new OrderDetailService();
+        Order order = dao.getOder(orderId);
+        order.setListOfDetailOrder(orderService.dao.getOrderDetailByOrder(orderId));
+        return order;
     }
     public List<Order> getAllOrders() {
         return dao.getAllOder();
@@ -55,9 +62,5 @@ public class OrderService {
         return ordersForPage;
     }
 
-    public static void main(String[] args) {
-        OrderService orderService = new OrderService();
-        System.out.println(orderService.getOrdersByPage(1,5));
-    }
 
 }

@@ -67,7 +67,7 @@
                 <td>${oder.status}</td>
                 <td>${oder.totalPrice}</td>
                 <td>${oder.lastPrice}</td>
-                <td><a class="btn btn-info" href="management-detail-orders.jsp">Xem chi tiết</a></td>
+                <td><a class="btn btn-info" href="${pageContext.request.contextPath}/admin/order-detail?orderId=${oder.id}">Xem chi tiết</a></td>
             </tr>
         </c:forEach>
         </tbody>

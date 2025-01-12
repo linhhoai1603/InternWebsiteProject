@@ -1,10 +1,7 @@
 package dao;
 
 import connection.DBConnection;
-import models.Order;
-import models.OrderDetail;
-import models.Product;
-import models.Style;
+import models.*;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
@@ -37,10 +34,15 @@ public class OrderDetailDAO {
                s.name AS styleName,
                p.name AS productName,
                p.id AS productId,
-               p.area
+               c.id AS categoryId,
+                c.name AS categoryName,
+                pr.id AS priceId,
+                pr.lastPrice
         FROM order_details od
         JOIN styles s ON od.idStyle = s.id
         JOIN products p ON s.idProduct = p.id
+        JOIN categories c ON p.idCategory = c.id
+        JOIN prices pr ON p.idPrice = pr.id
         WHERE od.idOrder = :idOrder;
     """;
         return jdbi.withHandle(handle -> {
@@ -54,17 +56,25 @@ public class OrderDetailDAO {
                         orderDetail.setTotalPrice(rs.getDouble("totalPrice"));
                         orderDetail.setWeight(rs.getDouble("weight"));
 
-                        // Assuming you have a Style object in the OrderDetail class
                         Style style = new Style();
                         style.setId(rs.getInt("idStyle"));
                         style.setName(rs.getString("styleName"));
                         orderDetail.setStyle(style);
 
-                        // Assuming you have a Product object as well in the OrderDetail class
                         Product product = new Product();
                         product.setName(rs.getString("productName"));
                         product.setId(rs.getInt("productId"));
                         style.setProduct(product);
+
+                        Price price = new Price();
+                        price.setId(rs.getInt("priceId"));
+                        price.setLastPrice(rs.getDouble("lastPrice"));
+                        product.setPrice(price);
+
+                        Category category = new Category();
+                        category.setId(rs.getInt("categoryId"));
+                        category.setName(rs.getString("categoryName"));
+                        product.setCategory(category);
 
                         return orderDetail;
                     })
