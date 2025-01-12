@@ -80,9 +80,6 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="ordered">Đơn hàng đã mua </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-white" href="design-product.jsp"
                         >Các mẫu thiết kế</a
                         >
