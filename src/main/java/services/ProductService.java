@@ -122,8 +122,6 @@ public class ProductService {
         return products;
     }
 
-
-
     // Phương thức mới để lấy số trang dựa trên bộ lọc giá
     public int getNumberOfPageButton(int idCategory, int pageSize, Double minPrice, Double maxPrice){
         return productDao.getNumberPageProductByCategoryButton(idCategory, pageSize, minPrice, maxPrice);
@@ -166,14 +164,27 @@ public class ProductService {
         return productDao.getNumberPageProductByCategoryZipStar(idCategory, pageSize, minPrice, maxPrice);
     }
 
-    public int getTotalProductCount() {
-        return productDao.getTotalProductCount();
-    }
 
     public int addProduct(Product product) {
       return  productDao.addProduct(product);
     }
     public List<Product> getProductsByID(int idCategory, int pageNumber, int pageSize, int option, int id){
-        return productDao.getProductsById(idCategory, pageNumber, pageSize, option, id);
+       List<Product> products = productDao.getProductsById(idCategory, pageNumber, pageSize, option, id);
+        StyleService styleService = new StyleService();
+        for(Product product : products){
+            product.setStyles(styleService.getAllStylesByIDProduct(product.getId()));
+        }
+        return products;
     }
+    public void stopSelling(int id){
+        productDao.stopBuyProduct(id);
+    }
+    public void startSelling(int id){
+        productDao.startBuyProduct(id);
+    }
+    public List<Product> getAllProducts(int idCategory, int pageNumber, int pageSize, int option){
+        List<Product> products = productDao.getAllProductForAdmin(idCategory, pageNumber, pageSize, option);
+        return  products;
+    }
+
 }

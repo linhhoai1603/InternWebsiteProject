@@ -21,15 +21,48 @@ public class AdminManagerProduct extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String method = request.getParameter("method");
-        if("getAllProducts".equals(method)) {
+        if ("getAllProducts".equals(method)) {
             getAllProducts(request, response);
         }
-        if("addProduct".equals(method)) {
+        if ("addProduct".equals(method)) {
             addProduct(request, response);
         }
-        if("searchProduct".equals(method)) {
+        if ("searchProduct".equals(method)) {
             searchProduct(request, response);
         }
+        if ("detailProduct".equals(method)) {
+            detailProduct(request, response);
+        }
+        if ("stopBuy".equals(method)) {
+            stopBuy(request, response);
+        }
+        if ("startBuy".equals(method)) {
+            startBuy(request, response);
+        }
+    }
+
+
+    private void startBuy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        ProductService ps = new ProductService();
+        ps.startSelling(id);
+        request.setAttribute("message", "Đã bắt đầu bán sản phẩm có id: " + id);
+        request.getRequestDispatcher("management-products.jsp").forward(request, response);
+    }
+
+    private void stopBuy(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        ProductService ps = new ProductService();
+        ps.stopSelling(id);
+        request.setAttribute("message", "Đã ngừng bán sản phẩm có id: " + id);
+        request.getRequestDispatcher("management-products.jsp").forward(request, response);
+    }
+
+
+    private void detailProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Product product = new ProductService().getProductsByID(0, 1, 1, 0, Integer.parseInt(request.getParameter("id"))).get(0);
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("management-detail-products.jsp").forward(request, response);
     }
 
     private void searchProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -88,7 +121,7 @@ public class AdminManagerProduct extends HttpServlet {
         product.setDateAdded(LocalDate.now());
         int idProduct = ps.addProduct(product);
         request.setAttribute("message", "Thêm sản phẩm thành công với id: " + idProduct);
-        request.setAttribute("products", ps.getProductsByCategorySort(0, 1, 20, 0));
+        request.setAttribute("products", ps.getAllProducts(0, 1, 20, 0));
         request.getRequestDispatcher("management-products.jsp").forward(request, response);
     }
 
@@ -104,7 +137,7 @@ public class AdminManagerProduct extends HttpServlet {
 
         int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
 
-        List<Product> products = ps.getProductsByCategorySort(0, currentPage, 20, option);
+        List<Product> products = ps.getAllProducts(0, currentPage, 20, option);
 
         request.setAttribute("products", products);
         request.setAttribute("pageNumber", ps.getNumberOfPage(0, 20));

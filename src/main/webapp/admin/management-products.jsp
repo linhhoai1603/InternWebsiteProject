@@ -71,10 +71,28 @@
                 <td>${product.dateAdded}</td>
                 <td>${product.category.name}</td>
                 <td>
-                    <a class="btn btn-warning" href="admin/admin-manager-products?method=detailProduct&id=${product.id}">Xem chi tiết</a>
-                    <a class="btn btn-secondary" href="admin/admin-manager-products?method=stopBuy&id=${product.id}">Ngừng bán</a>
-                    <a class="btn btn-danger" href="admin/admin-manager-products?method=delete&id=${product.id}"
-                       onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
+                    <form id="detailForm" action="admin-manager-products" method="POST" style="display: inline;">
+                        <input type="hidden" name="method" value="detailProduct">
+                        <input type="hidden" name="id" value="${product.id}">
+                        <button type="submit" class="btn btn-warning">Xem chi tiết</button>
+                    </form>
+
+                    <c:if test="${product.selling == 1}">
+                    <!-- Form dừng bán -->
+                    <form id="stopBuyForm" action="admin-manager-products" method="POST" style="display: inline;">
+                        <input type="hidden" name="method" value="stopBuy">
+                        <input type="hidden" name="id" value="${product.id}">
+                        <button type="submit" class="btn btn-secondary">Ngừng bán</button>
+                    </form>
+                    </c:if>
+                    <c:if test="${product.selling == 0}">
+                    <!-- Form tiếp tục bán -->
+                    <form id="startBuyForm" action="admin-manager-products" method="POST" style="display: inline;">
+                        <input type="hidden" name="method" value="startBuy">
+                        <input type="hidden" name="id" value="${product.id}">
+                        <button type="submit" class="btn btn-success">Tiếp tục bán</button>
+                    </form>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>
