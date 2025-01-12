@@ -1,11 +1,13 @@
 package dao;
 
 import connection.DBConnection;
+import models.Address;
 import models.Order;
 import models.User;
 import models.Voucher;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,45 @@ public class OrderDAO {
                     .findOnly();
         });
     }
+    public List<Order> getAllOder() {
+        String query = "SELECT * FROM orders";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
+                .map((rs, ctx) -> {
+                    // xu ly cho user
+                    User user = new User();
+                    user.setId(rs.getInt("idUser"));
+                    // xu ly cho voucher
+                    Voucher voucher = new Voucher();
+                    Integer idVoucher = (Integer) rs.getObject("idVoucher");
+                    if (idVoucher != null) {
+                        voucher.setIdVoucher(idVoucher);
+                    } else {
+                        voucher.setIdVoucher(null);
+                    }
+                    // xu ly cho don hang
+                    Order order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setTimeOrdered(rs.getObject("timeOrder", LocalDateTime.class));
+                    order.setUser(user);
+                    order.setVoucher(voucher);
+                    order.setStatus(rs.getString("statusOrder"));
+                    order.setTotalPrice(rs.getDouble("totalPrice"));
+                    order.setLastPrice(rs.getDouble("lastPrice"));
+                    return order;
+
+                }).list());
+    }
+    public Order getOder(int id) {
+        String query = "SELECT * FROM orders WHERE id = :id";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
+                .bind("id", id)
+                .map((rs, ctx) -> {
+                    // xu ly cho user
+                    User user = new User();
+                    user.setId(rs.getInt("idUser"));
+                    // xu ly cho voucher
     public List<Order> getOrdersByUserId(int userId) {
         String query = "SELECT * FROM orders WHERE idUser = :idUser ORDER BY timeOrder DESC";
 
@@ -48,21 +89,24 @@ public class OrderDAO {
                     if (idVoucher != null) {
                         voucher.setIdVoucher(idVoucher);
                     } else {
-                        voucher.setIdVoucher(null); // Hoặc để trống nếu không cần
+                        voucher.setIdVoucher(null);
                     }
-
-                    // Xử lý Đơn hàng
+                    // xu ly cho don hang
                     Order order = new Order();
                     order.setId(rs.getInt("id"));
-                    order.setTimeOrdered(rs.getTimestamp("timeOrder").toLocalDateTime());
+                    order.setTimeOrdered(rs.getObject("timeOrder", LocalDateTime.class));
                     order.setUser(user);
                     order.setVoucher(voucher);
                     order.setStatus(rs.getString("statusOrder"));
                     order.setTotalPrice(rs.getDouble("totalPrice"));
                     order.setLastPrice(rs.getDouble("lastPrice"));
                     return order;
+
+                }).findOne().orElse(null));
+
                 }).list());
     }
+
 
 }
 

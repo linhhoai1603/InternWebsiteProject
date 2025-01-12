@@ -9,17 +9,15 @@
 <%@include file="menu-admin.jsp"%>
 
 <div class="container mt-4">
-    <h2 class="mb-4 text-center">Chi Tiết Đơn Hàng - Mã Đơn Hàng: 111</h2>
+    <h2 class="mb-4 text-center">Chi Tiết Đơn Hàng - Mã Đơn Hàng:${requestScope.order.id}</h2>
 
     <!-- Thông tin đơn hàng -->
     <div class="row mb-4">
         <div class="col-md-6">
-            <p><strong>Mã Đơn Hàng:</strong> 111</p>
-            <p><strong>Thời Gian Đặt:</strong> 2024-12-06 10:30</p>
-            <p><strong>Phương Thức Thanh Toán:</strong> Chuyển khoản</p>
-            <p><strong>Trạng Thái Thanh Toán:</strong> Đã thanh toán</p>
-            <p><strong>Trạng Thái Đơn Hàng:</strong> Đang giao hàng</p>
-            <p><strong>Tổng Giá Trị:</strong> 1,200,000 VNĐ</p>
+            <p><strong>Mã Đơn Hàng:</strong> ${requestScope.order.id}</p>
+            <p><strong>Thời Gian Đặt:</strong> ${requestScope.order.timeOrdered}</p>
+            <p><strong>Trạng Thái Đơn Hàng:</strong> ${requestScope.order.status}</p>
+            <p><strong>Tổng Giá Trị:</strong> <fmt:formatNumber value="${requestScope.order.lastPrice}" type="number" />₫</p>
         </div>
     </div>
 
@@ -31,7 +29,6 @@
             <th>Mã Sản Phẩm</th>
             <th>Tên Sản Phẩm</th>
             <th>Màu sắc</th>
-            <th>Kích thước</th>
             <th>Loại</th>
             <th>Số Lượng</th>
             <th>Giá Tiền</th>
@@ -39,49 +36,31 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Vải kaki</td>
-            <td>Màu da</td>
-            <td>400x400</td>
-            <td>Kaki</td>
-            <td>2</td>
-            <td>600,000 VNĐ</td>
-            <td>1,200,000 VNĐ</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Vải kaki</td>
-            <td>Màu da</td>
-            <td>400x400</td>
-            <td>Kaki</td>
-            <td>2</td>
-            <td>600,000 VNĐ</td>
-            <td>1,200,000 VNĐ</td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Vải kaki</td>
-            <td>Màu da</td>
-            <td>400x400</td>
-            <td>Kaki</td>
-            <td>2</td>
-            <td>600,000 VNĐ</td>
-            <td>1,200,000 VNĐ</td>
-        </tr>
+        <c:forEach var="detail" items="${requestScope.order.listOfDetailOrder}">
+            <tr>
+                <td>${detail.id}</td>
+                <td>${detail.style.product.name}</td>
+                <td>${detail.style.name}</td>
+                <td>${detail.style.product.category.name}</td>
+                <td>${detail.quantity}</td>
+                <td> <fmt:formatNumber value="${detail.style.product.price.lastPrice}" type="number" />₫</td>
+                <td> <fmt:formatNumber value="${detail.totalPrice}" type="number" />₫</td>
+            </tr>
+        </c:forEach>
+
         </tbody>
     </table>
 
     <!-- Tổng giá trị đơn hàng -->
     <div class="row">
         <div class="col-md-12 text-end">
-            <h5><strong>Tổng giá trị đơn hàng: 2,200,000 VNĐ</strong></h5>
+            <h5><strong> <fmt:formatNumber value="${requestScope.order.lastPrice}" type="number" />₫</strong></h5>
         </div>
     </div>
     <!-- Nút quay lại -->
     <div class="row">
         <div class="col-md-12 text-center mt-4">
-            <a href="management-orders.jsp" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
+            <a href="${pageContext.request.contextPath}/admin/manager-order" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
         </div>
     </div>
 </div>
