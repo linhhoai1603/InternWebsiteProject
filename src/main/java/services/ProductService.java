@@ -1,7 +1,9 @@
 
 package services;
 
+import dao.DashboardDAO;
 import dao.ProductDao;
+import models.Order;
 import models.Product;
 import models.Style;
 
@@ -196,4 +198,5 @@ public class ProductService {
     public void updateProduct(Product product) {
         productDao.updateProduct(product);
     }
+
 }

@@ -1,7 +1,10 @@
 package services;
 
+import dao.DashboardDAO;
 import dao.OrderDAO;
 import models.Order;
+
+import java.util.List;
 
 public class OrderService {
     OrderDAO dao;
@@ -21,5 +24,16 @@ public class OrderService {
                 return "Unknown";
         }
     }
-
+    public List<Order> getAllProduct(){
+        DashboardDAO dashboardDAO = new DashboardDAO();
+        VoucherService voucherService = new VoucherService();
+        OrderDetailService orderDetailService = new OrderDetailService();
+        List<Order> orders = dashboardDAO.getAllProducts();
+        for(Order order : orders){
+            // xu ly user
+            order.setVoucher(voucherService.getVoucherById(order.getVoucher().getIdVoucher()));
+            order.setListOfDetailOrder(orderDetailService.getOrderDetailByOrder(order.getId()));
+        }
+        return orders;
+    }
 }

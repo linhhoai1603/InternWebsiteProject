@@ -9,16 +9,21 @@
 </head>
 <body>
 <%@include file="menu-admin.jsp"%>
+<c:if test="${empty sessionScope.numberOfUsers || sessionScope.numberOfUsers == 0}">
+    <script>
+        window.location.href = 'dashboard';
+    </script>
+</c:if>
+
 <div class="container-fluid mt-4">
     <h1 class="center-text mb-4 text-center" style="color: #2c8b73">Bảng Điều Khiển</h1>
-
     <!-- Thông tin tổng quan -->
     <div class="row mb-4">
         <div class="col-md-3">
-            <div class="card" style="z-index: -100000">
+            <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Số Lượng Người Dùng</h5>
-                    <p class="card-text">1500 người dùng</p>
+                    <p class="card-text">${requestScope.numberOfUsers} người dùng</p>
                 </div>
             </div>
         </div>
@@ -26,7 +31,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Số Lượng Voucher</h5>
-                    <p class="card-text">45 voucher</p>
+                    <p class="card-text">${requestScope.numberOfVouchers} voucher</p>
                 </div>
             </div>
         </div>
@@ -34,7 +39,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Doanh Thu Tổng</h5>
-                    <p class="card-text">1,500,000,000 VNĐ</p>
+                    <fmt:formatNumber value="${requestScope.totalRevenue}" type="currency" currencySymbol="VNĐ" />
                 </div>
             </div>
         </div>
@@ -42,7 +47,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Số Lượng Đơn Hàng</h5>
-                    <p class="card-text">3500 đơn hàng</p>
+                    <p class="card-text">${requestScope.numberOfOrders} đơn hàng</p>
                 </div>
             </div>
         </div>
@@ -50,15 +55,10 @@
 
     <!-- Biểu đồ thống kê (Sử dụng Chart.js) -->
     <div class="row mb-4">
-        <div class="col-md-6">
-            <h4>Biểu đồ Số Lượng Người Dùng Theo Tháng</h4>
-            <!-- Biểu đồ người dùng theo tháng -->
-            <canvas id="userChart"></canvas>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h4>Biểu đồ Doanh Thu Theo Tháng</h4>
             <!-- Biểu đồ doanh thu theo tháng -->
-            <canvas id="revenueChart"></canvas>
+            <canvas id="revenueChart" height="200"></canvas> <!-- Chiều cao biểu đồ nhỏ lại -->
         </div>
     </div>
 
@@ -112,38 +112,15 @@
 
 <!-- Script để cấu hình và hiển thị biểu đồ -->
 <script>
-    // Biểu đồ số lượng người dùng
-    var userCtx = document.getElementById('userChart').getContext('2d');
-    var userChart = new Chart(userCtx, {
-        type: 'line',  // Hoặc 'bar' nếu bạn muốn biểu đồ cột
-        data: {
-            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],  // Các tháng
-            datasets: [{
-                label: 'Số Lượng Người Dùng',
-                data: [120, 200, 150, 220, 250, 300],  // Dữ liệu số lượng người dùng theo từng tháng
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2,
-                fill: false
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
     // Biểu đồ doanh thu
     var revenueCtx = document.getElementById('revenueChart').getContext('2d');
     var revenueChart = new Chart(revenueCtx, {
         type: 'bar',  // Biểu đồ cột
         data: {
-            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6'],  // Các tháng
+            labels: ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'],  // Các tháng
             datasets: [{
                 label: 'Doanh Thu (VNĐ)',
-                data: [1000000, 1500000, 1200000, 1800000, 2000000, 2200000],  // Dữ liệu doanh thu theo từng tháng
+                data: [1000000, 1500000, 1200000, 1800000, 2000000, 2200000, 2100000, 2500000, 2300000, 2800000, 2900000, 3100000],  // Dữ liệu doanh thu theo từng tháng
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
