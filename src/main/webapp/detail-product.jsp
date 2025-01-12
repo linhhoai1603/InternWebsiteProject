@@ -141,9 +141,10 @@
                     </button>
                 </div>
             </form>
-            <form action="payment?methob=buy" method="post">
+            <form action="cart?method=add" method="post">
+                <input name="currentURL" type="hidden" value="shopping-cart.jsp">
                 <input type="hidden" name="selectedStyle" id="selectedStyle1" value="">
-                <input type="number" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 50px" min="1">
+                <input type="hidden" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 50px" min="1">
                 <button type="submit" class="btn btn-custom w-100" style="background-color: #339c87">
                     MUA NGAY
                 </button>
