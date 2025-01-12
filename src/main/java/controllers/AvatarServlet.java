@@ -1,7 +1,7 @@
 package controllers;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.*;
 import models.User;
 import services.UploadService;
@@ -10,7 +10,7 @@ import services.UserInForServies;
 import java.io.File;
 import java.io.IOException;
 
-@WebServlet(name="avatar")
+@MultipartConfig
 public class AvatarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

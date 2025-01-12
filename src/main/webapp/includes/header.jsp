@@ -60,7 +60,7 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
                         <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/personal-servlet">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/personal-inf">
                                 Hồ sơ
                             </a>
                         </li>
