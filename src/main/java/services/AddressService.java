@@ -20,4 +20,7 @@ public class AddressService {
     public boolean deleteAddress(int id){
         return dao.deleteAddress(id);
     }
+    public Address getAddressByID(int id){
+        return dao.getAddressByID(id);
+    }
 }

@@ -98,12 +98,6 @@ public class CartServlet extends HttpServlet {
             StyleService styleService = new StyleService();
             Style selectedStyle = styleService.getStyleByID(idStyle);
 
-            if (selectedStyle == null) {
-                // Nếu Style không hợp lệ, chuyển hướng về trang hiện tại với thông báo lỗi
-                response.sendRedirect(currentURL + (currentURL.contains("?") ? "&" : "?") + "message=error");
-                return;
-            }
-
             // Tạo CartItem mới
             CartItem itemNew = new CartItem(selectedStyle, quantity);
 

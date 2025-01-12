@@ -69,6 +69,11 @@
                                 Thay đổi mật khẩu
                             </a>
                         </li>
+                        <li>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/ordered">
+                                Đơn hàng đã mua
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <a href="${pageContext.request.contextPath}/logout-user" class="btn text-white btn-bg">

@@ -1,10 +1,13 @@
 package services;
 
+import dao.DashboardDAO;
 import dao.OrderDAO;
 import models.Order;
 import models.OrderDetail;
 
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class OrderService {
@@ -15,21 +18,21 @@ public class OrderService {
     public int insertOrder(Order order){
         return dao.insertOrder(order);
     }
-    public String convertStatus(int status){
-        switch (status){
-            case 0:
-                return "Đang giao hàng";
-            case 2:
-                return "Đã giao hàng";
-            default:
-                return "Unknown";
+
+    public List<Order> getOrderByUserId(int id){
+        List<Order> orders = dao.getOrdersByUserId(id);
+        OrderDetailService orderDetailService = new OrderDetailService();
+        for(Order order : orders){
+            order.setListOfDetailOrder(orderDetailService.getOrderDetailByOrder(order.getId()));
         }
+
     }
     public Order getOrder(int orderId){
         OrderDetailService orderService = new OrderDetailService();
         Order order = dao.getOder(orderId);
         order.setListOfDetailOrder(orderService.dao.getOrderDetailByOrder(orderId));
         return order;
+
     }
     public List<Order> getAllOrders() {
         return dao.getAllOder();

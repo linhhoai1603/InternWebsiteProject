@@ -6,10 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.*;
-import services.AddressService;
-import services.DeliveryService;
-import services.OrderDetailService;
-import services.OrderService;
+import services.*;
 
 @WebServlet(name = "OrderServlet", value = "/order")
 public class OrderServlet extends HttpServlet {
@@ -42,6 +39,8 @@ public class OrderServlet extends HttpServlet {
         OrderDetailService orderDetailService = new OrderDetailService();
         DeliveryService deliveryService = new DeliveryService();
         AddressService addressService = new AddressService();
+        StyleService styleService = new StyleService();
+
 
         // Kiểm tra session và lấy thông tin
         Cart cart = (Cart) request.getSession().getAttribute("cart");
@@ -66,9 +65,17 @@ public class OrderServlet extends HttpServlet {
         for (CartItem item : cart.getItems().values()) {
             Style style = item.getStyle();
             int quantity = item.getQuantity();
-            OrderDetail orderDetail = new OrderDetail(idOrder, style, quantity);
-            orderDetailService.insertOrderDetail(orderDetail);
-            order.getListOfDetailOrder().add(orderDetail);
+            if (quantity > style.getProduct().getQuantity()) {
+                throw new IllegalStateException("Số lượng sản phẩm không đủ.");
+            }else{
+                style.getProduct().setQuantity(style.getProduct().getQuantity() - quantity);
+                style.setQuantity(style.getQuantity() - quantity);
+                styleService.updateQuantityForStyle(style.getId(), style.getQuantity());
+                styleService.updateQuantityForProduct(style.getProduct().getId(), style.getProduct().getQuantity());
+                OrderDetail orderDetail = new OrderDetail(idOrder, style, quantity);
+                orderDetailService.insertOrderDetail(orderDetail);
+                order.getListOfDetailOrder().add(orderDetail);
+            }
         }
 
         // Xử lý thông tin giao hàng

@@ -22,11 +22,11 @@ public class HomeServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         // lúc làm admin
-//        AuthenServies authen = new AuthenServies();
-//        AccountUser acc = authen.checkLogin("linhhoai", HashUtil.encodePasswordBase64("linhhoai"));
-//        User user = acc.getUser();
-//        request.getSession().setAttribute("user", user);
-//        request.getSession().setAttribute("account", acc);
+        AuthenServies authen = new AuthenServies();
+        AccountUser acc = authen.checkLogin("linhhoai", HashUtil.encodePasswordBase64("linhhoai"));
+        User user = acc.getUser();
+        request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("account", acc);
          // bỏ qua bưoc đăng nhập
 
 

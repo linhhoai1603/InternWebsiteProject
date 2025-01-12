@@ -1,7 +1,9 @@
 package dao;
 
 import connection.DBConnection;
+
 import models.*;
+
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
@@ -23,6 +25,7 @@ public class OrderDetailDAO {
                     .execute() > 0;
         });
     }
+
     public List<OrderDetail> getOrderDetailByOrder(int idOrder) {
         String query = """
         SELECT od.id AS idOrderDetail,
@@ -34,6 +37,7 @@ public class OrderDetailDAO {
                s.name AS styleName,
                p.name AS productName,
                p.id AS productId,
+
                c.id AS categoryId,
                 c.name AS categoryName,
                 pr.id AS priceId,
@@ -43,6 +47,7 @@ public class OrderDetailDAO {
         JOIN products p ON s.idProduct = p.id
         JOIN categories c ON p.idCategory = c.id
         JOIN prices pr ON p.idPrice = pr.id
+
         WHERE od.idOrder = :idOrder;
     """;
         return jdbi.withHandle(handle -> {
@@ -55,6 +60,7 @@ public class OrderDetailDAO {
                         orderDetail.setQuantity(rs.getInt("quantity"));
                         orderDetail.setTotalPrice(rs.getDouble("totalPrice"));
                         orderDetail.setWeight(rs.getDouble("weight"));
+
 
                         Style style = new Style();
                         style.setId(rs.getInt("idStyle"));
@@ -76,9 +82,18 @@ public class OrderDetailDAO {
                         category.setName(rs.getString("categoryName"));
                         product.setCategory(category);
 
+
                         return orderDetail;
                     })
                     .list();
         });
     }
+
+
+    public static void main(String[] args) {
+        OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
+        List<OrderDetail> orderDetails = orderDetailDAO.getOrderDetailByOrder(1);
+        System.out.println(orderDetails);
+    }
+
 }

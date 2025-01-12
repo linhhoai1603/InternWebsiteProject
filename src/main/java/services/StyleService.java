@@ -23,5 +23,22 @@ public class StyleService {
     public List<Style> getZipperStylesByIDProduct(int idProduct) {
         return styleDao.getZipperStylesByIDProduct(idProduct);
     }
+    public void updateQuantityForStyle(int idStyle, int quantity){
+        styleDao.updateQuantityForStyle(idStyle, quantity);
+    }
+    public void updateQuantityForProduct(int idProduct, int quantity){
+        styleDao.updateQuantityForProduct(idProduct, quantity);
+    }
 
+    public void deleteStyle(int styleId) {
+        styleDao.deleteStyle(styleId);
+    }
+
+    public void updateStyle(Style newStyle) {
+        styleDao.updateStyle(newStyle);
+    }
+
+    public void addStyle(Style style) {
+        styleDao.addStyle(style);
+    }
 }

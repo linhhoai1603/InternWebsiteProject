@@ -50,6 +50,7 @@ public class VoucherDao {
         });
     }
 
+
     public boolean updateVoucher(String id, double amount, double price) {
         String query = "UPDATE vouchers SET amount = :amount, condition_amount = :price WHERE idVoucher = :id";
         try {
@@ -101,4 +102,17 @@ public class VoucherDao {
             return false; // Trả về false nếu có lỗi
         }
     }
+
+    public Voucher getVoucherById(int idVoucher) {
+        String query = "SELECT * FROM vouchers WHERE id = ?;";
+        return jdbi.withHandle(handle -> {
+            return handle.createQuery(query)
+                    .bind(0, idVoucher)
+                    .mapToBean(Voucher.class)
+                    .findOne()
+                    .orElse(null);
+        });
+    }
+
+
 }
