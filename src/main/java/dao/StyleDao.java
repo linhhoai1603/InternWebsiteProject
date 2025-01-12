@@ -107,4 +107,35 @@ public class StyleDao {
         });
     }
 
+    public void deleteStyle(int styleId) {
+        String query = "DELETE FROM styles WHERE id = ?";
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind(0, styleId)
+                    .execute();
+        });
+    }
+
+    public void updateStyle(Style newStyle) {
+        String query = "UPDATE styles SET name = ?, quantity = ? WHERE id = ?";
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind(0, newStyle.getName())
+                    .bind(1, newStyle.getQuantity())
+                    .bind(2, newStyle.getId())
+                    .execute();
+        });
+    }
+
+    public void addStyle(Style style) {
+        String query = "INSERT INTO styles(name, quantity, image, idProduct) VALUES(?, ?, ?, ?)";
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind(0, style.getName())
+                    .bind(1, style.getQuantity())
+                    .bind(2, style.getImage())
+                    .bind(3, style.getProduct().getId())
+                    .execute();
+        });
+    }
 }

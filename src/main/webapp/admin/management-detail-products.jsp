@@ -10,9 +10,11 @@
 <div class="container-fluid mt-4">
     <h2 class="center-text mb-4 text-center">Chi Tiết Sản Phẩm</h2>
 
-    <!-- Form để chỉnh sửa thông tin sản phẩm -->
-    <form action="update-product" method="post">
-        <input type="hidden" name="id_product" value="${requestScope.product.id}">
+    <form action="admin-manager-detail-product" method="post">
+        <input type="hidden" name="idProduct" value="${requestScope.product.id}">
+        <input type="hidden" name="idTechnical" value="${requestScope.product.technicalInfo.id}">
+        <input type="hidden" name="idPrice" value="${requestScope.product.price.id}">
+        <input type="hidden" name="method" value="updateProduct">
 
         <!-- Các thông tin sản phẩm hiện tại -->
         <h4>Thông tin sản phẩm</h4>
@@ -23,7 +25,7 @@
 
         <div class="form-group">
             <label for="quantity"><strong>Số lượng</strong></label>
-            <input type="text" class="form-control" id="quantity" name="quantity" value="${requestScope.product.quantity}" required>
+            <input type="number" class="form-control" id="quantity" name="quantity" value="${requestScope.product.quantity}" required>
         </div>
 
         <div class="form-group">
@@ -33,7 +35,7 @@
 
         <div class="form-group">
             <label for="description"><strong>Mô tả</strong></label>
-            <input type="text" class="form-control" id="description" name="description" value="${requestScope.product.description}" required>
+            <textarea class="form-control" id="description" name="description" required>${requestScope.product.description}</textarea>
         </div>
 
         <!-- Thông tin giá -->
@@ -65,7 +67,14 @@
             <textarea class="form-control" id="technical_specifications" name="technical_specifications" required>${requestScope.product.technicalInfo.specification}</textarea>
         </div>
 
-        <!-- Bảng kiểu vải sẽ không thay đổi -->
+        <div class="row">
+            <button type="submit" class="btn btn-primary my-3">Lưu Thay Đổi</button>
+            <a class="btn btn-warning" href="management-products.jsp">Quay lại</a>
+        </div>
+    </form>
+
+
+    <!-- Bảng kiểu vải sẽ không thay đổi -->
 
         <div class="container mt-5">
             <h2 class="text-center mb-4" style="color: #2c8b73">Thông Tin Các Kiểu Vải</h2>
@@ -83,32 +92,59 @@
                         </div>
                         <div class="modal-body">
                             <!-- Form thêm kiểu vải -->
-                            <form action="add-fabric-type" method="post" enctype="multipart/form-data">
+                            <form action="admin-manager-detail-product" method="post">
+                                <input type="hidden" name="method" value="addStyle">
+                                <input type="hidden" name="idProduct" value="${requestScope.product.id}">
+
+                                <!-- Nhập tên kiểu vải -->
                                 <div class="mb-3">
                                     <label for="fabricName" class="form-label">Tên Kiểu Vải</label>
-                                    <input type="text" class="form-control" id="fabricName" name="fabricName" placeholder="Nhập tên kiểu vải" required>
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            id="fabricName"
+                                            name="fabricName"
+                                            placeholder="Nhập tên kiểu vải"
+                                            maxlength="100"
+                                            required>
                                 </div>
 
+                                <!-- Nhập URL hình ảnh -->
                                 <div class="mb-3">
-                                    <label for="fabricImage" class="form-label">Hình Ảnh</label>
-                                    <input type="text" class="form-control" id="fabricImage" name="fabricImage" placeholder="Nhập nguồn ảnh" required>
+                                    <label for="fabricImage" class="form-label">Hình Ảnh (URL)</label>
+                                    <input
+                                            type="url"
+                                            class="form-control"
+                                            id="fabricImage"
+                                            name="fabricImage"
+                                            placeholder="https://example.com/image.jpg"
+                                            required>
+                                    <!-- Gợi ý cách nhập đúng URL -->
+                                    <small class="form-text text-muted">
+                                        Nhập đường dẫn URL đầy đủ, ví dụ: https://example.com/image.jpg
+                                    </small>
                                 </div>
 
+                                <!-- Nhập số lượng -->
                                 <div class="mb-3">
-                                    <label for="fabricPrice" class="form-label">Giá</label>
-                                    <input type="number" class="form-control" id="fabricPrice" name="fabricPrice" placeholder="Nhập giá (VNĐ)" min="0" required>
+                                    <label for="fabricQuantity" class="form-label">Số Lượng</label>
+                                    <input
+                                            type="number"
+                                            class="form-control"
+                                            id="fabricQuantity"
+                                            name="fabricQuantity"
+                                            placeholder="Nhập số lượng"
+                                            min="1"
+                                            required>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="fabricDiscount" class="form-label">Phần Trăm Giảm Giá</label>
-                                    <input type="number" class="form-control" id="fabricDiscount" name="fabricDiscount" placeholder="Nhập phần trăm giảm giá (%)" min="0" max="100" required>
-                                </div>
-
+                                <!-- Nút hành động -->
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">Thêm Kiểu Vải</button>
                                     <button type="reset" class="btn btn-secondary">Làm Lại</button>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -122,6 +158,7 @@
                     <th>Hình Ảnh</th>
                     <th>Số lượng</th>
                     <th>Hành động</th>
+                    <th>Xóa </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -142,27 +179,24 @@
                                 <input type="hidden" name="method" value="updateStyle">
                                 <input type="hidden" name="styleId" value="${style.id}">
                                 <button type="submit" class="btn btn-warning">Lưu thay đổi</button>
-
-                                <!-- Form Xóa kiểu vải -->
-                                <form action="admin-manager-detail-product" method="post" style="display: inline;">
-                                    <input type="hidden" name="id" value="${requestScope.product.id}">
-                                    <input type="hidden" name="method" value="deleteStyle">
-                                    <input type="hidden" name="styleId" value="${style.id}">
-                                    <button type="submit" class="btn btn-danger">Xóa</button>
-                                </form>
                             </td>
                         </form>
+                        <td>
+                            <!-- Form Xóa kiểu vải -->
+                            <form action="admin-manager-detail-product" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="${requestScope.product.id}">
+                                <input type="hidden" name="method" value="deleteStyle">
+                                <input type="hidden" name="styleId" value="${style.id}">
+                                <button type="submit" class="btn btn-danger">Xóa</button>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
         </div>
 
-        <div class="row">
-            <button type="submit" class="btn btn-primary my-3">Lưu Thay Đổi</button>
-            <a class="btn btn-warning" href="management-products.jsp">Quay lại</a>
-        </div>
-    </form>
+
 
 </div>
 
