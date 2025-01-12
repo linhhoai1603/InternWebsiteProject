@@ -1,8 +1,12 @@
 package dao;
 
 import connection.DBConnection;
+import models.Address;
 import models.Delivery;
+import models.Order;
 import org.jdbi.v3.core.Jdbi;
+
+import java.util.List;
 
 public class DeliveryDAO {
     Jdbi jdbi;
@@ -24,4 +28,67 @@ public class DeliveryDAO {
                     .execute() > 0;
         });
     }
+    public List<Delivery> getAllDeliveries() {
+        String query = """
+        SELECT * FROM deliveries
+    """;
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .map((rs, ctx) -> {
+                            // xu ly cho address
+                            Address address = new Address();
+                            address.setId(rs.getInt("idAddress"));
+
+                            // Map the Delivery object
+                            Delivery delivery = new Delivery();
+                            delivery.setId(rs.getInt("id"));
+                            delivery.setIdAddress(rs.getInt("idAddress"));
+                            delivery.setIdOrder(rs.getInt("idOrder"));
+                            delivery.setFullName(rs.getString("fullName"));
+                            delivery.setNumberPhone(rs.getString("phoneNumber"));
+                            delivery.setArea(rs.getDouble("area"));
+                            delivery.setDeliveryFee(rs.getDouble("deliveryFee"));
+                            delivery.setNote(rs.getString("note"));
+                            delivery.setStatus(rs.getString("status"));
+                            delivery.setAddress(address);
+                            delivery.setScheduledDateTime(rs.getTimestamp("scheduledDateTime").toLocalDateTime());
+                            return delivery;
+                        })
+                        .list()
+        );
+    }
+    public List<Delivery> getDeliveriesByOrderId(int idOrder) {
+        String query = """
+        SELECT * FROM deliveries WHERE idOrder = :idOrder
+    """;
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("idOrder", idOrder) // Bind the idOrder parameter
+                        .map((rs, ctx) -> {
+                            // Process Address
+                            Address address = new Address();
+                            address.setId(rs.getInt("idAddress"));
+
+                            // Map the Delivery object
+                            Delivery delivery = new Delivery();
+                            delivery.setId(rs.getInt("id"));
+                            delivery.setIdAddress(rs.getInt("idAddress"));
+                            delivery.setIdOrder(rs.getInt("idOrder"));
+                            delivery.setFullName(rs.getString("fullName"));
+                            delivery.setNumberPhone(rs.getString("phoneNumber"));
+                            delivery.setArea(rs.getDouble("area"));
+                            delivery.setDeliveryFee(rs.getDouble("deliveryFee"));
+                            delivery.setNote(rs.getString("note"));
+                            delivery.setStatus(rs.getString("status"));
+                            delivery.setAddress(address);
+                            delivery.setScheduledDateTime(rs.getTimestamp("scheduledDateTime").toLocalDateTime());
+                            return delivery;
+                        })
+                        .list()
+        );
+    }
+
+
 }

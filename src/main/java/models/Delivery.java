@@ -14,6 +14,28 @@ public class Delivery implements Serializable {
     private String note;
     private String status;
     private LocalDateTime scheduledDateTime;
+    private User user;
+    private Address address;
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
     public int getId() {
         return id;

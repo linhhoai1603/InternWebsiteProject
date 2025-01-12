@@ -21,10 +21,10 @@
     <div class="row my-3">
         <div class="col-md-8"></div>
         <div class="col-md-4">
-            <form method="post" action="search-shipping" class="d-flex float-end w-100">
+            <form method="post" action="manager-deliveries" class="d-flex float-end w-100">
                 <div class="row w-100">
                     <div class="col-md-8">
-                        <input type="text" placeholder="Tìm theo mã đơn hàng" name="searchOrder" class="form-control me-2">
+                        <input type="number" placeholder="Tìm theo mã đơn hàng" name="idOrder" class="form-control me-2">
                     </div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
@@ -38,43 +38,35 @@
     <table class="table table-bordered table-striped custom-table">
         <thead>
         <tr>
+            <th> Mã vận chuyển </th>
             <th>Mã Đơn Hàng</th>
             <th>Thông Tin Giao Hàng</th>
             <th>Trọng lượng</th>
             <th>Phí Vận Chuyển</th>
             <th>Ghi Chú</th>
             <th>Trạng Thái Vận Chuyển</th>
-            <th>Hành Động</th>
+            <th>Thời gian giao dự kiến </th>
         </tr>
         </thead>
         <tbody>
         <!-- Dữ liệu vận chuyển mẫu -->
-        <tr>
-            <td>ORD001</td>
-            <td>
-                <p><strong>Địa chỉ:</strong> 123 Nguyễn Văn Cừ, Hà Nội</p>
-                <p><strong>Người nhận:</strong> Nguyễn Văn A</p>
-                <p><strong>SĐT:</strong> 0123456789</p>
-            </td>
-            <td>2Kg</td>
-            <td>50.000 VNĐ</td>
-            <td>Yêu cầu giao hàng gấp</td>
-            <td>Đang giao</td>
-            <td><a class="btn btn-info" href="management-detail-shipping.jsp">Xem chi tiết</a></td>
-        </tr>
-        <tr>
-            <td>ORD002</td>
-            <td>
-                <p><strong>Địa chỉ:</strong> 45 Lý Thái Tổ, Đà Nẵng</p>
-                <p><strong>Người nhận:</strong> Trần Văn B</p>
-                <p><strong>SĐT:</strong> 0987654321</p>
-            </td>
-            <td>0.5Kg</td>
-            <td>30.000 VNĐ</td>
-            <td>Địa chỉ không rõ ràng, cần xác minh</td>
-            <td>Hoàn thành</td>
-            <td><a class="btn btn-info" href="management-detail-shipping.jsp">Xem chi tiết</a></td>
-        </tr>
+       <c:forEach var="d" items="${requestScope.deliveries}">
+           <tr>
+                <td>${d.id}</td>
+               <td>${d.idOrder}</td>
+               <td>
+                   <p><strong>Địa chỉ:</strong> ${d.address.street} / ${d.address.commune} / ${d.address.province} / ${d.address.city}</p>
+                   <p><strong>Người nhận:</strong> ${d.fullName}</p>
+                   <p><strong>SĐT:</strong> ${d.phoneNumber}</p>
+               </td>
+               <td> ${d.area} Kg</td>
+               <td> ${d.deliveryFee} </td>
+               <td>${d.note}</td>
+               <td>${d.status}</td>
+               <td>${d.scheduledDateTime}</td>
+           </tr>
+       </c:forEach>
+
         <!-- Các vận chuyển khác -->
         </tbody>
     </table>
