@@ -6,6 +6,7 @@ import models.User;
 import models.Voucher;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -29,6 +30,18 @@ public class DashboardDAO {
         String query = "SELECT SUM(lastPrice) FROM orders";
         return jdbi.withHandle(handle -> handle.createQuery(query).mapTo(Double.class).one());
     }
+    public double getTotalRevenueForMonth(int month) {
+        String query = "SELECT SUM(lastPrice) FROM orders WHERE YEAR(timeOrder) = ? AND MONTH(timeOrder) = ?";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind(0, LocalDate.now().getYear())  // Bind the current year
+                        .bind(1, month)  // Bind the input month
+                        .mapTo(Double.class)  // Map to Double
+                        .findOne().orElse(0.0)  // Return 0.0 if there is no result
+        );
+    }
+
+
 
     public int getNumberOfOrders() {
         String query = "SELECT COUNT(*) FROM orders";

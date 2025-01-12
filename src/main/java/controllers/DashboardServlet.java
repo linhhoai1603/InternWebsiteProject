@@ -16,7 +16,7 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("totalRevenue", dashboardService.getTotalRevenue());
         request.setAttribute("numberOfOrders", dashboardService.getNumberOfOrders());
         request.setAttribute("tenNewOrders", dashboardService.getTenNewOders());
+        request.setAttribute("revenueByMonths", dashboardService.getRevenueByMonths());
         request.getRequestDispatcher("dashboard.jsp").forward(request, response);
-
     }
 }

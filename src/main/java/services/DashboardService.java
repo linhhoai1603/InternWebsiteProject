@@ -3,6 +3,7 @@ package services;
 import dao.DashboardDAO;
 import models.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardService {
@@ -24,5 +25,12 @@ public class DashboardService {
     }
     public List<Order> getTenNewOders(){
         return dashboardDao.getTenNewOrders();
+    }
+    public List<Double> getRevenueByMonths(){
+        List<Double> revenueByMonth = new ArrayList<>();
+        for (int i = 1; i <= 12; i++) {
+            revenueByMonth.add(dashboardDao.getTotalRevenueForMonth(i));
+        }
+        return revenueByMonth;
     }
 }
