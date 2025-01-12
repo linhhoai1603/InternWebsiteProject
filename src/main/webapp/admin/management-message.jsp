@@ -21,10 +21,10 @@
         <div class="row my-3">
             <div class="col-md-8"></div>
             <div class="col-md-4">
-                <form method="post" action="search-message-admin" class="d-flex float-end w-100">
+                <form method="post" action="manager-message" class="d-flex float-end w-100">
                     <div class="row w-100">
                         <div class="col-md-8">
-                            <input type="text" placeholder="Nhập tên người dùng tìm kiếm" name="searchMessage" class="form-control me-2">
+                            <input type="text" placeholder="Nhập tên người dùng tìm kiếm" name="name" class="form-control me-2">
                         </div>
                         <div class="col-md-4">
                             <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>
@@ -46,30 +46,20 @@
                    <th>Địa Chỉ Email</th>
                    <th>Tiêu Đề</th>
                    <th>Nội Dung</th>
-                   <th>Thời Gian Gửi</th>
                </tr>
                </thead>
                <tbody id="messageTable">
-               <tr>
-                   <td>1111</td>
-                   <td>1101</td>
-                   <td>Huỳnh Linh Hoài</td>
-                   <td>0377314202</td>
-                   <td>hoai1603ot@mail.cm</td>
-                   <td>Cần hỗ trợ mua sản phẩm</td>
-                   <td>Tôi cần hỗ trợ mua 1 chiếc điện thoại học tập và làm việc</td>
-                   <td>2024-12-06 15:30</td>
-               </tr>
-               <tr>
-                   <td>1112</td>
-                   <td>1102</td>
-                   <td>Trần Văn B</td>
-                   <td>0987654321</td>
-                   <td>tranvanb@mail.cm</td>
-                   <td>Lỗi sản phẩm</td>
-                   <td>Sản phẩm tôi mua bị lỗi, vui lòng hỗ trợ</td>
-                   <td>2024-12-06 16:00</td>
-               </tr>
+              <c:forEach var="message" items="${requestScope.messages}">
+                  <tr>
+                      <td>${message.id}</td>
+                      <td>${message.user.id}</td>
+                      <td>${message.user.fullName}</td>
+                      <td>${message.user.numberPhone}</td>
+                      <td>${message.user.email}</td>
+                      <td>${message.title}</td>
+                      <td>${message.content}</td>
+                  </tr>
+              </c:forEach>
                </tbody>
            </table>
        </div>

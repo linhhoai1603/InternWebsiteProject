@@ -120,7 +120,7 @@
       <li><a href="management-orders.jsp"><i class="fa-solid fa-cart-shopping"></i>Đơn hàng</a></li>
       <li><a href="management-deliveries.jsp"><i class="fa-solid fa-truck-fast"></i>Vận chuyển</a></li>
       <li><a href="management-vouchers.jsp"><i class="fa-solid fa-ticket"></i>Mã giảm giá</a></li>
-      <li><a href="management-message.jsp"><i class="fa-regular fa-message"></i>Tin nhắn</a></li>
+      <li><a href="manager-message"><i class="fa-regular fa-message"></i>Tin nhắn</a></li>
     </ul>
   </div>
 </label>
