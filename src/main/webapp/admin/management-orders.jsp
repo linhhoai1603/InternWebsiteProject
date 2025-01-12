@@ -54,18 +54,67 @@
                 <td>${oder.id}</td>
                 <td>${oder.timeOrdered}</td>
                 <td>${oder.user.id}</td>
-                <td>${oder.voucher.idVoucher}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${oder.voucher == null || oder.voucher.idVoucher == 0}">
+                            NULL
+                        </c:when>
+                        <c:otherwise>
+                            ${oder.voucher.idVoucher}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
                 <td>${oder.status}</td>
                 <td>${oder.totalPrice}</td>
                 <td>${oder.lastPrice}</td>
                 <td><a class="btn btn-info" href="management-detail-orders.jsp">Xem chi tiết</a></td>
             </tr>
         </c:forEach>
-
-        <!-- Các đơn hàng khác -->
         </tbody>
     </table>
 </div>
+<div class="d-flex justify-content-center mt-3">
+    <%
+        int nuPage = Integer.parseInt(request.getAttribute("nuPage").toString());
+        int loca = Integer.parseInt(request.getAttribute("loca").toString());
+    %>
+    <nav>
+        <ul class="pagination">
+            <%
+                if (loca > 1) {
+            %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/admin/manager-order?loca=<%= loca - 1 %>">&laquo;</a>
+            </li>
+            <%
+                }
+                for (int i = 1; i <= nuPage; i++) {
+                    if (i == loca) {
+            %>
+            <li class="page-item active">
+                <a class="page-link" href="${pageContext.request.contextPath}/admin/manager-order?loca=<%= i %>"><%= i %></a>
+            </li>
+            <%
+            } else {
+            %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/admin/manager-order?loca=<%= i %>"><%= i %></a>
+            </li>
+            <%
+                    }
+                }
+                if (loca < nuPage) {
+            %>
+            <li class="page-item">
+                <a class="page-link" href="${pageContext.request.contextPath}/admin/manager-order?loca=<%= loca + 1 %>">&raquo;</a>
+            </li>
+            <%
+                }
+            %>
+        </ul>
+    </nav>
+</div>
+
 <%@include file="../includes/link/footLink.jsp"%>
 </body>
 </html>

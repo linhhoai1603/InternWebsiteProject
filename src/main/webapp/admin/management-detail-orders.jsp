@@ -16,8 +16,6 @@
         <div class="col-md-6">
             <p><strong>Mã Đơn Hàng:</strong> 111</p>
             <p><strong>Thời Gian Đặt:</strong> 2024-12-06 10:30</p>
-            <p><strong>Phương Thức Thanh Toán:</strong> Chuyển khoản</p>
-            <p><strong>Trạng Thái Thanh Toán:</strong> Đã thanh toán</p>
             <p><strong>Trạng Thái Đơn Hàng:</strong> Đang giao hàng</p>
             <p><strong>Tổng Giá Trị:</strong> 1,200,000 VNĐ</p>
         </div>

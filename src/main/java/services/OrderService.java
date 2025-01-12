@@ -38,14 +38,15 @@ public class OrderService {
         return res;
     }
     public List<Order> getOrdersByPage(int page, int ordersPerPage) {
-        // Tính số đơn hàng bắt đầu và kết thúc dựa trên trang và số đơn hàng mỗi trang
         int startOrder = (page - 1) * ordersPerPage;
-        int endOrder = page * ordersPerPage;
-
-        // Lấy tất cả các đơn hàng
         List<Order> allOrders = getAllOrders();
+        int endOrder;
+        if(startOrder+ordersPerPage > allOrders.size()){
+            endOrder = allOrders.size();
+        }else {
+            endOrder = startOrder + ordersPerPage;
+        }
 
-        // Lọc các đơn hàng trong phạm vi của trang yêu cầu
         List<Order> ordersForPage = new ArrayList<>();
         for (int i = startOrder; i < endOrder && i < allOrders.size(); i++) {
             ordersForPage.add(allOrders.get(i));
