@@ -540,7 +540,7 @@ public class ProductDao {
         // Cập nhật thông tin sản phẩm
         String updateProductQuery = """
         UPDATE products 
-        SET name = :name, quantity = :quantity, description = :description, area = :area
+        SET name = :name, quantity = :quantity, description = :description
         WHERE id = :idProduct;
     """;
         // Cập nhật thông tin kỹ thuật

@@ -193,4 +193,7 @@ public class ProductService {
         return  products;
     }
 
+    public void updateProduct(Product product) {
+        productDao.updateProduct(product);
+    }
 }

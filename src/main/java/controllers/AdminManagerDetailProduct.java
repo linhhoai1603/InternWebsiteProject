@@ -1,12 +1,15 @@
 package controllers;
 
 import java.io.*;
+import java.time.LocalDate;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.Price;
 import models.Product;
 import models.Style;
+import models.TechnicalInfo;
 import services.ProductService;
 import services.StyleService;
 
@@ -24,6 +27,48 @@ public class AdminManagerDetailProduct extends HttpServlet {
         if("addStyle".equals(method)){
             addStyle(request,response);
         }
+        if("updateProduct".equals(method)){
+            updateProduct(request,response);
+        }
+    }
+
+    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // xu ly thong tin cho technical
+        TechnicalInfo technicalInfo = new TechnicalInfo();
+        int idTechnical = Integer.parseInt(request.getParameter("idTechnical"));
+        String specification = request.getParameter("technical_specifications");
+        LocalDate manufactureDate = LocalDate.parse(request.getParameter("manufacture_date"));
+        technicalInfo.setId(idTechnical);
+        technicalInfo.setSpecification(specification);
+        technicalInfo.setManufactureDate(manufactureDate);
+
+        // xu ly thong tin cho price
+        int idPrice = Integer.parseInt(request.getParameter("idPrice"));
+        double price = Double.parseDouble(request.getParameter("price"));
+        double discount = Double.parseDouble(request.getParameter("discountPercent"));
+        Price priceObj = new Price();
+        priceObj.setId(idPrice);
+        priceObj.setPrice(price);
+        priceObj.setDiscountPercent(discount);
+
+        // xy ly thong tin cho product
+        int idProduct = Integer.parseInt(request.getParameter("idProduct"));
+        String name = request.getParameter("name");
+        int quantity = Integer.parseInt(request.getParameter("quantity"));
+        String description = request.getParameter("description");
+        Product product = new Product();
+        product.setId(idProduct);
+        product.setName(name);
+        product.setQuantity(quantity);
+        product.setDescription(description);
+        product.setTechnicalInfo(technicalInfo);
+        product.setPrice(priceObj);
+
+        ProductService ps = new ProductService();
+        ps.updateProduct(product);
+
+        request.setAttribute("product", ps.getProductsByID(0, 1, 1, 0, idProduct).get(0));
+        request.getRequestDispatcher("management-detail-products.jsp").forward(request, response);
     }
 
     private void addStyle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
