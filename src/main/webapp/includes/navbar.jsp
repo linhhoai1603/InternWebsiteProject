@@ -31,18 +31,13 @@
                     <li class="nav-item">
                         <div class="dropdown">
                             <a
-                                    class="nav-link dropdown-toggle text-white"
+                                    class="nav-link text-white"
                                     role="button"
                                     id="dropdownMenuLink"
                                     href="products.jsp"
                             >
                                 Sản phẩm
                             </a>
-                            <ul
-                                    class="dropdown-menu custom-dropdown"
-                                    aria-labelledby="dropdownMenuLink"
-                            >
-                            </ul>
                         </div>
                     </li>
                     <li class="nav-item">

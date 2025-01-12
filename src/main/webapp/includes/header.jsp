@@ -74,6 +74,13 @@
                                 Đơn hàng đã mua
                             </a>
                         </li>
+                        <c:if test="${sessionScope.account.role == 1}">
+                            <li>
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/dashboard">
+                                    Dashboard
+                                </a>
+                            </li>
+                        </c:if>
                     </ul>
                 </div>
                 <a href="${pageContext.request.contextPath}/logout-user" class="btn text-white btn-bg">
