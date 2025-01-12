@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function navigateToProduct(productId) {
     // Thêm logic xử lý trước khi chuyển trang, nếu cần
     console.log("Navigating to product with ID:", productId);
-    window.location.href = `productDetail?id=${productId}`;
+    window.location.href = `detail-product?productId=${productId}`;
 }
 // Hàm thay đổi hình ảnh lớn
 function changeMainImage(productId, styleImage) {

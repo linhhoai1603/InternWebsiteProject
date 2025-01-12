@@ -1,11 +1,12 @@
 
 package models;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Cart {
+public class Cart implements Serializable {
     private Map<Integer, CartItem> items;
     private int totalQuantity;
     private double totalPrice;

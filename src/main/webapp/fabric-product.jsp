@@ -89,7 +89,7 @@
             <div class="row mt-3" style="justify-content: center">
               <button type="button" class="col-md-4 btn btn-warning add-to-cart-button mx-1">+<i class="fa-solid fa-cart-shopping"></i></button>
               <button type="submit" class="col-md-4 btn btn-success submit-cart-button mx-1" style="display: none;">Xác nhận</button>
-              <a href="detail-product?id=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
+              <a href="detail-product?productId=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
             </div>
           </div>
         </form>

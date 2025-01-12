@@ -38,7 +38,7 @@
                 <div class="category-item mt-3" onclick="showDetailProduct()">
                     <img src="${sessionScope.mostProductNew.image}" alt="Sản phẩm mới nhất">
                     <div>${sessionScope.mostProductNew.name}</div>
-                    <button class="btn-buy mt-2">Xem ngay</button>
+                    <button class="btn-buy mt-2"><a href="detail-product?productId=${product.id}"></a> Xem ngay</button>
                 </div>
             </div>
             <!-- Main Product Section -->
@@ -79,7 +79,7 @@
                                 <div class="product-discount" data-discount-percent="${product.price.discountPercent}">${product.price.discountPercent}%</div>
 
                                 <!-- Nút mua -->
-                                <button class="btn-buy">XEM NGAY</button>
+                                <button class="btn-buy" onclick="navigateToProduct(${product.id})"> XEM NGAY</button>
                             </div>
                         </div>
                     </c:forEach>
@@ -174,7 +174,7 @@
                         <div class="product-old-price">${product.price.price}₫</div>
                         <div class="product-price"  style="font-size: 22px">${product.price.lastPrice}₫</div>
                         <div class="product-discount">${product.price.discountPercent}₫</div>
-                        <button class="btn-buy">XEM NGAY</button>
+                        <button class="btn-buy" onclick="navigateToProduct(${product.id})">XEM NGAY</button>
                     </div>
                 </div>
             </c:forEach>
@@ -188,7 +188,7 @@
                 <div class="best-sellers">
                 <!-- Thông tin sản phẩm -->
                     <c:forEach var="product" items="${sessionScope.mostProductsNew}">
-                        <div class="product-item d-flex align-items-center mb-3">
+                        <div class="product-item d-flex align-items-center mb-3" onclick="navigateToProduct(${product.id})">
                             <img alt="${product.description}" height="80" src="${product.image}" width="80" class="product-image"/>
                             <div class="ms-3 product-info">
                                 <div class="product-title">${product.name}</div>
@@ -387,4 +387,5 @@
         </div>
     </div>
     <script src="includes/js/content.js"></script>
+
 <%@include file="link/footLink.jsp"%>

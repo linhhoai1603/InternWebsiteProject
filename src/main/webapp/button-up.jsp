@@ -191,7 +191,7 @@
                 </form>
 
                 <!-- Nút Xem Ngay -->
-                <a href="detail-product?id=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
+                <a href="detail-product?productId=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
               </div>
             </div>
           </div>
