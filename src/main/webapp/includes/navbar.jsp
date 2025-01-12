@@ -42,83 +42,6 @@
                                     class="dropdown-menu custom-dropdown"
                                     aria-labelledby="dropdownMenuLink"
                             >
-                                <div class="dropdown-item">
-                                    <div class="container">
-                                        <div class="row h-50">
-                                            <div class="col-md-3">
-                                                <div class="card">
-                                                    <img
-                                                            src="https://th.bing.com/th/id/OIP.OprMkiqtc3Lnf5vyMtfSdQHaHa?w=1200&h=1200&rs=1&pid=ImgDetMain"
-                                                            class="card-img-top"
-                                                            alt="..."
-                                                    />
-                                                    <div class="card-body">
-                                                        <h4
-                                                                class="card-title"
-                                                                style="text-align: center"
-                                                        >
-                                                            Vải lụa
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <div class="card">
-                                                    <img
-                                                            src="https://file.hstatic.net/1000361985/article/vai-kaki-la-gi_e7480b5129684cea950712b3e91e8a80.jpg"
-                                                            class="card-img-top"
-                                                            alt="..."
-                                                    />
-                                                    <div class="card-body">
-                                                        <h4
-                                                                class="card-title"
-                                                                style="text-align: center"
-                                                        >
-                                                            Vải kaki
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <div class="card">
-                                                    <img
-                                                            src="https://cuahangnoithat.vn/sites/default/files/tu-van/vai-nhung-thuong-mem-mai-va-co-do-bong-cao.jpg"
-                                                            class="card-img-top"
-                                                            alt="..."
-                                                    />
-                                                    <div class="card-body">
-                                                        <h4
-                                                                class="card-title"
-                                                                style="text-align: center"
-                                                        >
-                                                            Vải nhung
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <div class="card">
-                                                    <img
-                                                            src="https://th.bing.com/th/id/OIP.Q4mxQDdT9Wy7Zu89L3z8VwHaHa?rs=1&pid=ImgDetMain"
-                                                            class="card-img-top"
-                                                            alt="..."
-                                                    />
-                                                    <div class="card-body">
-                                                        <h4
-                                                                class="card-title"
-                                                                style="text-align: center"
-                                                        >
-                                                            Vải Linen
-                                                        </h4>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </ul>
                         </div>
                     </li>
@@ -155,6 +78,9 @@
                                 <a class="dropdown-item" href="zipstar-product.jsp">DÂY KÉO</a>
                             </li>
                         </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="ordered">Đơn hàng đã mua </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="design-product.jsp"

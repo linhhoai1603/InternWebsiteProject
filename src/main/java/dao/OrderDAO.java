@@ -2,6 +2,8 @@ package dao;
 
 import connection.DBConnection;
 import models.Order;
+import models.User;
+import models.Voucher;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.ArrayList;
@@ -30,14 +32,39 @@ public class OrderDAO {
                     .findOnly();
         });
     }
-    public ArrayList<Order> getAllOrders() {
-        String query = "SELECT * FROM orders";
-        return jdbi.withHandle(handle ->
-                new ArrayList<>(handle.createQuery(query)
-                        .mapTo(Order.class)
-                        .list())
-        );
+    public List<Order> getOrdersByUserId(int userId) {
+        String query = "SELECT * FROM orders WHERE idUser = :idUser ORDER BY timeOrder DESC";
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
+                .bind("idUser", userId)
+                .map((rs, ctx) -> {
+                    // Xử lý User
+                    User user = new User();
+                    user.setId(rs.getInt("idUser"));
+
+                    // Xử lý Voucher
+                    Voucher voucher = new Voucher();
+                    Integer idVoucher = (Integer) rs.getObject("idVoucher");
+                    if (idVoucher != null) {
+                        voucher.setIdVoucher(idVoucher);
+                    } else {
+                        voucher.setIdVoucher(null); // Hoặc để trống nếu không cần
+                    }
+
+                    // Xử lý Đơn hàng
+                    Order order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setTimeOrdered(rs.getTimestamp("timeOrder").toLocalDateTime());
+                    order.setUser(user);
+                    order.setVoucher(voucher);
+                    order.setStatus(rs.getString("statusOrder"));
+                    order.setTotalPrice(rs.getDouble("totalPrice"));
+                    order.setLastPrice(rs.getDouble("lastPrice"));
+                    return order;
+                }).list());
     }
 
-
 }
+
+
+
