@@ -17,7 +17,7 @@
 <div class="container-fluid mt-4">
     <h2 class="text-center mb-4">Quản Lý Đơn Hàng</h2>
 
-    <!-- Tìm kiếm đơn hàng -->
+
     <div class="row my-3">
         <div class="col-md-8"></div>
         <div class="col-md-4">
@@ -42,8 +42,6 @@
             <th>Thời Gian Đặt</th>
             <th>Mã Người Dùng</th>
             <th>Mã Giảm Giá</th>
-            <th>Phương Thức Thanh Toán</th>
-            <th>Trạng Thái Thanh Toán</th>
             <th>Trạng Thái Đơn Hàng</th>
             <th>Tổng Giá Trị</th>
             <th>Giá Sau Giảm</th>
@@ -51,32 +49,19 @@
         </tr>
         </thead>
         <tbody>
-        <!-- Đơn hàng 1 -->
-        <tr>
-            <td>ORD001</td>
-            <td>2024-12-06 10:30</td>
-            <td>1101</td>
-            <td>VOUCHER123</td>
-            <td>Chuyển khoản</td>
-            <td>Đã thanh toán</td>
-            <td>Đang xử lý</td>
-            <td>500.000 VNĐ</td>
-            <td>450.000 VNĐ</td>
-            <td><a class="btn btn-info" href="management-detail-orders.jsp">Xem chi tiết</a></td>
-        </tr>
-        <!-- Đơn hàng 2 -->
-        <tr>
-            <td>ORD002</td>
-            <td>2024-12-06 11:00</td>
-            <td>1102</td>
-            <td>NULL</td>
-            <td>Tiền mặt</td>
-            <td>Chưa thanh toán</td>
-            <td>Đang giao hàng</td>
-            <td>1.200.000 VNĐ</td>
-            <td>1.200.000 VNĐ</td>
-            <td><a class="btn btn-info" href="management-detail-orders.jsp">Xem chi tiết</a></td>
-        </tr>
+        <c:forEach var="oder" items="${requestScope.orders}">
+            <tr>
+                <td>${oder.id}</td>
+                <td>${oder.timeOrdered}</td>
+                <td>${oder.user.id}</td>
+                <td>${oder.voucher.idVoucher}</td>
+                <td>${oder.status}</td>
+                <td>${oder.totalPrice}</td>
+                <td>${oder.lastPrice}</td>
+                <td><a class="btn btn-info" href="management-detail-orders.jsp">Xem chi tiết</a></td>
+            </tr>
+        </c:forEach>
+
         <!-- Các đơn hàng khác -->
         </tbody>
     </table>

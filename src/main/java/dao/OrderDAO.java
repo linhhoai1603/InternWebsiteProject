@@ -1,9 +1,13 @@
 package dao;
 
 import connection.DBConnection;
+import models.Address;
 import models.Order;
+import models.User;
+import models.Voucher;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +34,35 @@ public class OrderDAO {
                     .findOnly();
         });
     }
-    public ArrayList<Order> getAllOrders() {
+    public List<Order> getAllOder() {
         String query = "SELECT * FROM orders";
-        return jdbi.withHandle(handle ->
-                new ArrayList<>(handle.createQuery(query)
-                        .mapTo(Order.class)
-                        .list())
-        );
+
+        return jdbi.withHandle(handle -> handle.createQuery(query)
+                .map((rs, ctx) -> {
+                    // xu ly cho user
+                    User user = new User();
+                    user.setId(rs.getInt("idUser"));
+                    // xu ly cho voucher
+                    Voucher voucher = new Voucher();
+                    Integer idVoucher = (Integer) rs.getObject("idVoucher");
+                    if (idVoucher != null) {
+                        voucher.setIdVoucher(idVoucher);
+                    } else {
+                        voucher.setIdVoucher(null);
+                    }
+                    // xu ly cho don hang
+                    Order order = new Order();
+                    order.setId(rs.getInt("id"));
+                    order.setTimeOrdered(rs.getObject("timeOrder", LocalDateTime.class));
+                    order.setUser(user);
+                    order.setVoucher(voucher);
+                    order.setStatus(rs.getString("statusOrder"));
+                    order.setTotalPrice(rs.getDouble("totalPrice"));
+                    order.setLastPrice(rs.getDouble("lastPrice"));
+                    return order;
+
+                }).list());
     }
+
 
 }

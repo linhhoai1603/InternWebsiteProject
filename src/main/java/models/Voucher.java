@@ -56,7 +56,11 @@ public class Voucher implements Serializable {
     public void setCode(String code) {
         this.code = code;
     }
-
+    public void setIdVoucher(Integer id) {
+        if (id != null) {
+            this.idVoucher = id;
+        }
+    }
     @Override
     public String toString() {
         return "Voucher{" +

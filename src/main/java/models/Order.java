@@ -105,4 +105,18 @@ public class Order implements Serializable {
         this.totalPrice = totalPrice;
         this.lastPrice = lastPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user.getId() +
+                ", timeOrdered=" + timeOrdered +
+                ", voucher=" + voucher +
+                ", status='" + status + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", lastPrice=" + lastPrice +
+                ", listOfDetailOrder=" + listOfDetailOrder +
+                '}';
+    }
 }
