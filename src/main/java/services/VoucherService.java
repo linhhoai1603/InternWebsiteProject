@@ -28,4 +28,8 @@ public class VoucherService {
         System.out.println(hash);
         System.out.println(bCrypt.checkpw(pass, hash));
     }
+
+    public boolean updateVoucher(String id, double amount, double price) {
+        return voucherDao.updateVoucher(id,amount,price);
+    }
 }

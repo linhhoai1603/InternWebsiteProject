@@ -35,4 +35,22 @@ public class VoucherDao {
                     .mapToBean(Voucher.class).findOne().orElse(null);
         });
     }
+
+    public boolean updateVoucher(String id, double amount, double price) {
+        String query = "UPDATE vouchers SET discountAmount = :amount, conditionAmount = :price WHERE code = :id";
+        try {
+            int rowsUpdated = jdbi.withHandle(handle ->
+                    handle.createUpdate(query)
+                            .bind("amount", amount)
+                            .bind("price", price)
+                            .bind("id", id)
+                            .execute()
+            );
+            return rowsUpdated > 0; // Trả về true nếu có ít nhất một hàng được cập nhật
+        } catch (Exception e) {
+            System.out.println("Lỗi khi cập nhật voucher: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

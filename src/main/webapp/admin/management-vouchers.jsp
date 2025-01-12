@@ -32,7 +32,7 @@
             <input type="hidden" name="voucher_id" value="V001">
             <tr>
                 <td>111</td>
-                <td><input type="number" name="voucher_value" class="form-control" value="500000" required></td>
+                <td><input type="number" name="amount" class="form-control" value="500000" required></td>
                 <td><input type="text" name="voucher_condition" class="form-control" value="Đơn hàng từ 1,000,000 VNĐ" required></td>
                 <td>
                     <button type="submit" class="btn btn-warning">Lưu thay đổi</button>
