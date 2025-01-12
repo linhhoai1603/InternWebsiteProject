@@ -32,9 +32,9 @@ public class AdminManagerVoucher extends HttpServlet {
     private void updateVoucher(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("voucher_id");
         double amount = Double.parseDouble(request.getParameter("amount"));
-        double price = Double.parseDouble(request.getParameter("voucher_condition"));
+        double condition = Double.parseDouble(request.getParameter("voucher_condition"));
         VoucherService voucherService = new VoucherService();
-        if(voucherService.updateVoucher(id,amount,price)){
+        if(voucherService.updateVoucher(id,amount,condition)){
             request.setAttribute("message", "Cập nhật Voucher thành công  ");
         }else {
             request.setAttribute("message", "Cập nhật Voucher thất bại ");
@@ -42,5 +42,14 @@ public class AdminManagerVoucher extends HttpServlet {
     }
 
     private void addVoucher(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        double amount = Double.parseDouble(request.getParameter("amount"));
+        double condition = Double.parseDouble(request.getParameter("condition"));
+        VoucherService voucherService = new VoucherService();
+        if(voucherService.addVoucher(id,amount,condition)){
+            request.setAttribute("message", "Thêm Voucher thành công  ");
+        }else {
+            request.setAttribute("message", "Thêm Voucher thất bại ");
+        }
     }
 }

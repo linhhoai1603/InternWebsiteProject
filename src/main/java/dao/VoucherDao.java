@@ -53,4 +53,22 @@ public class VoucherDao {
         }
     }
 
+    public boolean addVoucher(String code, String id, double amount, double condition) {
+        String query = "INSERT INTO vouchers (code, discountAmount, conditionAmount, valid) " +
+                "VALUES (:code, :amount, :condition, 1)";
+        try {
+            int rowsInserted = jdbi.withHandle(handle ->
+                    handle.createUpdate(query)
+                            .bind("code", code)
+                            .bind("amount", amount)
+                            .bind("condition", condition)
+                            .execute()
+            );
+            return rowsInserted > 0; 
+        } catch (Exception e) {
+            System.out.println("Lỗi khi thêm voucher: " + e.getMessage());
+            return false;
+        }
+    }
+
 }
