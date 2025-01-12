@@ -35,4 +35,16 @@ public class VoucherDao {
                     .mapToBean(Voucher.class).findOne().orElse(null);
         });
     }
+
+    public Voucher getVoucherById(int idVoucher) {
+        String query = "SELECT * FROM vouchers WHERE id = ?;";
+        return jdbi.withHandle(handle -> {
+            return handle.createQuery(query)
+                    .bind(0, idVoucher)
+                    .mapToBean(Voucher.class)
+                    .findOne()
+                    .orElse(null);
+        });
+    }
+
 }

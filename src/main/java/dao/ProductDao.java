@@ -7,6 +7,7 @@ import models.Product;
 import models.TechnicalInfo;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class ProductDao {
@@ -535,6 +536,52 @@ public class ProductDao {
                         .list()
         );
     }
+    public int updateProduct(Product product) {
+        // Cập nhật thông tin sản phẩm
+        String updateProductQuery = """
+        UPDATE products 
+        SET name = :name, quantity = :quantity, description = :description
+        WHERE id = :idProduct;
+    """;
+        // Cập nhật thông tin kỹ thuật
+        String updateTechnicalInfoQuery = """
+        UPDATE technical_information 
+        SET specifications = :specifications, manufactureDate = :manufactureDate 
+        WHERE id = :idTechnicalInfo;
+    """;
+
+        // Cập nhật thông tin giá
+        String updatePriceQuery = """
+        UPDATE prices 
+        SET price = :price, discountPercent = :discountPercent
+        WHERE id = :idPrice;
+    """;
+
+        // Thực thi các câu lệnh SQL
+        return jdbi.withHandle(handle -> {
+            handle.createUpdate(updateProductQuery)
+                    .bind("idProduct", product.getId())
+                    .bind("name", product.getName())
+                    .bind("quantity", product.getQuantity())
+                    .bind("description", product.getDescription())
+                    .execute();
+
+            handle.createUpdate(updateTechnicalInfoQuery)
+                    .bind("idTechnicalInfo", product.getTechnicalInfo().getId())
+                    .bind("specifications", product.getTechnicalInfo().getSpecification())
+                    .bind("manufactureDate", product.getTechnicalInfo().getManufactureDate())
+                    .execute();
+
+            handle.createUpdate(updatePriceQuery)
+                    .bind("idPrice", product.getPrice().getId())
+                    .bind("price", product.getPrice().getPrice())
+                    .bind("discountPercent", product.getPrice().getDiscountPercent())
+                    .execute();
+
+            return 1; // Trả về 1 khi thành công
+        });
+    }
+
     public List<Product> getProductByCategory(String name , int psize, int pageNumber) {
 
 

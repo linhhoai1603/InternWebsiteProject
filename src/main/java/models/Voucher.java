@@ -31,8 +31,10 @@ public class Voucher implements Serializable {
         return idVoucher;
     }
 
-    public void setIdVoucher(int id) {
-        this.idVoucher = id;
+    public void setIdVoucher(Integer id) {
+        if (id != null) {
+            this.idVoucher = id;
+        }
     }
 
     public double getDiscountAmount() {
@@ -64,5 +66,8 @@ public class Voucher implements Serializable {
                 ", discountAmount=" + discountAmount +
                 ", amount=" + conditionAmount +
                 '}';
+    }
+    public void setIdVoucher(int idVoucher) {
+        this.idVoucher = idVoucher;
     }
 }

@@ -21,6 +21,9 @@ public class Product implements Serializable {
     //biến mới thêm
     private int totalProduct;
 
+    public Product(int id) {
+        this.id = id;
+    }
 
 
     public int getId() {

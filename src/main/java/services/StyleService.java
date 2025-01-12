@@ -30,4 +30,15 @@ public class StyleService {
         styleDao.updateQuantityForProduct(idProduct, quantity);
     }
 
+    public void deleteStyle(int styleId) {
+        styleDao.deleteStyle(styleId);
+    }
+
+    public void updateStyle(Style newStyle) {
+        styleDao.updateStyle(newStyle);
+    }
+
+    public void addStyle(Style style) {
+        styleDao.addStyle(style);
+    }
 }

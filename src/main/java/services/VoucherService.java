@@ -21,11 +21,8 @@ public class VoucherService {
         return voucherDao.getVoucherByCode(code);
     }
 
-    public static void main(String[] args) {
-        BCrypt bCrypt = new BCrypt();
-        String pass = "123456";
-        String hash = bCrypt.hashpw(pass, bCrypt.gensalt());
-        System.out.println(hash);
-        System.out.println(bCrypt.checkpw(pass, hash));
+
+    public Voucher getVoucherById(int idVoucher) {
+        return voucherDao.getVoucherById(idVoucher);
     }
 }

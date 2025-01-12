@@ -1,7 +1,9 @@
 
 package services;
 
+import dao.DashboardDAO;
 import dao.ProductDao;
+import models.Order;
 import models.Product;
 import models.Style;
 
@@ -191,6 +193,10 @@ public class ProductService {
     public List<Product> getAllProducts(int idCategory, int pageNumber, int pageSize, int option){
         List<Product> products = productDao.getAllProductForAdmin(idCategory, pageNumber, pageSize, option);
         return  products;
+    }
+
+    public void updateProduct(Product product) {
+        productDao.updateProduct(product);
     }
 
 }
