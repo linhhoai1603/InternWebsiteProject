@@ -49,4 +49,8 @@ public class VoucherService {
         String code = generateRandomString(8)+id;
         return voucherDao.addVoucher(code,id,amount,condition);
     }
+
+    public boolean deleteVoucher(int id) {
+        return voucherDao.deleteVoucher(id);
+    }
 }

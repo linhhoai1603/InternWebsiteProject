@@ -12,7 +12,7 @@ public class VoucherDao {
         jdbi = DBConnection.getConnetion();
     }
     public List<Voucher> getAllVouchers() {
-        String query = "SELECT * FROM voucher;";
+        String query = "SELECT * FROM vouchers;";
         return jdbi.withHandle(handle -> {
             return handle.createQuery(query)
                     .mapToBean(Voucher.class)
@@ -64,11 +64,25 @@ public class VoucherDao {
                             .bind("condition", condition)
                             .execute()
             );
-            return rowsInserted > 0; 
+            return rowsInserted > 0;
         } catch (Exception e) {
             System.out.println("Lỗi khi thêm voucher: " + e.getMessage());
             return false;
         }
     }
 
+    public boolean deleteVoucher(int id) {
+        String query = "UPDATE vouchers SET valid = 0 WHERE id = :id";
+        try {
+            int rowsUpdated = jdbi.withHandle(handle ->
+                    handle.createUpdate(query)
+                            .bind("id", id)
+                            .execute()
+            );
+            return rowsUpdated > 0; // Trả về true nếu có ít nhất một hàng được cập nhật
+        } catch (Exception e) {
+            System.out.println("Lỗi khi xóa voucher: " + e.getMessage());
+            return false; // Trả về false nếu có lỗi
+        }
+    }
 }

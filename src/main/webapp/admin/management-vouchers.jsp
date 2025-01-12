@@ -27,14 +27,13 @@
         </tr>
         </thead>
         <tbody>
-
+        <c:forEach var="voucher" items="${requestScope.vouchers}">
             <tr>
-                <c:forEach var="voucher" items="vouchers">
                 <form action="${pageContext.request.contextPath}/admin/manager-voucher?method=update" method="post">
                     <input type="hidden" name="voucher_id" value="${voucher.id}">
                 <td>111</td>
                 <td><input type="number" name="amount" class="form-control" value="${voucher.discountAmount}" required></td>
-                <td><input type="number" name="amount" class="form-control" value="${voucher.conditionAmount}" required></td>
+                <td><input type="number" name="voucher_condition" class="form-control" value="${voucher.conditionAmount}" required></td>
                 <td>
                     <button type="submit" class="btn btn-warning">Lưu thay đổi</button>
                 </td>
@@ -46,9 +45,9 @@
                     </form>
 
                 </td>
-                </c:forEach>
-            </tr>
 
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>
