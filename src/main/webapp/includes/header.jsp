@@ -56,11 +56,11 @@
                 %>
                 <div class="dropdown d-inline-block">
                     <a href="#" class="btn text-white btn-bg dropdown-toggle" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>&nbsp;${sessionScope.account.username}
+                        <i class="fa-solid fa-user"></i>&nbsp;Cá nhân
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
                         <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/personal-servlet">
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/personal-inf">
                                 Hồ sơ
                             </a>
                         </li>

@@ -1,7 +1,7 @@
 package controllers;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.*;
 import models.User;
 import services.UploadService;
@@ -10,7 +10,7 @@ import services.UserInForServies;
 import java.io.File;
 import java.io.IOException;
 
-@WebServlet(name="avatar")
+@MultipartConfig
 public class AvatarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -28,19 +28,19 @@ public class AvatarServlet extends HttpServlet {
             return;
         }
 
-        // Lấy file từ form và lưu vào tạm thời
-        Part filePart = request.getPart("avarta");
+
+        Part filePart = request.getPart("avatar");
         String fileName = filePart.getSubmittedFileName();
         File tempFile = new File("/tmp/" + fileName);
         filePart.write(tempFile.getAbsolutePath());
 
-        // Upload ảnh lên Cloud (hoặc máy chủ)
+
         UploadService us = new UploadService();
         String url = us.uploadCloud(fileName, tempFile);
 
         UserInForServies usf = new UserInForServies();
         if (url != null) {
-            // Cập nhật avatar của người dùng
+
             usf.updateAvatar(user.getId(), url);
             user.setImage(url);
             session.setAttribute("user", user);
@@ -51,10 +51,10 @@ public class AvatarServlet extends HttpServlet {
             request.setAttribute("messageType", "error");
         }
 
-        // Lấy URL của trang trước đó để chuyển hướng
+
         String redirectTo = request.getHeader("Referer");
 
-        // Chuyển hướng về trang cũ (hoặc trang người dùng)
+
         if (redirectTo != null) {
             response.sendRedirect(redirectTo); // Chuyển hướng về trang trước đó
         } else {

@@ -32,7 +32,7 @@
 
         <div class="col-md-3 text-center">
           <div class="col-md-6 avatar-container">
-            <form action="personal" method="post" enctype="multipart/form-data" id="avatarForm">
+            <form action="avatar" method="post" enctype="multipart/form-data" id="avatarForm">
             <!-- Hiển thị ảnh người dùng -->
             <img src="${sessionScope.user.image}" alt="User Avatar" id="userAvatar" class="img-fluid rounded-circle">
 
@@ -47,7 +47,7 @@
 
       <!-- Cột thông tin người dùng -->
       <div class="col-md-9">
-        <form action="personal-servlet" method="post">
+        <form action="personal-inf" method="post">
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email" value="${sessionScope.user.email}" required>

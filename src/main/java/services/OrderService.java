@@ -3,6 +3,8 @@ package services;
 import dao.OrderDAO;
 import models.Order;
 
+import java.util.ArrayList;
+
 public class OrderService {
     OrderDAO dao;
     public OrderService(){
@@ -20,6 +22,9 @@ public class OrderService {
             default:
                 return "Unknown";
         }
+    }
+    public ArrayList<Order> getAllOrders() {
+        return dao.getAllOrders();
     }
 
 }

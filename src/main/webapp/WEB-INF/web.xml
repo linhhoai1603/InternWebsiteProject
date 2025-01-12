@@ -3,19 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
-<!--    <servlet>-->
-<!--        <servlet-name>PersonalServlet</servlet-name>-->
-<!--        <servlet-class>controllers.PersonalServlet</servlet-class>-->
-<!--        <multipart-config>-->
-<!--            <max-file-size>10485760</max-file-size> &lt;!&ndash; Tối đa kích thước tệp 10MB &ndash;&gt;-->
-<!--            <max-request-size>20971520</max-request-size> &lt;!&ndash; Tối đa kích thước yêu cầu 20MB &ndash;&gt;-->
-<!--            <file-size-threshold>0</file-size-threshold> &lt;!&ndash; Tạo tệp tạm khi đạt kích thước này &ndash;&gt;-->
-<!--        </multipart-config>-->
-<!--    </servlet>-->
+    <servlet>
+        <servlet-name>AvatarServlet</servlet-name>
+        <servlet-class>controllers.AvatarServlet</servlet-class>
+        <multipart-config>
+            <max-file-size>10485760</max-file-size> <!-- Tối đa kích thước tệp 10MB -->
+            <max-request-size>20971520</max-request-size> <!-- Tối đa kích thước yêu cầu 20MB -->
+            <file-size-threshold>0</file-size-threshold> <!-- Tạo tệp tạm khi đạt kích thước này -->
+        </multipart-config>
+    </servlet>
 
-<!--    <servlet-mapping>-->
-<!--        <servlet-name>PersonalServlet</servlet-name>-->
-<!--        <url-pattern>/personal</url-pattern>-->
-<!--    </servlet-mapping>-->
+    <servlet-mapping>
+        <servlet-name>AvatarServlet</servlet-name>
+        <url-pattern>/avatar</url-pattern>
+    </servlet-mapping>
 
 </web-app>
