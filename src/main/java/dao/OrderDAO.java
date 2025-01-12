@@ -4,6 +4,9 @@ import connection.DBConnection;
 import models.Order;
 import org.jdbi.v3.core.Jdbi;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class OrderDAO {
     Jdbi jdbi;
@@ -26,6 +29,14 @@ public class OrderDAO {
                     .mapTo(Integer.class)
                     .findOnly();
         });
+    }
+    public ArrayList<Order> getAllOrders() {
+        String query = "SELECT * FROM orders";
+        return jdbi.withHandle(handle ->
+                new ArrayList<>(handle.createQuery(query)
+                        .mapTo(Order.class)
+                        .list())
+        );
     }
 
 }

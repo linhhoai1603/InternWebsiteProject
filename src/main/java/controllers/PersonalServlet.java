@@ -11,7 +11,7 @@ import services.UserInForServies;
 import java.io.File;
 import java.io.IOException;
 
-@WebServlet(name ="Personal", value="personal-inf")
+@WebServlet( value="/personal-inf")
 public class PersonalServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

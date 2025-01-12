@@ -7,14 +7,29 @@ import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.AccountUser;
 import models.Cart;
 import models.Product;
+import models.User;
+import services.AccountService;
+import services.AuthenServies;
 import services.ProductService;
 import services.VoucherService;
+import services.application.HashUtil;
 
 @WebServlet(name = "HomeServlet", value = "/home")
 public class HomeServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        // lúc làm admin
+//        AuthenServies authen = new AuthenServies();
+//        AccountUser acc = authen.checkLogin("linhhoai", HashUtil.encodePasswordBase64("linhhoai"));
+//        User user = acc.getUser();
+//        request.getSession().setAttribute("user", user);
+//        request.getSession().setAttribute("account", acc);
+         // bỏ qua bưoc đăng nhập
+
+
         ProductService ps = new ProductService();
         HttpSession session = request.getSession();
         // tạo ra shopping cart của người dùng
