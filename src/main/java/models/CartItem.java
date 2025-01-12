@@ -5,13 +5,15 @@ import java.util.Map;
 
 public class CartItem {
     private Style style;
+    private double price;
     private int quantity;
     private double totalPrice;
     private double area;
     public CartItem(Style product, int quantity) {
         this.style = product;
+        this.price = product.getProduct().getPrice().getLastPrice();
         this.quantity = quantity;
-        this.totalPrice = quantity * product.getProduct().getPrice().getLastPrice();
+        this.totalPrice = quantity * price;
     }
     public Style getStyle() {
         return style;
