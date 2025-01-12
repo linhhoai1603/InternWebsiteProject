@@ -122,7 +122,7 @@
                 </div>
             </div>
 
-            <!-- Form to Submit Data -->
+
             <form action="cart?method=add" method="post">
                 <input name="currentURL" type="hidden" value="detail-product?productId=${requestScope.product.id}">
                 <input type="hidden" name="selectedStyle" id="selectedStyle" value="">
@@ -140,7 +140,10 @@
                         THÊM VÀO GIỎ
                     </button>
                 </div>
-
+            </form>
+            <form action="payment?methob=buy" method="post">
+                <input type="hidden" name="selectedStyle" id="selectedStyle1" value="">
+                <input type="number" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 50px" min="1">
                 <button type="submit" class="btn btn-custom w-100" style="background-color: #339c87">
                     MUA NGAY
                 </button>
@@ -176,11 +179,12 @@
     document.addEventListener('DOMContentLoaded', function () {
         const colorOptions = document.querySelectorAll('.color-option');
         const selectedStyleInput = document.getElementById('selectedStyle');
-
+        const selectedStyleInput1 = document.getElementById('selectedStyle1');
         // Khởi tạo giá trị ban đầu (style đầu tiên)
         if (colorOptions.length > 0) {
             colorOptions[0].classList.add('selected-style'); // Chọn style đầu tiên
             selectedStyleInput.value = colorOptions[0].getAttribute('data-style-id');
+            selectedStyleInput1.value = colorOptions[0].getAttribute('data-style-id');
         }
 
         // Cập nhật giá trị khi chọn style
@@ -194,6 +198,7 @@
 
                 // Cập nhật giá trị input
                 selectedStyleInput.value = this.getAttribute('data-style-id');
+                selectedStyleInput1.value = this.getAttribute('data-style-id');
             });
         });
     });
