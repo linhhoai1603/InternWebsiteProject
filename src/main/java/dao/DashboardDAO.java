@@ -40,9 +40,7 @@ public class DashboardDAO {
                         .findOne().orElse(0.0)  // Return 0.0 if there is no result
         );
     }
-
-
-
+    
     public int getNumberOfOrders() {
         String query = "SELECT COUNT(*) FROM orders";
         return jdbi.withHandle(handle -> handle.createQuery(query).mapTo(Integer.class).one());
