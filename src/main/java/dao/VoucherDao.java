@@ -19,14 +19,28 @@ public class VoucherDao {
                     .list();
         });
     }
-    public List<Voucher> getVoucherByValid(int valid){
-        String query = "SELECT * FROM vouchers WHERE valid = ?;";
-        return jdbi.withHandle(handle -> {
-            return handle.createQuery(query)
-                    .bind(0, valid)
-                    .mapToBean(Voucher.class).list();
-        });
+    public List<Voucher> getVoucherByValid(int valid) {
+        String query = "SELECT * FROM vouchers WHERE valid = :valid;";
+        try {
+            return jdbi.withHandle(handle ->
+                    handle.createQuery(query)
+                            .bind("valid", valid)
+                            .map((rs, ctx) -> {
+                                Voucher voucher = new Voucher();
+                                voucher.setIdVoucher(rs.getInt("idVoucher"));
+                                voucher.setCode(rs.getString("code"));
+                                voucher.setDiscountAmount(rs.getDouble("amount"));
+                                voucher.setConditionAmount(rs.getDouble("condition_amount"));
+                                voucher.setValid(rs.getInt("valid"));
+                                return voucher;
+                            }).list()
+            );
+        } catch (Exception e) {
+            System.out.println("Lỗi khi lấy danh sách voucher: " + e.getMessage());
+            return null;
+        }
     }
+
     public Voucher getVoucherByCode(String code){
         String query = "SELECT * FROM vouchers WHERE code = ?;";
         return jdbi.withHandle(handle -> {
@@ -37,7 +51,7 @@ public class VoucherDao {
     }
 
     public boolean updateVoucher(String id, double amount, double price) {
-        String query = "UPDATE vouchers SET discountAmount = :amount, conditionAmount = :price WHERE code = :id";
+        String query = "UPDATE vouchers SET amount = :amount, condition_amount = :price WHERE idVoucher = :id";
         try {
             int rowsUpdated = jdbi.withHandle(handle ->
                     handle.createUpdate(query)
@@ -53,12 +67,14 @@ public class VoucherDao {
         }
     }
 
-    public boolean addVoucher(String code, String id, double amount, double condition) {
-        String query = "INSERT INTO vouchers (code, discountAmount, conditionAmount, valid) " +
-                "VALUES (:code, :amount, :condition, 1)";
+    public boolean addVoucher(String code, int id, double amount, double condition) {
+
+        String query = "INSERT INTO vouchers (idVoucher,code, amount, condition_amount, valid) " +
+                "VALUES (:id,:code, :amount, :condition, 1)";
         try {
             int rowsInserted = jdbi.withHandle(handle ->
                     handle.createUpdate(query)
+                            .bind("id", id)
                             .bind("code", code)
                             .bind("amount", amount)
                             .bind("condition", condition)
@@ -72,7 +88,7 @@ public class VoucherDao {
     }
 
     public boolean deleteVoucher(int id) {
-        String query = "UPDATE vouchers SET valid = 0 WHERE id = :id";
+        String query = "UPDATE vouchers SET valid = 0 WHERE idVoucher = :id";
         try {
             int rowsUpdated = jdbi.withHandle(handle ->
                     handle.createUpdate(query)

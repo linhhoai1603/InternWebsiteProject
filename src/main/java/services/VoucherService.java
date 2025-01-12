@@ -45,7 +45,8 @@ public class VoucherService {
         return randomString.toString();
     }
 
-    public boolean addVoucher(String id, double amount, double condition) {
+    public boolean addVoucher(double amount, double condition) {
+        int id = getAllVouchers().size()+1;
         String code = generateRandomString(8)+id;
         return voucherDao.addVoucher(code,id,amount,condition);
     }

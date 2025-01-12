@@ -30,8 +30,8 @@
         <c:forEach var="voucher" items="${requestScope.vouchers}">
             <tr>
                 <form action="${pageContext.request.contextPath}/admin/manager-voucher?method=update" method="post">
-                    <input type="hidden" name="voucher_id" value="${voucher.id}">
-                <td>111</td>
+                    <input type="hidden" name="voucher_id" value="${voucher.idVoucher}">
+                <td>${voucher.code}</td>
                 <td><input type="number" name="amount" class="form-control" value="${voucher.discountAmount}" required></td>
                 <td><input type="number" name="voucher_condition" class="form-control" value="${voucher.conditionAmount}" required></td>
                 <td>
@@ -40,7 +40,7 @@
                 </form>
                 <td>
                     <form action="${pageContext.request.contextPath}/admin/manager-voucher?method=delete" method="post">
-                        <input type="hidden" name="voucher_id" value="${voucher.id}">
+                        <input type="hidden" name="voucher_id" value="${voucher.idVoucher}">
                         <button type="submit" class="btn btn-danger">Xóa</button>
                     </form>
 
@@ -63,12 +63,6 @@
             <div class="modal-body">
                 <!-- Form Thêm Voucher -->
                 <form action="${pageContext.request.contextPath}/admin/manager-voucher?method=add" method="post">
-                    <!-- Mã Voucher -->
-                    <div class="mb-3">
-                        <label for="voucherCode" class="form-label">Mã Voucher</label>
-                        <input type="text" class="form-control" id="voucherCode" name="id" required>
-                    </div>
-
                     <!-- Số Tiền -->
                     <div class="mb-3">
                         <label for="voucherAmount" class="form-label">Số Tiền</label>
@@ -78,7 +72,7 @@
                     <!-- Điều Kiện Sử Dụng -->
                     <div class="mb-3">
                         <label for="voucherCondition" class="form-label">Điều Kiện Sử Dụng</label>
-                        <textarea class="form-control" id="voucherCondition" name="condition" rows="3" required></textarea>
+                        <input type="number" class="form-control" id="voucherCondition" name="condition" rows="3" required>
                     </div>
 
                     <div class="text-center">

@@ -56,11 +56,10 @@ public class AdminManagerVoucher extends HttpServlet {
     }
 
     private void addVoucher(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("id");
         double amount = Double.parseDouble(request.getParameter("amount"));
         double condition = Double.parseDouble(request.getParameter("condition"));
         VoucherService voucherService = new VoucherService();
-        if(voucherService.addVoucher(id,amount,condition)){
+        if(voucherService.addVoucher(amount,condition)){
             request.setAttribute("message", "Thêm Voucher thành công  ");
             doGet(request,response);
         }else {
