@@ -15,9 +15,9 @@
     <div class="row mb-4">
         <div class="col-md-6">
             <p><strong>Mã Đơn Hàng:</strong> ${requestScope.order.id}</p>
-            <p><strong>Thời Gian Đặt:</strong> ${requestScope.order.id}</p>
-            <p><strong>Trạng Thái Đơn Hàng:</strong> ${requestScope.order.id}</p>
-            <p><strong>Tổng Giá Trị:</strong> ${requestScope.order.id}</p>
+            <p><strong>Thời Gian Đặt:</strong> ${requestScope.order.timeOrdered}</p>
+            <p><strong>Trạng Thái Đơn Hàng:</strong> ${requestScope.order.status}</p>
+            <p><strong>Tổng Giá Trị:</strong> <fmt:formatNumber value="${requestScope.order.lastPrice}" type="number" />₫</p>
         </div>
     </div>
 

@@ -19,12 +19,23 @@
 
 
     <div class="row my-3">
-        <div class="col-md-8"></div>
+        <div class="col-md-8">
+            <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}" />
+            <c:if test="${not empty error}">
+                <script type="text/javascript">
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Thông báo',
+                        text: "${error}"
+                    });
+                </script>
+            </c:if>
+        </div>
         <div class="col-md-4">
-            <form method="post" action="search-order" class="d-flex float-end w-100">
+            <form method="post" action="${pageContext.request.contextPath}/admin/manager-order" class="d-flex float-end w-100">
                 <div class="row w-100">
                     <div class="col-md-8">
-                        <input type="text" placeholder="Tìm theo mã đơn hàng" name="searchOrder" class="form-control me-2">
+                        <input type="text" placeholder="Tìm theo mã đơn hàng" name="idOrder" class="form-control me-2">
                     </div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-primary w-100">Tìm kiếm</button>

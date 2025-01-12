@@ -10,7 +10,7 @@ import services.OrderService;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(value = "/admin/manager-order")
+@WebServlet(name = "manager-order", value = "/admin/manager-order")
 public class AdminManagerOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,6 +23,26 @@ public class AdminManagerOrder extends HttpServlet {
         request.setAttribute("loca", loca);
 
         request.getRequestDispatcher("management-orders.jsp").forward(request, response);
+    }
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try{
+            int id = Integer.parseInt(request.getParameter("idOrder"));
+            OrderService os = new OrderService();
+            Order order = os.getOrder(id);
+
+            if(order == null){
+                request.setAttribute("error", "Đơn hàng không tồn tại");
+                request.getRequestDispatcher("management-orders.jsp").forward(request, response);
+                return;
+            }else {
+                response.sendRedirect(request.getContextPath() + "/admin/order-detail?orderId="+order.getId());
+            }
+
+        }catch (NumberFormatException e){
+            request.setAttribute("error", "Không tồn mã đơn hang");
+            request.getRequestDispatcher("management-orders.jsp").forward(request, response);
+        }
     }
 
 }
