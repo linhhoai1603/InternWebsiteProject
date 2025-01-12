@@ -7,7 +7,6 @@ import org.jdbi.v3.core.Jdbi;
 
 public class AddressDao {
     Jdbi jdbi;
-    Handle handle;
     public AddressDao() {
         jdbi = DBConnection.getConnetion();
     }
