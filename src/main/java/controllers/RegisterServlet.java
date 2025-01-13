@@ -70,8 +70,8 @@ public class RegisterServlet extends HttpServlet {
                     "default.png"
             );
 
-            request.setAttribute("success", "Đăng ký tài khoản thành công!");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.setAttribute("error", "Đăng ký tài khoản thành công!");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
 
         } catch (RuntimeException e) {
             request.setAttribute("error", e.getMessage());

@@ -19,13 +19,13 @@ public class OrderService {
         return dao.insertOrder(order);
     }
 
-    public List<Order> getOrderByUserId(int id){
+    public List<Order> getOrderByUserId(int id) {
         List<Order> orders = dao.getOrdersByUserId(id);
         OrderDetailService orderDetailService = new OrderDetailService();
-        for(Order order : orders){
+        for (Order order : orders) {
             order.setListOfDetailOrder(orderDetailService.getOrderDetailByOrder(order.getId()));
         }
-
+        return orders;
     }
     public Order getOrder(int orderId){
         OrderDetailService orderService = new OrderDetailService();
@@ -35,7 +35,7 @@ public class OrderService {
 
     }
     public List<Order> getAllOrders() {
-        return dao.getAllOder();
+        return dao.getAllOrders();
     }
     public int getNuPage(int nu) {
         int nuOder = getAllOrders().size();
