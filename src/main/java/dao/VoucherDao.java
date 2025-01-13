@@ -29,7 +29,7 @@ public class VoucherDao {
                                 Voucher voucher = new Voucher();
                                 voucher.setIdVoucher(rs.getInt("idVoucher"));
                                 voucher.setCode(rs.getString("code"));
-                                voucher.setDiscountAmount(rs.getDouble("amount"));
+                                voucher.setDiscountAmount(rs.getDouble("discountAmount"));
                                 voucher.setConditionAmount(rs.getDouble("condition_amount"));
                                 voucher.setValid(rs.getInt("valid"));
                                 return voucher;
