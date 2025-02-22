@@ -1,0 +1,18 @@
+.bg {
+    background-color: #4FD0B6;
+}
+
+.btn:hover {
+    background-color: #4FD0B6;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+.intro{
+    height: 25px;
+}
+.btn-bg{
+    background-color: #339C87 !important;
+    color: white;
+}

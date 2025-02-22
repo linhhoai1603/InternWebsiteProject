@@ -1,0 +1,39 @@
+
+.title{
+    color:#2c8b73;
+
+}
+
+
+/* Ẩn input file mặc định */
+.file-input {
+    display: none;
+}
+
+/* Nút chọn ảnh custom */
+.file-label{
+    display: inline-block;
+    background-color: #4fd0b6;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+}
+
+.file-label:hover {
+    background-color: #36b09c;
+}
+
+.file-label:active {
+    background-color: #298d76;
+}
+
+/* Hiển thị hình ảnh sau khi chọn */
+.avatar-container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
