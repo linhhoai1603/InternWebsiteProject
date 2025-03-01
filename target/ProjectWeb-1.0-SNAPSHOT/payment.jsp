@@ -49,7 +49,7 @@
 
     <div id="inputVoucher">
       <h5>Nếu bạn có mã giảm giá, vui lòng điền vào phía bên dưới.</h5>
-      <form action="payment?method=applyVoucher" method="post">
+      <form action="payment-products?method=applyVoucher" method="post">
         <input name="code" type="text" placeholder="Mã ưu đãi" style="padding: 10px" />
         <button type="submit" class="btn btn-primary">Áp dụng</button>
       </form>
