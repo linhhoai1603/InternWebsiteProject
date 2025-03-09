@@ -16,3 +16,8 @@ body {
     background-color: #339C87 !important;
     color: white;
 }
+/* CSS cho badge giỏ hàng */
+.cart-count {
+    font-size: 0.75rem;
+    transform: translate(-50%, -50%);
+}
