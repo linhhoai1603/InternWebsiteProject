@@ -315,9 +315,6 @@
       <option name="catalinaBase" value="C:\Users\hoai1\.SmartTomcat\ProjectWeb\ProjectWeb" />
       <option name="contextPath" value="/ProjectWeb" />
       <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="tomcatInfo">
         <TomcatInfo>
@@ -342,9 +339,6 @@
       <option name="catalinaBase" value="" />
       <option name="contextPath" value="" />
       <option name="docBase" value="" />
-      <option name="envOptions">
-        <map />
-      </option>
       <option name="extraClassPath" value="" />
       <option name="tomcatInfo">
         <TomcatInfo>
