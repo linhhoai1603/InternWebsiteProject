@@ -1,5 +1,6 @@
 <!-- filepath: /path/to/header.jsp -->
 <%@ page import="models.User" %>
+<%@ page import="models.Cart" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="includes/css/header.css">
 <%@ include file="link/headLink.jsp" %>
@@ -38,8 +39,19 @@
                 <!-- End Search Form -->
             </div>
             <div class="col-md-5 text-center pt-4">
-                <a href="shopping-cart.jsp" class="btn text-white btn-bg" id="shoppingCart">
+                <%
+                    // Kiểm tra xem cart có tồn tại trong session không
+                    Cart cart = (Cart) session.getAttribute("cart");
+                    int cartCount = 0;
+                    if (cart != null) {
+                        cartCount = cart.getTotalQuantity(); // Giả sử Cart có phương thức getTotalItems()
+                    }
+                %>
+                <a href="shopping-cart.jsp" class="btn text-white btn-bg position-relative" id="shoppingCart">
                     <i class="fa-solid fa-cart-shopping"></i>&nbsp;Giỏ hàng
+                    <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger cart-count">
+                        <%= cartCount %>
+                    </span>
                 </a>
                 <%
                     User user = (User) session.getAttribute("user");
