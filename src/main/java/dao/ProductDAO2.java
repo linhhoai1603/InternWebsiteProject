@@ -145,11 +145,30 @@ public class ProductDAO2 {
         );
 
     }
+    public int countProducts() {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT COUNT(*) FROM products")
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+    public int countProductsByCategoryName(String categoryName) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT COUNT(*) FROM products p " +
+                                "JOIN categories c ON p.idCategory = c.id " +
+                                "WHERE c.name = :categoryName")
+                        .bind("categoryName", categoryName) // Truyền tham số categoryName vào SQL
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
 
     public static void main(String[] args) {
         ProductDAO2 dao = new ProductDAO2();
         //System.out.println(dao.getAllProducts(1, 10,""));
-        System.out.println (dao.getProductByCategoryName("Vải may mặc",1, 10,""));
+        //System.out.println (dao.getProductByCategoryName("Vải may mặc",1, 10,""));
+        //System.out.println(dao.countProducts());
+        System.out.println(dao.countProductsByCategoryName("Dây kéo"));
     }
 
 }
