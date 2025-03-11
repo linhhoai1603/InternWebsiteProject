@@ -15,6 +15,7 @@ public class ProductService {
     public ProductService() {
         productDao = new ProductDao();
     }
+
     public int getNumberOfPage(int idCategory, int pageSize){
         return productDao.getNumberPageProductByCategory(idCategory, pageSize);
     }
