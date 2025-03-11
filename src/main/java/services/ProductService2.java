@@ -16,6 +16,7 @@ public class ProductService2 {
     }
 
     public int getNuPage(int nuPerPage) {
+
         return nuPerPage;
     }
 }
