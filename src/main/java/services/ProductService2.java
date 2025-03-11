@@ -16,7 +16,19 @@ public class ProductService2 {
     }
 
     public int getNuPage(int nuPerPage) {
+        int nu = productDao.countProducts();
+        int nuPage = nu % nuPerPage > 0
+                ? nu / nuPerPage
+                : nu / nuPerPage + 1 ;
 
-        return nuPerPage;
+        return nuPage;
+    }
+    public int getNuPerPage(int nuPerPage , String category) {
+        int nu = productDao.countProductsByCategoryName(category);
+        int nuPage = nu % nuPerPage > 0
+                ? nu / nuPerPage
+                : nu / nuPerPage + 1 ;
+
+        return nuPage;
     }
 }
