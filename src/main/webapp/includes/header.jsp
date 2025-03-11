@@ -67,7 +67,8 @@
                 } else {
                 %>
                 <div class="dropdown d-inline-block">
-                    <a href="#" class="btn text-white btn-bg dropdown-toggle" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" class="btn text-white btn-bg dropdown-toggle" id="accountDropdown"
+                       data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-user"></i>&nbsp;Cá nhân
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="accountDropdown">
@@ -101,6 +102,17 @@
                 <%
                     }
                 %>
+
+                <!-- translate -->
+                <form action="<c:url value="/ChangeLanguage"/>" method="get" style="display: inline-block;">
+                    <select id="langSelect" name="lang" class="form-select me-2" style="width: 100px;"
+                            onchange="this.form.submit()">
+                        <option value="en" ${sessionScope.lang == 'en' ? 'selected' : ''}>English</option>
+                        <option value="vi" ${sessionScope.lang == 'vi' ? 'selected' : ''}>Tiếng Việt</option>
+                    </select>
+                </form>
+                <!-- end translate -->
+
             </div>
         </div>
     </div>
