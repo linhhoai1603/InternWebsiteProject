@@ -10,16 +10,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/ChangeLanguage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/translate/messages_en.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/translate/messages_vi.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/content.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/content.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/translate/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/translate/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/translate/messages_vi.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/translate/messages_vi.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/button-up.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/button-up.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/changePassword.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/changePassword.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/confirm-code.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/confirm-code.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/confirm-email.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/confirm-email.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/contact.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/contact.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/design-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/design-product.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/detail-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/detail-product.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/fabric-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/fabric-product.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/footer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/footer.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/voucher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/voucher.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/slides.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/slides.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/ordered.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/ordered.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/payment-success.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/payment-success.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/payment.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/payment.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/police-return.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/police-return.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/products.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/products.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/register.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/register.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/reset-password.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/reset-password.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/shopping-cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/shopping-cart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/user.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/zipstar-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/zipstar-product.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +133,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "E:/Nam 3 HK2/project_web_fabric/InternWebsiteProject/src/main/resources",
+    "last_opened_file_path": "E:/Nam 3 HK2/Web_final/InternWebsiteProject",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -476,6 +493,7 @@
       <workItem from="1741448989009" duration="2451000" />
       <workItem from="1741498960212" duration="8426000" />
       <workItem from="1741677772880" duration="523000" />
+      <workItem from="1741745815074" duration="12661000" />
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />
@@ -513,6 +531,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modify register controller" />
     <option name="LAST_COMMIT_MESSAGE" value="modify register controller" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/webapp/includes/content.jsp</url>
+          <line>441</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
