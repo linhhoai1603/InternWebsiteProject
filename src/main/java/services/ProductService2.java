@@ -29,12 +29,14 @@ public class ProductService2 {
     }
 
     public List<Product> getProducts(String selection, int currentPage, int nuPerPage, String option ,String minPrice,String maxPrice) {
+        // Check price range selection
         if(minPrice != null && maxPrice != null){
             if(selection.equals("all"))
-                return productDao.getAllProductByPriceRange(selection, currentPage, nuPerPage, option , minPrice,maxPrice);
+                return productDao.getAllProductByPriceRange(currentPage, nuPerPage, option , minPrice,maxPrice);
             else
                 return productDao.getProductByPriceRange(selection, currentPage, nuPerPage, option , minPrice,maxPrice);
         }
+        // check type category has been selected
         if(selection.equals("all") || selection == null)
             return getAllProducts(nuPerPage,nuPerPage,option);
         else
