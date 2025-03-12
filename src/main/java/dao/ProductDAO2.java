@@ -82,8 +82,7 @@ public class ProductDAO2 {
                         .list()
         );
     }
-    public List<Product> getProductByCategoryName(String nameCategory, int currentPage, int nuPerPage , String option) {
-
+    public List<Product> getProductByCategoryName(String selection, int currentPage, int nuPerPage , String option) {
         int offset = (currentPage - 1) * nuPerPage;
         String sql = """
         SELECT
@@ -99,17 +98,17 @@ public class ProductDAO2 {
             prices pr ON p.idPrice = pr.id
         LEFT JOIN
             technical_information ti ON p.idTechnical = ti.id
-        WHERE
-            c.name = :categoryName
+        WHERE 
+            c.name = :nameCategory
         ORDER BY p.id
         LIMIT :nuPerPage OFFSET :offset
     """;
 
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
-                        .bind("categoryName", nameCategory)
                         .bind("nuPerPage", nuPerPage)
-                        .bind("offset", offset) // Chắc chắn truyền giá trị offset
+                        .bind("offset", offset)
+                        .bind("nameCategory", selection)
                         .map((rs, ctx) -> {
                             Product product = new Product();
                             product.setId(rs.getInt("id"));
@@ -166,9 +165,16 @@ public class ProductDAO2 {
     public static void main(String[] args) {
         ProductDAO2 dao = new ProductDAO2();
         //System.out.println(dao.getAllProducts(1, 10,""));
-        //System.out.println (dao.getProductByCategoryName("Vải may mặc",1, 10,""));
+        System.out.println (dao.getProductByCategoryName("all",1, 10,""));
         //System.out.println(dao.countProducts());
         System.out.println(dao.countProductsByCategoryName("Dây kéo"));
     }
 
+    public List<Product> getProductByPriceRange(String selection, int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
+        return null;
+    }
+
+    public List<Product> getAllProductByPriceRange(String selection, int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
+        return null;
+    }
 }
