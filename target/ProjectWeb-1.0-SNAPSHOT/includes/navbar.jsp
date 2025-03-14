@@ -34,7 +34,7 @@
                                     class="nav-link text-white"
                                     role="button"
                                     id="dropdownMenuLink"
-                                    href="products.jsp"
+                                    href="total-product.jsp"
                             >
                                 Sản phẩm
                             </a>
