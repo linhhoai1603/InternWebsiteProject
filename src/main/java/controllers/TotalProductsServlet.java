@@ -9,7 +9,7 @@ import jakarta.servlet.annotation.*;
 import models.Product;
 import services.ToTalProductService;
 
-@WebServlet(name = "TatolProductsServlet", value = "/total-product")
+@WebServlet(name = "TotalProductsServlet", value = "/total-product")
 public class TotalProductsServlet extends HttpServlet {
     int nuPerPage = 12;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -19,6 +19,8 @@ public class TotalProductsServlet extends HttpServlet {
         String minPrice = request.getParameter("minPrice");
         String maxPrice = request.getParameter("maxPrice");
 
+        if (selection == null) selection = "all";
+        if (option == null) option = "1";
         int currentPage = (param != null) ? Integer.parseInt(param) : 1;
         if(option.isEmpty() || option == null) option = "Mới nhất";
 
