@@ -107,7 +107,7 @@
 
       <!-- Danh sách sản phẩm -->
       <div class="row product-container">
-        <c:forEach var="product" items="${zippers}">
+        <c:forEach var="product" items="${requestScope.products}">
           <div class="col-md-4 mb-4">
             <div class="card product-item position-relative h-100">
               <!-- Thẻ hiển thị giảm giá -->
@@ -191,58 +191,6 @@
         </c:forEach>
       </div>
 
-      <!-- Phân trang -->
-      <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center mt-3">
-          <!-- Nút Previous -->
-          <c:if test="${currentPage > 1}">
-            <li class="page-item">
-              <a class="page-link" href="<c:url value='?'>
-                <c:param name='option' value='${option}'/>
-                <c:param name='page' value='${currentPage - 1}'/>
-                <c:if test='${minPrice != null || maxPrice != null}'>
-                  <c:param name='minPrice' value='${minPrice}'/>
-                  <c:param name='maxPrice' value='${maxPrice}'/>
-                </c:if>
-              </c:url>">
-                &laquo;
-              </a>
-            </li>
-          </c:if>
-
-          <!-- Danh sách số trang -->
-          <c:forEach var="i" begin="1" end="${pageNumber}">
-            <li class="page-item <c:if test='${i == currentPage}'>active</c:if>">
-              <a class="page-link" href="<c:url value='?'>
-                <c:param name='option' value='${option}'/>
-                <c:param name='page' value='${i}'/>
-                <c:if test='${minPrice != null || maxPrice != null}'>
-                  <c:param name='minPrice' value='${minPrice}'/>
-                  <c:param name='maxPrice' value='${maxPrice}'/>
-                </c:if>
-              </c:url>">
-                  ${i}
-              </a>
-            </li>
-          </c:forEach>
-
-          <!-- Nút Next -->
-          <c:if test="${currentPage < pageNumber}">
-            <li class="page-item">
-              <a class="page-link" href="<c:url value='?'>
-                <c:param name='option' value='${option}'/>
-                <c:param name='page' value='${currentPage + 1}'/>
-                <c:if test='${minPrice != null || maxPrice != null}'>
-                  <c:param name='minPrice' value='${minPrice}'/>
-                  <c:param name='maxPrice' value='${maxPrice}'/>
-                </c:if>
-              </c:url>">
-                &raquo;
-              </a>
-            </li>
-          </c:if>
-        </ul>
-      </nav>
     </div>
   </div>
 </div>
@@ -303,92 +251,6 @@
       });
     });
 
-    // Xử lý nút "Thêm vào giỏ hàng"
-    const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
-    addToCartButtons.forEach(button => {
-      button.addEventListener("click", function () {
-        const form = this.closest(".product-options-form");
-        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
-        const quantityContainer = form.querySelector('.quantity-container');
-        const submitCartButton = form.querySelector('.submit-cart-button');
-
-        // Kiểm tra nếu đã chọn Style
-        if (selectedStyleInput.value) {
-          // Hiển thị số lượng và nút "Xác nhận"
-          quantityContainer.style.display = "block";
-          this.style.display = "none"; // Ẩn nút "Thêm vào giỏ hàng"
-          submitCartButton.style.display = "block"; // Hiển thị nút "Xác nhận"
-        } else {
-          // Hiển thị thông báo yêu cầu chọn Style
-          alert("Vui lòng chọn Style trước khi thêm vào giỏ hàng!");
-        }
-      });
-    });
-
-    // Xử lý khi chọn Style
-    const styleOptions = document.querySelectorAll('.style-option');
-    styleOptions.forEach(option => {
-      option.addEventListener("click", function () {
-        const form = this.closest(".product-options-form");
-        const selectedStyleInput = form.querySelector('input[name="selectedStyle"]');
-        const mainImage = form.closest('.product-item').querySelector('.main-product-image');
-        const styleId = this.getAttribute('data-style-id');
-        const imageUrl = this.getAttribute('data-image-url');
-
-        // Cập nhật Style đã chọn vào input ẩn
-        selectedStyleInput.value = styleId;
-
-        // Thay thế hình ảnh trên Card bằng hình ảnh của Style được chọn
-        if (mainImage) {
-          mainImage.src = imageUrl;
-        } else {
-          console.error("Không tìm thấy phần tử hình ảnh chính.");
-        }
-
-        // Đánh dấu Style được chọn
-        form.querySelectorAll('.style-option').forEach(opt => {
-          opt.classList.remove('selected');
-        });
-        this.classList.add('selected');
-      });
-    });
-
-    // Hiển thị nút Back to Top khi cuộn xuống 300px
-    const backToTopButton = document.getElementById("back-to-top");
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 300) {
-        backToTopButton.classList.add('show');
-      } else {
-        backToTopButton.classList.remove('show');
-      }
-    });
-    backToTopButton.addEventListener("click", () => {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-
-    // Hiển thị thông báo khi thêm vào giỏ hàng thành công hoặc lỗi
-    const alertMessage = document.getElementById("alert-message");
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('message') === 'success') {
-      alertMessage.textContent = "Thêm vào giỏ hàng thành công!";
-      alertMessage.classList.remove('alert-success', 'alert-danger');
-      alertMessage.classList.add('alert-success');
-      alertMessage.style.display = "block";
-      setTimeout(() => {
-        alertMessage.style.display = "none";
-      }, 3000);
-    } else if (urlParams.get('message') === 'error') {
-      alertMessage.textContent = "Đã xảy ra lỗi khi thêm vào giỏ hàng!";
-      alertMessage.classList.remove('alert-success', 'alert-danger');
-      alertMessage.classList.add('alert-danger');
-      alertMessage.style.display = "block";
-      setTimeout(() => {
-        alertMessage.style.display = "none";
-      }, 3000);
-    }
   });
 </script>
 </body>
