@@ -47,44 +47,34 @@
 
 <div class="container my-5">
   <div class="row">
-    <!-- Sidebar bộ lọc -->
-    <div class="col-md-3">
-      <h5>Giá</h5>
+        <!-- Sidebar bộ lọc -->
+        <div class="col-md-3">
+          <h5>Giá</h5>
 
-      <!-- Dưới 10.000đ -->
-      <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price1" data-min="0" data-max="10000"
-               <c:if test="${minPrice != null && minPrice == 0 && maxPrice == 10000}">checked</c:if> >
-        <label class="form-check-label" for="price1">Dưới 10.000đ</label>
-      </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input price-filter" type="checkbox" id="price1" data-min="0" data-max="10000">
+            <label class="form-check-label" for="price1">Dưới 10.000đ</label>
+          </div>
 
-      <!-- 10.000đ - 20.000đ -->
-      <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price2" data-min="10000" data-max="20000"
-               <c:if test="${minPrice != null && minPrice == 10000 && maxPrice == 20000}">checked</c:if> >
-        <label class="form-check-label" for="price2">10.000đ - 20.000đ</label>
-      </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input price-filter" type="checkbox" id="price2" data-min="10000" data-max="50000">
+            <label class="form-check-label" for="price2">10.000đ - 50.000đ</label>
+          </div>
 
-      <!-- 20.000đ - 50.000đ -->
-      <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price3" data-min="20000" data-max="50000"
-               <c:if test="${minPrice != null && minPrice == 20000 && maxPrice == 50000}">checked</c:if> >
-        <label class="form-check-label" for="price3">20.000đ - 50.000đ</label>
-      </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input price-filter" type="checkbox" id="price3" data-min="50000" data-max="100000">
+            <label class="form-check-label" for="price3">50.000đ - 100.000đ</label>
+          </div>
 
-      <!-- 50.000đ - 100.000đ -->
-      <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price4" data-min="50000" data-max="100000"
-               <c:if test="${minPrice != null && minPrice == 50000 && maxPrice == 100000}">checked</c:if> >
-        <label class="form-check-label" for="price4">50.000đ - 100.000đ</label>
-      </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input price-filter" type="checkbox" id="price4" data-min="100000" data-max="200000">
+            <label class="form-check-label" for="price4">100.000đ - 200.000đ</label>
+          </div>
 
-      <!-- Trên 100.000đ -->
-      <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price5" data-min="100000" data-max=""
-               <c:if test="${minPrice != null && minPrice == 100000 && maxPrice == null}">checked</c:if> >
-        <label class="form-check-label" for="price5">Trên 100.000đ</label>
-      </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input price-filter" type="checkbox" id="price5" data-min="200000" data-max="">
+            <label class="form-check-label" for="price5">Trên 200.000đ</label>
+          </div>
     </div>
 
     <!-- Nội dung chính -->
@@ -211,11 +201,9 @@
 <!-- JavaScript -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    // Xử lý lọc giá
     document.querySelectorAll('.price-filter').forEach(filter => {
       filter.addEventListener('change', () => {
         if (filter.checked) {
-          // Bỏ chọn tất cả các checkbox khác
           document.querySelectorAll('.price-filter').forEach(otherFilter => {
             if (otherFilter !== filter) {
               otherFilter.checked = false;
@@ -223,35 +211,56 @@
           });
         }
 
-        // Lấy checkbox được chọn
-        const selectedFilter = Array.from(document.querySelectorAll('.price-filter:checked'))[0];
+        const selectedFilter = document.querySelector('.price-filter:checked');
         let minPrice = null;
         let maxPrice = null;
 
         if (selectedFilter) {
-          minPrice = parseFloat(selectedFilter.getAttribute('data-min'));
-          maxPrice = selectedFilter.getAttribute('data-max') === "" ? null : parseFloat(selectedFilter.getAttribute('data-max'));
+          minPrice = selectedFilter.getAttribute('data-min');
+          maxPrice = selectedFilter.getAttribute('data-max') === "" ? null : selectedFilter.getAttribute('data-max');
         }
 
-        const url = new URL(window.location.href);
+        // Lấy tất cả tham số hiện tại từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Giữ lại các tham số hiện tại
+        const option = urlParams.get('option') || '1';
+        const selection = urlParams.get('selection') || 'all';
+        const currentPage = urlParams.get('currentPage') || '1';
+
+        // Cập nhật tham số lọc giá
+        urlParams.set('isAjax', 'true');
+        urlParams.set('option', option);
+        urlParams.set('selection', selection);
+        urlParams.set('currentPage', currentPage);
         if (minPrice !== null) {
-          url.searchParams.set('minPrice', minPrice);
+          urlParams.set('minPrice', minPrice);
         } else {
-          url.searchParams.delete('minPrice');
+          urlParams.delete('minPrice');
         }
         if (maxPrice !== null) {
-          url.searchParams.set('maxPrice', maxPrice);
+          urlParams.set('maxPrice', maxPrice);
         } else {
-          url.searchParams.delete('maxPrice');
+          urlParams.delete('maxPrice');
         }
 
-        // Reset về trang đầu khi lọc
-        url.searchParams.set('page', 1);
+        // Gửi AJAX request đến Servlet với tất cả tham số
+        fetch('TotalProductsServlet?' + urlParams.toString(), {
+          method: 'GET',
+        })
+                .then(response => response.text()) // Nhận dữ liệu HTML trả về
+                .then(html => {
+                  document.getElementById('product-list').innerHTML = html; // Cập nhật danh sách sản phẩm
+                })
+                .catch(error => console.error('Lỗi tải sản phẩm:', error));
         window.location.href = url.toString();
       });
-    });
 
+    });
   });
+
+
+
 </script>
 </body>
 </html>
