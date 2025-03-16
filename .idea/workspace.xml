@@ -10,9 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
+      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/css/navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/navbar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/navbar.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/translate/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/translate/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/translate/messages_vi.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/translate/messages_vi.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/qc1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/images/qc1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/qc4.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/images/qc4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/images/qc5.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/images/qc5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/content.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/content.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/css/content.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/css/content.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/css/voucher.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/css/voucher.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/slides.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/slides.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/voucher.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/voucher.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +51,9 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/webapp/css/detail-product.css" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="JspContextManager">
+    <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/includes/voucher.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -494,6 +507,8 @@
       <workItem from="1741745815074" duration="12661000" />
       <workItem from="1741941329188" duration="922000" />
       <workItem from="1741942279600" duration="2583000" />
+      <workItem from="1741963367406" duration="777000" />
+      <workItem from="1742117465122" duration="8836000" />
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />
@@ -531,17 +546,6 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modify register controller" />
     <option name="LAST_COMMIT_MESSAGE" value="modify register controller" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/webapp/includes/content.jsp</url>
-          <line>441</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
