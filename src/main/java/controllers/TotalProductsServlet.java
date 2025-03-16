@@ -3,6 +3,7 @@ package controllers;
 import java.io.*;
 import java.util.List;
 
+import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -18,26 +19,38 @@ public class TotalProductsServlet extends HttpServlet {
         String param = request.getParameter("currentPage");
         String minPrice = request.getParameter("minPrice");
         String maxPrice = request.getParameter("maxPrice");
+        boolean isAjax = "true".equals(request.getParameter("isAjax"));
 
         if (selection == null) selection = "all";
         if (option == null) option = "1";
         int currentPage = (param != null) ? Integer.parseInt(param) : 1;
-        if(option.isEmpty() || option == null) option = "Mới nhất";
+        if (option.isEmpty()) option = "Mới nhất";
 
         ToTalProductService ps = new ToTalProductService();
+        List<Product> products = ps.getProducts(selection, currentPage, nuPerPage, option, minPrice, maxPrice);
+        int nupage = ps.getNuPage(nuPerPage, selection);
 
-        List<Product>products = ps.getProducts(selection,currentPage,nuPerPage,option, minPrice, maxPrice);
-        int nupage = ps.getNuPage(nuPerPage,selection);
+        // Nếu là AJAX request => Trả về JSON
+        if (isAjax) {
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
 
-        request.setAttribute("products", products);
-        request.setAttribute("pageNumber", nupage);
-        request.setAttribute("currentPage", currentPage);
-        request.setAttribute("option", option);
-        request.setAttribute("selection", selection);
-        request.setAttribute("minPrice", minPrice);
-        request.setAttribute("maxPrice", maxPrice);
+            Gson gson = new Gson();
+            String jsonResponse = gson.toJson(products);
 
-        request.getRequestDispatcher("total-product.jsp").forward(request, response);
+            response.getWriter().write(jsonResponse);
+        } else {
+            // Nếu không phải AJAX => Load trang bình thường
+            request.setAttribute("products", products);
+            request.setAttribute("pageNumber", nupage);
+            request.setAttribute("currentPage", currentPage);
+            request.setAttribute("option", option);
+            request.setAttribute("selection", selection);
+            request.setAttribute("minPrice", minPrice);
+            request.setAttribute("maxPrice", maxPrice);
+
+            request.getRequestDispatcher("total-product.jsp").forward(request, response);
+        }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);
