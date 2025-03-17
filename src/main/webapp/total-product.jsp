@@ -39,6 +39,19 @@
       z-index: 1000;
       display: none;
     }
+    .pagination .page-item.active .page-link {
+      background-color: #339C87 !important;
+      color: white !important;
+      border-color: #339C87 !important;
+    }
+    .pagination .page-link {
+      color: #339C87;
+    }
+    .pagination .page-link:hover {
+      background-color: #287a6a;
+      color: white;
+      border-color: #287a6a;
+    }
   </style>
 </head>
 <body>
@@ -184,6 +197,34 @@
     </div>
   </div>
 </div>
+<div class="pagination-container mt-4 d-flex justify-content-center">
+  <ul class="pagination pagination-lg">
+    <c:if test="${currentPage > 1}">
+      <li class="page-item">
+        <a class="page-link" href="?currentPage=1&option=${option}&selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}" style="background-color: #339C87; color: white; border-color: #339C87;">&laquo; Đầu</a>
+      </li>
+    </c:if>
+
+    <c:set var="startPage" value="${currentPage - 4 > 1 ? currentPage - 4 : 1}" />
+    <c:set var="endPage" value="${currentPage + 4 < pageNumber ? currentPage + 4 : pageNumber}" />
+
+    <c:forEach begin="${startPage}" end="${endPage}" var="i">
+      <li class="page-item ${i == currentPage ? 'active' : ''}">
+        <a class="page-link" href="?currentPage=${i}&option=${option}&selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}"
+           style="background-color: ${i == currentPage ? '#339C87' : 'white'}; color: ${i == currentPage ? 'white' : '#339C87'}; border-color: #339C87;">
+            ${i}
+        </a>
+      </li>
+    </c:forEach>
+
+    <c:if test="${currentPage < pageNumber}">
+      <li class="page-item">
+        <a class="page-link" href="?currentPage=${pageNumber}&option=${option}&selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}" style="background-color: #339C87; color: white; border-color: #339C87;">Cuối &raquo;</a>
+      </li>
+    </c:if>
+  </ul>
+</div>
+
 
 <!-- Nút Back to Top -->
 <button id="back-to-top" class="back-to-top">
