@@ -10,7 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/AjaxProductServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/TotalProductsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/TotalProductsServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/total-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/total-product.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
     </list>
@@ -25,9 +27,9 @@
         <option value="TypeScript File" />
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="Class" />
         <option value="Servlet" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -457,7 +459,9 @@
       <workItem from="1741937255148" duration="5656000" />
       <workItem from="1742045178219" duration="5241000" />
       <workItem from="1742132237623" duration="4832000" />
-      <workItem from="1742189539644" duration="2028000" />
+      <workItem from="1742189539644" duration="9909000" />
+      <workItem from="1742207366568" duration="1396000" />
+      <workItem from="1742215415159" duration="4765000" />
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />

@@ -19,7 +19,6 @@ public class TotalProductsServlet extends HttpServlet {
         String param = request.getParameter("currentPage");
         String minPrice = request.getParameter("minPrice");
         String maxPrice = request.getParameter("maxPrice");
-        boolean isAjax = "true".equals(request.getParameter("isAjax"));
 
         if (selection == null) selection = "all";
         if (option == null) option = "1";
@@ -30,27 +29,17 @@ public class TotalProductsServlet extends HttpServlet {
         List<Product> products = ps.getProducts(selection, currentPage, nuPerPage, option, minPrice, maxPrice);
         int nupage = ps.getNuPage(nuPerPage, selection);
 
-        // Nếu là AJAX request => Trả về JSON
-        if (isAjax) {
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
+        // Nếu không phải AJAX => Load trang bình thường
+        request.setAttribute("products", products);
+        request.setAttribute("pageNumber", nupage);
+        request.setAttribute("currentPage", currentPage);
+        request.setAttribute("option", option);
+        request.setAttribute("selection", selection);
+        request.setAttribute("minPrice", minPrice);
+        request.setAttribute("maxPrice", maxPrice);
 
-            Gson gson = new Gson();
-            String jsonResponse = gson.toJson(products);
+        request.getRequestDispatcher("total-product.jsp").forward(request, response);
 
-            response.getWriter().write(jsonResponse);
-        } else {
-            // Nếu không phải AJAX => Load trang bình thường
-            request.setAttribute("products", products);
-            request.setAttribute("pageNumber", nupage);
-            request.setAttribute("currentPage", currentPage);
-            request.setAttribute("option", option);
-            request.setAttribute("selection", selection);
-            request.setAttribute("minPrice", minPrice);
-            request.setAttribute("maxPrice", maxPrice);
-
-            request.getRequestDispatcher("total-product.jsp").forward(request, response);
-        }
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);
