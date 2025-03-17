@@ -52,6 +52,24 @@
       color: white;
       border-color: #287a6a;
     }
+    /* Thêm CSS cho loading spinner */
+    .loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      display: none;
+    }
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+    }
   </style>
 </head>
 <body>
@@ -60,56 +78,63 @@
 
 <div class="container my-5">
   <div class="row">
-        <!-- Sidebar bộ lọc -->
-        <div class="col-md-3">
-          <h5>Giá</h5>
+    <!-- Sidebar bộ lọc -->
+    <div class="col-md-3">
+      <h5>Giá</h5>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input price-filter" type="checkbox" id="price1" data-min="0" data-max="10000">
-            <label class="form-check-label" for="price1">Dưới 10.000đ</label>
-          </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price1" data-min="0" data-max="10000">
+        <label class="form-check-label" for="price1">Dưới 10.000đ</label>
+      </div>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input price-filter" type="checkbox" id="price2" data-min="10000" data-max="50000">
-            <label class="form-check-label" for="price2">10.000đ - 50.000đ</label>
-          </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price2" data-min="10000" data-max="50000">
+        <label class="form-check-label" for="price2">10.000đ - 50.000đ</label>
+      </div>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input price-filter" type="checkbox" id="price3" data-min="50000" data-max="100000">
-            <label class="form-check-label" for="price3">50.000đ - 100.000đ</label>
-          </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price3" data-min="50000" data-max="100000">
+        <label class="form-check-label" for="price3">50.000đ - 100.000đ</label>
+      </div>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input price-filter" type="checkbox" id="price4" data-min="100000" data-max="200000">
-            <label class="form-check-label" for="price4">100.000đ - 200.000đ</label>
-          </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price4" data-min="100000" data-max="200000">
+        <label class="form-check-label" for="price4">100.000đ - 200.000đ</label>
+      </div>
 
-          <div class="form-check mb-2">
-            <input class="form-check-input price-filter" type="checkbox" id="price5" data-min="200000" data-max="">
-            <label class="form-check-label" for="price5">Trên 200.000đ</label>
-          </div>
+      <div class="form-check mb-2">
+        <input class="form-check-input price-filter" type="checkbox" id="price5" data-min="200000" data-max="">
+        <label class="form-check-label" for="price5">Trên 200.000đ</label>
+      </div>
     </div>
 
     <!-- Nội dung chính -->
-    <div class="col-md-9">
+    <div class="col-md-9 position-relative">
+      <!-- Overlay loading spinner -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Đang tải...</span>
+        </div>
+      </div>
+
       <!-- Thanh sắp xếp -->
       <div class="header-right d-flex align-items-center justify-content-end mb-4">
         <div class="dropdown">
           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
             Sắp xếp theo
           </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="?option=1&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Mới nhất</a></li>
-            <li><a class="dropdown-item" href="?option=2&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Giá: Cao -> Thấp</a></li>
-            <li><a class="dropdown-item" href="?option=3&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Giá: Thấp -> Cao</a></li>
-            <li><a class="dropdown-item" href="?option=4&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Bán chạy nhất</a></li>
-            <li><a class="dropdown-item" href="?option=5&page=1<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">Giảm giá: Cao -> Thấp</a></li>
+          <ul class="dropdown-menu sort-options" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" data-option="1" href="#">Mới nhất</a></li>
+            <li><a class="dropdown-item" data-option="2" href="#">Giá: Cao -> Thấp</a></li>
+            <li><a class="dropdown-item" data-option="3" href="#">Giá: Thấp -> Cao</a></li>
+            <li><a class="dropdown-item" data-option="4" href="#">Bán chạy nhất</a></li>
+            <li><a class="dropdown-item" data-option="5" href="#">Giảm giá: Cao -> Thấp</a></li>
           </ul>
         </div>
       </div>
 
       <!-- Danh sách sản phẩm -->
-      <div class="row product-container">
+      <div class="row product-container" id="productContainer">
         <c:forEach var="product" items="${requestScope.products}">
           <div class="col-md-4 mb-4">
             <div class="card product-item position-relative h-100">
@@ -197,11 +222,13 @@
     </div>
   </div>
 </div>
-<div class="pagination-container mt-4 d-flex justify-content-center">
+
+<!-- Phân trang -->
+<div class="pagination-container mt-4 d-flex justify-content-center" id="paginationContainer">
   <ul class="pagination pagination-lg">
     <c:if test="${currentPage > 1}">
       <li class="page-item">
-        <a class="page-link" href="?currentPage=1&option=${option}&selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}" style="background-color: #339C87; color: white; border-color: #339C87;">&laquo; Đầu</a>
+        <a class="page-link pagination-link" data-page="1" href="#">&laquo; Đầu</a>
       </li>
     </c:if>
 
@@ -210,21 +237,17 @@
 
     <c:forEach begin="${startPage}" end="${endPage}" var="i">
       <li class="page-item ${i == currentPage ? 'active' : ''}">
-        <a class="page-link" href="?currentPage=${i}&option=${option}&selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}"
-           style="background-color: ${i == currentPage ? '#339C87' : 'white'}; color: ${i == currentPage ? 'white' : '#339C87'}; border-color: #339C87;">
-            ${i}
-        </a>
+        <a class="page-link pagination-link" data-page="${i}" href="#">${i}</a>
       </li>
     </c:forEach>
 
     <c:if test="${currentPage < pageNumber}">
       <li class="page-item">
-        <a class="page-link" href="?currentPage=${pageNumber}&option=${option}&selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}" style="background-color: #339C87; color: white; border-color: #339C87;">Cuối &raquo;</a>
+        <a class="page-link pagination-link" data-page="${pageNumber}" href="#">Cuối &raquo;</a>
       </li>
     </c:if>
   </ul>
 </div>
-
 
 <!-- Nút Back to Top -->
 <button id="back-to-top" class="back-to-top">
@@ -239,66 +262,118 @@
 <c:import url="includes/footer.jsp" />
 <c:import url="includes/link/footLink.jsp" />
 
+
+
 <!-- JavaScript -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.price-filter').forEach(filter => {
-      filter.addEventListener('change', () => {
-        if (filter.checked) {
-          document.querySelectorAll('.price-filter').forEach(otherFilter => {
-            if (otherFilter !== filter) {
-              otherFilter.checked = false;
-            }
-          });
-        }
+  function renderProducts(products) {
+    let productHtml = "";
 
-        const selectedFilter = document.querySelector('.price-filter:checked');
-        let minPrice = null;
-        let maxPrice = null;
+    products.forEach(product => {
+      productHtml += `
+        <div class="col-md-4 mb-4">
+            <div class="card product-item position-relative h-100">
+                ${product.price.discountPercent > 0 ?
+                `<span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">-${product.price.discountPercent}%</span>` : ''}'
 
-        if (selectedFilter) {
-          minPrice = selectedFilter.getAttribute('data-min');
-          maxPrice = selectedFilter.getAttribute('data-max') === "" ? null : selectedFilter.getAttribute('data-max');
-        }
+                <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="card-img-top main-product-image" style="object-fit: cover; cursor: pointer;">
 
-        // Lấy tất cả tham số hiện tại từ URL
-        const urlParams = new URLSearchParams(window.location.search);
+                <div class="modal fade" id="imageModal${product.id}" tabindex="-1" aria-labelledby="imageModalLabel${product.id}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <img src="${product.image}" class="img-fluid" id="modalImage${product.id}" alt="Hình ảnh lớn">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        // Giữ lại các tham số hiện tại
-        const option = urlParams.get('option') || '1';
-        const selection = urlParams.get('selection') || 'all';
-        const currentPage = urlParams.get('currentPage') || '1';
+                <div class="card-body text-center d-flex flex-column">
+                    <h5 class="card-title">${product.name}</h5>
+                    <h4 class="card-text text-success">
+                        Chỉ còn:
+                        <span class="product-old-price">${product.price.lastPrice.toLocaleString()} ₫</span>
+                    </h4>
+                    <p class="text-danger text-decoration-line-through">
+                        Giá gốc:
+                        <span class="product-price">${product.price.price.toLocaleString()} ₫</span>
+                    </p>
 
-        // Cập nhật tham số lọc giá
-        urlParams.set('isAjax', 'true');
-        urlParams.set('option', option);
-        urlParams.set('selection', selection);
-        urlParams.set('currentPage', currentPage);
-        if (minPrice !== null) {
-          urlParams.set('minPrice', minPrice);
-        } else {
-          urlParams.delete('minPrice');
-        }
-        if (maxPrice !== null) {
-          urlParams.set('maxPrice', maxPrice);
-        } else {
-          urlParams.delete('maxPrice');
-        }
+                    <p class="cart-text description">Mô tả: ${product.description}</p>
 
-        // Gửi AJAX request đến Servlet với tất cả tham số
-        fetch('TotalProductsServlet?' + urlParams.toString(), {
-          method: 'GET',
-        })
-                .then(response => response.text()) // Nhận dữ liệu HTML trả về
-                .then(html => {
-                  document.getElementById('product-list').innerHTML = html; // Cập nhật danh sách sản phẩm
-                })
-                .catch(error => console.error('Lỗi tải sản phẩm:', error));
-        window.location.href = url.toString();
-      });
+                    <form action="cart" method="post" class="mt-auto product-options-form">
+                        <input type="hidden" name="method" value="add">
+                        <input type="hidden" name="productID" value="${product.id}">
+                        <input type="hidden" name="selectedStyle" id="selectedStyle${product.id}" value="">
 
+                        ${product.styles.length > 0 ? `
+                        <div class="mb-3">
+                            <label class="form-label">Chọn Style:</label>
+                            <div class="style-selection">
+                                ${product.styles.map(style => `
+                                    <div class="style-option" data-style-id="${style.id}" data-image-url="${style.image}">
+                                        <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        ` : ''}
+
+                        <div class="mb-3 quantity-container" style="display: none;">
+                            <label for="quantity${product.id}" class="form-label">Số lượng:</label>
+                            <input type="number" class="form-control quantity-input" id="quantity${product.id}" name="quantity" min="1" value="1" required>
+                        </div>
+
+                        <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
+                        <button type="submit" class="btn btn-success w-100 mb-2 submit-cart-button" style="display: none;">Xác nhận</button>
+                    </form>
+
+                    <a href="detail-product?productId=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
+                </div>
+            </div>
+        </div>`;
     });
+
+    document.getElementById("productContainer").innerHTML = productHtml;
+  }
+  function fetchProducts(url) {
+    $.ajax({
+      url: url,
+      type: "GET",
+      dataType: "json",
+      success: function (products) {
+        renderProducts(products);
+      },
+      error: function (xhr, status, error) {
+        console.error("Lỗi khi lấy danh sách sản phẩm:", error);
+      }
+    });
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    const paginationContainer = document.getElementById("paginationContainer");
+
+    if (paginationContainer) {
+      paginationContainer.addEventListener("click", function (event) {
+        const target = event.target;
+
+        // Kiểm tra xem phần tử được nhấp có phải là một liên kết phân trang không
+        if (target.classList.contains("pagination-link")) {
+          event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+
+          const page = target.getAttribute("data-page");
+          console.log("Trang được chọn:", page);
+
+
+          fetchPageContent(page);
+        }
+      });
+    }
   });
+
 
 
 
