@@ -11,9 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,10 +27,12 @@
       <list>
         <option value="TypeScript File" />
         <option value="CSS File" />
+
         <option value="JavaScript File" />
         <option value="Servlet" />
         <option value="Jsp File" />
         <option value="Class" />
+
       </list>
     </option>
   </component>
@@ -120,6 +124,7 @@
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "configurable.group.build",
     "vue.rearranger.settings.migration": "true"
+
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -134,6 +139,7 @@
       <recent name="services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Nam 3 HK2\project_web_fabric\InternWebsiteProject\src\main\resources" />
       <recent name="D:\LTWeb\ProjectWeb\src\main\resources" />
       <recent name="D:\LTWeb\ProjectWeb\src\main\webapp" />
     </key>
@@ -144,12 +150,16 @@
       <recent name="D:\LTWeb\ProjectWeb\src\main\webapp" />
       <recent name="D:\LTWeb\ProjectWeb\src\main\resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="controllers" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="discountPercent" />
     </option>
   </component>
+
   <component name="RunManager" selected="Application.ProductDAO2">
     <configuration name="ProductDAO2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dao.ProductDAO2" />
@@ -164,6 +174,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+
     <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
       <option name="LOCAL" value="false" />
       <deployment />
@@ -297,17 +308,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+
     <recent_temporary>
       <list>
         <item itemvalue="Application.ProductDAO2" />
       </list>
     </recent_temporary>
+
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
       </set>
     </attachedChunks>
   </component>
@@ -451,6 +464,10 @@
       <workItem from="1741447012458" duration="278000" />
       <workItem from="1741448989009" duration="2451000" />
       <workItem from="1741498960212" duration="8426000" />
+      <workItem from="1741677772880" duration="523000" />
+      <workItem from="1741745815074" duration="12661000" />
+      <workItem from="1741941329188" duration="922000" />
+      <workItem from="1741942279600" duration="2583000" />
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />
@@ -488,6 +505,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modify register controller" />
     <option name="LAST_COMMIT_MESSAGE" value="modify register controller" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/webapp/includes/content.jsp</url>
+          <line>441</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
