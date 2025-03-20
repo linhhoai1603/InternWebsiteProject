@@ -7,36 +7,36 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Product;
-import services.ProductService;
+import services.ProductService2;
 import services.StyleService;
 
-@WebServlet(name = "ProductsServlet", value = "/products")
+@WebServlet(name = "ProductsServlet", value = "/product-zippers")
 public class ProductsServlet extends HttpServlet {
+    int nuPerPage = 12;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String search = request.getParameter("search");
+        String option = request.getParameter("option");
+        String selection = request.getParameter("selection");
+        String param = request.getParameter("currentPage");
+        String minPrice = request.getParameter("minPrice");
+        String maxPrice = request.getParameter("maxPrice");
 
-        int option = request.getParameter("option") == null ? 0 : Integer.parseInt(request.getParameter("option"));
-        option = (option < 0 || option > 5) ? 0 : option;
+        int currentPage = (param != null) ? Integer.parseInt(param) : 1;
+        if(option.isEmpty() || option == null) option = "Mới nhất";
 
-        ProductService ps = new ProductService();
+        ProductService2 ps = new ProductService2();
 
-        int currentPage = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
-        List<Product> products;
-        int nupage ;
-        if(search == null){
-             products = ps.getProductsByCategorySort(0, currentPage, 16, option);
-            nupage = ps.getNumberOfPage(0, 16);
-        }else {
-             products = ps.getProductsBySearch(0, currentPage, 16, option,search);
-            nupage = ps.getNumberOfPage(products,16);
-        }
+        List<Product>products = ps.getProducts(selection,currentPage,nuPerPage,option, minPrice, maxPrice);
+        int nupage = ps.getNuPage(nuPerPage,selection);
 
         request.setAttribute("products", products);
         request.setAttribute("pageNumber", nupage);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("option", option);
+        request.setAttribute("selection", selection);
+        request.setAttribute("minPrice", minPrice);
+        request.setAttribute("maxPrice", maxPrice);
 
-        request.getRequestDispatcher("products.jsp").forward(request, response);
+        request.getRequestDispatcher("zipstar-product.jsp").forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);

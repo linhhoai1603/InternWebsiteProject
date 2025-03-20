@@ -11,8 +11,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/css/navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/navbar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/navbar.jsp" afterDir="false" />
+
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
+
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,10 +27,12 @@
       <list>
         <option value="TypeScript File" />
         <option value="CSS File" />
-        <option value="Class" />
+
+        <option value="JavaScript File" />
         <option value="Servlet" />
         <option value="Jsp File" />
-        <option value="JavaScript File" />
+        <option value="Class" />
+
       </list>
     </option>
   </component>
@@ -75,60 +80,58 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AccountDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.AddressDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ContactDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DBConnection.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DashboardDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HashUtil.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LoginController.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MessageDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.OrderDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.OrderDetailDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.OrderDetailServlet.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.StyleDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.StyleService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserInForServies.executor&quot;: &quot;Run&quot;,
-    &quot;Application.VoucherService.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Smart Tomcat.Tomcat.executor&quot;: &quot;Run&quot;,
-    &quot;Smart Tomcat.Tomcat: ProjectWeb.executor&quot;: &quot;Run&quot;,
-    &quot;Smart Tomcat.mytomcat.executor&quot;: &quot;Run&quot;,
-    &quot;TomEE Server.TomEE 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.311.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.314.executor&quot;: &quot;Run&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;huy&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;E:/Nam 3 HK2/Web_final/InternWebsiteProject&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.applicationServers&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AccountDao.executor": "Run",
+    "Application.AddressDao.executor": "Run",
+    "Application.ContactDAO.executor": "Run",
+    "Application.DBConnection.executor": "Run",
+    "Application.DashboardDAO.executor": "Run",
+    "Application.EmailSender.executor": "Run",
+    "Application.HashUtil.executor": "Run",
+    "Application.LoginController.executor": "Run",
+    "Application.MessageDAO.executor": "Run",
+    "Application.OrderDAO.executor": "Run",
+    "Application.OrderDetailDAO.executor": "Run",
+    "Application.OrderDetailServlet.executor": "Run",
+    "Application.ProductDAO2.executor": "Run",
+    "Application.ProductDao.executor": "Run",
+    "Application.ProductService.executor": "Run",
+    "Application.StyleDao.executor": "Run",
+    "Application.StyleService.executor": "Run",
+    "Application.UserDao.executor": "Run",
+    "Application.UserInForServies.executor": "Run",
+    "Application.VoucherService.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Smart Tomcat.mytomcat.executor": "Run",
+    "TomEE Server.TomEE 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.311.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.314.executor": "Run",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "Merging hung",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Learn/TTWEB/Project/InternWebsiteProject",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
+
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="models" />
@@ -156,7 +159,22 @@
       <command value="discountPercent" />
     </option>
   </component>
-  <component name="RunManager" selected="Smart Tomcat.Tomcat">
+
+  <component name="RunManager" selected="Application.ProductDAO2">
+    <configuration name="ProductDAO2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.ProductDAO2" />
+      <module name="ProjectWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+
     <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
       <option name="LOCAL" value="false" />
       <deployment />
@@ -290,57 +308,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat" type="com.poratu.idea.plugins.tomcat">
-      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
-      <predefined_log_file enabled="true" id="Tomcat Access Log" />
-      <predefined_log_file id="Tomcat Catalina Log" />
-      <predefined_log_file id="Tomcat Manager Log" />
-      <predefined_log_file id="Tomcat Host Manager Log" />
-      <option name="catalinaBase" value="C:\Users\mypc\.SmartTomcat\InternWebsiteProject\ProjectWeb" />
-      <option name="contextPath" value="/ProjectWeb" />
-      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="extraClassPath" value="" />
-      <option name="tomcatInfo">
-        <TomcatInfo>
-          <option name="name" value="Apache Tomcat/10.1.36" />
-          <option name="path" value="D:/App/Tomcat/apache-tomcat-10.1.36" />
-          <option name="version" value="10.1.36.0" />
-        </TomcatInfo>
-      </option>
-      <option name="vmOptions" value="" />
-      <module name="ProjectWeb" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Tomcat: ProjectWeb" type="com.poratu.idea.plugins.tomcat">
-      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
-      <predefined_log_file enabled="true" id="Tomcat Access Log" />
-      <predefined_log_file id="Tomcat Catalina Log" />
-      <predefined_log_file id="Tomcat Manager Log" />
-      <predefined_log_file id="Tomcat Host Manager Log" />
-      <option name="catalinaBase" value="" />
-      <option name="contextPath" value="/ProjectWeb" />
-      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="extraClassPath" value="" />
-      <option name="tomcatInfo">
-        <TomcatInfo>
-          <option name="name" value="Apache Tomcat/10.1.36" />
-          <option name="path" value="D:/App/Tomcat/apache-tomcat-10.1.36" />
-          <option name="version" value="10.1.36.0" />
-        </TomcatInfo>
-      </option>
-      <option name="vmOptions" value="" />
-      <module name="ProjectWeb" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Smart Tomcat.Tomcat: ProjectWeb" />
-      <item itemvalue="Smart Tomcat.Tomcat" />
-      <item itemvalue="Tomcat Server.Tomcat 10.1.311" />
-    </list>
+
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ProductDAO2" />
+      </list>
+    </recent_temporary>
+
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
