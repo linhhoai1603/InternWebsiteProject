@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <%@include file="includes/link/headLink.jsp"%>
@@ -23,6 +25,8 @@
   </script>
 </head>
 <body>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
 <div class="container my-5">
   <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}" />
 
@@ -38,10 +42,10 @@
   </c:if>
 
   <form class="form-control" action="forget-password?method=resetPassword" method="post" onsubmit="return checkPasswords()">
-    <label for="password1"><strong>Nhập mật khẩu mới: </strong></label>
+    <label for="password1"><strong><fmt:message key="nmkm"/> </strong></label>
     <input id="password1" name="password1" placeholder="Vui lòng nhập mật khẩu" type="password" class="form-control">
 
-    <label for="password2"><strong>Nhập lại mật khẩu mới: </strong></label>
+    <label for="password2"><strong><fmt:message key="nlmkm"/> </strong></label>
     <input id="password2" name="password2" placeholder="Vui lòng nhập lại mật khẩu" type="password" class="form-control">
 
     <input class="btn btn-primary mt-3" type="submit" value="Lưu">
