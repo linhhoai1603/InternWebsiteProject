@@ -6,24 +6,28 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="includes/link/headLink.jsp"%>
+<%@include file="includes/link/headLink.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Chi tiết sản phẩm</title>
 </head>
 <body>
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
+<%@include file="includes/header.jsp" %>
+<%@include file="includes/navbar.jsp" %>
 <link rel="stylesheet" href="css/detail-product.css">
 <style>
     .color-option {
-        border-radius : 15% 2px;
+        border-radius: 15% 2px;
         transition: border 0.3s, transform 0.3s; /* Hiệu ứng chuyển động mượt */
         cursor: pointer; /* Thay đổi con trỏ khi hover */
     }
 
     /* Khi ảnh được chọn */
-    .color-option.selected-style  {
+    .color-option.selected-style {
         border: 4px solid #339C87; /* Viền màu xanh lá */
         transform: scale(1.1); /* Phóng to nhẹ ảnh khi chọn */
     }
@@ -33,6 +37,7 @@
         transform: scale(1.05); /* Phóng to nhẹ khi hover */
         border-color: #aaa; /* Đổi viền khi hover */
     }
+
     /* Ẩn spinner trên Chrome, Edge, Safari */
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
@@ -58,15 +63,15 @@
             >
                 <div class="carousel-inner">
                     <c:forEach var="style" items="${product.styles}">
-                    <div class="carousel-item active">
-                        <img
-                                src="${style.image}"
-                                class="d-block w-100"
-                                alt="${style.name}"
-                                style="width: 300px; height: 500px; object-fit: cover;"
-                        />
+                        <div class="carousel-item active">
+                            <img
+                                    src="${style.image}"
+                                    class="d-block w-100"
+                                    alt="${style.name}"
+                                    style="width: 300px; height: 500px; object-fit: cover;"
+                            />
 
-                    </div>
+                        </div>
                     </c:forEach>
                 </div>
                 <button
@@ -101,14 +106,15 @@
             <h1 class="text" style="color: #008080">
                 ${requestScope.product.name}
             </h1>
-            <p class="h4 text-decoration-line-through text-warning"><fmt:formatNumber value="${product.price.price}" type="number" />₫</p>
+            <p class="h4 text-decoration-line-through text-warning"><fmt:formatNumber value="${product.price.price}"
+                                                                                      type="number"/>₫</p>
             <p class="h2 text-danger fw-bold">
-                <fmt:formatNumber value="${product.price.lastPrice}" type="number" />₫
+                <fmt:formatNumber value="${product.price.lastPrice}" type="number"/>₫
             </p>
 
             <!-- Màu sắc -->
             <div class="mb-3">
-                <p class="fw-bold">Màu sắc</p>
+                <p class="fw-bold"><fmt:message key="color"/></p>
                 <div class="d-flex gap-2">
                     <c:forEach var="style" items="${product.styles}">
                         <img
@@ -132,28 +138,30 @@
                     <div class="col-3">
                         <div class="input-group">
                             <button class="btn btn-outline-secondary decrement-btn" type="button">-</button>
-                            <input type="number" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 50px" min="1">
+                            <input type="number" name="quantity" class="form-control text-center quantity-input"
+                                   value="1" style="max-width: 50px" min="1">
                             <button class="btn btn-outline-secondary increment-btn" type="button">+</button>
                         </div>
                     </div>
                     <button type="submit" class="col-3 btn btn-custom w-10 mb-2" style="background-color: #339c87">
-                        THÊM VÀO GIỎ
+                        <fmt:message key="tvgg"/>
                     </button>
                 </div>
             </form>
             <form action="cart?method=add" method="post">
                 <input name="currentURL" type="hidden" value="shopping-cart.jsp">
                 <input type="hidden" name="selectedStyle" id="selectedStyle1" value="">
-                <input type="hidden" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 50px" min="1">
+                <input type="hidden" name="quantity" class="form-control text-center quantity-input" value="1"
+                       style="max-width: 50px" min="1">
                 <button type="submit" class="btn btn-custom w-100" style="background-color: #339c87">
-                    MUA NGAY
+                    <fmt:message key="mngay"/>
                 </button>
             </form>
 
             <!-- Shipping Information -->
             <div class="alert alert-light mt-3" role="alert">
                 <i class="bi bi-truck"></i>
-                Giao hàng: Miễn phí giao hàng khi mua từ 10 sản phẩm trở lên (Trong đó có trên 5 sản phẩm vải)
+                <fmt:message key="ship"/>
             </div>
         </div>
     </div>
@@ -165,7 +173,7 @@
         <div class="col-12">
             <div class="col-12 d-flex align-items-center">
                 <div class="title-box px-3 py-2 text-white" style="background-color: #008080">
-                    <h5 class="mb-0">MÔ TẢ SẢN PHẨM</h5>
+                    <h5 class="mb-0"><fmt:message key="mtsp"/></h5>
                 </div>
             </div>
             <p>${requestScope.product.description}</p>
@@ -173,7 +181,7 @@
         </div>
     </div>
     <div class="container">
-        <img src="images/poster.png" alt="Poster" class="img-fluid" />
+        <img src="images/poster.png" alt="Poster" class="img-fluid"/>
     </div>
 </div>
 <script>
@@ -240,7 +248,7 @@
 
 </script>
 <script src="js/detail-product.js"></script>
-<%@include file="includes/footer.jsp"%>
-<%@include file="includes/link/footLink.jsp"%>
+<%@include file="includes/footer.jsp" %>
+<%@include file="includes/link/footLink.jsp" %>
 </body>
 </html>

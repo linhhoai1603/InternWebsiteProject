@@ -6,8 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="link/headLink.jsp"%>
+<%@include file="link/headLink.jsp" %>
 <link rel="stylesheet" href="includes/css/navbar.css">
+
 <div class="container-fluid">
     <!-- Navbar for page -->
     <nav class="navbar navbar-expand-lg" style="background-color: #4fd0b6; height: 40px">
@@ -99,8 +100,35 @@
                     </li>
                 </ul>
             </div>
+
         </div>
-    </nav>
-    <!--end navbar for page-->
-</div>
-<%@include file="link/footLink.jsp"%>
+    </div>
+</nav>
+<script>
+    let lastScrollTop = 0;
+    const navbar = document.querySelector(".navbar");
+    const header = document.querySelector("header"); // Giả sử header là phần trên navbar
+
+    window.addEventListener("scroll", function () {
+        let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+        if (scrollTop === 0) {
+            // Nếu quay lại đầu trang -> Đặt navbar về dưới header
+            navbar.style.position = "relative";
+            navbar.style.top = "0";
+        } else if (scrollTop > lastScrollTop) {
+            // Nếu cuộn xuống -> Giữ navbar cố định trên màn hình
+            navbar.style.position = "fixed";
+            navbar.style.top = "0";
+            navbar.style.width = "100%";
+            navbar.style.transition = "top 0.3s";
+        } else {
+            // Nếu cuộn lên -> Ẩn navbar
+            navbar.style.top = "-60px";
+        }
+
+        lastScrollTop = scrollTop;
+    });
+
+</script>
+<%@include file="link/footLink.jsp" %>

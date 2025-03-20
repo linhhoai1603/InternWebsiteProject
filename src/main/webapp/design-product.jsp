@@ -7,11 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Các mẫu thiết kế</title>
 </head>
 <body>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
 <%@include file="includes/header.jsp"%>
 <%@include file="includes/navbar.jsp"%>
 <link rel="stylesheet" href="css/design-product.css">
@@ -22,7 +26,7 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="text-center">Các mẫu thiết kế với vải Linen</h2>
+                    <h2 class="text-center"><fmt:message key="linen"/></h2>
                 </div>
             </div>
             <div class="row">
@@ -154,7 +158,7 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="text-center">Các mẫu thiết kế với vải Cotton</h2>
+                    <h2 class="text-center"><fmt:message key="cotton"/></h2>
                 </div>
             </div>
             <div class="row">
@@ -284,7 +288,7 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="text-center">Các mẫu thiết kế với vải thun gân</h2>
+                    <h2 class="text-center"><fmt:message key="thun"/></h2>
                 </div>
             </div>
             <div class="row">
