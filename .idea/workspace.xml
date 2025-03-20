@@ -152,7 +152,7 @@
       <command value="discountPercent" />
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.314">
+  <component name="RunManager" selected="Application.ToTalProductService">
     <configuration name="ToTalProductService" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="services.ToTalProductService" />
       <module name="ProjectWeb" />
