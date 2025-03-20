@@ -28,18 +28,25 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <div class="dropdown">
-                            <a
-                                    class="nav-link text-white"
-                                    role="button"
-                                    id="dropdownMenuLink"
-                                    href="${pageContext.request.contextPath}/total-product"
-                            >
-                                Sản phẩm
-                            </a>
-                        </div>
+                    <li class="nav-item dropdown">
+                        <a
+                                class="nav-link text-white dropdown-toggle"
+                                role="button"
+                                id="productDropdown"
+                                href="#"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                        >
+                            Sản phẩm
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productDropdown">
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=1">Vải may mặc</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=2">Vải nội thất</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=3">Nút áo</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=4">Dây kéo</a></li>
+                        </ul>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link text-white" href="${pageContext.request.contextPath}/may-mac"
                         >Vải may mặc</a

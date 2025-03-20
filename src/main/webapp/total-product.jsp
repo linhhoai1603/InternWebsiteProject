@@ -228,7 +228,7 @@
   <ul class="pagination pagination-lg">
     <c:if test="${currentPage > 1}">
       <li class="page-item">
-        <a class="page-link pagination-link" data-page="1" href="#">&laquo; Đầu</a>
+        <a class="page-link pagination-link" data-page="1" href="#">Đầu</a>
       </li>
     </c:if>
 
@@ -243,7 +243,7 @@
 
     <c:if test="${currentPage < pageNumber}">
       <li class="page-item">
-        <a class="page-link pagination-link" data-page="${pageNumber}" href="#">Cuối &raquo;</a>
+        <a class="page-link pagination-link" data-page="${pageNumber}" href="#">Cuối</a>
       </li>
     </c:if>
   </ul>
@@ -270,20 +270,22 @@
   function renderProducts(products) {
     let productHtml = "";
 
-    products.forEach(product => {
+    products.forEach(element => {
       productHtml += `
         <div class="col-md-4 mb-4">
             <div class="card product-item position-relative h-100">
-                ${product.price.discountPercent > 0 ?
-                `<span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">-${product.price.discountPercent}%</span>` : ''}'
+                ${element.price.discountPercent > 0 ?
+                    `<span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">-${element.price.discountPercent}%</span>`
+                    : ''
+                }
 
-                <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="card-img-top main-product-image" style="object-fit: cover; cursor: pointer;">
+                <img id="mainImage${element.id}" src="${element.image}" alt="${element.description}" class="card-img-top main-product-image" style="object-fit: cover; cursor: pointer;">
 
-                <div class="modal fade" id="imageModal${product.id}" tabindex="-1" aria-labelledby="imageModalLabel${product.id}" aria-hidden="true">
+                <div class="modal fade" id="imageModal${element.id}" tabindex="-1" aria-labelledby="imageModalLabel${element.id}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <img src="${product.image}" class="img-fluid" id="modalImage${product.id}" alt="Hình ảnh lớn">
+                                <img src="${element.image}" class="img-fluid" id="modalImage${element.id}" alt="Hình ảnh lớn">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
@@ -293,28 +295,28 @@
                 </div>
 
                 <div class="card-body text-center d-flex flex-column">
-                    <h5 class="card-title">${product.name}</h5>
+                    <h5 class="card-title">${element.name}</h5>
                     <h4 class="card-text text-success">
                         Chỉ còn:
-                        <span class="product-old-price">${product.price.lastPrice.toLocaleString()} ₫</span>
+                        <span class="product-old-price">${element.price.lastPrice.toLocaleString()} ₫</span>
                     </h4>
                     <p class="text-danger text-decoration-line-through">
                         Giá gốc:
-                        <span class="product-price">${product.price.price.toLocaleString()} ₫</span>
+                        <span class="product-price">${element.price.price.toLocaleString()} ₫</span>
                     </p>
 
-                    <p class="cart-text description">Mô tả: ${product.description}</p>
+                    <p class="cart-text description">Mô tả: ${element.description}</p>
 
                     <form action="cart" method="post" class="mt-auto product-options-form">
                         <input type="hidden" name="method" value="add">
-                        <input type="hidden" name="productID" value="${product.id}">
-                        <input type="hidden" name="selectedStyle" id="selectedStyle${product.id}" value="">
+                        <input type="hidden" name="productID" value="${element.id}">
+                        <input type="hidden" name="selectedStyle" id="selectedStyle${element.id}" value="">
 
-                        ${product.styles.length > 0 ? `
+                        ${element.styles.length > 0 ? `
                         <div class="mb-3">
                             <label class="form-label">Chọn Style:</label>
                             <div class="style-selection">
-                                ${product.styles.map(style => `
+                                ${element.styles.map(style => `
                                     <div class="style-option" data-style-id="${style.id}" data-image-url="${style.image}">
                                         <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
                                     </div>
@@ -324,15 +326,15 @@
                         ` : ''}
 
                         <div class="mb-3 quantity-container" style="display: none;">
-                            <label for="quantity${product.id}" class="form-label">Số lượng:</label>
-                            <input type="number" class="form-control quantity-input" id="quantity${product.id}" name="quantity" min="1" value="1" required>
+                            <label for="quantity${element.id}" class="form-label">Số lượng:</label>
+                            <input type="number" class="form-control quantity-input" id="quantity${element.id}" name="quantity" min="1" value="1" required>
                         </div>
 
                         <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
                         <button type="submit" class="btn btn-success w-100 mb-2 submit-cart-button" style="display: none;">Xác nhận</button>
                     </form>
 
-                    <a href="detail-product?productId=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
+                    <a href="detail-product?productId=${element.id}" class="btn btn-primary w-100">Xem ngay</a>
                 </div>
             </div>
         </div>`;
@@ -340,6 +342,7 @@
 
     document.getElementById("productContainer").innerHTML = productHtml;
   }
+
   function fetchProducts(url) {
     $.ajax({
       url: url,
@@ -354,28 +357,21 @@
     });
   }
   document.addEventListener("DOMContentLoaded", function () {
-    const paginationContainer = document.getElementById("paginationContainer");
+    document.querySelectorAll(".pagination-link").forEach(function (link) {
+      link.addEventListener("click", function () {
+        let content = this.textContent.trim();
 
-    if (paginationContainer) {
-      paginationContainer.addEventListener("click", function (event) {
-        const target = event.target;
-
-        // Kiểm tra xem phần tử được nhấp có phải là một liên kết phân trang không
-        if (target.classList.contains("pagination-link")) {
-          event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
-
-          const page = target.getAttribute("data-page");
-          console.log("Trang được chọn:", page);
-
-
-          fetchPageContent(page);
+        // Chuyển đổi giá trị "Đầu" và "Cuối" thành số trang tương ứng
+        if (content === "Đầu") {
+          content = 1;
+        } else if (content === "Cuối") {
+          content = `${requestScope.pageNumber}`;
         }
+        let url = `/total-product?option=${requestScope.option}&selection=${requestScope.selection}&minPrice=${requestScope.minPrice}&maxPrice=${requestScope.maxPrice}&currentPage=${content}`;
+        fetchProducts(url);
       });
-    }
+    });
   });
-
-
-
 
 </script>
 </body>
