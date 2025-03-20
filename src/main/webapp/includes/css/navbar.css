@@ -73,3 +73,23 @@ a {
 .dropdown-item .row .col-md-2 h4 {
     font-size: 20px;
 }
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.nav-item.dropdown:hover .nav-link {
+    background-color: #4FD0B6; /* Màu nền mới */
+    color: white; /* Đảm bảo chữ dễ đọc */
+    border-radius: 5px;
+}
+
+/* Đổi màu menu con khi di chuột vào */
+.dropdown-menu .dropdown-item:hover {
+    background-color: #4FD0B6; /* Màu nền mới */
+    color: white;
+}
+
+/* Đổi màu khi nhấn vào */
+.nav-item.dropdown .nav-link:active {
+    background-color: #4FD0B6 !important; /* Màu tối hơn khi nhấn */
+    color: white !important;
+}
