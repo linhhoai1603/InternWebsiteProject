@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="link/headLink.jsp" %>
 <link rel="stylesheet" href="includes/css/navbar.css">
+
 <nav class="navbar navbar-expand-lg" style="background-color: #4fd0b6; height: 50px">
-    <div class="container-fluid">
-        <a class="navbar-item text-white" href="index.jsp" style="text-decoration: none;">Trang chủ</a>
+    <div class="container-fluid ">
+        <a class="nav-link text-white" href="index.jsp" style="text-decoration: none; font-size: 18px; padding: 15px 20px;"">Trang chủ</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
