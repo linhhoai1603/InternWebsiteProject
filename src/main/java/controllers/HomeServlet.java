@@ -53,6 +53,6 @@ public class HomeServlet extends HttpServlet {
         VoucherService vd = new VoucherService();
         session.setAttribute("vouchers", vd.getVoucherByValid(1));
         // chuyển tới trang chủ
-        request.getRequestDispatcher("index.jsp").forward(request,response);
+        request.getRequestDispatcher("ChangeLanguage").forward(request,response);
     }
 }
