@@ -11,6 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/menu-admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/menu-admin.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PaymentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PaymentServlet.class" afterDir="false" />
@@ -18,6 +19,13 @@
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/menu-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/menu-admin.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/dashboard.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/menu-admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/menu-admin.jsp" afterDir="false" />
+=======
+
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
+
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,10 +37,15 @@
       <list>
         <option value="TypeScript File" />
         <option value="CSS File" />
+
         <option value="JavaScript File" />
         <option value="Servlet" />
         <option value="Jsp File" />
         <option value="Class" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       </list>
     </option>
   </component>
@@ -47,6 +60,10 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/main/webapp/css/detail-product.css" root0="FORCE_HIGHLIGHTING" />
   </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -73,6 +90,61 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AccountDao.executor": "Run",
+    "Application.AddressDao.executor": "Run",
+    "Application.ContactDAO.executor": "Run",
+    "Application.DBConnection.executor": "Run",
+    "Application.DashboardDAO.executor": "Run",
+    "Application.EmailSender.executor": "Run",
+    "Application.HashUtil.executor": "Run",
+    "Application.LoginController.executor": "Run",
+    "Application.MessageDAO.executor": "Run",
+    "Application.OrderDAO.executor": "Run",
+    "Application.OrderDetailDAO.executor": "Run",
+    "Application.OrderDetailServlet.executor": "Run",
+    "Application.ProductDAO2.executor": "Run",
+    "Application.ProductDao.executor": "Run",
+    "Application.ProductService.executor": "Run",
+    "Application.StyleDao.executor": "Run",
+    "Application.StyleService.executor": "Run",
+    "Application.UserDao.executor": "Run",
+    "Application.UserInForServies.executor": "Run",
+    "Application.VoucherService.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Smart Tomcat.mytomcat.executor": "Run",
+    "TomEE Server.TomEE 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.311.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.314.executor": "Run",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "Merging hung",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Learn/TTWEB/Project/InternWebsiteProject",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
+
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="models" />
@@ -80,6 +152,7 @@
       <recent name="services" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Nam 3 HK2\project_web_fabric\InternWebsiteProject\src\main\resources" />
       <recent name="D:\LTWeb\ProjectWeb\src\main\resources" />
       <recent name="D:\LTWeb\ProjectWeb\src\main\webapp" />
     </key>
@@ -90,12 +163,16 @@
       <recent name="D:\LTWeb\ProjectWeb\src\main\webapp" />
       <recent name="D:\LTWeb\ProjectWeb\src\main\resources" />
     </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="controllers" />
+    </key>
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="discountPercent" />
     </option>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.Replace">
     <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
       <option name="LOCAL" value="false" />
@@ -197,6 +274,12 @@
     </configuration>
     <configuration name="Teleport" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="services.application.Teleport" />
+=======
+
+  <component name="RunManager" selected="Application.ProductDAO2">
+    <configuration name="ProductDAO2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.ProductDAO2" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       <module name="ProjectWeb" />
       <extension name="coverage">
         <pattern>
@@ -208,18 +291,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <configuration name="Tomcat 10.1.28" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21 (2)" nameIsGenerated="true">
       <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
       <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+=======
+
+    <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="transportHostId" value="" />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Tomcat 10.1.311" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.311" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       <deployment>
         <artifact name="ProjectWeb:war">
           <settings>
-            <option name="CONTEXT_PATH" value="/ProjectWeb_war" />
+            <option name="CONTEXT_PATH" value="/ProjectWeb" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="502ff5a4-e39d-4b48-88b1-4f3582473993" />
+        <option name="BASE_DIRECTORY_NAME" value="ee458c85-2d83-413c-9aa1-5ee5def2952c" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -227,7 +331,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="52307" />
+        <option name="DEBUG_PORT" value="51148" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -288,16 +392,6 @@
           <option name="VM_PARAMETERS" value="" />
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
-        <EnvironmentVariables>
-          <option name="NAME" value="API_KEY" />
-          <option name="VALUE" value="814626227372912" />
-          <option name="IS_PREDEFINED" value="false" />
-        </EnvironmentVariables>
-        <EnvironmentVariables>
-          <option name="NAME" value="API_SCRET" />
-          <option name="VALUE" value="D76ZOquJOzd5_eL1Mt9TWP4xpWs" />
-          <option name="IS_PREDEFINED" value="false" />
-        </EnvironmentVariables>
       </ConfigurationWrapper>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -353,6 +447,7 @@
         <option name="MakeProject" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <list>
       <item itemvalue="Application.Replace" />
       <item itemvalue="Application.Teleport" />
@@ -368,14 +463,26 @@
         <item itemvalue="Application.OrderDetailServlet" />
         <item itemvalue="Application.OrderDetailDAO" />
         <item itemvalue="Application.MessageDAO" />
+=======
+
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ProductDAO2" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       </list>
     </recent_temporary>
+
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+<<<<<<< HEAD
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
         <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+=======
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       </set>
     </attachedChunks>
   </component>
@@ -516,6 +623,7 @@
       <workItem from="1738663737958" duration="5000" />
       <workItem from="1738663758588" duration="165000" />
       <workItem from="1738663934260" duration="6000" />
+<<<<<<< HEAD
       <workItem from="1740213502909" duration="222000" />
       <workItem from="1740318361083" duration="25000" />
       <workItem from="1740730498958" duration="881000" />
@@ -531,6 +639,15 @@
       <workItem from="1741668344139" duration="530000" />
       <workItem from="1741701796030" duration="29000" />
       <workItem from="1743040161396" duration="794000" />
+=======
+      <workItem from="1741447012458" duration="278000" />
+      <workItem from="1741448989009" duration="2451000" />
+      <workItem from="1741498960212" duration="8426000" />
+      <workItem from="1741677772880" duration="523000" />
+      <workItem from="1741745815074" duration="12661000" />
+      <workItem from="1741941329188" duration="922000" />
+      <workItem from="1741942279600" duration="2583000" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />
@@ -568,6 +685,17 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="modify register controller" />
     <option name="LAST_COMMIT_MESSAGE" value="modify register controller" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/webapp/includes/content.jsp</url>
+          <line>441</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
