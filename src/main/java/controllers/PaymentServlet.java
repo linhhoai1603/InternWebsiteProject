@@ -14,7 +14,7 @@ import services.ProductService;
 import services.StyleService;
 import services.VoucherService;
 
-@WebServlet(name = "PaymentServlet", value = "/payment")
+@WebServlet(name = "PaymentServlet", value = "/payment-products")
 public class PaymentServlet extends HttpServlet {
 
     protected  void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
