@@ -100,7 +100,7 @@ public class OrderDAO {
     }
 
     public List<Order> getOrdersByUserId(int userId) {
-        String query = "SELECT * FROM orders WHERE idUser = :idUser ORDER BY timeOrder DESC";
+        String query = "SELECT * FROM orders WHERE idUser = :idUser ORDER BY timeOrder ASC";
 
         return jdbi.withHandle(handle -> handle.createQuery(query)
                 .bind("idUser", userId)
