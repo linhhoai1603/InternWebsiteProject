@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="ProjectWeb:war" />
+      <artifact name="ProjectWeb:war exploded" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
@@ -11,11 +11,21 @@
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/menu-admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/menu-admin.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PaymentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PaymentServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/OrderDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/OrderDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/menu-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/menu-admin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/dashboard.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/menu-admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/menu-admin.jsp" afterDir="false" />
+=======
 
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
 
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +42,10 @@
         <option value="Servlet" />
         <option value="Jsp File" />
         <option value="Class" />
+<<<<<<< HEAD
+=======
 
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       </list>
     </option>
   </component>
@@ -68,9 +81,6 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
   <component name="ProjectId" id="2pjd0qcRxLCursAU5L99s5ySgwF" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -80,6 +90,8 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.AccountDao.executor": "Run",
@@ -132,6 +144,7 @@
     ]
   }
 }]]></component>
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="models" />
@@ -159,10 +172,56 @@
       <command value="discountPercent" />
     </option>
   </component>
-
-  <component name="RunManager" selected="Application.ProductDAO2">
-    <configuration name="ProductDAO2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dao.ProductDAO2" />
+<<<<<<< HEAD
+  <component name="RunManager" selected="Application.Replace">
+    <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="transportHostId" value="" />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="LOCAL" value="false" />
+      <deployment />
+      <server-settings>
+        <data>
+          <option name="targets">
+            <list>
+              <WatchedTargetModelImpl>
+                <option name="name" value="CONTEXT_XML" />
+                <name>CONTEXT_XML</name>
+              </WatchedTargetModelImpl>
+              <StagingTargetModelImpl>
+                <option name="name" value="STAGING" />
+                <name>STAGING</name>
+              </StagingTargetModelImpl>
+            </list>
+          </option>
+          <option name="transportHostId" value="" />
+          <host-id />
+        </data>
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="51009" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.MessageDAO" />
       <module name="ProjectWeb" />
       <extension name="coverage">
         <pattern>
@@ -174,6 +233,69 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="OrderDetailDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.OrderDetailDAO" />
+      <module name="ProjectWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderDetailServlet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="controllers.OrderDetailServlet" />
+      <module name="ProjectWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="controllers.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Replace" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="services.application.Replace" />
+      <module name="ProjectWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="services.application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Teleport" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="services.application.Teleport" />
+=======
+
+  <component name="RunManager" selected="Application.ProductDAO2">
+    <configuration name="ProductDAO2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.ProductDAO2" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
+      <module name="ProjectWeb" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="services.application.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+<<<<<<< HEAD
+    <configuration name="Tomcat 10.1.28" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21 (2)" nameIsGenerated="true">
+      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
+      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
+=======
 
     <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
       <option name="LOCAL" value="false" />
@@ -192,6 +314,7 @@
     </configuration>
     <configuration name="Tomcat 10.1.311" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.311" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       <deployment>
         <artifact name="ProjectWeb:war">
           <settings>
@@ -273,45 +396,79 @@
       <method v="2">
         <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="ProjectWeb:war" />
+          <artifact name="ProjectWeb:war exploded" />
         </option>
       </method>
     </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="LOCAL" value="false" />
-      <deployment />
-      <server-settings>
-        <data>
-          <option name="targets">
-            <list>
-              <WatchedTargetModelImpl>
-                <option name="name" value="CONTEXT_XML" />
-                <name>CONTEXT_XML</name>
-              </WatchedTargetModelImpl>
-              <StagingTargetModelImpl>
-                <option name="name" value="STAGING" />
-                <name>STAGING</name>
-              </StagingTargetModelImpl>
-            </list>
-          </option>
-          <option name="transportHostId" value="" />
-          <host-id />
-        </data>
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="51009" />
-        <option name="LOCAL" value="false" />
-      </RunnerSettings>
+    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="catalinaBase" value="C:\Users\hoai1\.SmartTomcat\ProjectWeb\ProjectWeb" />
+      <option name="contextPath" value="/ProjectWeb" />
+      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
+      <option name="extraClassPath" value="" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/10.1.28" />
+          <option name="path" value="C:/apache-tomcat-10.1.28" />
+          <option name="version" value="10.1.28.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <module name="ProjectWeb" />
       <method v="2">
         <option name="Make" enabled="true" />
+        <option name="MakeProject" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="com.poratu.idea.plugins.tomcat">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="catalinaBase" value="" />
+      <option name="contextPath" value="" />
+      <option name="docBase" value="" />
+      <option name="extraClassPath" value="" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/10.1.28" />
+          <option name="path" value="C:/apache-tomcat-10.1.28" />
+          <option name="version" value="10.1.28.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="MakeProject" enabled="true" />
+      </method>
+    </configuration>
+<<<<<<< HEAD
+    <list>
+      <item itemvalue="Application.Replace" />
+      <item itemvalue="Application.Teleport" />
+      <item itemvalue="Application.OrderDetailDAO" />
+      <item itemvalue="Application.OrderDetailServlet" />
+      <item itemvalue="Application.MessageDAO" />
+      <item itemvalue="Smart Tomcat.Unnamed" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Replace" />
+        <item itemvalue="Application.Teleport" />
+        <item itemvalue="Application.OrderDetailServlet" />
+        <item itemvalue="Application.OrderDetailDAO" />
+        <item itemvalue="Application.MessageDAO" />
+=======
 
     <recent_temporary>
       <list>
         <item itemvalue="Application.ProductDAO2" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       </list>
     </recent_temporary>
 
@@ -319,8 +476,13 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
+<<<<<<< HEAD
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
+=======
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
         <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       </set>
     </attachedChunks>
   </component>
@@ -461,6 +623,23 @@
       <workItem from="1738663737958" duration="5000" />
       <workItem from="1738663758588" duration="165000" />
       <workItem from="1738663934260" duration="6000" />
+<<<<<<< HEAD
+      <workItem from="1740213502909" duration="222000" />
+      <workItem from="1740318361083" duration="25000" />
+      <workItem from="1740730498958" duration="881000" />
+      <workItem from="1740838118079" duration="621000" />
+      <workItem from="1741095707041" duration="163000" />
+      <workItem from="1741097137787" duration="1699000" />
+      <workItem from="1741340177725" duration="70000" />
+      <workItem from="1741340960980" duration="20000" />
+      <workItem from="1741445691563" duration="1809000" />
+      <workItem from="1741500183112" duration="6000" />
+      <workItem from="1741500201133" duration="8000" />
+      <workItem from="1741501185243" duration="1151000" />
+      <workItem from="1741668344139" duration="530000" />
+      <workItem from="1741701796030" duration="29000" />
+      <workItem from="1743040161396" duration="794000" />
+=======
       <workItem from="1741447012458" duration="278000" />
       <workItem from="1741448989009" duration="2451000" />
       <workItem from="1741498960212" duration="8426000" />
@@ -468,6 +647,7 @@
       <workItem from="1741745815074" duration="12661000" />
       <workItem from="1741941329188" duration="922000" />
       <workItem from="1741942279600" duration="2583000" />
+>>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />
@@ -520,5 +700,8 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/ProjectWeb$Tomcat_10_1_28.ic" NAME="Tomcat 10.1.28 Coverage Results" MODIFIED="1741668437583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>
