@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <%@include file="includes/link/headLink.jsp"%>
@@ -14,6 +16,8 @@
     <title>Xác nhận Email</title>
 </head>
 <body>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
 <div class="container my-5">
     <!-- Lấy giá trị error và username từ request scope -->
     <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}" />
@@ -29,9 +33,9 @@
         </script>
     </c:if>
     <form class="form-control" action="forget-password?method=confirmEmail" method="post">
-        <label for="username"><strong>Nhập Username của bạn: </strong></label>
+        <label for="username"><strong><fmt:message key="nhapname"/> </strong></label>
         <input id="username" name="username" placeholder="Vui lòng nhập username của bạn" type="text" class="form-control">
-        <label for="email"><strong>Nhập Email của bạn: </strong></label>
+        <label for="email"><strong><fmt:message key="nhapmail"/> </strong></label>
         <input id="email" name="email" placeholder="Vui lòng nhập email của bạn" type="email" class="form-control">
         <input class="btn btn-primary mt-3" type="submit" value="Xác nhận">
     </form>
