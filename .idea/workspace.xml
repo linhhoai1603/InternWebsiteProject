@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
+      <artifact name="ProjectWeb:war" />
       <artifact name="ProjectWeb:war exploded" />
     </artifacts-to-build>
   </component>
@@ -10,22 +11,250 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/menu-admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/menu-admin.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PaymentServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PaymentServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/OrderDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/OrderDAO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/menu-admin.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/menu-admin.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/dashboard.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/dashboard.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/menu-admin.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/menu-admin.jsp" afterDir="false" />
-=======
-
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDAO2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ProductService2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
-
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/Catalina/localhost/web-02.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/Catalina/localhost/web-03.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/catalina.policy" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/catalina.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/context.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/jaspic-providers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/jaspic-providers.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/logging.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/server.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/tomcat-users.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/tomcat-users.xsd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.smarttomcat/ProjectWeb/conf/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/connection/DBConnection.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/connection/DBProperties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/connection/EmailProperties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerDeliveries.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerDetailProduct.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerMessageServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerOrder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerOrderDetail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerProduct.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AdminManagerVoucher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/AvatarServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ButtonUpServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/CartServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ChangePasswordController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ContactServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/DashboardServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/DetailProductServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ForgetPasswordServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/HomeServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/LoginController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/Logout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/LogoutServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/MayMacServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/OrderServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/OrderedServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PaymentServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/Personal.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PersonalServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ProductFabricServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ProductsServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/RegisterServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ZipperServlet.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AccountDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AddressDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/CategoryDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/DashboardDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/DeliveryDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/MessageDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/OrderDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/OrderDetailDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/PriceDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/ProductDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/StyleDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/TechnicalDAO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/VoucherDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/db.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/email.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/filter/AdminFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/AccountUser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Address.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Cart.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/CartItem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Category.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Delivery.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Message.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/OrderDetail.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Ordered.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Payment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Price.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Product.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Style.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/TechnicalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Voucher.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/project_web.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/AccountService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/AddressService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/AuthenServies.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/DashboardService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/DeliveryService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/MessageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/OrderDetailService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/OrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/PriceService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/ProductService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/StyleService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/TechnicalService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/UploadService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/UserInForServies.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/VoucherService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/application/Code.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/application/EmailSender$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/application/EmailSender.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/application/HashUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/activation-1.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/aopalliance-repackaged-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/cloudinary-core-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/cloudinary-http5-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/cloudinary-taglib-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/commons-lang3-3.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/dotenv-java-2.2.4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/geantyref-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/gson-2.10.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/hk2-api-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/hk2-locator-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/hk2-utils-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/httpclient5-5.3.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/httpcore5-5.2.5.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/httpcore5-h2-5.2.4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jackson-annotations-2.16.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jackson-core-2.16.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jackson-databind-2.16.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jackson-module-jakarta-xmlbind-annotations-2.16.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.activation-api-2.1.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.annotation-api-3.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.el-api-4.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.inject-api-2.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.servlet.jsp.jstl-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.servlet.jsp.jstl-api-2.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.validation-api-3.1.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.ws.rs-api-3.1.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jakarta.xml.bind-api-4.0.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/javassist-3.29.2-GA.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/javax.mail-1.6.2.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jbcrypt-0.4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jdbi3-core-3.47.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-client-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-common-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-container-servlet-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-container-servlet-core-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-entity-filtering-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-hk2-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-media-json-jackson-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jersey-server-4.0.0-M1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/jsp-api-2.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/mysql-connector-j-8.3.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/osgi-resource-locator-1.0.3.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/protobuf-java-3.25.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/servlet-api-2.4.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/lib/slf4j-api-1.7.36.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/management-message.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/management-users.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/management.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/css/menu-admin.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/dashboard.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-deliveries.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-detail-orders.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-detail-products.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-detail-shipping.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-message.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-orders.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-products.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-users.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/management-vouchers.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/menu-admin.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/admin/user-details.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/button-up.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/changePassword.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/confirm-code.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/confirm-email.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/contact.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/button_up.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/contact.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/design-product.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/detail-product.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/fabric-product.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/garment-product.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/payment-success.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/payment.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/police-return.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/products.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/register.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/shopping-cart.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/user.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/css/zipstar-product.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/design-product.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/detail-product.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/error/400.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/error/401.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/error/403.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/error/404.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/error/500.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/error/503.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/fabric-product.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/garment-product.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/avatar.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/maymac1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/maymac2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/poster.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/qc1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/qc2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/qc3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/qc4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/qc5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/user1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/images/user2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/content.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/content.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/header.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/navbar.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/slides.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/voucher.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/footer.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/header.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/js/content.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/link/footLink.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/link/headLink.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/navbar.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/slides.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/voucher.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/js/contact.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/js/detail-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/js/payment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/js/police-return.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/js/products.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/js/zipstar-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/login.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/ordered.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/payment-success.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/payment.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/police-return.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/products.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/register.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/reset-password.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/shopping-cart.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/user.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/zipstar-product.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,15 +266,10 @@
       <list>
         <option value="TypeScript File" />
         <option value="CSS File" />
-
         <option value="JavaScript File" />
         <option value="Servlet" />
         <option value="Jsp File" />
         <option value="Class" />
-<<<<<<< HEAD
-=======
-
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       </list>
     </option>
   </component>
@@ -90,8 +314,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-=======
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.AccountDao.executor": "Run",
@@ -122,7 +344,7 @@
     "Tomcat Server.Tomcat 10.1.311.executor": "Run",
     "Tomcat Server.Tomcat 10.1.314.executor": "Run",
     "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "Merging hung",
+    "git-widget-placeholder": "hoai",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Learn/TTWEB/Project/InternWebsiteProject",
     "list.type.of.created.stylesheet": "CSS",
@@ -136,7 +358,6 @@
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "configurable.group.build",
     "vue.rearranger.settings.migration": "true"
-
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
@@ -144,7 +365,6 @@
     ]
   }
 }]]></component>
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="models" />
@@ -172,114 +392,32 @@
       <command value="discountPercent" />
     </option>
   </component>
-<<<<<<< HEAD
-  <component name="RunManager" selected="Application.Replace">
-    <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="LOCAL" value="false" />
-      <deployment />
-      <server-settings>
-        <data>
-          <option name="transportHostId" value="" />
-          <host-id />
-        </data>
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.28">
+    <configuration default="true" type="com.poratu.idea.plugins.tomcat">
+      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
+      <predefined_log_file enabled="true" id="Tomcat Access Log" />
+      <predefined_log_file id="Tomcat Catalina Log" />
+      <predefined_log_file id="Tomcat Manager Log" />
+      <predefined_log_file id="Tomcat Host Manager Log" />
+      <option name="catalinaBase" value="" />
+      <option name="contextPath" value="" />
+      <option name="docBase" value="" />
+      <option name="extraClassPath" value="" />
+      <option name="tomcatInfo">
+        <TomcatInfo>
+          <option name="name" value="Apache Tomcat/10.1.28" />
+          <option name="path" value="C:/apache-tomcat-10.1.28" />
+          <option name="version" value="10.1.28.0" />
+        </TomcatInfo>
+      </option>
+      <option name="vmOptions" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
+        <option name="MakeProject" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="LOCAL" value="false" />
-      <deployment />
-      <server-settings>
-        <data>
-          <option name="targets">
-            <list>
-              <WatchedTargetModelImpl>
-                <option name="name" value="CONTEXT_XML" />
-                <name>CONTEXT_XML</name>
-              </WatchedTargetModelImpl>
-              <StagingTargetModelImpl>
-                <option name="name" value="STAGING" />
-                <name>STAGING</name>
-              </StagingTargetModelImpl>
-            </list>
-          </option>
-          <option name="transportHostId" value="" />
-          <host-id />
-        </data>
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="51009" />
-        <option name="LOCAL" value="false" />
-      </RunnerSettings>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MessageDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dao.MessageDAO" />
-      <module name="ProjectWeb" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderDetailDAO" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dao.OrderDetailDAO" />
-      <module name="ProjectWeb" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dao.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="OrderDetailServlet" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="controllers.OrderDetailServlet" />
-      <module name="ProjectWeb" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="controllers.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Replace" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="services.application.Replace" />
-      <module name="ProjectWeb" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="services.application.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Teleport" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="services.application.Teleport" />
-=======
-
-  <component name="RunManager" selected="Application.ProductDAO2">
     <configuration name="ProductDAO2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dao.ProductDAO2" />
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       <module name="ProjectWeb" />
       <extension name="coverage">
         <pattern>
@@ -291,12 +429,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-<<<<<<< HEAD
-    <configuration name="Tomcat 10.1.28" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21 (2)" nameIsGenerated="true">
-      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-      <option name="UPDATING_POLICY" value="redeploy-artifacts" />
-=======
-
     <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
       <option name="LOCAL" value="false" />
       <deployment />
@@ -312,18 +444,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Tomcat 10.1.311" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.311" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 10.1.28" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21 (2)" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
       <deployment>
+        <artifact name="ProjectWeb:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/ProjectWeb_war_exploded" />
+          </settings>
+        </artifact>
         <artifact name="ProjectWeb:war">
           <settings>
-            <option name="CONTEXT_PATH" value="/ProjectWeb" />
+            <option name="CONTEXT_PATH" value="/ProjectWeb_war" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="ee458c85-2d83-413c-9aa1-5ee5def2952c" />
+        <option name="BASE_DIRECTORY_NAME" value="87895ef2-9621-4449-90d4-e64ac4a94a09" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -331,7 +467,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="51148" />
+        <option name="DEBUG_PORT" value="55625" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -394,8 +530,9 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
       <method v="2">
-        <option name="Make" enabled="true" />
+        <option name="MakeProject" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
+          <artifact name="ProjectWeb:war" />
           <artifact name="ProjectWeb:war exploded" />
         </option>
       </method>
@@ -424,65 +561,18 @@
         <option name="MakeProject" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="com.poratu.idea.plugins.tomcat">
-      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
-      <predefined_log_file enabled="true" id="Tomcat Access Log" />
-      <predefined_log_file id="Tomcat Catalina Log" />
-      <predefined_log_file id="Tomcat Manager Log" />
-      <predefined_log_file id="Tomcat Host Manager Log" />
-      <option name="catalinaBase" value="" />
-      <option name="contextPath" value="" />
-      <option name="docBase" value="" />
-      <option name="extraClassPath" value="" />
-      <option name="tomcatInfo">
-        <TomcatInfo>
-          <option name="name" value="Apache Tomcat/10.1.28" />
-          <option name="path" value="C:/apache-tomcat-10.1.28" />
-          <option name="version" value="10.1.28.0" />
-        </TomcatInfo>
-      </option>
-      <option name="vmOptions" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="MakeProject" enabled="true" />
-      </method>
-    </configuration>
-<<<<<<< HEAD
     <list>
-      <item itemvalue="Application.Replace" />
-      <item itemvalue="Application.Teleport" />
-      <item itemvalue="Application.OrderDetailDAO" />
-      <item itemvalue="Application.OrderDetailServlet" />
-      <item itemvalue="Application.MessageDAO" />
-      <item itemvalue="Smart Tomcat.Unnamed" />
+      <item itemvalue="Application.ProductDAO2" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.28" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Replace" />
-        <item itemvalue="Application.Teleport" />
-        <item itemvalue="Application.OrderDetailServlet" />
-        <item itemvalue="Application.OrderDetailDAO" />
-        <item itemvalue="Application.MessageDAO" />
-=======
-
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.ProductDAO2" />
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
-      </list>
-    </recent_temporary>
-
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-<<<<<<< HEAD
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
-=======
         <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
         <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
       </set>
     </attachedChunks>
   </component>
@@ -623,7 +713,6 @@
       <workItem from="1738663737958" duration="5000" />
       <workItem from="1738663758588" duration="165000" />
       <workItem from="1738663934260" duration="6000" />
-<<<<<<< HEAD
       <workItem from="1740213502909" duration="222000" />
       <workItem from="1740318361083" duration="25000" />
       <workItem from="1740730498958" duration="881000" />
@@ -639,7 +728,6 @@
       <workItem from="1741668344139" duration="530000" />
       <workItem from="1741701796030" duration="29000" />
       <workItem from="1743040161396" duration="794000" />
-=======
       <workItem from="1741447012458" duration="278000" />
       <workItem from="1741448989009" duration="2451000" />
       <workItem from="1741498960212" duration="8426000" />
@@ -647,7 +735,6 @@
       <workItem from="1741745815074" duration="12661000" />
       <workItem from="1741941329188" duration="922000" />
       <workItem from="1741942279600" duration="2583000" />
->>>>>>> 25fe90b3e29b2bc3d5e24fbf29a2491ec5579bb1
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />
