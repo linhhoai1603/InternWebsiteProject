@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="includes/link/headLink.jsp" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <link rel="stylesheet" href="css/register.css">
@@ -33,11 +34,13 @@
   </style>
 </head>
 <body>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
 <div class="container">
   <div class="row w-100">
     <div class="col-md-6 mx-auto">
       <div class="form-section">
-        <h2 class="text-center mb-4">ĐĂNG KÝ TÀI KHOẢN</h2>
+        <h2 class="text-center mb-4"><fmt:message key="reg_tittle"/></h2>
 
         <!--
             1) Hiển thị thông báo lỗi từ Servlet (nếu có)
@@ -76,7 +79,7 @@
 
           <!-- Mật khẩu -->
           <div class="form-group mb-3">
-            <label for="password" class="form-label">Mật khẩu *</label>
+            <label for="password" class="form-label"><fmt:message key="pss"/> *</label>
             <input
                     class="form-control"
                     id="password"
@@ -89,7 +92,7 @@
 
           <!-- Xác nhận Mật khẩu -->
           <div class="form-group mb-4">
-            <label for="confirmPassword" class="form-label">Xác nhận Mật khẩu *</label>
+            <label for="confirmPassword" class="form-label"><fmt:message key="cfpss"/> *</label>
             <input
                     class="form-control"
                     id="confirmPassword"
@@ -102,13 +105,13 @@
 
           <!-- Nút Đăng Ký -->
           <div class="text-center">
-            <button class="btn btn-primary w-100" type="submit">ĐĂNG KÝ</button>
+            <button class="btn btn-primary w-100" type="submit"><fmt:message key="regg"/></button>
           </div>
         </form>
 
 
         <div class="text-center mt-3">
-          <a class="btn btn-secondary w-100" href="index.jsp">QUAY LẠI TRANG CHỦ</a>
+          <a class="btn btn-secondary w-100" href="index.jsp"><fmt:message key="cbck"/></a>
         </div>
 
       </div>
