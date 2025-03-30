@@ -117,6 +117,14 @@ CREATE TABLE `message`(
                           `title` VARCHAR(255) NOT NULL,
                           `content` VARCHAR(255) NOT NULL
 );
+CREATE TABLE contact_info (
+                              id_contact INT PRIMARY KEY,
+                              id_address INT NOT NULL,
+                              email VARCHAR(255) NOT NULL,
+                              website_link VARCHAR(255),
+                              hot_line VARCHAR(20),
+                              FOREIGN KEY (id_address) REFERENCES addresses(id) ON DELETE CASCADE
+);
 ALTER TABLE
     `products` ADD CONSTRAINT `products_idcategory_foreign` FOREIGN KEY(`idCategory`) REFERENCES `categories`(`id`);
 ALTER TABLE
