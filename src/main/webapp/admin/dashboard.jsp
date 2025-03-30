@@ -57,7 +57,7 @@
         <div class="col-md-12">
             <h4><fmt:message key="revenue_chart_title"/></h4>
             <!-- Biểu đồ doanh thu theo tháng -->
-            <canvas id="revenueChart" height="200"></canvas> <!-- Chiều cao biểu đồ nhỏ lại -->
+           <canvas id="revenueChart" width="400" height="100"></canvas>
         </div>
     </div>
 
