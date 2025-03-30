@@ -38,4 +38,14 @@ public class ContactDao {
                         .orElse(null)
         );
     }
+    public int getIdAddress(int idContact) {
+        String sql = "SELECT id_address FROM addresses WHERE id_contact = ?";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind(0, idContact)
+                        .mapTo(int.class)
+                        .findOne()
+                        .orElse(-1)
+        );
+    }
 }
