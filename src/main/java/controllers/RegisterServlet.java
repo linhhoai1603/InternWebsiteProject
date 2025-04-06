@@ -35,40 +35,15 @@ public class RegisterServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // Lấy tham số từ form
+        String email = request.getParameter("email");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String phoneNumber = request.getParameter("phoneNumber");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
-
-        // 1) Kiểm tra độ dài mật khẩu
-        if (password.length() < 6) {
-            request.setAttribute("error", "Mật khẩu phải có ít nhất 6 ký tự.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
-
-        // 2) Kiểm tra mật khẩu và confirmPassword
-        if (!password.equals(confirmPassword)) {
-            request.setAttribute("error", "Mật khẩu và xác nhận mật khẩu không khớp.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
-
-        // 3) Kiểm tra định dạng username
-        if (!isValidUsername(username)) {
-            request.setAttribute("error", "Username không hợp lệ (ít nhất 3 ký tự, không chứa khoảng trắng).");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
-
+        String hasedPassword = this.hashedPassword(password);
         try {
-            userService.registerUser(
-                    username,
-                    HashUtil.encodePasswordBase64(password),
-                    "Default Name",
-                    "0000000000",
-                    1,
-                    "default.png"
-            );
+            userService.registerUser(email, firstName, lastName, username, hasedPassword, phoneNumber, "default.png");
 
             request.setAttribute("error", "Đăng ký tài khoản thành công!");
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -79,10 +54,7 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
-    private boolean isValidUsername(String username) {
-        // Regex: Cho phép chữ cái, chữ số, dấu chấm, gạch dưới, gạch ngang. Ít nhất 3 ký tự.
-        // Không chứa khoảng trắng.
-        String usernameRegex = "^[A-Za-z0-9._-]{3,}$";
-        return username != null && username.matches(usernameRegex);
+    private String hashedPassword(String password) {
+        return HashUtil.encodePasswordBase64(password);
     }
 }

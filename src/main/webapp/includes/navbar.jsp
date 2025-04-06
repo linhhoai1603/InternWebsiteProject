@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-expand-lg" style="background-color: #4fd0b6; height: 50px">
     <div class="container-fluid ">
-        <a class="nav-link text-white" href="index.jsp" style="text-decoration: none; font-size: 18px; padding: 15px 20px;"">Trang chủ</a>
+        <a class="nav-link text-white" href="index.jsp" style="text-decoration: none; font-size: 18px; padding: 15px 20px;">Trang chủ</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -46,17 +46,17 @@
 
         if (scrollTop === 0) {
             // Nếu quay lại đầu trang -> Đặt navbar về dưới header
-            navbar.style.position = "relative";
+            navbar.style.position = "sticky";
             navbar.style.top = "0";
         } else if (scrollTop > lastScrollTop) {
             // Nếu cuộn xuống -> Giữ navbar cố định trên màn hình
             navbar.style.position = "fixed";
             navbar.style.top = "0";
             navbar.style.width = "100%";
-            navbar.style.transition = "top 0.3s";
+            navbar.style.transition = "top 0s";
         } else {
             // Nếu cuộn lên -> Ẩn navbar
-            navbar.style.top = "-60px";
+            navbar.style.top = "-40px";
         }
 
         lastScrollTop = scrollTop;

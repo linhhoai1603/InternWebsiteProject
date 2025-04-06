@@ -109,6 +109,7 @@ public class AccountDao {
             return result != null;
         });
     }
+
     public boolean deleteAccountUserByIDUser(int id) {
         String sql = "DELETE FROM account_users WHERE idUser = :id";
         return jdbi.withHandle(handle -> {

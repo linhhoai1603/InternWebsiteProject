@@ -14,11 +14,17 @@ public class UserDao {
 
     private Jdbi jdbi;
     Handle handle;
+
     public UserDao(Jdbi jdbi) {
         this.jdbi = jdbi;
     }
-    public UserDao(){
+
+    public UserDao() {
         this.jdbi = DBConnection.getJdbi();
+    }
+
+    public Jdbi getJdbi() {
+        return jdbi;
     }
 
     public User findUserById(int id) {
@@ -32,7 +38,7 @@ public class UserDao {
         );
     }
 
-    public boolean updateInfo(int id ,String email, String name, String phone) {
+    public boolean updateInfo(int id, String email, String name, String phone) {
         String sql = """
                 UPDATE users SET email = :email, fullName = :name, phoneNumber = :phone
                 WHERE id = :id
@@ -46,18 +52,20 @@ public class UserDao {
                         .execute() > 0
         );
     }
-    public boolean updateAvatar(int id , String url) {
+
+    public boolean updateAvatar(int id, String url) {
         String sql = """
                 UPDATE users SET image = :image 
                 WHERE id = :id
                 """;
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
-                        .bind("id",id)
-                        .bind("image",url)
+                        .bind("id", id)
+                        .bind("image", url)
                         .execute() > 0
         );
     }
+
     public void beginTransaction() {
         handle = jdbi.open();
         handle.begin();
@@ -82,57 +90,47 @@ public class UserDao {
             handle = null;
         }
     }
-
-    public boolean emailExists(String email) {
+    public boolean isEmailExists(String email) {
         return jdbi.withHandle(handle ->
-                handle.createQuery(
-                                "SELECT COUNT(*) FROM account_users au "
-                                        + "JOIN users u ON au.idUser = u.id " // Sửa: idUser = u.id
-                                        + "WHERE u.email = :email"
-                        )
+                handle.createQuery("SELECT COUNT(*) FROM users WHERE email = :email")
                         .bind("email", email)
                         .mapTo(Integer.class)
                         .one() > 0
         );
     }
 
-    public int insertUser(String email, String fullName, String phoneNumber, int idAddress, String image) {
-        return jdbi.withHandle(handle ->
-                handle.createUpdate(
-                                "INSERT INTO users (email, fullName, phoneNumber, idAddress, image) " +
-                                        "VALUES (:email, :fullName, :phoneNumber, :idAddress, :image)"
-                        )
-                        .bind("email", email)       // Dùng email
-                        .bind("fullName", fullName)
-                        .bind("phoneNumber", phoneNumber)
-                        .bind("idAddress", idAddress)
-                        .bind("image", image)
-                        .executeAndReturnGeneratedKeys("id") // Lấy id auto-increment
-                        .mapTo(Integer.class)
-                        .one()
-        );
+    public int insertUser(Handle handle, String email, String firstName, String lastName,
+                          String phoneNumber, Integer idAddress, String image) {
+        return handle.createUpdate(
+                        "INSERT INTO users (email, firstName, lastName, phoneNumber, idAddress, image) " +
+                                "VALUES (:email, :firstName, :lastName, :phoneNumber, :idAddress, :image)"
+                )
+                .bind("email", email)
+                .bind("firstName", firstName)
+                .bind("lastName", lastName)
+                .bind("phoneNumber", phoneNumber)
+                .bind("idAddress", idAddress)
+                .bind("image", image)
+                .executeAndReturnGeneratedKeys("id")
+                .mapTo(Integer.class)
+                .one();
     }
 
 
-
-
-    public void insertAccountUser(int idUser, String username, String password,
-                                  int role, int locked, int code) {
-        jdbi.useHandle(handle ->
-                handle.createUpdate(
-                                "INSERT INTO account_users (idUser, username, password, role, locked, code) " +
-                                        "VALUES (:idUser, :username, :password, :role, :locked, :code)"
-                        )
-                        .bind("idUser", idUser)
-                        .bind("username", username)
-                        .bind("password", password)
-                        .bind("role", role)
-                        .bind("locked", locked)
-                        .bind("code", code)
-                        .execute()
-        );
+    public void insertAccountUser(Handle handle, int userId, String username,
+                                  String password, int idRole, int locked, Integer code) {
+        handle.createUpdate(
+                        "INSERT INTO account_users (idUser, username, password, idRole, locked, code) " +
+                                "VALUES (:userId, :username, :password, :idRole, :locked, :code)"
+                )
+                .bind("userId", userId)
+                .bind("username", username)
+                .bind("password", password)
+                .bind("idRole", idRole)
+                .bind("locked", locked)
+                .bind("code", code)
+                .execute();
     }
-
 
 
     public boolean usernameExists(String username) {
@@ -146,6 +144,7 @@ public class UserDao {
                         .one() > 0
         );
     }
+
     public boolean checkHaveEmail(String username, String email) {
         Integer idUser = getIdUserByUsername(username); // Lấy idUser dựa trên username
         if (idUser == null) {
@@ -174,6 +173,7 @@ public class UserDao {
                         .findOnly()
         );
     }
+
     public List<AccountUser> getAllUser() {
         String query = "SELECT u.id AS userId, u.email, u.fullName, u.phoneNumber, " +
                 "a.id AS addressId, a.province, a.city, a.commune, a.street, " +
@@ -219,6 +219,7 @@ public class UserDao {
                         .list()
         );
     }
+
     public boolean lockUser(int id) {
         return jdbi.withHandle(handle ->
                 handle.createUpdate("UPDATE account_users SET locked = 1 WHERE idUser = :id")
@@ -226,6 +227,7 @@ public class UserDao {
                         .execute() > 0
         );
     }
+
     public boolean unlockUser(int id) {
         return jdbi.withHandle(handle ->
                 handle.createUpdate("UPDATE account_users SET locked = 0 WHERE idUser = :id")
@@ -233,6 +235,7 @@ public class UserDao {
                         .execute() > 0
         );
     }
+
     public List<AccountUser> findUserByName(String name) {
         String query = "SELECT u.id AS userId, u.email, u.fullName, u.phoneNumber, " +
                 "a.id AS addressId, a.province, a.city, a.commune, a.street, " +
