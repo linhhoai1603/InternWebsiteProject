@@ -7,16 +7,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp" %>
+<%@include file="includes/navbar.jsp" %>
 <html>
 <head>
     <title> Đăng nhập </title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+
 <link rel="stylesheet" href="css/login.css">
 
-<!-- Header with Navbar -->
-<a class="btn-back-home" href="index.jsp"><-- Về trang chủ</a>
 <div class="container ">
     <!-- Lấy giá trị error và username từ request scope -->
     <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}"/>
@@ -38,8 +38,23 @@
         <div style="color: red;">
             ${error}
         </div>
-        <form id="loginForm" method="post" action="login">
+        <div class="social-row">
+            <a href="#" title="Use Google">
+                <img src="#" alt="Google">
+                Sign in with Google
+            </a>
+            <a href="#" title="Use Facebook">
+                <img src="#" alt="Facebook">
+                Sign in with Facebook
+            </a>
+        </div>
 
+        <div class="lines">
+            <div class="line"></div>
+            OR
+            <div class="line"></div>
+        </div>
+        <form id="loginForm" method="post" action="login">
             <div class="mb-3">
                 <input class="form-control" id="username" placeholder="Tài khoản *" required type="text" name="username"
                        aria-label="Username" value="${username}"/>
@@ -56,6 +71,15 @@
         <a href="confirm-email.jsp" class="register-link"><fmt:message key="qmk"/></a>
     </div>
 </div>
+<%@include file="includes/footer.jsp" %>
 <%@include file="includes/link/footLink.jsp" %>
 </body>
 </html>
+
+
+
+
+
+
+
+
