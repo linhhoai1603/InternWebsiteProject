@@ -1,13 +1,13 @@
 package dao;
 
 import connection.DBConnection;
-import models.AccountUser;
-import models.Address;
-import models.User;
+import models.*;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 
 public class UserDao {
@@ -282,6 +282,43 @@ public class UserDao {
                         })
                         .list()
         );
+    }
+
+    public void insertToken(Handle handle, int idUser, String tokenHash, TokenType tokenType, LocalDateTime expiresAt) {
+        String sql = "INSERT INTO user_tokens (idUser, tokenHash, tokenType, expiresAt, createdAt) VALUES (:idUser, :tokenHash, :tokenType, :expiresAt, NOW())";
+        handle.createUpdate(sql)
+                .bind("idUser", idUser)
+                .bind("tokenHash", tokenHash)
+                // Bind trực tiếp enum, Jdbi sẽ dùng .name() để lấy chuỗi "ACTIVATION", "PASSWORD_RESET",...
+                .bind("tokenType", tokenType)
+                .bind("expiresAt", expiresAt)
+                .execute();
+    }
+
+    // Tìm token bằng hash của nó
+    public Optional<UserTokens> findTokenByHash(String tokenHash) {
+        String sql = "SELECT id, idUser, tokenHash, tokenType, expiresAt, createdAt FROM user_tokens WHERE tokenHash = :tokenHash";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("tokenHash", tokenHash)
+                        // mapToBean sẽ tự động chuyển đổi chuỗi từ DB thành TokenType enum
+                        .mapToBean(UserTokens.class)
+                        .findFirst()
+        );
+    }
+
+    // Xóa token (không thay đổi)
+    public void deleteToken(String tokenHash) {
+        jdbi.useHandle(handle ->
+                handle.createUpdate("DELETE FROM user_tokens WHERE tokenHash = :tokenHash")
+                        .bind("tokenHash", tokenHash)
+                        .execute()
+        );
+    }
+    public void deleteToken(Handle handle, String tokenHash) {
+        handle.createUpdate("DELETE FROM user_tokens WHERE tokenHash = :tokenHash")
+                .bind("tokenHash", tokenHash)
+                .execute();
     }
 }
 
