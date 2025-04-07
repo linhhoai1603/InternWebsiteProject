@@ -121,6 +121,12 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20240303</version> <!-- Hoặc phiên bản mới nhất bạn muốn sử dụng -->
+        </dependency>
     </dependencies>
 
     <build>

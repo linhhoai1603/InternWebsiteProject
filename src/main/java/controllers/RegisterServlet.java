@@ -42,14 +42,24 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String hasedPassword = this.hashedPassword(password);
-        try {
-            userService.registerUser(email, firstName, lastName, username, hasedPassword, phoneNumber, "default.png");
 
-            request.setAttribute("error", "Đăng ký tài khoản thành công!");
+        String scheme = request.getScheme();             // http
+        String serverName = request.getServerName();     // localhost
+        int serverPort = request.getServerPort();        // 8080
+        String contextPath = request.getContextPath();   // /your_app_context (hoặc rỗng nếu root)
+        String appBaseUrl = scheme + "://" + serverName + ":" + serverPort + contextPath;
+
+        try {
+            userService.registerUser(email, firstName, lastName, username, hasedPassword, phoneNumber, "default.png", appBaseUrl);
+
+            request.setAttribute("success", "Đăng ký thành công! Vui lòng kiểm tra email (" + email + ") để kích hoạt tài khoản.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
 
-        } catch (RuntimeException e) {
-            request.setAttribute("error", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Đã xảy ra lỗi trong quá trình đăng ký: " + e.getMessage());
+            request.setAttribute("email", email);
+            request.setAttribute("firstName", firstName);
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }

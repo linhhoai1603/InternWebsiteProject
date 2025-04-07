@@ -2,9 +2,16 @@ package services;
 
 import dao.UserDao;
 import models.AccountUser;
+import models.TokenType;
 import models.User;
+import models.UserTokens;
+import services.application.EmailSender;
+import services.application.HashUtil;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class UserService {
     private UserDao userDao;
@@ -18,14 +25,68 @@ public class UserService {
     }
 
     public void registerUser(String email, String firstname, String lastname, String username, String password,
-                             String phoneNumber, String image) {
+                             String phoneNumber, String image, String appBaseURL) {
+        String rawToken = UUID.randomUUID().toString();
+        String tokenHash = HashUtil.encodePasswordBase64(rawToken);
+        LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
 
         userDao.getJdbi().useTransaction(handle -> {
             int newUserId = userDao.insertUser(handle, email, firstname, lastname, phoneNumber, null, image);
-            userDao.insertAccountUser(handle, newUserId, username, password, 1, 0, null);
+            userDao.insertAccountUser(handle, newUserId, username, password, 1, 1, null);
+
+            userDao.insertToken(handle, newUserId, tokenHash, TokenType.ACTIVATION, expiresAt);
+
+            String activationLink = appBaseURL + "/activate?token=" + rawToken;
+            String subject = "Kích hoạt tài khoản của bạn";
+            String txt = "Chào " + username + ",\n\nVui lòng nhấp vào liên kết sau để kích hoạt tài khoản của bạn:\n" + activationLink +
+                    "\n\nLiên kết này sẽ hết hạn sau " + " 24 giờ.\n\nTrân trọng.";
+
+            EmailSender.sendEMail(email, subject, txt);
         });
     }
 
+    public boolean activateUser(String rawToken) {
+        String tokenHash = HashUtil.encodePasswordBase64(rawToken);
+
+        Optional<UserTokens> tokenOpt = userDao.findTokenByHash(tokenHash);
+
+        if (tokenOpt.isPresent()) {
+            UserTokens token = tokenOpt.get();
+
+            // 3. Kiểm tra token hợp lệ (chưa hết hạn và đúng type)
+            if (token.getTokenType().equals(TokenType.ACTIVATION) &&
+                    token.getExpiresAt().isAfter(LocalDateTime.now())) {
+
+                // 4. Kích hoạt tài khoản (update status = 1)
+                boolean activated = userDao.unlockUser(token.getUser().getId());
+
+                if (activated) {
+                    // 5. Xóa token đã sử dụng
+                    userDao.deleteToken(tokenHash);
+                    return true; // Kích hoạt thành công
+                } else {
+                    // Lỗi khi cập nhật DB (hiếm khi xảy ra nếu token tìm thấy)
+                    System.err.println("Lỗi khi cập nhật trạng thái user: " + token.getUser().getId());
+                    return false;
+                }
+            } else {
+                // Token hết hạn hoặc sai loại
+                if (!token.getTokenType().equals(TokenType.ACTIVATION)) {
+                    System.err.println("Token không đúng loại: " + token.getTokenType());
+                }
+                if (token.getExpiresAt().isBefore(LocalDateTime.now())) {
+                    System.err.println("Token đã hết hạn: " + token.getExpiresAt());
+                    // Có thể xóa token hết hạn ở đây nếu muốn
+                    // userTokenDao.deleteToken(tokenHash);
+                }
+                return false;
+            }
+        } else {
+            // Token không tồn tại
+            System.err.println("Token không tồn tại trong DB: " + tokenHash);
+            return false;
+        }
+    }
 
     public boolean checkHaveEmail(String username, String email) {
         return userDao.checkHaveEmail(username, email);
@@ -46,7 +107,5 @@ public class UserService {
     public List<AccountUser> searchUser(String name) {
         return userDao.findUserByName(name);
     }
-
-
 }
 

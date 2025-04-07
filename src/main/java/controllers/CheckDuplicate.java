@@ -4,8 +4,7 @@ import dao.UserDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import org.cloudinary.json.JSONObject;
-
+import org.json.JSONObject;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
