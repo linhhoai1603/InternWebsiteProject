@@ -11,11 +11,8 @@ import services.ProductService;
 import services.StyleService;
 import services.ToTalProductService;
 
-<<<<<<< HEAD
-@WebServlet(name = "ProductsServlet", value = "/product")
-=======
 @WebServlet(name = "ProductsServlet", value = "/products")
->>>>>>> main
+
 public class ProductsServlet extends HttpServlet {
     int nuPerPage = 12;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -28,13 +25,7 @@ public class ProductsServlet extends HttpServlet {
         int currentPage = (param != null) ? Integer.parseInt(param) : 1;
         if(option.isEmpty() || option == null) option = "Mới nhất";
 
-<<<<<<< HEAD
-        ProductService ps = new ProductService();
-=======
         ToTalProductService ps = new ToTalProductService();
->>>>>>> main
-
-
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("option", option);
         request.setAttribute("selection", selection);

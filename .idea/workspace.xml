@@ -3,70 +3,32 @@
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
       <artifact name="ProjectWeb:war" />
-<<<<<<< HEAD
       <artifact name="ProjectWeb:war exploded" />
-=======
->>>>>>> main
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25d9ffb8-7d89-407f-99ac-d3f415e653f9" name="Changes" comment="">
+    <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-<<<<<<< HEAD
-=======
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerContact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AddressDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AddressDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Price.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/TechnicalInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/TechnicalInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ContactInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ContactInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project_web.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/header.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PersonalServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PersonalServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AccountDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AccountDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AddressDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AddressDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Address.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ProductsServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ProductsServlet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/project_web.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" afterDir="false" />
->>>>>>> main
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-<<<<<<< HEAD
-        <option value="TypeScript File" />
-        <option value="CSS File" />
-        <option value="JavaScript File" />
-        <option value="Servlet" />
-=======
->>>>>>> main
-        <option value="Jsp File" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="KubernetesApiPersistence">{}</component>
-  <component name="KubernetesApiProvider">{
-  &quot;isMigrated&quot;: true
-}</component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
     <option name="FILTER_WARNINGS" value="false" />
@@ -74,177 +36,21 @@
     <option name="FILTER_DEBUG" value="true" />
     <option name="CUSTOM_FILTER" />
   </component>
-<<<<<<< HEAD
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 0
-}</component>
-  <component name="ProjectId" id="2pjd0qcRxLCursAU5L99s5ySgwF" />
-=======
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
-}</component>
-  <component name="ProjectId" id="2psIYzKqVEfjabPBHGYyF4RkuQc" />
->>>>>>> main
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-<<<<<<< HEAD
-    &quot;Application.AccountDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.AddressDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ContactDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DBConnection.executor&quot;: &quot;Run&quot;,
-    &quot;Application.DashboardDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.EmailSender.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HashUtil.executor&quot;: &quot;Run&quot;,
-    &quot;Application.LoginController.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MessageDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.OrderDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.OrderDetailDAO.executor&quot;: &quot;Run&quot;,
-    &quot;Application.OrderDetailServlet.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductDAO2.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.StyleDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.StyleService.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserDao.executor&quot;: &quot;Run&quot;,
-    &quot;Application.UserInForServies.executor&quot;: &quot;Run&quot;,
-    &quot;Application.VoucherService.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Smart Tomcat.mytomcat.executor&quot;: &quot;Run&quot;,
-    &quot;TomEE Server.TomEE 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.311.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.314.executor&quot;: &quot;Run&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;hoai&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Learn/TTWEB/Project/InternWebsiteProject&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-  },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
-    ]
-=======
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.314.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;hung&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/LTWeb/ProjectWeb&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
->>>>>>> main
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Tomcat Server.Tomcat 10.1.28.executor": "Run",
+    "git-widget-placeholder": "hoai",
+    "node.js.selected.package.tslint": "(autodetect)"
   }
-}</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Learn\TTWEB\Project\InternWebsiteProject\src\main\webapp" />
-    </key>
-  </component>
-<<<<<<< HEAD
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="discountPercent" />
-    </option>
-  </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.28">
-    <configuration default="true" type="com.poratu.idea.plugins.tomcat">
-      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
-      <predefined_log_file enabled="true" id="Tomcat Access Log" />
-      <predefined_log_file id="Tomcat Catalina Log" />
-      <predefined_log_file id="Tomcat Manager Log" />
-      <predefined_log_file id="Tomcat Host Manager Log" />
-      <option name="catalinaBase" value="" />
-      <option name="contextPath" value="" />
-      <option name="docBase" value="" />
-      <option name="extraClassPath" value="" />
-      <option name="tomcatInfo">
-        <TomcatInfo>
-          <option name="name" value="Apache Tomcat/10.1.28" />
-          <option name="path" value="C:/apache-tomcat-10.1.28" />
-          <option name="version" value="10.1.28.0" />
-        </TomcatInfo>
-      </option>
-      <option name="vmOptions" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="MakeProject" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductDAO2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="dao.ProductDAO2" />
-      <module name="ProjectWeb" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="services.application.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="TomeeConfiguration" factoryName="Remote" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="LOCAL" value="false" />
-      <deployment />
-      <server-settings>
-        <data>
-          <option name="transportHostId" value="" />
-          <host-id />
-        </data>
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="TOMCAT_LOCALHOST_LOG_ID" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Tomcat 10.1.28" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="true" ALTERNATIVE_JRE_PATH="21 (2)" nameIsGenerated="true">
-=======
+}]]></component>
   <component name="RunManager">
-    <configuration name="Tomcat 10.1.314" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.314" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
->>>>>>> main
+    <configuration name="Tomcat 10.1.28" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.28" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="ProjectWeb:war exploded">
-          <settings>
-            <option name="CONTEXT_PATH" value="/ProjectWeb_war_exploded" />
-          </settings>
-        </artifact>
         <artifact name="ProjectWeb:war">
           <settings>
             <option name="CONTEXT_PATH" value="/ProjectWeb_war" />
@@ -252,11 +58,7 @@
         </artifact>
       </deployment>
       <server-settings>
-<<<<<<< HEAD
-        <option name="BASE_DIRECTORY_NAME" value="87895ef2-9621-4449-90d4-e64ac4a94a09" />
-=======
-        <option name="BASE_DIRECTORY_NAME" value="a53118d8-1009-4ec9-a4c1-7948bd911de0" />
->>>>>>> main
+        <option name="BASE_DIRECTORY_NAME" value="97cd6cbb-441e-48d0-998e-ddd7185f7d02" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -264,11 +66,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-<<<<<<< HEAD
-        <option name="DEBUG_PORT" value="55625" />
-=======
-        <option name="DEBUG_PORT" value="53183" />
->>>>>>> main
+        <option name="DEBUG_PORT" value="51145" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -331,238 +129,15 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
       <method v="2">
-        <option name="MakeProject" enabled="true" />
+        <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
           <artifact name="ProjectWeb:war" />
-<<<<<<< HEAD
           <artifact name="ProjectWeb:war exploded" />
         </option>
       </method>
     </configuration>
-    <configuration name="Unnamed" type="com.poratu.idea.plugins.tomcat" nameIsGenerated="true">
-      <predefined_log_file enabled="true" id="Tomcat Localhost Log" />
-      <predefined_log_file enabled="true" id="Tomcat Access Log" />
-      <predefined_log_file id="Tomcat Catalina Log" />
-      <predefined_log_file id="Tomcat Manager Log" />
-      <predefined_log_file id="Tomcat Host Manager Log" />
-      <option name="catalinaBase" value="C:\Users\hoai1\.SmartTomcat\ProjectWeb\ProjectWeb" />
-      <option name="contextPath" value="/ProjectWeb" />
-      <option name="docBase" value="$PROJECT_DIR$/src/main/webapp" />
-      <option name="extraClassPath" value="" />
-      <option name="tomcatInfo">
-        <TomcatInfo>
-          <option name="name" value="Apache Tomcat/10.1.28" />
-          <option name="path" value="C:/apache-tomcat-10.1.28" />
-          <option name="version" value="10.1.28.0" />
-        </TomcatInfo>
-      </option>
-      <option name="vmOptions" value="" />
-      <module name="ProjectWeb" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-        <option name="MakeProject" enabled="true" />
-      </method>
-    </configuration>
-    <list>
-      <item itemvalue="Application.ProductDAO2" />
-      <item itemvalue="Tomcat Server.Tomcat 10.1.28" />
-    </list>
-=======
-        </option>
-      </method>
-    </configuration>
->>>>>>> main
   </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-<<<<<<< HEAD
-        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.59" />
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.59" />
-=======
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
->>>>>>> main
-      </set>
-    </attachedChunks>
-  </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="25d9ffb8-7d89-407f-99ac-d3f415e653f9" name="Changes" comment="" />
-      <created>1733548407867</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-<<<<<<< HEAD
-      <updated>1733283199616</updated>
-      <workItem from="1733283200632" duration="204000" />
-      <workItem from="1733283433299" duration="1011000" />
-      <workItem from="1733284467534" duration="5064000" />
-      <workItem from="1733293916791" duration="11903000" />
-      <workItem from="1733369322232" duration="80000" />
-      <workItem from="1733410699849" duration="4596000" />
-      <workItem from="1733445028550" duration="3329000" />
-      <workItem from="1733457050104" duration="9221000" />
-      <workItem from="1733499285728" duration="1321000" />
-      <workItem from="1733538951815" duration="78000" />
-      <workItem from="1733539801508" duration="6894000" />
-      <workItem from="1733548026673" duration="315000" />
-      <workItem from="1733548351669" duration="56000" />
-      <workItem from="1733548424823" duration="23000" />
-      <workItem from="1733558486501" duration="58000" />
-      <workItem from="1733558771178" duration="154000" />
-      <workItem from="1733559120493" duration="1120000" />
-      <workItem from="1733565561132" duration="2101000" />
-      <workItem from="1733624313749" duration="6237000" />
-      <workItem from="1733641642133" duration="22000" />
-      <workItem from="1733647387493" duration="598000" />
-      <workItem from="1733658213035" duration="4233000" />
-      <workItem from="1733727779380" duration="10770000" />
-      <workItem from="1733739116801" duration="976000" />
-      <workItem from="1733753939898" duration="2446000" />
-      <workItem from="1733808521489" duration="2720000" />
-      <workItem from="1733824353704" duration="1643000" />
-      <workItem from="1733843706088" duration="2002000" />
-      <workItem from="1733872330120" duration="1256000" />
-      <workItem from="1733873612337" duration="29000" />
-      <workItem from="1733873675250" duration="36000" />
-      <workItem from="1733873727562" duration="77000" />
-      <workItem from="1733873832316" duration="9706000" />
-      <workItem from="1733886939640" duration="260000" />
-      <workItem from="1733893914830" duration="7000" />
-      <workItem from="1734007361197" duration="466000" />
-      <workItem from="1734008364505" duration="27000" />
-      <workItem from="1734008416632" duration="46000" />
-      <workItem from="1734140324069" duration="2955000" />
-      <workItem from="1734148830279" duration="1952000" />
-      <workItem from="1734164889178" duration="1494000" />
-      <workItem from="1734332037485" duration="2367000" />
-      <workItem from="1734334675368" duration="781000" />
-      <workItem from="1734355068135" duration="1103000" />
-      <workItem from="1734357529592" duration="3967000" />
-      <workItem from="1734390291093" duration="2725000" />
-      <workItem from="1734409583577" duration="13179000" />
-      <workItem from="1734427370148" duration="3971000" />
-      <workItem from="1734431546669" duration="3871000" />
-      <workItem from="1734446082539" duration="5862000" />
-      <workItem from="1734486921950" duration="5426000" />
-      <workItem from="1734512362622" duration="264000" />
-      <workItem from="1734520525955" duration="4867000" />
-      <workItem from="1734530691947" duration="5774000" />
-      <workItem from="1734591374997" duration="111000" />
-      <workItem from="1734592218893" duration="198000" />
-      <workItem from="1734607604346" duration="892000" />
-      <workItem from="1734621466329" duration="3652000" />
-      <workItem from="1734681344921" duration="2452000" />
-      <workItem from="1734700806963" duration="1229000" />
-      <workItem from="1734773465534" duration="29000" />
-      <workItem from="1734773502932" duration="35000" />
-      <workItem from="1734773546738" duration="9022000" />
-      <workItem from="1734828899142" duration="12022000" />
-      <workItem from="1734860166323" duration="1545000" />
-      <workItem from="1734930328979" duration="1039000" />
-      <workItem from="1734942685401" duration="3346000" />
-      <workItem from="1734960012301" duration="165000" />
-      <workItem from="1735024135930" duration="2364000" />
-      <workItem from="1735026677289" duration="530000" />
-      <workItem from="1735027410961" duration="802000" />
-      <workItem from="1735052504627" duration="1636000" />
-      <workItem from="1735172225721" duration="596000" />
-      <workItem from="1735196137975" duration="7000" />
-      <workItem from="1735294932164" duration="4773000" />
-      <workItem from="1735309459405" duration="2284000" />
-      <workItem from="1735353288642" duration="23000" />
-      <workItem from="1735876705877" duration="908000" />
-      <workItem from="1735952279136" duration="1707000" />
-      <workItem from="1735965372227" duration="911000" />
-      <workItem from="1735978167443" duration="151000" />
-      <workItem from="1735980367059" duration="2143000" />
-      <workItem from="1735982736626" duration="3360000" />
-      <workItem from="1735986241412" duration="1995000" />
-      <workItem from="1735988404215" duration="353000" />
-      <workItem from="1735992015756" duration="11070000" />
-      <workItem from="1736041927540" duration="624000" />
-      <workItem from="1736045116138" duration="2775000" />
-      <workItem from="1736048035828" duration="5739000" />
-      <workItem from="1736056135030" duration="9754000" />
-      <workItem from="1736207890705" duration="3827000" />
-      <workItem from="1736214028798" duration="1043000" />
-      <workItem from="1736298825124" duration="1414000" />
-      <workItem from="1736300290518" duration="8376000" />
-      <workItem from="1736309011066" duration="1698000" />
-      <workItem from="1736312353197" duration="69000" />
-      <workItem from="1736312440050" duration="8000" />
-      <workItem from="1736312459071" duration="21000" />
-      <workItem from="1736312503994" duration="6000" />
-      <workItem from="1736312517116" duration="97000" />
-      <workItem from="1736312633575" duration="270000" />
-      <workItem from="1736312989532" duration="47000" />
-      <workItem from="1736313054492" duration="1325000" />
-      <workItem from="1736314415164" duration="3773000" />
-      <workItem from="1736351239913" duration="2671000" />
-      <workItem from="1736389874263" duration="1693000" />
-      <workItem from="1736395759407" duration="53000" />
-      <workItem from="1736404293117" duration="732000" />
-      <workItem from="1736421389486" duration="13685000" />
-      <workItem from="1736471958929" duration="1884000" />
-      <workItem from="1736474714039" duration="6274000" />
-      <workItem from="1736500613073" duration="3832000" />
-      <workItem from="1736580080700" duration="20736000" />
-      <workItem from="1736648171794" duration="17710000" />
-      <workItem from="1736676640014" duration="3109000" />
-      <workItem from="1736688263101" duration="9827000" />
-      <workItem from="1736728022543" duration="1834000" />
-      <workItem from="1736735530089" duration="709000" />
-      <workItem from="1736736258414" duration="2845000" />
-      <workItem from="1736739140477" duration="36000" />
-      <workItem from="1736744495194" duration="20000" />
-      <workItem from="1736753383434" duration="11000" />
-      <workItem from="1738663401813" duration="25000" />
-      <workItem from="1738663439815" duration="90000" />
-      <workItem from="1738663537805" duration="10000" />
-      <workItem from="1738663554864" duration="121000" />
-      <workItem from="1738663737958" duration="5000" />
-      <workItem from="1738663758588" duration="165000" />
-      <workItem from="1738663934260" duration="6000" />
-      <workItem from="1740213502909" duration="222000" />
-      <workItem from="1740318361083" duration="25000" />
-      <workItem from="1740730498958" duration="881000" />
-      <workItem from="1740838118079" duration="621000" />
-      <workItem from="1741095707041" duration="163000" />
-      <workItem from="1741097137787" duration="1699000" />
-      <workItem from="1741340177725" duration="70000" />
-      <workItem from="1741340960980" duration="20000" />
-      <workItem from="1741445691563" duration="1809000" />
-      <workItem from="1741500183112" duration="6000" />
-      <workItem from="1741500201133" duration="8000" />
-      <workItem from="1741501185243" duration="1151000" />
-      <workItem from="1741668344139" duration="530000" />
-      <workItem from="1741701796030" duration="29000" />
-      <workItem from="1743040161396" duration="794000" />
-      <workItem from="1741447012458" duration="278000" />
-      <workItem from="1741448989009" duration="2451000" />
-      <workItem from="1741498960212" duration="8426000" />
-      <workItem from="1741677772880" duration="523000" />
-      <workItem from="1741745815074" duration="12661000" />
-      <workItem from="1741941329188" duration="922000" />
-      <workItem from="1741942279600" duration="2583000" />
-      <workItem from="1743044574756" duration="898000" />
-      <workItem from="1743145403828" duration="14000" />
-      <workItem from="1743900310848" duration="1659000" />
-=======
-      <updated>1733548407867</updated>
-      <workItem from="1733548408871" duration="15000" />
-      <workItem from="1743480515659" duration="8771000" />
-      <workItem from="1743740544717" duration="8954000" />
-      <workItem from="1743935475213" duration="1161000" />
-      <workItem from="1743938967758" duration="7080000" />
-      <workItem from="1744111551080" duration="7109000" />
-      <workItem from="1744163057736" duration="2976000" />
->>>>>>> main
-    </task>
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
 </project>

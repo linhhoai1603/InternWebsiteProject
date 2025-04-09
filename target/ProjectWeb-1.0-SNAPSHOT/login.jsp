@@ -38,7 +38,7 @@
         <div style="color: red;">
             ${error}
         </div>
-        <form id="loginForm" method="post" action="login">
+        <form id="loginForm" method="post" action="login-user">
 
             <div class="mb-3">
                 <input class="form-control" id="username" placeholder="Tài khoản *" required type="text" name="username"
