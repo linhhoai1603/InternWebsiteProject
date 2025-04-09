@@ -176,7 +176,7 @@ public class UserDao {
     }
     public List<AccountUser> getAllUser() {
         String query = "SELECT u.id AS userId, u.email, u.fullName, u.phoneNumber, " +
-                "a.id AS addressId, a.province, a.city, a.commune, a.street, " +
+                "a.id AS addressId, a.province, a.district, a.ward, a.detail, " +
                 "COUNT(o.id) AS orderCount, SUM(o.lastPrice) AS totalSpent, acc.locked " +
                 "FROM users u " +
                 "JOIN addresses a ON u.idAddress = a.id " +
@@ -198,9 +198,9 @@ public class UserDao {
                             Address address = new Address();
                             address.setId(rs.getInt("addressId"));
                             address.setProvince(rs.getString("province"));
-                            address.setCity(rs.getString("city"));
-                            address.setCommune(rs.getString("commune"));
-                            address.setStreet(rs.getString("street"));
+                            address.setDistrict(rs.getString("district"));
+                            address.setWard(rs.getString("ward"));
+                            address.setDetail(rs.getString("detail"));
 
                             // Gán Address vào User
                             user.setAddress(address);
@@ -235,7 +235,7 @@ public class UserDao {
     }
     public List<AccountUser> findUserByName(String name) {
         String query = "SELECT u.id AS userId, u.email, u.fullName, u.phoneNumber, " +
-                "a.id AS addressId, a.province, a.city, a.commune, a.street, " +
+                "a.id AS addressId, a.province, a.district, a.ward, a.detail, " +
                 "COUNT(o.id) AS orderCount, SUM(o.lastPrice) AS totalSpent, acc.locked " +
                 "FROM users u " +
                 "JOIN addresses a ON u.idAddress = a.id " +
@@ -259,9 +259,9 @@ public class UserDao {
                             Address address = new Address();
                             address.setId(rs.getInt("addressId"));
                             address.setProvince(rs.getString("province"));
-                            address.setCity(rs.getString("city"));
-                            address.setCommune(rs.getString("commune"));
-                            address.setStreet(rs.getString("street"));
+                            address.setDistrict(rs.getString("district"));
+                            address.setWard(rs.getString("ward"));
+                            address.setDetail(rs.getString("detail"));
 
                             // Gán Address vào User
                             user.setAddress(address);

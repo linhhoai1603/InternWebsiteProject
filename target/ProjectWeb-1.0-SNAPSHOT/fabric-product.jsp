@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <title>Danh mục sản phẩm vải nội thất</title>
@@ -17,6 +19,8 @@
   }
 </style>
 <body>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
 <%@include file="includes/header.jsp"%>
 <%@include file="includes/navbar.jsp"%>
 <c:if test="${requestScope.fabric == null}">
@@ -29,14 +33,14 @@
   <div class="header-right d-flex align-items-center justify-content-end my-4">
     <div class="dropdown">
       <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-        Sắp xếp theo
+        <fmt:message key="sx"/>
       </a>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <li><a class="dropdown-item" href="product-fabric?option=1&page=1">Mới nhất</a></li>
-        <li><a class="dropdown-item" href="product-fabric?option=2&page=1">Giá: Cao -> Thấp</a></li>
-        <li><a class="dropdown-item" href="product-fabric?option=3&page=1">Giá: Thấp -> Cao</a></li>
-        <li><a class="dropdown-item" href="product-fabric?option=4&page=1">Bán chạy nhất</a></li>
-        <li><a class="dropdown-item" href="product-fabric?option=5&page=1">Giảm giá: Cao -> Thấp</a></li>
+        <li><a class="dropdown-item" href="product-fabric?option=1&page=1"><fmt:message key="mn"/></a></li>
+        <li><a class="dropdown-item" href="product-fabric?option=2&page=1"><fmt:message key="ct"/></a></li>
+        <li><a class="dropdown-item" href="product-fabric?option=3&page=1"><fmt:message key="tc"/></a></li>
+        <li><a class="dropdown-item" href="product-fabric?option=4&page=1"><fmt:message key="bcn"/></a></li>
+        <li><a class="dropdown-item" href="product-fabric?option=5&page=1">G<fmt:message key="gg"/></a></li>
       </ul>
     </div>
   </div>
@@ -60,7 +64,7 @@
             <c:forEach var="style" items="${product.styles}">
               <!-- Trường số lượng ẩn ban đầu -->
               <div class="quantity-container" style="display: none;">
-                <label for="quantity${style.id}" class="fw-bold">Số lượng:</label>
+                <label for="quantity${style.id}" class="fw-bold"><fmt:message key="soluong"/></label>
                 <input name="quantity" id="quantity${style.id}" class="quantity-input" type="number" min="1" value="1">
               </div>
 
@@ -85,11 +89,11 @@
             <h5 class="card-title">${product.name}</h5>
             <h4 class="card-text text-success">Chỉ còn: <span class="product-price text-success">${product.price.lastPrice}</span></h4>
             <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="product-price">${product.price.price}</span></p>
-            <p class="cart-text">Mô tả: ${product.description}</p>
+            <p class="cart-text"><fmt:message key="mota"/> ${product.description}</p>
             <div class="row mt-3" style="justify-content: center">
               <button type="button" class="col-md-4 btn btn-warning add-to-cart-button mx-1">+<i class="fa-solid fa-cart-shopping"></i></button>
-              <button type="submit" class="col-md-4 btn btn-success submit-cart-button mx-1" style="display: none;">Xác nhận</button>
-              <a href="detail-product?productId=${product.id}" class="col-md-4 btn btn-primary mx-1">Xem ngay</a>
+              <button type="submit" class="col-md-4 btn btn-success submit-cart-button mx-1" style="display: none;"><fmt:message key="xacNhan"/></button>
+              <a href="detail-product?productId=${product.id}" class="col-md-4 btn btn-primary mx-1"><fmt:message key="xem"/></a>
             </div>
           </div>
         </form>
