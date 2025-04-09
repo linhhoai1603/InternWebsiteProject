@@ -55,7 +55,7 @@ public class ToTalProductDAO {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setWeight(rs.getDouble("area"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
 
@@ -116,7 +116,7 @@ public class ToTalProductDAO {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setWeight(rs.getDouble("area"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
 
@@ -199,7 +199,7 @@ public class ToTalProductDAO {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setWeight(rs.getDouble("area"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
 
