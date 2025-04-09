@@ -29,7 +29,7 @@ public class HomeServlet extends HttpServlet {
 //        request.getSession().setAttribute("account", acc);
          // bỏ qua bưoc đăng nhập
 
-
+        System.out.println("có vô home servlet");
         ProductService ps = new ProductService();
         HttpSession session = request.getSession();
         // tạo ra shopping cart của người dùng
@@ -53,6 +53,6 @@ public class HomeServlet extends HttpServlet {
         VoucherService vd = new VoucherService();
         session.setAttribute("vouchers", vd.getVoucherByValid(1));
         // chuyển tới trang chủ
-        request.getRequestDispatcher("ChangeLanguage").forward(request,response);
+        request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 }

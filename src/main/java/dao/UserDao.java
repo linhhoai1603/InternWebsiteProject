@@ -100,7 +100,7 @@ public class UserDao {
     }
 
     public int insertUser(Handle handle, String email, String firstName, String lastName,
-                          String phoneNumber, Integer idAddress, String image) {
+                          String phoneNumber, int idAddress, String image) {
         return handle.createUpdate(
                         "INSERT INTO users (email, firstName, lastName, phoneNumber, idAddress, image) " +
                                 "VALUES (:email, :firstName, :lastName, :phoneNumber, :idAddress, :image)"
@@ -129,6 +129,17 @@ public class UserDao {
                 .bind("idRole", idRole)
                 .bind("locked", locked)
                 .bind("code", code)
+                .execute();
+    }
+
+    public void insertToken(Handle handle, int idUser, String tokenHash, TokenType tokenType, LocalDateTime expiresAt) {
+        String sql = "INSERT INTO user_tokens (idUser, tokenHash, tokenType, expiresAt, createdAt) VALUES (:idUser, :tokenHash, :tokenType, :expiresAt, NOW())";
+        handle.createUpdate(sql)
+                .bind("idUser", idUser)
+                .bind("tokenHash", tokenHash)
+                // Bind trực tiếp enum, Jdbi sẽ dùng .name() để lấy chuỗi "ACTIVATION", "PASSWORD_RESET",...
+                .bind("tokenType", tokenType)
+                .bind("expiresAt", expiresAt)
                 .execute();
     }
 
@@ -284,16 +295,6 @@ public class UserDao {
         );
     }
 
-    public void insertToken(Handle handle, int idUser, String tokenHash, TokenType tokenType, LocalDateTime expiresAt) {
-        String sql = "INSERT INTO user_tokens (idUser, tokenHash, tokenType, expiresAt, createdAt) VALUES (:idUser, :tokenHash, :tokenType, :expiresAt, NOW())";
-        handle.createUpdate(sql)
-                .bind("idUser", idUser)
-                .bind("tokenHash", tokenHash)
-                // Bind trực tiếp enum, Jdbi sẽ dùng .name() để lấy chuỗi "ACTIVATION", "PASSWORD_RESET",...
-                .bind("tokenType", tokenType)
-                .bind("expiresAt", expiresAt)
-                .execute();
-    }
 
     // Tìm token bằng hash của nó
     public Optional<UserTokens> findTokenByHash(String tokenHash) {
@@ -305,6 +306,25 @@ public class UserDao {
                         .mapToBean(UserTokens.class)
                         .findFirst()
         );
+    }
+
+    public static void main(String[] args) {
+        UserDao userDao = new UserDao();
+        UserTokens u = new UserTokens();
+        Optional<UserTokens> optionalToken = userDao.findTokenByHash("dmpiYXZ2dmFidmFidmJhdmFoYmh2YWJoaGJhODMyOTJiNDAtMDQ2ZS00ZTc1LWFiOGItNzU5OGNhZWQ1MDJkNzk2NjU2QCMkJVFAI2ZjZnZ5Z2I=");
+        optionalToken.ifPresent(foundToken -> {
+            // Khối lệnh này chỉ chạy nếu optionalToken không rỗng
+            System.out.println("--------------------------");
+            System.out.println("Đã tìm thấy token!");
+            System.out.println("  ID: " + foundToken.getId());
+            System.out.println("  User ID: " + foundToken.getIdUser());
+            System.out.println("  Token Type: " + foundToken.getTokenType());
+            System.out.println("  Expires At: " + foundToken.getExpiresAt());
+            System.out.println("  Created At: " + foundToken.getCreatedAt());
+            // In thêm các thông tin khác nếu cần
+            System.out.println("--------------------------");
+        });
+
     }
 
     // Xóa token (không thay đổi)

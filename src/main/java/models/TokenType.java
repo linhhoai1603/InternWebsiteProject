@@ -1,6 +1,6 @@
 package models;
 
 public enum TokenType {
-    ACTIVATION,
-    PASSWORD_RESET,
+    email_verification,
+    reset_password,
 }
