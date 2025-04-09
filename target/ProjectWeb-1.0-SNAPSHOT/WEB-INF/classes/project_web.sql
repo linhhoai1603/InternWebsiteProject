@@ -76,10 +76,10 @@ CREATE TABLE `deliveries`(
 );
 CREATE TABLE `addresses`(
                             `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                            `city` VARCHAR(255) NOT NULL,
                             `province` VARCHAR(255) NOT NULL,
-                            `commune` VARCHAR(255) NOT NULL,
-                            `street` VARCHAR(255) NOT NULL
+                            `district` VARCHAR(255) NOT NULL,
+                            `ward` VARCHAR(255) NOT NULL,
+                            `detail` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `categories`(
                              `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
