@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 public class UserTokens implements Serializable {
     private int id;
-    private User user;
+    private int idUser;
     private String tokenHash;
     private TokenType tokenType;
     private LocalDateTime expiresAt, createdAt;
@@ -13,9 +13,9 @@ public class UserTokens implements Serializable {
     public UserTokens() {
     }
 
-    public UserTokens(int id, User user, String tokenHash, TokenType tokenType, LocalDateTime expiresAt, LocalDateTime createdAt) {
+    public UserTokens(int id, int idUser, String tokenHash, TokenType tokenType, LocalDateTime expiresAt, LocalDateTime createdAt) {
         this.id = id;
-        this.user = user;
+        this.idUser = idUser;
         this.tokenHash = tokenHash;
         this.tokenType = tokenType;
         this.expiresAt = expiresAt;
@@ -30,12 +30,12 @@ public class UserTokens implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public int getIdUser() {
+        return idUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getTokenHash() {

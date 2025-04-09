@@ -12,6 +12,9 @@
 <head>
     <title> Đăng nhập </title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
 
@@ -39,13 +42,13 @@
             ${error}
         </div>
         <div class="social-row">
-            <a href="#" title="Use Google">
-                <img src="#" alt="Google">
-                Sign in with Google
+            <a href="#" class="social-button btn-google-login" title="Continue with Google">
+                <i class="fab fa-google"></i> <!-- Icon Google -->
+                <span>Continue with Google</span>
             </a>
-            <a href="#" title="Use Facebook">
-                <img src="#" alt="Facebook">
-                Sign in with Facebook
+            <a href="#" class="social-button btn-facebook-login" title="Continue with Facebook">
+                <i class="fab fa-facebook-f"></i> <!-- Icon Facebook -->
+                <span>Continue with Facebook</span>
             </a>
         </div>
 
@@ -68,7 +71,7 @@
             </div>
         </form>
         <a href="register.jsp" class="register-link"><fmt:message key="bcctk"/></a>
-        <a href="confirm-email.jsp" class="register-link"><fmt:message key="qmk"/></a>
+        <a href="forgotPass.jsp" class="register-link"><fmt:message key="qmk"/></a>
     </div>
 </div>
 <%@include file="includes/footer.jsp" %>

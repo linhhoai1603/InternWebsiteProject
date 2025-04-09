@@ -31,10 +31,10 @@ public class UserService {
         LocalDateTime expiresAt = LocalDateTime.now().plusHours(24);
 
         userDao.getJdbi().useTransaction(handle -> {
-            int newUserId = userDao.insertUser(handle, email, firstname, lastname, phoneNumber, null, image);
+            int newUserId = userDao.insertUser(handle, email, firstname, lastname, phoneNumber, 1, image);
             userDao.insertAccountUser(handle, newUserId, username, password, 1, 1, null);
 
-            userDao.insertToken(handle, newUserId, tokenHash, TokenType.ACTIVATION, expiresAt);
+            userDao.insertToken(handle, newUserId, tokenHash, TokenType.email_verification, expiresAt);
 
             String activationLink = appBaseURL + "/activate?token=" + rawToken;
             String subject = "Kích hoạt tài khoản của bạn";
@@ -46,19 +46,20 @@ public class UserService {
     }
 
     public boolean activateUser(String rawToken) {
+        System.out.println("activateUser - Raw Token Input: " + rawToken);
         String tokenHash = HashUtil.encodePasswordBase64(rawToken);
-
+        System.out.println("activateUser - Generated Hash: '" + tokenHash + "'");
         Optional<UserTokens> tokenOpt = userDao.findTokenByHash(tokenHash);
 
         if (tokenOpt.isPresent()) {
             UserTokens token = tokenOpt.get();
 
             // 3. Kiểm tra token hợp lệ (chưa hết hạn và đúng type)
-            if (token.getTokenType().equals(TokenType.ACTIVATION) &&
+            if (token.getTokenType().equals(TokenType.email_verification) &&
                     token.getExpiresAt().isAfter(LocalDateTime.now())) {
 
                 // 4. Kích hoạt tài khoản (update status = 1)
-                boolean activated = userDao.unlockUser(token.getUser().getId());
+                boolean activated = userDao.unlockUser(token.getIdUser());
 
                 if (activated) {
                     // 5. Xóa token đã sử dụng
@@ -66,18 +67,17 @@ public class UserService {
                     return true; // Kích hoạt thành công
                 } else {
                     // Lỗi khi cập nhật DB (hiếm khi xảy ra nếu token tìm thấy)
-                    System.err.println("Lỗi khi cập nhật trạng thái user: " + token.getUser().getId());
+                    System.err.println("Lỗi khi cập nhật trạng thái user: " + token.getIdUser());
                     return false;
                 }
             } else {
                 // Token hết hạn hoặc sai loại
-                if (!token.getTokenType().equals(TokenType.ACTIVATION)) {
+                if (!token.getTokenType().equals(TokenType.email_verification)) {
                     System.err.println("Token không đúng loại: " + token.getTokenType());
                 }
                 if (token.getExpiresAt().isBefore(LocalDateTime.now())) {
                     System.err.println("Token đã hết hạn: " + token.getExpiresAt());
-                    // Có thể xóa token hết hạn ở đây nếu muốn
-                    // userTokenDao.deleteToken(tokenHash);
+
                 }
                 return false;
             }
