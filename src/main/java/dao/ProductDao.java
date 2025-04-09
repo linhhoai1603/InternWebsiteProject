@@ -48,7 +48,7 @@ public class ProductDao {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setWeight(id);(rs.getDouble("area"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -193,7 +193,7 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setWeight(options);(rs.getDouble("area"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -315,7 +315,7 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setWeight(rs.getDouble("area"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -439,7 +439,7 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setWeight(rs.getDouble("area"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -513,7 +513,7 @@ public class ProductDao {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setWeight(rs.getDouble("area"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -622,7 +622,7 @@ public class ProductDao {
                             product.setName(rs.getString("name"));
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
-                            product.setArea(rs.getDouble("area"));
+                            product.setWeight(rs.getDouble("area"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -760,7 +760,7 @@ public class ProductDao {
                 product.setQuantity(rs.getInt("quantity"));
                 product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                 product.setDescription(rs.getString("description"));
-                product.setArea(rs.getDouble("area"));
+                product.setWeight(rs.getDouble("area"));
                 product.setSelling(rs.getInt("selling"));
                 product.setImage(rs.getString("img"));
 
@@ -981,7 +981,7 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setWeight(rs.getDouble("area"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 

@@ -5,9 +5,9 @@ import java.io.Serializable;
 public class Address implements Serializable {
     private int id;
     private String province;
-    private String city;
-    private String commune;
-    private String street;
+    private String district;
+    private String ward;
+    private String detail;
 
     public int getId() {
         return id;
@@ -17,28 +17,28 @@ public class Address implements Serializable {
         this.id = id;
     }
 
-    public String getStreet() {
-        return street;
+    public String getWard() {
+        return ward;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setWard(String ward) {
+        this.ward = ward;
     }
 
-    public String getCommune() {
-        return commune;
+    public String getDetail() {
+        return detail;
     }
 
-    public void setCommune(String commune) {
-        this.commune = commune;
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
-    public String getCity() {
-        return city;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getProvince() {
@@ -49,27 +49,27 @@ public class Address implements Serializable {
         this.province = province;
     }
 
-    public Address(int id, String province, String city, String commune, String street) {
+    public Address(int id, String province, String district, String ward, String detail) {
         this.id = id;
         this.province = province;
-        this.city = city;
-        this.commune = commune;
-        this.street = street;
+        this.district = district;
+        this.ward = ward;
+        this.detail = detail;
     }
     public Address() {
         super();
     }
     public String getAddressDetail(){
-        return this.street + ", " + this.commune + ", " + this.city + ", " + this.province;
+        return this.detail + ", " + this.ward + ", " + this.district + ", " + this.province;
     }
     @Override
     public String toString() {
         return "Address{" +
                 "id=" + id +
                 ", province='" + province + '\'' +
-                ", city='" + city + '\'' +
-                ", commune='" + commune + '\'' +
-                ", street='" + street + '\'' +
+                ", city='" + district + '\'' +
+                ", commune='" + ward + '\'' +
+                ", street='" + detail + '\'' +
                 '}';
     }
 }
