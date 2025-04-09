@@ -11,7 +11,9 @@ public class Product implements Serializable {
     private int quantity;
     private LocalDate dateAdded;
     private String description;
-    private double area;
+    private double height;
+    private double weight;
+    private double width;
     private int selling;
     private String image;
     private Category category;
@@ -74,12 +76,28 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public double getArea() {
-        return area;
+    public double getHeight() {
+        return height;
     }
 
-    public void setArea(double area) {
-        this.area = area;
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
     }
 
     public int getSelling() {
@@ -121,13 +139,15 @@ public class Product implements Serializable {
     }
 
 
-    public Product(int id, String name, int quantity, LocalDate dateAdded, String description, double area, int selling, String image, Category category, TechnicalInfo technicalInfo, Price price) {
+    public Product(int id, String name, int quantity, LocalDate dateAdded, String description, double area, int selling, String image, Category category, TechnicalInfo technicalInfo, Price price,double height, double weight, double width, int totalProduct) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.dateAdded = dateAdded;
         this.description = description;
-        this.area = area;
+        this.height = height;
+        this.weight = weight;
+        this.width = width;
         this.selling = selling;
         this.image = image;
         this.category = category;
@@ -150,7 +170,9 @@ public class Product implements Serializable {
                 "," + quantity +
                 "," + dateAdded +
                 "," + description +
-                "," + area +
+                "," + height +
+                "," + weight +
+                "," + width +
                 "," + selling +
                 "," + image +
                 "," + category +

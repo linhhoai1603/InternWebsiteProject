@@ -8,6 +8,7 @@ public class TechnicalInfo implements Serializable {
    private int id;
    private String specification;
    private LocalDate manufactureDate;
+   private LocalDate releaseDay ;
 
     public int getId() {
         return id;
@@ -31,6 +32,14 @@ public class TechnicalInfo implements Serializable {
 
     public void setManufactureDate(LocalDate manufactureDate) {
         this.manufactureDate = manufactureDate;
+    }
+
+    public LocalDate getReleaseDay() {
+        return releaseDay;
+    }
+
+    public void setReleaseDay(LocalDate releaseDay) {
+        this.releaseDay = releaseDay;
     }
 
     @Override
