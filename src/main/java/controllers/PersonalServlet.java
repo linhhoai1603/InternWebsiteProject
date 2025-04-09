@@ -54,9 +54,9 @@ public class PersonalServlet extends HttpServlet {
             fullname = (fullname == null || fullname.isEmpty()) ? user.getFullName() : fullname;
             phone = (phone == null || phone.isEmpty()) ? user.getNumberPhone() : phone;
             province = (province == null || province.isEmpty()) ? user.getAddress().getProvince() : province;
-            city = (city == null || city.isEmpty()) ? user.getAddress().getCity() : city;
-            commune = (commune == null || commune.isEmpty()) ? user.getAddress().getCommune() : commune;
-            street = (street == null || street.isEmpty()) ? user.getAddress().getStreet() : street;
+            city = (city == null || city.isEmpty()) ? user.getAddress().getDistrict() : city;
+            commune = (commune == null || commune.isEmpty()) ? user.getAddress().getWard() : commune;
+            street = (street == null || street.isEmpty()) ? user.getAddress().getDetail() : street;
 
             if (sv.updateInfo(idUser, idAddress, email, fullname, phone, province, city, commune, street)) {
                 user.setEmail(email);
@@ -65,9 +65,9 @@ public class PersonalServlet extends HttpServlet {
 
                 if (user.getAddress() != null) {
                     user.getAddress().setProvince(province);
-                    user.getAddress().setCity(city);
-                    user.getAddress().setCommune(commune);
-                    user.getAddress().setStreet(street);
+                    user.getAddress().setDistrict(city);
+                    user.getAddress().setWard(commune);
+                    user.getAddress().setDetail(street);
                 }
 
                 // Cập nhật lại đối tượng user trong session

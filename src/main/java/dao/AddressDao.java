@@ -39,10 +39,10 @@ public class AddressDao {
         String query = "insert into addresses (city, province, commune, street) values (?,?,?,?)";
         return jdbi.withHandle(handle -> {
             return handle.createUpdate(query)
-                    .bind(0, address.getCity())
+                    .bind(0, address.getDistrict())
                     .bind(1, address.getProvince())
-                    .bind(2, address.getCommune())
-                    .bind(3, address.getStreet())
+                    .bind(2, address.getWard())
+                    .bind(3, address.getDetail())
                     .execute() > 0;
         });
     }
