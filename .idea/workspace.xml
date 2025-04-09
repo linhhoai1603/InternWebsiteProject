@@ -10,28 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25d9ffb8-7d89-407f-99ac-d3f415e653f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerContact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AddressDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AddressDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Price.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/TechnicalInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/TechnicalInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ContactInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ContactInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project_web.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PersonalServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PersonalServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AccountDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AccountDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AddressDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AddressDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Address.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/project_web.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +184,7 @@
       <workItem from="1743935475213" duration="1161000" />
       <workItem from="1743938967758" duration="7080000" />
       <workItem from="1744111551080" duration="7109000" />
-      <workItem from="1744163057736" duration="2976000" />
+      <workItem from="1744163057736" duration="10787000" />
     </task>
     <servers />
   </component>
