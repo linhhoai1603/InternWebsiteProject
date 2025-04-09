@@ -10,28 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c35bb613-a845-4ea4-8a5e-b3e07cf03625" name="Changes" comment="modify register controller">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/forgotPass.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/js/duplicateChecker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/webContexts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webContexts.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ForgetPasswordServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ForgetPasswordServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/HomeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/AccountUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/AccountUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/TokenType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/UserTokens.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/UserTokens.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/AuthenServies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AuthenServies.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/application/Code.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/application/Code.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/confirm-code.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/confirm-email.jsp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/reg-alert.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/reg-alert.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/reset-password.jsp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -592,7 +571,7 @@
       <workItem from="1743951382360" duration="1104000" />
       <workItem from="1743952989318" duration="4554000" />
       <workItem from="1744033447886" duration="6852000" />
-      <workItem from="1744163985693" duration="18680000" />
+      <workItem from="1744163985693" duration="19879000" />
     </task>
     <task id="LOCAL-00001" summary="modify register controller">
       <option name="closed" value="true" />
