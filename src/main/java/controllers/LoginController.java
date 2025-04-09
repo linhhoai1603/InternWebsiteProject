@@ -12,9 +12,8 @@ import services.application.HashUtil;
 
 import java.io.IOException;
 
-@WebServlet(name="LoginController", value = "/login")
-public class    LoginController extends HttpServlet {
-
+@WebServlet(name="LoginController", value = "/login-user")
+public class  LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("login.jsp").forward(request, response);

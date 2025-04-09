@@ -18,31 +18,35 @@
         <url-pattern>/avatar</url-pattern>
     </servlet-mapping>
 
-<!--    <error-page>-->
-<!--        <error-code>404</error-code>-->
-<!--        <location>/error/404.jsp</location>-->
-<!--    </error-page>-->
-<!--    <error-page>-->
-<!--        <error-code>400</error-code>-->
-<!--        <location>/error/400.jsp</location>-->
-<!--    </error-page>-->
-<!--    <error-page>-->
-<!--        <error-code>403</error-code>-->
-<!--        <location>/error/403.jsp</location>-->
-<!--    </error-page>-->
-<!--    <error-page>-->
-<!--        <error-code>401</error-code>-->
-<!--        <location>/error/401.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error/400.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error/403.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error/401.jsp</location>
+    </error-page>
 
-<!--    <error-page>-->
-<!--        <error-code>500</error-code>-->
-<!--        <location>/error/500.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500.jsp</location>
+    </error-page>
 
-<!--    <error-page>-->
-<!--        <error-code>503</error-code>-->
-<!--        <location>/error/503.jsp</location>-->
-<!--    </error-page>-->
+    <error-page>
+        <error-code>503</error-code>
+        <location>/error/503.jsp</location>
+    </error-page>
 
+    <!-- Cấu hình tự động mở trang index.jsp -->
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

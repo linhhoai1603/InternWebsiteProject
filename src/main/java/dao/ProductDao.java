@@ -48,7 +48,7 @@ public class ProductDao {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setWeight(id);(rs.getDouble("area"));
+                            product.setWeight((rs.getDouble("area")));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -193,7 +193,7 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setWeight(options);(rs.getDouble("area"));
+                    product.setWeight(rs.getDouble("area"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -879,7 +879,7 @@ public class ProductDao {
                     .bind("idCategory", product.getCategory().getId())
                     .bind("addedDate", java.sql.Date.valueOf(product.getDateAdded()))
                     .bind("description", product.getDescription())
-                    .bind("area", product.getArea())
+                    .bind("area", product.getWeight())
                     .bind("selling", product.getSelling())
                     .bind("img", product.getImage())
                     .bind("idTechnical", technicalId)
