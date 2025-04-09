@@ -17,7 +17,7 @@ public class AccountDao {
         String sql = """
                 SELECT 
                     u.id AS user_id, u.email, u.fullName, u.phoneNumber, u.image,
-                    a.id AS address_id, a.province, a.city, a.commune, a.street, 
+                    a.id AS address_id, a.province, a.district, a.ward, a.detail, 
                     au.id AS account_user_id, au.username, au.password, au.role, au.locked ,au.code
                 FROM 
                     users u 
@@ -45,9 +45,9 @@ public class AccountDao {
                         Address address = new Address();
                         address.setId(rs.getInt("address_id"));
                         address.setProvince(rs.getString("province"));
-                        address.setCity(rs.getString("city"));
-                        address.setCommune(rs.getString("commune"));
-                        address.setStreet(rs.getString("street"));
+                        address.setDistrict(rs.getString("district"));
+                        address.setWard(rs.getString("ward"));
+                        address.setDetail(rs.getString("detail"));
                         user.setAddress(address);
 
                         // Ánh xạ thông tin từ bảng account_users

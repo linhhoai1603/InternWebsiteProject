@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="includes/link/headLink.jsp"%>
+<%@include file="includes/link/headLink.jsp" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Danh mục sản phẩm</title>
@@ -17,8 +19,10 @@
     }
 </style>
 <body>
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
+<%@include file="includes/header.jsp" %>
+<%@include file="includes/navbar.jsp" %>
 <link rel="stylesheet" href="css/products.css">
 <c:if test="${requestScope.products == null}">
     <script>
@@ -29,15 +33,16 @@
     <!-- Thanh sắp xếp -->
     <div class="header-right d-flex align-items-center justify-content-end my-4">
         <div class="dropdown">
-            <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                Sắp xếp theo
+            <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <fmt:message key="sx"/>
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <li><a class="dropdown-item" href="products?option=1&page=1">Mới nhất</a></li>
-                <li><a class="dropdown-item" href="products?option=2&page=1">Giá: Cao -> Thấp</a></li>
-                <li><a class="dropdown-item" href="products?option=3&page=1">Giá: Thấp -> Cao</a></li>
-                <li><a class="dropdown-item" href="products?option=4&page=1">Bán chạy nhất</a></li>
-                <li><a class="dropdown-item" href="products?option=5&page=1">Giảm giá: Cao -> Thấp</a></li>
+                <li><a class="dropdown-item" href="products?option=1&page=1"><fmt:message key="mn"/></a></li>
+                <li><a class="dropdown-item" href="products?option=2&page=1"><fmt:message key="ct"/></a></li>
+                <li><a class="dropdown-item" href="products?option=3&page=1"><fmt:message key="tc"/></a></li>
+                <li><a class="dropdown-item" href="products?option=4&page=1"><fmt:message key="bcn"/></a></li>
+                <li><a class="dropdown-item" href="products?option=5&page=1"><fmt:message key="gg"/></a></li>
             </ul>
         </div>
     </div>
@@ -51,22 +56,26 @@
                 </span>
 
                 <!-- Hình ảnh chính -->
-                <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="img-fluid main-image w-100 h-50">
+                <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}"
+                     class="img-fluid main-image w-100 h-50">
 
                 <!-- Danh sách các tùy chọn màu sắc hiển thị dưới dạng ảnh -->
                 <form action="cart?method=add" method="post" class="product-options-form">
-                    <input name="currentURL" type="hidden" value="products?page=${requestScope.currentPage}&option=${requestScope.option}">
+                    <input name="currentURL" type="hidden"
+                           value="products?page=${requestScope.currentPage}&option=${requestScope.option}">
                     <input type="hidden" name="productID" value="${product.id}">
                     <div class="product-squares d-flex justify-content-center align-items-center flex-wrap mt-2">
                         <c:forEach var="style" items="${product.styles}">
 
                             <!-- Trường số lượng ẩn ban đầu -->
                             <div class="quantity-container" style="display: none;">
-                                <label for="quantity" class="fw-bold">Số lượng:</label>
-                                <input name="quantity" id="quantity" class="quantity-input " type="number" min="1" value="1">
+                                <label for="quantity" class="fw-bold"><fmt:message key="soluong"/></label>
+                                <input name="quantity" id="quantity" class="quantity-input " type="number" min="1"
+                                       value="1">
                             </div>
 
-                            <label for="style${style.id}" class="product-style-label" style="cursor: pointer; margin: 5px;">
+                            <label for="style${style.id}" class="product-style-label"
+                                   style="cursor: pointer; margin: 5px;">
                                 <input
                                         type="radio"
                                         name="selectedStyle"
@@ -83,19 +92,24 @@
                         </c:forEach>
 
                     </div>
-                <div class="card-body text-center">
-                    <h5 class="card-title">${product.name}</h5>
-                    <h4 class="card-text text-success">Chỉ còn: <span class="product-price text-success">${product.price.lastPrice}</span></h4>
-                    <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span class="product-price">${product.price.price}</span></p>
-                    <p class="cart-text ">Mô tả: ${product.description}</p>
-                    <div class="row justify-content-center">
-                        <div class="col-md-4 d-flex justify-content-between">
-                            <button type="button" class="btn btn-warning add-to-cart-button">+<i class="fa-solid fa-cart-shopping"></i></button>
-                            <button type="submit" class="btn btn-success submit-cart-button" style="display: none;">Xác nhận</button>
+                    <div class="card-body text-center">
+                        <h5 class="card-title">${product.name}</h5>
+                        <h4 class="card-text text-success">Chỉ còn: <span
+                                class="product-price text-success">${product.price.lastPrice}</span></h4>
+                        <p class="text-danger text-decoration-line-through text-center">Giá gốc: <span
+                                class="product-price">${product.price.price}</span></p>
+                        <p class="cart-text "><fmt:message key="mota"/> ${product.description}</p>
+                        <div class="row justify-content-center">
+                            <div class="col-md-4 d-flex justify-content-between">
+                                <button type="button" class="btn btn-warning add-to-cart-button">+<i
+                                        class="fa-solid fa-cart-shopping"></i></button>
+                                <button type="submit" class="btn btn-success submit-cart-button" style="display: none;">
+                                    <fmt:message key="xacNhan"/></button>
+                            </div>
+                            <a href="detail-product?productId=${product.id}"
+                               class="btn btn-primary mx-1 col-md-4 text-center"><fmt:message key="xem"/></a>
                         </div>
-                        <a href="detail-product?productId=${product.id}" class="btn btn-primary mx-1 col-md-4 text-center">Xem ngay</a>
                     </div>
-                </div>
                 </form>
             </div>
         </c:forEach>
@@ -107,7 +121,8 @@
             <!-- Nút Previous -->
             <c:if test="${requestScope.currentPage > 1}">
                 <li class="page-item">
-                    <a class="page-link mx-2" href="products?page=${requestScope.currentPage-1}&option=${requestScope.option}"><<</a>
+                    <a class="page-link mx-2"
+                       href="products?page=${requestScope.currentPage-1}&option=${requestScope.option}"><<</a>
                 </li>
             </c:if>
 
@@ -131,7 +146,8 @@
             <!-- Nút Next -->
             <c:if test="${requestScope.currentPage < requestScope.pageNumber}">
                 <li class="page-item">
-                    <a class="page-link mx-2" href="products?page=${requestScope.currentPage+1}&option=${requestScope.option}">>></a>
+                    <a class="page-link mx-2"
+                       href="products?page=${requestScope.currentPage+1}&option=${requestScope.option}">>></a>
                 </li>
             </c:if>
         </ul>
@@ -139,7 +155,7 @@
 
 </div>
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="includes/footer.jsp" %>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lắng nghe sự kiện thay đổi của tất cả các radio button
@@ -165,6 +181,7 @@
             mainImage.src = imageUrl;
         }
     }
+
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy danh sách các nút "Thêm vào giỏ hàng"
         const addToCartButtons = document.querySelectorAll(".add-to-cart-button");

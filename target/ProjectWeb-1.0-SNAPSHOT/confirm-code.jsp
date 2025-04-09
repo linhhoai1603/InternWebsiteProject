@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
   <%@include file="includes/link/headLink.jsp"%>
@@ -14,6 +16,8 @@
   <title>Xác nhận mã code</title>
 </head>
 <body>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
 <div class="container my-5">
   <!-- Lấy giá trị error và username từ request scope -->
   <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}" />
@@ -28,7 +32,7 @@
     </script>
   </c:if>
   <form class="form-control" action="forget-password?method=confirmCode" method="post">
-    <label for="code"><strong>Nhập mã: </strong>(Mã gồm 6 ký tự được gửi qua Email của bạn.)</label>
+    <label for="code"><strong><fmt:message key="nhapma"/> </strong><fmt:message key="ndma"/></label>
     <input id="code" name="code" placeholder="Vui lòng nhập mã code" type="number" class="form-control">
     <input class="btn btn-primary mt-3" type="submit" value="Xác nhận">
   </form>

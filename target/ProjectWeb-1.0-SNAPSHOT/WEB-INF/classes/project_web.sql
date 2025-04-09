@@ -76,10 +76,10 @@ CREATE TABLE `deliveries`(
 );
 CREATE TABLE `addresses`(
                             `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                            `city` VARCHAR(255) NOT NULL,
                             `province` VARCHAR(255) NOT NULL,
-                            `commune` VARCHAR(255) NOT NULL,
-                            `street` VARCHAR(255) NOT NULL
+                            `district` VARCHAR(255) NOT NULL,
+                            `ward` VARCHAR(255) NOT NULL,
+                            `detail` VARCHAR(255) NOT NULL
 );
 CREATE TABLE `categories`(
                              `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -116,6 +116,14 @@ CREATE TABLE `message`(
                           `idUser` INT NULL,
                           `title` VARCHAR(255) NOT NULL,
                           `content` VARCHAR(255) NOT NULL
+);
+CREATE TABLE contact_info (
+                              id_contact INT PRIMARY KEY,
+                              id_address INT NOT NULL,
+                              email VARCHAR(255) NOT NULL,
+                              website_link VARCHAR(255),
+                              hot_line VARCHAR(20),
+                              FOREIGN KEY (id_address) REFERENCES addresses(id) ON DELETE CASCADE
 );
 ALTER TABLE
     `products` ADD CONSTRAINT `products_idcategory_foreign` FOREIGN KEY(`idCategory`) REFERENCES `categories`(`id`);
