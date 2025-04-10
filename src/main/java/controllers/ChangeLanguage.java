@@ -20,6 +20,7 @@ public class ChangeLanguage extends HttpServlet {
         HttpSession session = request.getSession();
 
         if (lang != null) {
+            System.out.println(lang);
             if (lang.equals("en")) {
                 System.out.println("english");
 
@@ -40,7 +41,7 @@ public class ChangeLanguage extends HttpServlet {
 
         if (referer == null || referer.trim().isEmpty()) {
             System.out.println(referer);
-            referer = request.getContextPath() + "/HomeServlet";
+            referer = request.getContextPath() + "/home";
         }
 
         response.sendRedirect(referer);
