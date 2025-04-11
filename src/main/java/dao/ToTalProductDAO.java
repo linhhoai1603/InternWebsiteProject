@@ -237,6 +237,7 @@ public class ToTalProductDAO {
     public List<Product> getAllProductByPriceRange( int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
         return null;
     }
+
     public static void main(String[] args) {
         ToTalProductDAO dao = new ToTalProductDAO();
         //System.out.println(dao.getAllProducts(1, 10,""));
