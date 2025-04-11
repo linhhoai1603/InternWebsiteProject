@@ -893,7 +893,7 @@ public class ProductDao {
                     .bind("idCategory", product.getCategory().getId())
                     .bind("addedDate", java.sql.Date.valueOf(product.getDateAdded()))
                     .bind("description", product.getDescription())
-                    .bind("area", product.getArea())
+
                     .bind("selling", product.getSelling())
                     .bind("img", product.getImage())
                     .bind("idTechnical", technicalId)
@@ -995,7 +995,7 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -1023,6 +1023,7 @@ public class ProductDao {
                     return product;
                 }).list());
     }
+
 
 
 }
