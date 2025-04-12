@@ -45,7 +45,7 @@
                 </div>
                 <!-- Advertisement Section -->
 
-                <div class="category-item mt-3" onclick="showDetailProduct()">
+                <div class="category-item latest-product" onclick="showDetailProduct()">
                     <img src="${sessionScope.mostProductNew.image}" alt="Sản phẩm mới nhất">
                     <div>${sessionScope.mostProductNew.name}</div>
                     <button class="btn-buy mt-2"><a href="detail-product?productId=${product.id}"></a><fmt:message
@@ -128,25 +128,12 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <img src="images/qc1.png" alt="Featured Product 1" class="d-block w-100">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Lụa tơ tằm</h5>
-                                    <p>Lụa tơ tằm, một loại vải mỏng nhẹ và mịn màng, chủ yếu được làm từ sợi tơ
-                                        tằm.</p>
-                                </div>
                             </div>
                             <div class="carousel-item">
                                 <img src="images/qc2.png" alt="Featured Product 2" class="d-block w-100">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Vải Supima Cotton</h5>
-                                    <p>Supima là một loại cotton đặc biệt được trồng tại Hoa Kỳ.</p>
-                                </div>
                             </div>
                             <div class="carousel-item">
                                 <img src="images/qc3.png" alt="Featured Product 3" class="d-block w-100">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Vải Modal</h5>
-                                    <p>Vải Modal được sản xuất từ sợi gỗ cây bạch đàn.</p>
-                                </div>
                             </div>
                         </div>
 
@@ -233,7 +220,7 @@
 
 
             <div class="col-md-8 commitment-section mt-4">
-                <h3>Cam Kết 100% Hài Lòng</h3>
+                <h3><fmt:message key="danhgia"/></h3>
                 <div class="user-images">
                     <div class="commitment-item">
                         <div class="flex-container">
@@ -247,8 +234,7 @@
                                     <i class="fas fa-star"></i>
                                 </div>
                                 <p>
-                                    Sản phẩm rất ưng ý. Đóng gói chuyên nghiệp. Một người mua hàng thông thái, không chỉ
-                                    cần 1 sp (sản phẩm) chất lượng...
+                                    <fmt:message key="capdanhgia"/>
                                 </p>
                                 <div class="manager"><strong>Nguyễn Thế Anh</strong> / Manager</div>
                             </div>
@@ -267,8 +253,7 @@
                                     <i class="fas fa-star"></i>
                                 </div>
                                 <p>
-                                    Sản phẩm rất ưng ý. Đóng gói chuyên nghiệp. Một người mua hàng thông thái, không chỉ
-                                    cần 1 sp (sản phẩm) chất lượng...
+                                    <fmt:message key="capdanhgia2"/>
                                 </p>
                                 <div class="manager"><strong>Nguyễn Văn An</strong> / Manager</div>
                             </div>
@@ -277,7 +262,7 @@
                 </div>
 
 
-                <h3>Cam Kết 100% Hài Lòng</h3>
+                <h3><fmt:message key="camket100"/></h3>
                 <div class="accordion" id="accordionExample">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOne">

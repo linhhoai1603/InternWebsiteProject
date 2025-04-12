@@ -37,16 +37,16 @@ public class RegisterServlet extends HttpServlet {
         // Lấy tham số từ form
         String email = request.getParameter("email");
         String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
+        String lastName = request.getParameter("lastname");
         String phoneNumber = request.getParameter("phoneNumber");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String hasedPassword = this.hashedPassword(password);
 
-        String scheme = request.getScheme();             // http
-        String serverName = request.getServerName();     // localhost
-        int serverPort = request.getServerPort();        // 8080
-        String contextPath = request.getContextPath();   // /your_app_context (hoặc rỗng nếu root)
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+        String contextPath = request.getContextPath();
         String appBaseUrl = scheme + "://" + serverName + ":" + serverPort + contextPath;
 
         try {

@@ -9,30 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25d9ffb8-7d89-407f-99ac-d3f415e653f9" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerContact.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminManagerContact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AddressDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AddressDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Price.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Price.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/TechnicalInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/TechnicalInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ContactInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ContactInfoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project_web.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PersonalServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/PersonalServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AccountDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AccountDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AddressDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/AddressDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Address.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/models/Address.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/project_web.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" afterDir="false" />
-    </list>
+    <list default="true" id="25d9ffb8-7d89-407f-99ac-d3f415e653f9" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,6 +25,10 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JspContextManager">
+    <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/includes/voucher.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" />
+    <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/includes/navbar.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/detail-product.jsp" />
   </component>
   <component name="KubernetesApiPersistence">{}</component>
   <component name="KubernetesApiProvider">{
@@ -72,28 +53,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.314.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;hung&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/LTWeb/ProjectWeb&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Tomcat Server.Tomcat 10.1.314.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.36.executor": "Run",
+    "git-widget-placeholder": "huy",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/LTWeb/ProjectWeb",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Learn\TTWEB\Project\InternWebsiteProject\src\main\webapp" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="Tomcat 10.1.314" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.314" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+    <configuration name="Tomcat 10.1.36" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.36" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="ProjectWeb:war">

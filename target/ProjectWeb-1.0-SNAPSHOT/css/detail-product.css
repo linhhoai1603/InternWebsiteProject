@@ -1,8 +1,21 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Chiếm ít nhất 100% chiều cao viewport */
+}
+
+/* Footer: Đẩy footer xuống đáy trang */
+.footer {
+    height: 600px;
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    margin-top: auto; /* Đẩy xuống đáy trang */
+}
+
 .bestseller-title{
     background-color: #339C87; /* Chuyển đổi sang màu xanh lá cây */
     color: white;
     padding: 5px;
-    padding-top: 20px;
+    /*padding-top: 20px;*/
     font-weight: bold;
     margin-bottom: 15px;
     border-radius: 5px;
@@ -34,7 +47,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 .pagination {

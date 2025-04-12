@@ -7,16 +7,19 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp" %>
+<%@include file="includes/navbar.jsp" %>
 <html>
 <head>
     <title> Đăng nhập </title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<link rel="stylesheet" href="css/login.css">
 
-<!-- Header with Navbar -->
-<a class="btn-back-home" href="index.jsp"><-- Về trang chủ</a>
+<link rel="stylesheet" href="css/login.css">
 <div class="container ">
     <!-- Lấy giá trị error và username từ request scope -->
     <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}"/>
@@ -38,8 +41,23 @@
         <div style="color: red;">
             ${error}
         </div>
-        <form id="loginForm" method="post" action="login">
+        <div class="social-row">
+            <a href="googleLogin" class="social-button btn-google-login" title="Continue with Google">
+                <i class="fab fa-google"></i> <!-- Icon Google -->
+                <span>Continue with Google</span>
+            </a>
+            <a href="#" class="social-button btn-facebook-login" title="Continue with Facebook">
+                <i class="fab fa-facebook-f"></i> <!-- Icon Facebook -->
+                <span>Continue with Facebook</span>
+            </a>
+        </div>
 
+        <div class="lines">
+            <div class="line"></div>
+            OR
+            <div class="line"></div>
+        </div>
+        <form id="loginForm" method="post" action="login">
             <div class="mb-3">
                 <input class="form-control" id="username" placeholder="Tài khoản *" required type="text" name="username"
                        aria-label="Username" value="${username}"/>
@@ -53,9 +71,68 @@
             </div>
         </form>
         <a href="register.jsp" class="register-link"><fmt:message key="bcctk"/></a>
-        <a href="confirm-email.jsp" class="register-link"><fmt:message key="qmk"/></a>
+        <a href="forgotPass.jsp" class="register-link"><fmt:message key="qmk"/></a>
     </div>
+
+    <c:if test="${not empty requestScope.success}">
+        <!-- The Modal -->
+        <div class="modal fade" id="registrationSuccessModal" tabindex="-1"
+             aria-labelledby="registrationSuccessModalLabel" aria-hidden="true">
+                <%-- Thêm modal-dialog-centered để căn giữa theo chiều dọc --%>
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header bg-success text-white">
+                        <h4 class="modal-title" id="registrationSuccessModalLabel">Đăng ký thành công!</h4>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <p>${requestScope.success}</p> <%-- Hiển thị nội dung thông báo từ servlet --%>
+                        <hr>
+                        <p class="mb-0">Vui lòng kiểm tra hộp thư đến (và cả thư mục Spam/Junk) để tìm email kích
+                            hoạt.</p>
+                        <p>Sau khi kích hoạt, bạn có thể đăng nhập.</p>
+                    </div>
+
+                    <!-- Modal footer (Có thể chỉ cần nút Đóng hoặc không cần nút nào) -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đã hiểu</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <%-- JavaScript để tự động hiển thị Modal --%>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Lấy phần tử Modal bằng ID
+                var myModalElement = document.getElementById('registrationSuccessModal');
+                if (myModalElement) {
+                    // Tạo một đối tượng Modal Bootstrap từ phần tử
+                    var myModal = new bootstrap.Modal(myModalElement, {
+                        keyboard: true,
+                    });
+                    myModal.show();
+                }
+            });
+        </script>
+    </c:if>
 </div>
+<%@include file="includes/footer.jsp" %>
 <%@include file="includes/link/footLink.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
