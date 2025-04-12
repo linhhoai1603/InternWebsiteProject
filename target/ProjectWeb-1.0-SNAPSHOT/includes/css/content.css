@@ -52,6 +52,50 @@ body, .container-fluid {
     color: #333; /* Đặt màu cho văn bản */
 }
 
+
+.category-item.latest-product {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Căn chỉnh nội dung trong card */
+    height: auto; /* Tự động điều chỉnh chiều cao */
+}
+
+.category-item.latest-product img {
+    width: 100%; /* Đặt chiều rộng bằng 100% */
+    max-height: 150px; /* Đặt chiều cao cố định cho hình ảnh */
+    object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+    margin-bottom: 10px;
+}
+
+.category-item.latest-product div {
+    flex-grow: 1; /* Cho phép nội dung bên dưới mở rộng để chiếm không gian */
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    font-weight: bold; /* Định dạng cho văn bản */
+    color: #333; /* Đặt màu cho văn bản */
+    min-height: 40px; /* Đảm bảo có đủ không gian cho tên */
+}
+
+.category-item.latest-product .btn-buy {
+    width: 100%; /* Button chiếm toàn bộ chiều rộng */
+    padding: 10px; /* Thêm padding cho button */
+    box-sizing: border-box; /* Bao gồm padding và border vào chiều rộng */
+}
+
+.category-item.latest-product .btn-buy a {
+    display: block; /* Biến thẻ a thành block để lấp đầy button */
+    color: white; /* Màu chữ cho liên kết */
+    text-decoration: none; /* Loại bỏ gạch chân */
+}
+
+
 .product-title-wrapper {
     display: flex;
     justify-content: space-between;

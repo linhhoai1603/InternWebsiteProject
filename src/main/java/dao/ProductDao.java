@@ -48,7 +48,9 @@ public class ProductDao {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setHeight(rs.getDouble("height")); // Thêm trường height
+                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                            product.setWidth(rs.getDouble("width"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -193,7 +195,9 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setHeight(rs.getDouble("height")); // Thêm trường height
+                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                    product.setWidth(rs.getDouble("width"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -315,7 +319,9 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setHeight(rs.getDouble("height")); // Thêm trường height
+                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                    product.setWidth(rs.getDouble("width"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -439,7 +445,9 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setHeight(rs.getDouble("height")); // Thêm trường height
+                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                    product.setWidth(rs.getDouble("width"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -513,7 +521,9 @@ public class ProductDao {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setHeight(rs.getDouble("height")); // Thêm trường height
+                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                            product.setWidth(rs.getDouble("width"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -622,7 +632,9 @@ public class ProductDao {
                             product.setName(rs.getString("name"));
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
-                            product.setArea(rs.getDouble("area"));
+                            product.setHeight(rs.getDouble("height")); // Thêm trường height
+                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                            product.setWidth(rs.getDouble("width"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -760,7 +772,9 @@ public class ProductDao {
                 product.setQuantity(rs.getInt("quantity"));
                 product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                 product.setDescription(rs.getString("description"));
-                product.setArea(rs.getDouble("area"));
+                product.setHeight(rs.getDouble("height")); // Thêm trường height
+                product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                product.setWidth(rs.getDouble("width"));
                 product.setSelling(rs.getInt("selling"));
                 product.setImage(rs.getString("img"));
 
@@ -879,7 +893,7 @@ public class ProductDao {
                     .bind("idCategory", product.getCategory().getId())
                     .bind("addedDate", java.sql.Date.valueOf(product.getDateAdded()))
                     .bind("description", product.getDescription())
-                    .bind("area", product.getArea())
+//                    .bind("area", product.getArea())
                     .bind("selling", product.getSelling())
                     .bind("img", product.getImage())
                     .bind("idTechnical", technicalId)
@@ -981,7 +995,9 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setArea(rs.getDouble("area"));
+                    product.setHeight(rs.getDouble("height")); // Thêm trường height
+                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                    product.setWidth(rs.getDouble("width"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 

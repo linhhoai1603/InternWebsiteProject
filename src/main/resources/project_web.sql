@@ -798,4 +798,5 @@ CREATE TABLE cart_items (
                             UNIQUE KEY idx_cart_item_style (idCart, idStyle)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-
+ALTER TABLE account_users
+    MODIFY COLUMN code VARCHAR(5) DEFAULT NULL;

@@ -23,10 +23,23 @@
             <!-- Voucher 1 -->
             <c:forEach var="voucher" items="${sessionScope.vouchers}">
                 <div class="voucher-item">
-                    <h6>Voucher: <span class="voucher-code fw-bold text-danger">${voucher.code}</span></h6>
-                    <p>Giảm ngay <span class="product-price">${voucher.discountAmount}</span> cho đơn hàng lớn hơn <span
-                            class="product-price">${voucher.conditionAmount}</span></p>
-                    <button class="copy-btn">Sao chép</button>
+                    <div class="voucher-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M3 17a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7c0-1.1-.9-2-2-2H5a2 2 0 0 0-2 2v10zm5.71-3L5 10l1.41-1.41L8.71 12 12 8.29 13.41 9.7 8.71 14zm7.29 0L14 10l1.41-1.41L17.71 12 21 8.29 22.41 9.7 17.71 14z"/>
+                        </svg>
+                    </div>
+                    <div class="voucher-details">
+                        <div class="voucher-description">
+                            Giảm ngay <span class="product-price">${voucher.discountAmount}</span>
+                        </div>
+                        <div class="voucher-description">
+                            cho đơn hàng lớn hơn <span class="product-price">${voucher.conditionAmount}</span>
+                        </div>
+                    </div>
+                    <div class="voucher-actions">
+                        <a href="#" class="voucher-details-link">Chi tiết</a>
+                        <button class="copy-btn">Sao chép</button>
+                    </div>
                 </div>
             </c:forEach>
         </div>

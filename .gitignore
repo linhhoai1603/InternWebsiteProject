@@ -11,6 +11,8 @@ target/
 *.iws
 *.iml
 *.ipr
+workspace.xml
+secrets.properties
 
 ### Eclipse ###
 .apt_generated
