@@ -29,6 +29,8 @@ public class HomeServlet extends HttpServlet {
 //        request.getSession().setAttribute("account", acc);
          // bỏ qua bưoc đăng nhập
 
+        String packageName = this.getClass().getPackage().getName();
+        System.out.println("Tên package: " + packageName);
 
         ProductService ps = new ProductService();
         HttpSession session = request.getSession();

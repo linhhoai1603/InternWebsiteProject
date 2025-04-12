@@ -111,7 +111,7 @@ public class AdminManagerProduct extends HttpServlet {
         Product product = new Product();
         product.setName(name);
         product.setQuantity(quantity);
-//        product.getWeight();
+        product.setWeight(area);
         product.setDescription(description);
         product.setSelling(selling);
         product.setImage(image);
