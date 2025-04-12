@@ -121,15 +121,57 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
-    </dependencies>
 
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.9.19</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.19</version>
+        </dependency>
+
+    </dependencies>
     <build>
         <plugins>
+            <!-- Plugin để build WAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.4.0</version>
             </plugin>
+
+            <!-- Plugin AspectJ để biên dịch các class có dùng Aspect -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.11</version> <!-- Thay đổi phiên bản ở đây -->
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <complianceLevel>1.8</complianceLevel>
+                    <encoding>UTF-8</encoding>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>org.aspectj</groupId>
+                            <artifactId>aspectjrt</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                    <verbose>true</verbose> <!-- Hiển thị log chi tiết khi compile -->
+                    <showWeaveInfo>true</showWeaveInfo> <!-- Hiện thông tin về weaving -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>test-compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
 </project>

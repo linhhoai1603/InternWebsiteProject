@@ -60,15 +60,15 @@ public class PaymentServlet extends HttpServlet {
             request.setAttribute("message", "Mã giảm giá sai!");
         }else{
             Cart cart = (Cart) request.getSession().getAttribute("cart");
-            if(!cart.applyVoucher(voucher)){
-                // Định dạng tiền Việt
-                Locale vietnam = new Locale("vi", "VN");
-                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
-                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
-                request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
-            }else{
-                request.setAttribute("message", "Giảm giá thành công!");
-            }
+//            if(!cart.applyVoucher(voucher)){
+//                // Định dạng tiền Việt
+//                Locale vietnam = new Locale("vi", "VN");
+//                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
+//                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
+//                request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
+//            }else{
+//                request.setAttribute("message", "Giảm giá thành công!");
+//            }
         }
         request.getRequestDispatcher("payment.jsp").forward(request,response);
     }
