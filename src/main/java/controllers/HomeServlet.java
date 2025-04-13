@@ -27,7 +27,9 @@ public class HomeServlet extends HttpServlet {
          // bỏ qua bưoc đăng nhập
 
 
+
         ToTalProductService ps = new ToTalProductService();
+
         HttpSession session = request.getSession();
         // tạo ra shopping cart của người dùng
         if(request.getSession().getAttribute("cart") == null){

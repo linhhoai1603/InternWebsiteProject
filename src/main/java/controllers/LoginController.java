@@ -35,6 +35,7 @@ public class    LoginController extends HttpServlet {
         // Kiểm tra đăng nhập
         AuthenServies authen = new AuthenServies();
         AccountUser acc = authen.checkLogin(username, HashUtil.encodePasswordBase64(password));
+        System.out.println(acc.getUsername());
 
         if(acc != null) {
             if(acc.getLocked() == 1) {
