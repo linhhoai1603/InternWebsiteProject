@@ -6,6 +6,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import utils.ConfigLoader;
 
 import java.io.IOException;
 import java.io.InputStream;         // Thêm import InputStream
@@ -17,7 +18,7 @@ import java.util.List;
 
 @WebServlet(name = "googleLogin", value = "/googleLogin")
 public class GoogleLogin extends HttpServlet {
-    private static final String HARDCODED_CLIENT_ID_CHECK = "170389990215-79g713i0rh6veo8b7nuui74a2qf4tfja.apps.googleusercontent.com";
+    private static final String HARDCODED_CLIENT_ID_CHECK = ConfigLoader.getProperty("google.oauth.clientId");
     private static final String REDIRECT_URI = "http://localhost:8080/ProjectWeb/oauth2callback";
     private static final List<String> SCOPES = Arrays.asList(
             "openid",

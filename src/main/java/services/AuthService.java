@@ -6,6 +6,7 @@ import dao.UserProviderDao;
 import models.User;
 import models.UserProviders;
 import org.jdbi.v3.core.Jdbi;
+import services.application.HashUtil;
 import utils.CodeGenerator;
 
 import java.util.Optional;
@@ -23,57 +24,71 @@ public class AuthService {
     }
 
     public int processGoogleLogin(String googleUserId, String email, String firstName, String lastName, String pictureUrl, boolean emailVerified) throws Exception {
-        try {
+       return processOAuthLoginInternal("GOOGLE", googleUserId, email, firstName, lastName, pictureUrl, emailVerified);
+    }
 
+    public int processFacebookLogin(String facebookUserId, String email, String firstName, String lastName, String pictureUrl, boolean emailVerified) throws Exception {
+        return processOAuthLoginInternal("FACEBOOK", facebookUserId, email, firstName, lastName, pictureUrl, emailVerified);
+    }
+
+    private int processOAuthLoginInternal(String providerName, String providerId, String email, String firstName, String lastName, String pictureUrl, boolean emailVerified) throws Exception {
+        try {
             Integer resultingUserId = jdbi.inTransaction(handle -> {
                 int currentUserId = -1;
 
-                // 1. Kiểm tra user_providers bằng provider_id
-                Optional<UserProviders> existingProvider = userProviderDao.findByProvider("GOOGLE", googleUserId);
+                // 1. Kiểm tra user_providers bằng providerName và providerId
+                Optional<UserProviders> existingProvider = userProviderDao.findByProvider(providerName, providerId);
 
                 if (existingProvider.isPresent()) {
                     currentUserId = existingProvider.get().getUserId();
-                    System.out.println("AuthService (JDBI Transaction): Tìm thấy user qua Google ID: " + currentUserId);
+                    System.out.println("AuthService: Tìm thấy user qua " + providerName + " ID: " + currentUserId);
                 } else {
-                    // 2. Kiểm tra bảng users bằng email
+                    // 2. Kiểm tra users bằng email
                     Optional<User> existingUser = userDao.findByEmail(email);
 
                     if (existingUser.isPresent()) {
                         currentUserId = existingUser.get().getId();
-                        System.out.println("AuthService (JDBI Transaction): Tìm thấy user qua email: " + currentUserId + ". Tạo liên kết Google.");
+                        System.out.println("AuthService: Tìm thấy user qua email: " + currentUserId + ". Tạo liên kết " + providerName + ".");
 
-                        // 3a. Tạo liên kết mới trong user_providers
+                        // 3a. Tạo liên kết mới
                         UserProviders newProviderLink = new UserProviders();
                         newProviderLink.setUserId(currentUserId);
-                        newProviderLink.setProviderName("GOOGLE");
-                        newProviderLink.setProviderId(googleUserId);
+                        newProviderLink.setProviderName(providerName);
+                        newProviderLink.setProviderId(providerId);
                         newProviderLink.setProviderEmail(email);
                         userProviderDao.createProviderLink(newProviderLink);
 
                     } else {
-                        System.out.println("AuthService (JDBI Transaction): Người dùng mới. Tạo user và liên kết Google.");
+                        System.out.println("AuthService: Người dùng mới qua " + providerName + ". Tạo user, account và liên kết.");
 
-                        // 3b. Tạo đối tượng User mới
+                        // 3b. Tạo User mới
                         User newUser = new User();
                         newUser.setEmail(email);
                         newUser.setFirstname(firstName);
                         newUser.setLastname(lastName);
-                        newUser.setImage(pictureUrl);
-                        newUser.setNumberPhone("000000000");
+                        newUser.setImage(pictureUrl != null ? pictureUrl : "default.png");
+                        newUser.setNumberPhone("0000000000");
 
-                        String ggPass = codeGenerator.generateUniqueCode(email);
                         currentUserId = userDao.createUser(newUser);
-                        int currentAccountId = userDao.createAccount(currentUserId, email, ggPass, 1, 0, null);
-                        if (currentUserId <= 0 || currentAccountId <= 0) {
-                            throw new RuntimeException("Không thể tạo user mới trong CSDL.");
-                        }
-                        System.out.println("AuthService (JDBI Transaction): User mới được tạo với ID: " + currentUserId + "account" + currentAccountId);
 
-                        // 4b. Tạo liên kết mới trong user_providers
+                        String dummyUsername = email;
+                        String dummyPasswordInput = codeGenerator.generateUniqueCode(email + System.nanoTime());
+                        String dummyHashedPassword = HashUtil.encodePasswordBase64(dummyPasswordInput);
+                        int defaultRoleId = 1;
+                        Integer verificationCode = null;
+
+                        int currentAccountId = userDao.createAccount(currentUserId, dummyUsername, dummyHashedPassword, defaultRoleId, 0, verificationCode);
+
+                        if (currentUserId <= 0 || currentAccountId <= 0) {
+                            throw new RuntimeException("Không thể tạo user hoặc account mới trong CSDL.");
+                        }
+                        System.out.println("AuthService: User mới tạo ID: " + currentUserId + ", Account ID: " + currentAccountId);
+
+                        // 4b. Tạo liên kết provider
                         UserProviders newProviderLink = new UserProviders();
                         newProviderLink.setUserId(currentUserId);
-                        newProviderLink.setProviderName("GOOGLE");
-                        newProviderLink.setProviderId(googleUserId);
+                        newProviderLink.setProviderName(providerName);
+                        newProviderLink.setProviderId(providerId);
                         newProviderLink.setProviderEmail(email);
                         userProviderDao.createProviderLink(newProviderLink);
                     }
@@ -83,17 +98,17 @@ public class AuthService {
                 }
                 return currentUserId;
             });
+
             if (resultingUserId == null || resultingUserId <= 0) {
                 throw new Exception("Không thể hoàn tất quá trình đăng nhập/đăng ký.");
             }
-
-            System.out.println("AuthService (JDBI): Transaction thành công, trả về userId = " + resultingUserId);
+            System.out.println("AuthService (" + providerName + "): Transaction thành công, trả về userId = " + resultingUserId);
             return resultingUserId;
 
         } catch (Exception e) {
-            System.err.println("AuthService (JDBI): Lỗi khi xử lý đăng nhập Google: " + e.getMessage());
+            System.err.println("AuthService (" + providerName + "): Lỗi khi xử lý đăng nhập: " + e.getMessage());
             e.printStackTrace();
-            throw new Exception("Xảy ra lỗi trong quá trình xử lý đăng nhập Google. Vui lòng thử lại.", e);
+            throw new Exception("Xảy ra lỗi trong quá trình xử lý đăng nhập " + providerName + ". Vui lòng thử lại.", e);
         }
     }
 }

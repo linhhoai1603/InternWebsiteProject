@@ -9,7 +9,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="25d9ffb8-7d89-407f-99ac-d3f415e653f9" name="Changes" comment="" />
+    <list default="true" id="25d9ffb8-7d89-407f-99ac-d3f415e653f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/FacebookCallback.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/FacebookLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ChangePasswordController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/GoogleLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/GoogleLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/oauth2callback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/oauth2callback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/forgotPass.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/forgotPass.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/includes/slides.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/includes/slides.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/login.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ChangePasswordController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/login.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/login.jsp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,12 +35,25 @@
       <list>
         <option value="Jsp File" />
         <option value="Class" />
+        <option value="servlet" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Huy1801214"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/linhhoai1603/InternWebsiteProject.git",
+    "accountId": "cadc9ca4-a437-465a-82d8-7087bbf66731"
+  }
+}]]></component>
   <component name="JspContextManager">
     <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/includes/voucher.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/index.jsp" />
     <jsp-to-context jsp-file="file://$PROJECT_DIR$/src/main/webapp/includes/navbar.jsp" context-file="file://$PROJECT_DIR$/src/main/webapp/detail-product.jsp" />
@@ -56,6 +84,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "Tomcat Server.Tomcat 10.1.314.executor": "Run",
     "Tomcat Server.Tomcat 10.1.36.executor": "Run",
     "git-widget-placeholder": "huy",
@@ -166,8 +195,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
       </set>
     </attachedChunks>
   </component>
@@ -186,6 +215,7 @@
       <workItem from="1743938967758" duration="7080000" />
       <workItem from="1744111551080" duration="7109000" />
       <workItem from="1744163057736" duration="2976000" />
+      <workItem from="1744551182571" duration="901000" />
     </task>
     <servers />
   </component>

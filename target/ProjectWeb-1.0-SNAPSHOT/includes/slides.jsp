@@ -44,19 +44,19 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <style>
     .slide-container {
-        height: 80vh; /* Đảm bảo chiếm toàn bộ chiều cao màn hình */
+        height: 80vh;
     }
 
     .carousel-item img {
-        object-fit: cover; /* Đảm bảo hình ảnh lấp đầy vùng chứa mà không bị méo */
+        object-fit: cover;
     }
 
     .ad-section {
-        padding: 20px; /* Để có khoảng cách giữa các hình ảnh quảng cáo nhỏ */
+        padding: 20px;
     }
 
     .ad-image {
         max-width: 100%;
-        max-height: 600px; /* Điều chỉnh chiều cao tối đa cho hình ảnh nhỏ */
+        max-height: 600px;
     }
 </style>
