@@ -18,7 +18,7 @@ public class ProductDAO2 {
         int offset = (nuPage - 1) * nuPerPage;
         String sql = """
         SELECT
-            p.id, p.name, p.quantity, p.addedDate, p.description, p.area, p.selling, p.img,
+            p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
             c.id AS category_id, c.name AS category_name,
             pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
             ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
@@ -45,7 +45,9 @@ public class ProductDAO2 {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setArea(rs.getDouble("area"));
+                            product.setHeight(rs.getDouble("height")); // Thêm trường height
+                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
 

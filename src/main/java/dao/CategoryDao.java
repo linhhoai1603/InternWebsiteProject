@@ -11,9 +11,25 @@ public class CategoryDao {
         String sql = "select * from categories where name = :name";
         return j.withHandle(h->
             h.createQuery(sql)
-                    .bind("kind",name)
+                    .bind("name",name)
                     .mapToBean(Category.class)
                     .findFirst().orElse(null)
          );
     }
+    public Category findById(int id){
+        Jdbi j = DBConnection.getConnetion();
+        String sql = "select * from categories where id = :id";
+        return j.withHandle(h->
+                h.createQuery(sql)
+                        .bind("id",id)
+                        .mapToBean(Category.class)
+                        .findFirst().orElse(null)
+        );
+    }
+
+    public static void main(String[] args) {
+        CategoryDao dao = new CategoryDao();
+        System.out.println(dao.findById(1));
+    }
+
 }
