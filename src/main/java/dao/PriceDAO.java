@@ -19,4 +19,19 @@ public class PriceDAO {
                         .mapTo(int.class)
                         .one());
     }
+    public Price findById(int id){
+        Jdbi j = DBConnection.getConnetion();
+        String sql = "select * from prices where id = :id";
+        return j.withHandle(h->
+                h.createQuery(sql)
+                        .bind("id",id)
+                        .mapToBean(Price.class)
+                        .findFirst().orElse(null)
+        );
+    }
+
+    public static void main(String[] args) {
+        PriceDAO dao = new PriceDAO();
+        System.out.println(dao.findById(2));
+    }
 }

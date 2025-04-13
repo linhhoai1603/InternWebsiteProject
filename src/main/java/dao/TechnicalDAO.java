@@ -20,4 +20,20 @@ public class TechnicalDAO {
                         .mapTo(int.class)
                         .one());
     }
+    public TechnicalInfo findById(int id){
+        Jdbi j = DBConnection.getConnetion();
+        String sql = "select * from technical_information where id = :id";
+        return j.withHandle(h->
+                h.createQuery(sql)
+                        .bind("id",id)
+                        .mapToBean(TechnicalInfo.class)
+                        .findFirst().orElse(null)
+        );
+    }
+
+    public static void main(String[] args) {
+        TechnicalDAO dao = new TechnicalDAO();
+        TechnicalInfo technicalInfo = dao.findById(1);
+    }
+
 }
