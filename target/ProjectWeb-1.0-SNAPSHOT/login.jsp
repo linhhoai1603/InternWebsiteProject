@@ -46,7 +46,7 @@
                 <i class="fab fa-google"></i> <!-- Icon Google -->
                 <span>Continue with Google</span>
             </a>
-            <a href="#" class="social-button btn-facebook-login" title="Continue with Facebook">
+            <a href="facebookLogin" class="social-button btn-facebook-login" title="Continue with Facebook">
                 <i class="fab fa-facebook-f"></i> <!-- Icon Facebook -->
                 <span>Continue with Facebook</span>
             </a>
@@ -71,14 +71,13 @@
             </div>
         </form>
         <a href="register.jsp" class="register-link"><fmt:message key="bcctk"/></a>
-        <a href="forgotPass.jsp" class="register-link"><fmt:message key="qmk"/></a>
+        <a href="forgotPass.jsp" class="register-link"><fmt:message key="qmk"/></a> <!-- Quên mk -->
     </div>
 
     <c:if test="${not empty requestScope.success}">
         <!-- The Modal -->
         <div class="modal fade" id="registrationSuccessModal" tabindex="-1"
              aria-labelledby="registrationSuccessModalLabel" aria-hidden="true">
-                <%-- Thêm modal-dialog-centered để căn giữa theo chiều dọc --%>
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
 
@@ -91,14 +90,14 @@
 
                     <!-- Modal body -->
                     <div class="modal-body">
-                        <p>${requestScope.success}</p> <%-- Hiển thị nội dung thông báo từ servlet --%>
+                        <p>${requestScope.success}</p>
                         <hr>
                         <p class="mb-0">Vui lòng kiểm tra hộp thư đến (và cả thư mục Spam/Junk) để tìm email kích
                             hoạt.</p>
                         <p>Sau khi kích hoạt, bạn có thể đăng nhập.</p>
                     </div>
 
-                    <!-- Modal footer (Có thể chỉ cần nút Đóng hoặc không cần nút nào) -->
+                    <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đã hiểu</button>
                     </div>
@@ -106,14 +105,10 @@
                 </div>
             </div>
         </div>
-
-        <%-- JavaScript để tự động hiển thị Modal --%>
         <script>
             document.addEventListener('DOMContentLoaded', function () {
-                // Lấy phần tử Modal bằng ID
                 var myModalElement = document.getElementById('registrationSuccessModal');
                 if (myModalElement) {
-                    // Tạo một đối tượng Modal Bootstrap từ phần tử
                     var myModal = new bootstrap.Modal(myModalElement, {
                         keyboard: true,
                     });

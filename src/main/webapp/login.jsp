@@ -46,7 +46,7 @@
                 <i class="fab fa-google"></i> <!-- Icon Google -->
                 <span>Continue with Google</span>
             </a>
-            <a href="#" class="social-button btn-facebook-login" title="Continue with Facebook">
+            <a href="facebookLogin" class="social-button btn-facebook-login" title="Continue with Facebook">
                 <i class="fab fa-facebook-f"></i> <!-- Icon Facebook -->
                 <span>Continue with Facebook</span>
             </a>
@@ -71,7 +71,7 @@
             </div>
         </form>
         <a href="register.jsp" class="register-link"><fmt:message key="bcctk"/></a>
-        <a href="forgotPass.jsp" class="register-link"><fmt:message key="qmk"/></a>
+        <a href="forgotPass.jsp" class="register-link"><fmt:message key="qmk"/></a> <!-- Quên mk -->
     </div>
 
     <c:if test="${not empty requestScope.success}">

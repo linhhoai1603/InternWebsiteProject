@@ -65,7 +65,7 @@ public class oauth2callback extends HttpServlet {
             // --- Xác thực ID Token và lấy thông tin người dùng ---
             String idTokenString = tokenResponse.getIdToken();
             GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(HTTP_TRANSPORT, JSON_FACTORY)
-                    .setAudience(Collections.singletonList(CLIENT_ID)) // Chỉ chấp nhận token dành cho Client ID này
+                    .setAudience(Collections.singletonList(CLIENT_ID))
                     .build();
 
             GoogleIdToken idToken = verifier.verify(idTokenString);
