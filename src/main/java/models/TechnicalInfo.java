@@ -48,6 +48,7 @@ public class TechnicalInfo implements Serializable {
                 "id=" + id +
                 ", specification='" + specification + '\'' +
                 ", manufactureDate='" + manufactureDate + '\'' +
+                ", releaseDay='" + releaseDay + '\'' +
                 '}';
     }
 }

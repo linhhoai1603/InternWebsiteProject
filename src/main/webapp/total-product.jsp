@@ -217,23 +217,26 @@
             </div>
           </div>
         </c:forEach>
+
       </div>
 
     </div>
   </div>
 </div>
 
-<!-- Phân trang -->
 <div class="pagination-container mt-4 d-flex justify-content-center" id="paginationContainer">
   <ul class="pagination pagination-lg">
+
+    <!-- Nút Trước -->
     <c:if test="${currentPage > 1}">
       <li class="page-item">
-        <a class="page-link pagination-link" data-page="1" href="#">Đầu</a>
+        <a class="page-link pagination-link" data-page="${currentPage - 1}" href="#"> < </a>
       </li>
     </c:if>
 
-    <c:set var="startPage" value="${currentPage - 4 > 1 ? currentPage - 4 : 1}" />
-    <c:set var="endPage" value="${currentPage + 4 < pageNumber ? currentPage + 4 : pageNumber}" />
+    <!-- Hiển thị tối đa 5 trang quanh currentPage -->
+    <c:set var="startPage" value="${currentPage - 2 > 1 ? currentPage - 2 : 1}" />
+    <c:set var="endPage" value="${currentPage + 2 < nupage ? currentPage + 2 : nupage}" />
 
     <c:forEach begin="${startPage}" end="${endPage}" var="i">
       <li class="page-item ${i == currentPage ? 'active' : ''}">
@@ -241,11 +244,13 @@
       </li>
     </c:forEach>
 
-    <c:if test="${currentPage < pageNumber}">
+    <!-- Nút Sau -->
+    <c:if test="${currentPage < nupage}">
       <li class="page-item">
-        <a class="page-link pagination-link" data-page="${pageNumber}" href="#">Cuối</a>
+        <a class="page-link pagination-link" data-page="${currentPage + 1}" href="#"> > </a>
       </li>
     </c:if>
+
   </ul>
 </div>
 
@@ -266,113 +271,7 @@
 
 <!-- JavaScript -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-  function renderProducts(products) {
-    let productHtml = "";
+<script src="js/product.js"></script>
 
-    products.forEach(element => {
-      productHtml += `
-        <div class="col-md-4 mb-4">
-            <div class="card product-item position-relative h-100">
-                ${element.price.discountPercent > 0 ?
-                    `<span class="badge bg-danger position-absolute top-0 end-0 m-2 px-3 py-2 fs-5 product-discount">-${element.price.discountPercent}%</span>`
-                    : ''
-                }
-
-                <img id="mainImage${element.id}" src="${element.image}" alt="${element.description}" class="card-img-top main-product-image" style="object-fit: cover; cursor: pointer;">
-
-                <div class="modal fade" id="imageModal${element.id}" tabindex="-1" aria-labelledby="imageModalLabel${element.id}" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <img src="${element.image}" class="img-fluid" id="modalImage${element.id}" alt="Hình ảnh lớn">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-body text-center d-flex flex-column">
-                    <h5 class="card-title">${element.name}</h5>
-                    <h4 class="card-text text-success">
-                        Chỉ còn:
-                        <span class="product-old-price">${element.price.lastPrice.toLocaleString()} ₫</span>
-                    </h4>
-                    <p class="text-danger text-decoration-line-through">
-                        Giá gốc:
-                        <span class="product-price">${element.price.price.toLocaleString()} ₫</span>
-                    </p>
-
-                    <p class="cart-text description">Mô tả: ${element.description}</p>
-
-                    <form action="cart" method="post" class="mt-auto product-options-form">
-                        <input type="hidden" name="method" value="add">
-                        <input type="hidden" name="productID" value="${element.id}">
-                        <input type="hidden" name="selectedStyle" id="selectedStyle${element.id}" value="">
-
-                        ${element.styles.length > 0 ? `
-                        <div class="mb-3">
-                            <label class="form-label">Chọn Style:</label>
-                            <div class="style-selection">
-                                ${element.styles.map(style => `
-                                    <div class="style-option" data-style-id="${style.id}" data-image-url="${style.image}">
-                                        <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-                        ` : ''}
-
-                        <div class="mb-3 quantity-container" style="display: none;">
-                            <label for="quantity${element.id}" class="form-label">Số lượng:</label>
-                            <input type="number" class="form-control quantity-input" id="quantity${element.id}" name="quantity" min="1" value="1" required>
-                        </div>
-
-                        <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
-                        <button type="submit" class="btn btn-success w-100 mb-2 submit-cart-button" style="display: none;">Xác nhận</button>
-                    </form>
-
-                    <a href="detail-product?productId=${element.id}" class="btn btn-primary w-100">Xem ngay</a>
-                </div>
-            </div>
-        </div>`;
-    });
-
-    document.getElementById("productContainer").innerHTML = productHtml;
-  }
-
-  function fetchProducts(url) {
-    $.ajax({
-      url: url,
-      type: "GET",
-      dataType: "json",
-      success: function (products) {
-        renderProducts(products);
-      },
-      error: function (xhr, status, error) {
-        console.error("Lỗi khi lấy danh sách sản phẩm:", error);
-      }
-    });
-  }
-  document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".pagination-link").forEach(function (link) {
-      link.addEventListener("click", function () {
-        let content = this.textContent.trim();
-
-        // Chuyển đổi giá trị "Đầu" và "Cuối" thành số trang tương ứng
-        if (content === "Đầu") {
-          content = 1;
-        } else if (content === "Cuối") {
-          content = `${requestScope.pageNumber}`;
-        }
-        let url = `/total-product?option=${requestScope.option}&selection=${requestScope.selection}&minPrice=${requestScope.minPrice}&maxPrice=${requestScope.maxPrice}&currentPage=${content}`;
-        fetchProducts(url);
-      });
-    });
-  });
-
-</script>
 </body>
 </html>
