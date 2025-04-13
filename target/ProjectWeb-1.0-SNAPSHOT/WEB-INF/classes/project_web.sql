@@ -461,18 +461,18 @@ CREATE TABLE `products`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 185 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 CREATE TABLE ware_house (
                             id INT AUTO_INCREMENT PRIMARY KEY,
-                            import_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                            importDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 CREATE TABLE inventory (
                            id INT AUTO_INCREMENT PRIMARY KEY,
                            idProduct INT NOT NULL,
                            idWareHouse INT NOT NULL,
-                           quantity_before INT DEFAULT 0,
-                           quantity_loss INT DEFAULT 0,
-                           quantity_imported INT DEFAULT 0,
-                           quantity_total INT AS (quantity_before - quantity_loss + quantity_imported) STORED,
-                           import_date DATE NOT NULL,
+                           quantityBefore INT DEFAULT 0,
+                           quantityLoss INT DEFAULT 0,
+                           quantityImported INT DEFAULT 0,
+                           quantityTotal INT AS (quantityBefore - quantityLoss + quantityImported) STORED,
+                           importDate DATE NOT NULL,
                            FOREIGN KEY (idWareHouse) REFERENCES ware_house(id),
                            FOREIGN KEY (idProduct) REFERENCES products(id)
 );
