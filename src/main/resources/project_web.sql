@@ -459,7 +459,23 @@ CREATE TABLE `products`  (
                              CONSTRAINT `products_idcategory_foreign` FOREIGN KEY (`idCategory`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
                              CONSTRAINT `products_idtechnical_foreign` FOREIGN KEY (`idTechnical`) REFERENCES `technical_information` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 185 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
+CREATE TABLE ware_house (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            importDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE TABLE inventory (
+                           id INT AUTO_INCREMENT PRIMARY KEY,
+                           idProduct INT NOT NULL,
+                           idWareHouse INT NOT NULL,
+                           quantityBefore INT DEFAULT 0,
+                           quantityLoss INT DEFAULT 0,
+                           quantityImported INT DEFAULT 0,
+                           quantityTotal INT AS (quantityBefore - quantityLoss + quantityImported) STORED,
+                           importDate DATE NOT NULL,
+                           FOREIGN KEY (idWareHouse) REFERENCES ware_house(id),
+                           FOREIGN KEY (idProduct) REFERENCES products(id)
+);
 -- ----------------------------
 -- Records of products
 -- ----------------------------
