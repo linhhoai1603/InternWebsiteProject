@@ -4,6 +4,7 @@ import connection.DBConnection;
 import models.*;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
+import utils.CodeGenerator;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,7 +29,6 @@ public class UserDao {
     }
 
     public User findUserById(int id) {
-
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM Users WHERE id = :id")
                         .bind("id", id)
@@ -90,6 +90,7 @@ public class UserDao {
             handle = null;
         }
     }
+
     public boolean isEmailExists(String email) {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT COUNT(*) FROM users WHERE email = :email")
@@ -116,7 +117,6 @@ public class UserDao {
                 .one();
     }
 
-
     public void insertAccountUser(Handle handle, int userId, String username,
                                   String password, int idRole, int locked, Integer code) {
         handle.createUpdate(
@@ -132,12 +132,41 @@ public class UserDao {
                 .execute();
     }
 
+    public int createAccount(int userId, String username, String password, int idRole, int locked, Integer code) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("INSERT INTO account_users (idUser, username, password, idRole, locked, code) " +
+                                "VALUES (:userId, :username, :password, :idRole, :locked, :code)")
+                        .bind("userId", userId)
+                        .bind("username", username)
+                        .bind("password", password)
+                        .bind("idRole", idRole)
+                        .bind("locked", locked)
+                        .bind("code", code)
+                        .execute()
+        );
+    }
+
+    public int createUser(User user) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("INSERT INTO users (email, firstName, lastName, phoneNumber, idAddress, image) " +
+                                "VALUES (:email, :firstName, :lastName, :phoneNumber, :idAddress, :image)")
+                        .bind("email", user.getEmail())
+                        .bind("firstName", user.getFirstname())
+                        .bind("lastName", user.getLastname())
+                        .bind("phoneNumber", user.getNumberPhone())
+                        .bind("idAddress", 1)
+                        .bind("image", user.getImage())
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(Integer.class)
+                        .one()
+        );
+    }
+
     public void insertToken(Handle handle, int idUser, String tokenHash, TokenType tokenType, LocalDateTime expiresAt) {
-        String sql = "INSERT INTO user_tokens (idUser, tokenHash, tokenType, expiresAt, createdAt) VALUES (:idUser, :tokenHash, :tokenType, :expiresAt, NOW())";
+        String sql = "INSERT INTO user_tokens (idUser, tokenHash, tokenType, expiresAt) VALUES (:idUser, :tokenHash, :tokenType, :expiresAt)";
         handle.createUpdate(sql)
                 .bind("idUser", idUser)
                 .bind("tokenHash", tokenHash)
-                // Bind trực tiếp enum, Jdbi sẽ dùng .name() để lấy chuỗi "ACTIVATION", "PASSWORD_RESET",...
                 .bind("tokenType", tokenType)
                 .bind("expiresAt", expiresAt)
                 .execute();
@@ -308,22 +337,19 @@ public class UserDao {
         );
     }
 
+    public Optional<User> findByEmail(String email) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM Users WHERE email = :email")
+                        .bind("email", email)
+                        .mapToBean(User.class)
+                        .findFirst()
+        );
+    }
+
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
         UserTokens u = new UserTokens();
-        Optional<UserTokens> optionalToken = userDao.findTokenByHash("dmpiYXZ2dmFidmFidmJhdmFoYmh2YWJoaGJhODMyOTJiNDAtMDQ2ZS00ZTc1LWFiOGItNzU5OGNhZWQ1MDJkNzk2NjU2QCMkJVFAI2ZjZnZ5Z2I=");
-        optionalToken.ifPresent(foundToken -> {
-            // Khối lệnh này chỉ chạy nếu optionalToken không rỗng
-            System.out.println("--------------------------");
-            System.out.println("Đã tìm thấy token!");
-            System.out.println("  ID: " + foundToken.getId());
-            System.out.println("  User ID: " + foundToken.getIdUser());
-            System.out.println("  Token Type: " + foundToken.getTokenType());
-            System.out.println("  Expires At: " + foundToken.getExpiresAt());
-            System.out.println("  Created At: " + foundToken.getCreatedAt());
-            // In thêm các thông tin khác nếu cần
-            System.out.println("--------------------------");
-        });
+
 
     }
 
@@ -335,6 +361,7 @@ public class UserDao {
                         .execute()
         );
     }
+
     public void deleteToken(Handle handle, String tokenHash) {
         handle.createUpdate("DELETE FROM user_tokens WHERE tokenHash = :tokenHash")
                 .bind("tokenHash", tokenHash)

@@ -19,7 +19,7 @@ public class AccountDao {
                 SELECT 
                     u.id AS user_id, u.email, u.firstName, u.lastName, u.fullNameGenerated,
                     u.phoneNumber, u.image, u.createdAt AS user_createdAt, u.updatedAt AS user_updatedAt,
-                    a.id AS address_id, a.province, a.city, a.commune, a.street,
+                    a.id AS address_id, a.province, a.district, a.ward, a.detail,
                     au.id AS account_user_id, au.username, au.password, au.idRole AS role_id, au.locked ,au.code
                 FROM 
                     users u 
@@ -52,12 +52,12 @@ public class AccountDao {
                             Address address = new Address();
                             address.setId(addressId);
                             address.setProvince(rs.getString("province"));
-                            address.setCity(rs.getString("city"));
-                            address.setCommune(rs.getString("commune"));
-                            address.setStreet(rs.getString("street"));
+                            address.setDistrict(rs.getString("district"));
+                            address.setWard(rs.getString("ward"));
+                            address.setDetail(rs.getString("detail"));
                             user.setAddress(address);
                         } else {
-                            user.setAddress(null); // Không tìm thấy địa chỉ khớp
+                            user.setAddress(null);
                         }
 
                         // Ánh xạ thông tin từ bảng account_users
