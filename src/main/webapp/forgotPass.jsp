@@ -408,7 +408,7 @@
                 if (result && result.success) {
                     console.log('Email confirmation request successful.');
                     // Hiển thị email ở bước 2 (Tùy chọn)
-                    const emailDisplayStep2 = document.getElementById('emailDisplayStep2'); // Cần thêm thẻ này vào HTML step 2
+                    const emailDisplayStep2 = document.getElementById('emailDisplayStep2');
                     if (emailDisplayStep2) {
                         emailDisplayStep2.textContent = email;
                     }
@@ -459,7 +459,7 @@
                     verificationCode += input.value;
                 });
 
-                if (!isComplete || verificationCode.length !== 5) { // Giả sử mã 6 chữ số
+                if (!isComplete || verificationCode.length !== 5) {
                     showError('Please enter the complete 5-digit verification code.');
                     return;
                 }
@@ -506,8 +506,7 @@
                 const formData = {
                     method: 'resetPassword',
                     password: password,
-                    confirmPassword: confirmPassword // Gửi cả 2 để server có thể check lại nếu muốn
-                    // Email vẫn nằm trong session ở server side
+                    confirmPassword: confirmPassword
                 };
 
                 const result = await sendAjaxRequest('<%= request.getContextPath() %>/forget-password', formData);

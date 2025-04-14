@@ -3,7 +3,6 @@ package services;
 import dao.UserDao;
 import models.AccountUser;
 import models.TokenType;
-import models.User;
 import models.UserTokens;
 import services.application.EmailSender;
 import services.application.HashUtil;
@@ -54,24 +53,18 @@ public class UserService {
         if (tokenOpt.isPresent()) {
             UserTokens token = tokenOpt.get();
 
-            // 3. Kiểm tra token hợp lệ (chưa hết hạn và đúng type)
             if (token.getTokenType().equals(TokenType.email_verification) &&
                     token.getExpiresAt().isAfter(LocalDateTime.now())) {
 
-                // 4. Kích hoạt tài khoản (update status = 1)
                 boolean activated = userDao.unlockUser(token.getIdUser());
-
                 if (activated) {
-                    // 5. Xóa token đã sử dụng
                     userDao.deleteToken(tokenHash);
-                    return true; // Kích hoạt thành công
+                    return true;
                 } else {
-                    // Lỗi khi cập nhật DB (hiếm khi xảy ra nếu token tìm thấy)
                     System.err.println("Lỗi khi cập nhật trạng thái user: " + token.getIdUser());
                     return false;
                 }
             } else {
-                // Token hết hạn hoặc sai loại
                 if (!token.getTokenType().equals(TokenType.email_verification)) {
                     System.err.println("Token không đúng loại: " + token.getTokenType());
                 }
@@ -82,7 +75,6 @@ public class UserService {
                 return false;
             }
         } else {
-            // Token không tồn tại
             System.err.println("Token không tồn tại trong DB: " + tokenHash);
             return false;
         }
