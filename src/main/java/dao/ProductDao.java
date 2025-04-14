@@ -18,7 +18,7 @@ public class ProductDao {
     public Product getProductById(int id ) {
         String sql = """
        SELECT
-           p.id, p.name, p.quantity, p.addedDate, p.description, p.area, p.selling, p.img,
+           p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width,, p.selling, p.img,
            c.id AS category_id, c.name AS category_name,
            pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
            ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
@@ -50,7 +50,7 @@ public class ProductDao {
                             product.setDescription(rs.getString("description"));
                             product.setHeight(rs.getDouble("height")); // Thêm trường height
                             product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                            product.setWidth(rs.getDouble("width"));
+                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -197,7 +197,7 @@ public class ProductDao {
                     product.setDescription(rs.getString("description"));
                     product.setHeight(rs.getDouble("height")); // Thêm trường height
                     product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                    product.setWidth(rs.getDouble("width"));
+                    product.setWidth(rs.getDouble("width"));   // Thêm trường width
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -282,7 +282,7 @@ public class ProductDao {
         p.quantity,
         p.addedDate,
         p.description,
-        p.area,
+        p.height, p.weight, p.width,
         p.selling,
         p.img,
         c.id AS idCategory,
@@ -321,7 +321,7 @@ public class ProductDao {
                     product.setDescription(rs.getString("description"));
                     product.setHeight(rs.getDouble("height")); // Thêm trường height
                     product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                    product.setWidth(rs.getDouble("width"));
+                    product.setWidth(rs.getDouble("width"));   // Thêm trường width
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -384,7 +384,7 @@ public class ProductDao {
                 """;
                 groupBy = """
                 GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
-                         p.area, p.selling, p.img, c.id, c.name, 
+                         p.height, p.weight, p.width, p.selling, p.img, c.id, c.name, 
                          t.id, t.specifications, t.manufactureDate, 
                          pr.id, pr.price, pr.discountPercent, pr.lastPrice
                 """;
@@ -407,7 +407,7 @@ public class ProductDao {
             p.quantity,
             p.addedDate,
             p.description,
-            p.area,
+            p.height, p.weight, p.width,
             p.selling,
             p.img,
             c.id AS idCategory,
@@ -447,7 +447,7 @@ public class ProductDao {
                     product.setDescription(rs.getString("description"));
                     product.setHeight(rs.getDouble("height")); // Thêm trường height
                     product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                    product.setWidth(rs.getDouble("width"));
+                    product.setWidth(rs.getDouble("width"));   // Thêm trường width
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -490,7 +490,7 @@ public class ProductDao {
         Jdbi jdbi = DBConnection.getConnetion();
         String sql = """
        SELECT
-           p.id, p.name, p.quantity, p.addedDate, p.description, p.area, p.selling, p.img,
+           p.id, p.name, p.quantity, p.addedDate, p.description,p.height, p.weight, p.width, p.selling, p.img,
            c.id AS category_id, c.name AS category_name,
            pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
            ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
@@ -523,7 +523,7 @@ public class ProductDao {
                             product.setDescription(rs.getString("description"));
                             product.setHeight(rs.getDouble("height")); // Thêm trường height
                             product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                            product.setWidth(rs.getDouble("width"));
+                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -597,7 +597,7 @@ public class ProductDao {
 
         String sql = """
        SELECT
-           p.id, p.name, p.quantity, p.addedDate, p.description, p.area, p.selling, p.img,
+           p.id, p.name, p.quantity, p.addedDate, p.description,p.height, p.weight, p.width, p.selling, p.img,
            c.id AS category_id, c.name AS category_name,
            pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
            ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
@@ -634,7 +634,7 @@ public class ProductDao {
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setHeight(rs.getDouble("height")); // Thêm trường height
                             product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                            product.setWidth(rs.getDouble("width"));
+                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
                             product.setCategory(category); // Gắn Category vào Product
@@ -774,7 +774,7 @@ public class ProductDao {
                 product.setDescription(rs.getString("description"));
                 product.setHeight(rs.getDouble("height")); // Thêm trường height
                 product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                product.setWidth(rs.getDouble("width"));
+                product.setWidth(rs.getDouble("width"));   // Thêm trường width
                 product.setSelling(rs.getInt("selling"));
                 product.setImage(rs.getString("img"));
 
@@ -893,7 +893,7 @@ public class ProductDao {
                     .bind("idCategory", product.getCategory().getId())
                     .bind("addedDate", java.sql.Date.valueOf(product.getDateAdded()))
                     .bind("description", product.getDescription())
-//                    .bind("area", product.getArea())
+
                     .bind("selling", product.getSelling())
                     .bind("img", product.getImage())
                     .bind("idTechnical", technicalId)
@@ -995,9 +995,7 @@ public class ProductDao {
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setHeight(rs.getDouble("height")); // Thêm trường height
-                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                    product.setWidth(rs.getDouble("width"));
+
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
@@ -1025,6 +1023,7 @@ public class ProductDao {
                     return product;
                 }).list());
     }
+
 
 
 }

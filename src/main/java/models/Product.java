@@ -175,6 +175,7 @@ public class Product implements Serializable {
                 "," + width +
                 "," + selling +
                 "," + image +
+                "," + price +
                 "," + category +
                 "," + technicalInfo +'\''
                 ;
