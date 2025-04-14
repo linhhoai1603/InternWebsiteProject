@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
+<<<<<<< HEAD
 Built-By: hoai1
 Build-Jdk: Oracle OpenJDK 23.0.1
+=======
+Built-By: mypc
+Build-Jdk: Oracle OpenJDK 23
+>>>>>>> 726b9f6b430b9476df13b74625bd35634630250b
 

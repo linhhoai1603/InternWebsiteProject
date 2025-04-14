@@ -39,6 +39,6 @@ public class EmailSender {
     }
 
     public static void main(String[] args) {
-        EmailSender.sendEMail("22130084@st.hcmuaf.edu.vn", "Test", "Hello");
+        EmailSender.sendEMail("22130099@st.hcmuaf.edu.vn", "Test", "Hello");
     }
 }

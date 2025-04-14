@@ -168,87 +168,115 @@
 </div>
 
 <div class="container my-5">
-    <div class="row">
+    <div class="row justify-content-center">
         <!-- Product Description Section -->
-        <div class="col-12">
-            <div class="col-12 d-flex align-items-center">
-                <div class="title-box px-3 py-2 text-white" style="background-color: #008080">
-                    <h5 class="mb-0"><fmt:message key="mtsp"/></h5>
-                </div>
+        <div class="col-12 text-center">
+            <h3 class="text-secondary">
+                <fmt:message key="mtsp"/>
+            </h3>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="line" style="width: 50px; height: 2px; background-color: #aaa; margin-right: 10px;"></div>
+                <div class="circle"
+                     style="width: 10px; height: 10px; background-color: #888; border-radius: 50%;"></div>
+                <div class="line" style="width: 50px; height: 2px; background-color: #aaa; margin-left: 10px;"></div>
             </div>
+        </div>
+
+
+        <div>
             <p>${requestScope.product.description}</p>
             <p>${requestScope.product.technicalInfo.specification}</p>
         </div>
-    </div>
-    <div class="container">
-        <img src="images/poster.png" alt="Poster" class="img-fluid"/>
-    </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const colorOptions = document.querySelectorAll('.color-option');
-        const selectedStyleInput = document.getElementById('selectedStyle');
-        const selectedStyleInput1 = document.getElementById('selectedStyle1');
-        // Khởi tạo giá trị ban đầu (style đầu tiên)
-        if (colorOptions.length > 0) {
-            colorOptions[0].classList.add('selected-style'); // Chọn style đầu tiên
-            selectedStyleInput.value = colorOptions[0].getAttribute('data-style-id');
-            selectedStyleInput1.value = colorOptions[0].getAttribute('data-style-id');
-        }
 
-        // Cập nhật giá trị khi chọn style
-        colorOptions.forEach(option => {
+        <!-- các sản phẩm liên quan -->
+        <%--        <div class="container">--%>
+        <%--            <img src="images/poster.png" alt="Poster" class="img-fluid"/>--%>
+        <%--        </div>--%>
+
+        <div class="col-12 text-center">
+            <h3 class="text-secondary">
+                <fmt:message key="csplq"/>
+            </h3>
+            <div class="d-flex justify-content-center align-items-center">
+                <div class="line" style="width: 50px; height: 2px; background-color: #aaa; margin-right: 10px;"></div>
+                <div class="circle"
+                     style="width: 10px; height: 10px; background-color: #888; border-radius: 50%;"></div>
+                <div class="line" style="width: 50px; height: 2px; background-color: #aaa; margin-left: 10px;"></div>
+            </div>
+
+            <!-- các sản pham -->
+            <div class="container" style="padding-top: 10px">
+                <img src="images/poster.png" alt="Poster" class="img-fluid"/>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const colorOptions = document.querySelectorAll('.color-option');
+            const selectedStyleInput = document.getElementById('selectedStyle');
+            const selectedStyleInput1 = document.getElementById('selectedStyle1');
+            // Khởi tạo giá trị ban đầu (style đầu tiên)
+            if (colorOptions.length > 0) {
+                colorOptions[0].classList.add('selected-style'); // Chọn style đầu tiên
+                selectedStyleInput.value = colorOptions[0].getAttribute('data-style-id');
+                selectedStyleInput1.value = colorOptions[0].getAttribute('data-style-id');
+            }
+
+            // Cập nhật giá trị khi chọn style
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function () {
+                    // Xóa lớp selected-style khỏi tất cả các ảnh
+                    colorOptions.forEach(opt => opt.classList.remove('selected-style'));
+
+                    // Thêm lớp selected-style vào ảnh được chọn
+                    this.classList.add('selected-style');
+
+                    // Cập nhật giá trị input
+                    selectedStyleInput.value = this.getAttribute('data-style-id');
+                    selectedStyleInput1.value = this.getAttribute('data-style-id');
+                });
+            });
+        });
+        document.querySelectorAll('.color-option').forEach(option => {
             option.addEventListener('click', function () {
-                // Xóa lớp selected-style khỏi tất cả các ảnh
-                colorOptions.forEach(opt => opt.classList.remove('selected-style'));
+                document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected-style'));
 
-                // Thêm lớp selected-style vào ảnh được chọn
                 this.classList.add('selected-style');
 
-                // Cập nhật giá trị input
-                selectedStyleInput.value = this.getAttribute('data-style-id');
-                selectedStyleInput1.value = this.getAttribute('data-style-id');
+                console.log(this.classList.contains('selected-style')); // Kết quả true nếu đúng
             });
         });
-    });
-    document.querySelectorAll('.color-option').forEach(option => {
-        option.addEventListener('click', function () {
-            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected-style'));
+        document.addEventListener('DOMContentLoaded', function () {
+            const decrementButtons = document.querySelectorAll('.decrement-btn');
+            const incrementButtons = document.querySelectorAll('.increment-btn');
+            const quantityInputs = document.querySelectorAll('.quantity-input');
 
-            this.classList.add('selected-style');
+            // Xử lý nút giảm (-)
+            decrementButtons.forEach((button, index) => {
+                button.addEventListener('click', function () {
+                    const input = quantityInputs[index]; // Lấy input tương ứng
+                    let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
+                    if (value > 1) {
+                        input.value = value - 1; // Giảm giá trị xuống 1
+                    }
+                });
+            });
 
-            console.log(this.classList.contains('selected-style')); // Kết quả true nếu đúng
-        });
-    });
-    document.addEventListener('DOMContentLoaded', function () {
-        const decrementButtons = document.querySelectorAll('.decrement-btn');
-        const incrementButtons = document.querySelectorAll('.increment-btn');
-        const quantityInputs = document.querySelectorAll('.quantity-input');
-
-        // Xử lý nút giảm (-)
-        decrementButtons.forEach((button, index) => {
-            button.addEventListener('click', function () {
-                const input = quantityInputs[index]; // Lấy input tương ứng
-                let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
-                if (value > 1) {
-                    input.value = value - 1; // Giảm giá trị xuống 1
-                }
+            // Xử lý nút tăng (+)
+            incrementButtons.forEach((button, index) => {
+                button.addEventListener('click', function () {
+                    const input = quantityInputs[index]; // Lấy input tương ứng
+                    let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
+                    input.value = value + 1; // Tăng giá trị lên 1
+                });
             });
         });
 
-        // Xử lý nút tăng (+)
-        incrementButtons.forEach((button, index) => {
-            button.addEventListener('click', function () {
-                const input = quantityInputs[index]; // Lấy input tương ứng
-                let value = parseInt(input.value, 10); // Chuyển giá trị sang số nguyên
-                input.value = value + 1; // Tăng giá trị lên 1
-            });
-        });
-    });
-
-</script>
-<script src="js/detail-product.js"></script>
+    </script>
+    <script src="js/detail-product.js"></script>
+</div>
+</body>
+<!-- footer -->
 <%@include file="includes/footer.jsp" %>
 <%@include file="includes/link/footLink.jsp" %>
-</body>
 </html>
