@@ -35,54 +35,36 @@ public class RegisterServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // Lấy tham số từ form
+        String email = request.getParameter("email");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastname");
+        String phoneNumber = request.getParameter("phoneNumber");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String confirmPassword = request.getParameter("confirmPassword");
+        String hasedPassword = this.hashedPassword(password);
 
-        // 1) Kiểm tra độ dài mật khẩu
-        if (password.length() < 6) {
-            request.setAttribute("error", "Mật khẩu phải có ít nhất 6 ký tự.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
-
-        // 2) Kiểm tra mật khẩu và confirmPassword
-        if (!password.equals(confirmPassword)) {
-            request.setAttribute("error", "Mật khẩu và xác nhận mật khẩu không khớp.");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
-
-        // 3) Kiểm tra định dạng username
-        if (!isValidUsername(username)) {
-            request.setAttribute("error", "Username không hợp lệ (ít nhất 3 ký tự, không chứa khoảng trắng).");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
-            return;
-        }
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int serverPort = request.getServerPort();
+        String contextPath = request.getContextPath();
+        String appBaseUrl = scheme + "://" + serverName + ":" + serverPort + contextPath;
 
         try {
-            userService.registerUser(
-                    username,
-                    HashUtil.encodePasswordBase64(password),
-                    "Default Name",
-                    "0000000000",
-                    1,
-                    "default.png"
-            );
+            userService.registerUser(email, firstName, lastName, username, hasedPassword, phoneNumber, "default.png", appBaseUrl);
 
-            request.setAttribute("error", "Đăng ký tài khoản thành công!");
+            request.setAttribute("success", "Đăng ký thành công! Vui lòng kiểm tra email (" + email + ") để kích hoạt tài khoản.");
             request.getRequestDispatcher("login.jsp").forward(request, response);
 
-        } catch (RuntimeException e) {
-            request.setAttribute("error", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("error", "Đã xảy ra lỗi trong quá trình đăng ký: " + e.getMessage());
+            request.setAttribute("email", email);
+            request.setAttribute("firstName", firstName);
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }
 
-    private boolean isValidUsername(String username) {
-        // Regex: Cho phép chữ cái, chữ số, dấu chấm, gạch dưới, gạch ngang. Ít nhất 3 ký tự.
-        // Không chứa khoảng trắng.
-        String usernameRegex = "^[A-Za-z0-9._-]{3,}$";
-        return username != null && username.matches(usernameRegex);
+    private String hashedPassword(String password) {
+        return HashUtil.encodePasswordBase64(password);
     }
 }

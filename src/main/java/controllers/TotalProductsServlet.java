@@ -1,13 +1,16 @@
 package controllers;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Product;
+import services.LocalDateAdapter;
 import services.ToTalProductService;
 
 @WebServlet(name = "TotalProductsServlet", value = "/total-product")
@@ -21,23 +24,16 @@ public class TotalProductsServlet extends HttpServlet {
         String maxPrice = request.getParameter("maxPrice");
 
         if (selection == null) selection = "all";
-        if (option == null) option = "1";
         int currentPage = (param != null) ? Integer.parseInt(param) : 1;
-        if (option.isEmpty()) option = "Mới nhất";
+        if (option == null ||option.isEmpty()) option = "latest";
 
         ToTalProductService ps = new ToTalProductService();
         List<Product> products = ps.getProducts(selection, currentPage, nuPerPage, option, minPrice, maxPrice);
         int nupage = ps.getNuPage(nuPerPage, selection);
 
-        // Nếu không phải AJAX => Load trang bình thường
-        request.setAttribute("products", products);
-        request.setAttribute("pageNumber", nupage);
+        request.setAttribute("nupage", nupage);
         request.setAttribute("currentPage", currentPage);
-        request.setAttribute("option", option);
-        request.setAttribute("selection", selection);
-        request.setAttribute("minPrice", minPrice);
-        request.setAttribute("maxPrice", maxPrice);
-
+        request.setAttribute("products", products);
         request.getRequestDispatcher("total-product.jsp").forward(request, response);
 
     }
