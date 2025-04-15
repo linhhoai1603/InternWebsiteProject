@@ -23,7 +23,6 @@ public class TotalProductsServlet extends HttpServlet {
         String minPrice = request.getParameter("minPrice");
         String maxPrice = request.getParameter("maxPrice");
 
-        if (selection == null) selection = "all";
         int currentPage = (param != null) ? Integer.parseInt(param) : 1;
         if (option == null ||option.isEmpty()) option = "latest";
 
@@ -31,6 +30,7 @@ public class TotalProductsServlet extends HttpServlet {
         List<Product> products = ps.getProducts(selection, currentPage, nuPerPage, option, minPrice, maxPrice);
         int nupage = ps.getNuPage(nuPerPage, selection);
 
+        request.setAttribute("selection", selection);
         request.setAttribute("nupage", nupage);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("products", products);

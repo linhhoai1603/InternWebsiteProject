@@ -83,32 +83,32 @@
       <h5>Giá</h5>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price1" data-min="0" data-max="10000">
+        <input class="form-check-input price-filter" type="checkbox" id="price1" data-selection="${requestScope.selection}" data-min="0" data-max="10000" onclick="handleCheckboxChange(this)">
         <label class="form-check-label" for="price1">Dưới 10.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price2" data-min="10000" data-max="50000">
+        <input class="form-check-input price-filter" type="checkbox" id="price2" data-selection="${requestScope.selection}" data-min="10000" data-max="50000" onclick="handleCheckboxChange(this)">
         <label class="form-check-label" for="price2">10.000đ - 50.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price3" data-min="50000" data-max="100000">
+        <input class="form-check-input price-filter" type="checkbox" id="price3" data-selection="${requestScope.selection}" data-min="50000" data-max="100000" onclick="handleCheckboxChange(this)">
         <label class="form-check-label" for="price3">50.000đ - 100.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price4" data-min="100000" data-max="200000">
+        <input class="form-check-input price-filter" type="checkbox" id="price4" data-selection="${requestScope.selection}" data-min="100000" data-max="200000" onclick="handleCheckboxChange(this)">
         <label class="form-check-label" for="price4">100.000đ - 200.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price5" data-min="200000" data-max="">
+        <input class="form-check-input price-filter" type="checkbox" id="price5" data-selection="${requestScope.selection}" data-min="200000" data-max="" onclick="handleCheckboxChange(this)">
         <label class="form-check-label" for="price5">Trên 200.000đ</label>
       </div>
-    </div>
+</div>
 
-    <!-- Nội dung chính -->
+      <!-- Nội dung chính -->
     <div class="col-md-9 position-relative">
       <!-- Overlay loading spinner -->
       <div class="loading-overlay" id="loadingOverlay">
@@ -119,20 +119,20 @@
 
       <!-- Thanh sắp xếp -->
       <div class="header-right d-flex align-items-center justify-content-end mb-4">
-        <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            Sắp xếp theo
-          </button>
-          <ul class="dropdown-menu sort-options" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" data-option="1" href="#">Mới nhất</a></li>
-            <li><a class="dropdown-item" data-option="2" href="#">Giá: Cao -> Thấp</a></li>
-            <li><a class="dropdown-item" data-option="3" href="#">Giá: Thấp -> Cao</a></li>
-            <li><a class="dropdown-item" data-option="4" href="#">Bán chạy nhất</a></li>
-            <li><a class="dropdown-item" data-option="5" href="#">Giảm giá: Cao -> Thấp</a></li>
-          </ul>
-        </div>
-      </div>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              Sắp xếp theo
+            </button>
+            <ul class="dropdown-menu sort-options" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="latest"  onclick="handleDropdownClick(this)">Mới nhất</a></li>
+              <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="expensivet"  onclick="handleDropdownClick(this)">Giá: Cao -> Thấp</a></li>
+              <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="cheapt"  onclick="handleDropdownClick(this)">Giá: Thấp -> Cao</a></li>
+              <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="latestt"  onclick="handleDropdownClick(this)">Bán chạy nhất</a></li>
+              <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="discountt"  onclick="handleDropdownClick(this)">Giảm giá: Cao -> Thấp</a></li>
+            </ul>
 
+          </div>
+      </div>
       <!-- Danh sách sản phẩm -->
       <div class="row product-container" id="productContainer">
         <c:forEach var="product" items="${requestScope.products}">
@@ -178,39 +178,7 @@
                 </p>
 
                 <p class="cart-text description">Mô tả: ${product.description}</p>
-
-                <form action="cart" method="post" class="mt-auto product-options-form">
-                  <!-- Hidden Inputs -->
-                  <input type="hidden" name="method" value="add">
-                  <input type="hidden" name="currentURL" value="?page=${currentPage}&option=${option}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">
-                  <input type="hidden" name="productID" value="${product.id}">
-                  <input type="hidden" name="selectedStyle" id="selectedStyle${product.id}" value="">
-
-                  <!-- Chọn Style -->
-                  <c:if test="${not empty product.styles}">
-                    <div class="mb-3">
-                      <label class="form-label">Chọn Style:</label>
-                      <div class="style-selection">
-                        <c:forEach var="style" items="${product.styles}">
-                          <div class="style-option" data-style-id="${style.id}" data-image-url="${style.image}">
-                            <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
-                          </div>
-                        </c:forEach>
-                      </div>
-                    </div>
-                  </c:if>
-
-                  <!-- Số lượng sản phẩm -->
-                  <div class="mb-3 quantity-container" style="display: none;">
-                    <label for="quantity${product.id}" class="form-label">Số lượng:</label>
-                    <input type="number" class="form-control quantity-input" id="quantity${product.id}" name="quantity" min="1" value="1" required>
-                  </div>
-
-                  <!-- Nút Thêm Vào Giỏ Hàng / Xác Nhận -->
-                  <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
-                  <button type="submit" class="btn btn-success w-100 mb-2 submit-cart-button" style="display: none;">Xác nhận</button>
-                </form>
-
+                <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
                 <!-- Nút Xem Ngay -->
                 <a href="detail-product?productId=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
               </div>
@@ -228,26 +196,26 @@
   <ul class="pagination pagination-lg">
 
     <!-- Nút Trước -->
-    <c:if test="${currentPage > 1}">
+    <c:if test="${requestScope.currentPage > 1}">
       <li class="page-item">
-        <a class="page-link pagination-link" data-page="${currentPage - 1}" href="#"> < </a>
+        <a class="page-link pagination-link" data-page="${requestScope.currentPage - 1}" onclick="handlePaginationClick(this)"> < </a>
       </li>
     </c:if>
 
     <!-- Hiển thị tối đa 5 trang quanh currentPage -->
-    <c:set var="startPage" value="${currentPage - 2 > 1 ? currentPage - 2 : 1}" />
-    <c:set var="endPage" value="${currentPage + 2 < nupage ? currentPage + 2 : nupage}" />
+    <c:set var="startPage" value="${requestScope.currentPage - 2 > 1 ? requestScope.currentPage - 2 : 1}" />
+    <c:set var="endPage" value="${requestScope.currentPage + 2 < requestScope.nupage ? requestScope.currentPage + 2 : requestScope.nupage}" />
 
     <c:forEach begin="${startPage}" end="${endPage}" var="i">
-      <li class="page-item ${i == currentPage ? 'active' : ''}">
-        <a class="page-link pagination-link" data-page="${i}" href="#">${i}</a>
+      <li class="page-item ${i == requestScope.currentPage ? 'active' : ''}">
+        <a class="page-link pagination-link" data-page="${i}" onclick="handlePaginationClick(this)">${i}</a>
       </li>
     </c:forEach>
 
     <!-- Nút Sau -->
-    <c:if test="${currentPage < nupage}">
+    <c:if test="${requestScope.currentPage < requestScope.nupage}">
       <li class="page-item">
-        <a class="page-link pagination-link" data-page="${currentPage + 1}" href="#"> > </a>
+        <a class="page-link pagination-link" data-page="${requestScope.currentPage + 1}" onclick="handlePaginationClick(this)"> > </a>
       </li>
     </c:if>
 
