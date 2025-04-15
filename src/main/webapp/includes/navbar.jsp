@@ -29,12 +29,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" >
                         <a
                                 class="nav-link text-white dropdown-toggle"
                                 role="button"
                                 id="productDropdown"
-                                href="#"
+                                href="${pageContext.request.contextPath}/total-product"
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                         >

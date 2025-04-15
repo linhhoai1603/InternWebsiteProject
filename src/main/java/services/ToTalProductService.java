@@ -13,17 +13,13 @@ public class ToTalProductService {
     }
 
     public List<Product> getAllProducts(int currentPage, int nuPerPage, String option) {
-        switch (option){
-            case "latest":
-                return productDao.getProductLatest(currentPage,nuPerPage);
-            case "expensive":
-                return productDao.getProductByPrice(currentPage,nuPerPage,"decreasing");
-            case "cheap":
-                return productDao.getProductByPrice(currentPage,nuPerPage,"ascending");
-            case "discount":
-                return productDao.getProductBiggestDiscount(currentPage,nuPerPage);
-        }
-        return productDao.getAllProducts(currentPage,nuPerPage);
+        return switch (option) {
+            case "latest" -> productDao.getProductLatest(currentPage, nuPerPage);
+            case "expensive" -> productDao.getProductByPrice(currentPage, nuPerPage, "decreasing");
+            case "cheap" -> productDao.getProductByPrice(currentPage, nuPerPage, "ascending");
+            case "discount" -> productDao.getProductBiggestDiscount(currentPage, nuPerPage);
+            default -> productDao.getAllProducts(currentPage, nuPerPage);
+        };
     }
     public List<Product> getProductByCategoryName(String selection, int currentPage, int nuPerPage, String option) {
         if(option.equals("")||option==null){
@@ -50,7 +46,13 @@ public class ToTalProductService {
         if (selection == null) {
             selection = "all";
         }
-
+        selection = switch (selection) {
+            case "1" -> "Vải may mặc";
+            case "2" -> "Vải nội thất";
+            case "3" -> "Nút áo";
+            case "4" -> "Dây kéo";
+            default -> selection;
+        };
         if (minPrice != null && maxPrice != null) {
             if (selection.equals("all")) {
                 return productDao.getAllProductByPriceRange(currentPage, nuPerPage, minPrice, maxPrice);
