@@ -7,91 +7,57 @@ import java.util.List;
 import java.util.Map;
 
 public class Cart implements Serializable {
-    private Map<Integer, CartItem> items;
-    private int totalQuantity;
-    private double totalPrice;
-    private Voucher voucher;
-    private double shippingFee;
-    private double lastPrice;
-    private double totalWeight;
+   private int id;
+   private int idUser;
+   private int idVoucher;
+   private double shippingFee;
+   private List<CartItem> cartItems;
 
-    public Cart(Map<Integer, CartItem> items, int totalQuantity, double totalPrice, Voucher voucher, double shippingFee, double lastPrice, double totalWeight) {
-        this.items = items;
-        this.totalQuantity = totalQuantity;
-        this.totalPrice = totalPrice;
-        this.voucher = voucher;
-        this.shippingFee = shippingFee;
-        this.lastPrice = lastPrice;
-        this.totalWeight = totalWeight;
+    public Cart(int id, int idUser) {
+        this.id = id;
+        this.idUser = idUser;
     }
-    public Cart() {}
+    public Cart(){
 
-    public Map<Integer, CartItem> getItems() {
-        return items;
     }
 
-    public int getTotalQuantity() {
-        return totalQuantity;
+    public List<CartItem> getCartItems() {
+        return cartItems;
     }
 
-    public double getTotalPrice() {
-        return totalPrice;
+    public void setCartItems(List<CartItem> cartItems) {
+        this.cartItems = cartItems;
     }
 
-    public Voucher getVoucher() {
-        return voucher;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public int getIdVoucher() {
+        return idVoucher;
+    }
+
+    public void setIdVoucher(int idVoucher) {
+        this.idVoucher = idVoucher;
     }
 
     public double getShippingFee() {
         return shippingFee;
     }
 
-    public double getLastPrice() {
-        return lastPrice;
-    }
-
-    public double getTotalWeight() {
-        return totalWeight;
-    }
-
-    public void setItems(Map<Integer, CartItem> items) {
-        this.items = items;
-    }
-
-    public void setTotalQuantity(int totalQuantity) {
-        this.totalQuantity = totalQuantity;
-    }
-
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public void setVoucher(Voucher voucher) {
-        this.voucher = voucher;
-    }
-
     public void setShippingFee(double shippingFee) {
         this.shippingFee = shippingFee;
-    }
-
-    public void setLastPrice(double lastPrice) {
-        this.lastPrice = lastPrice;
-    }
-
-    public void setTotalWeight(double totalWeight) {
-        this.totalWeight = totalWeight;
-    }
-
-    @Override
-    public String toString() {
-        return "Cart{" +
-                "items=" + items +
-                ", totalQuantity=" + totalQuantity +
-                ", totalPrice=" + totalPrice +
-                ", voucher=" + voucher +
-                ", shippingFee=" + shippingFee +
-                ", lastPrice=" + lastPrice +
-                ", totalWeight=" + totalWeight +
-                '}';
     }
 }
