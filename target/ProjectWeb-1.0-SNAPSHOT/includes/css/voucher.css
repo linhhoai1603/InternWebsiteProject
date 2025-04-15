@@ -1,44 +1,121 @@
+
+/* CSS cho phần chứa voucher */
 .voucher-section {
-    margin-top: 20px;
+    width: 100%;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
+
+.voucher-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* CSS cho container chứa các voucher */
 .voucher-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; /* Khoảng cách giữa các voucher */
+    justify-content: flex-start; /* Các voucher căn trái */
+    gap: 20px;
 }
+
+/* CSS cho mỗi voucher */
 .voucher-item {
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 15px;
+    position: relative;
+    text-align: left;
     display: flex;
-    align-items: center;
+    /* căn hàng ngang các phần*/
+    align-items: flex-start;
+    /* Thay đổi, dùng space-between */
     justify-content: space-between;
-    flex: 0 0 22%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    height: 100px; /* Chiều cao cố định cho mỗi voucher */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
-.voucher-info {
+
+.voucher-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #ffc107;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    margin-right: 15px;
+    margin-top: 10px;
+}
+
+.voucher-details {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 }
-.voucher-info h5 {
-    margin: 0;
-    font-size: 16px;
+
+.voucher-title {
+    font-size: 1.2em;
     font-weight: bold;
+    color: #1a237e;
+    margin-bottom: 8px;
 }
-.voucher-info p {
-    margin: 5px 0;
-    font-size: 14px;
+
+/* CSS cho mô tả voucher */
+.voucher-description {
+    font-size: 0.9em;
+    color: #333;
+    line-height: 1.4;
+    margin-bottom: 12px;
 }
-.voucher-item button {
-    background-color: #ffd500;
-    color: white;
+
+.voucher-actions {
+    /* Bỏ flex đi để các item nối nhau*/
+    display: inline;
+    /* Chỉnh khoảng cách*/
+    white-space: nowrap;
+}
+
+.voucher-actions > * {
+    padding: 3px;
+    font-size: 0.8em;
+}
+
+/* Định dạng cho phần "Giảm ngay" */
+.discount-text {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Định dạng cho phần "Cho đơn hàng lớn hơn" */
+.condition-text {
+    color: #777;
+}
+
+/* Sửa vị trí */
+.voucher-details-link {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #0d47a1;
+    text-decoration: none;
+    padding-right: 5px;
+}
+.voucher-details-link:hover {
+    text-decoration: none;
+}
+
+/* Sửa */
+.copy-btn {
+    background-color: transparent;
+    color: #0d47a1;
     border: none;
-    padding: 5px 10px;
-    cursor: pointer;
+    padding: 3px;
+    font-size: 0.8em;
 }
-.voucher-item button:hover {
-    background-color: #ffd500;
+.copy-btn:hover {
+    background-color: orange;
 }
