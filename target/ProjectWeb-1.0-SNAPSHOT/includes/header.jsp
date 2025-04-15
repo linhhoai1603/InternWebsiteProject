@@ -19,11 +19,13 @@
     <div class="header">
         <div class="row">
             <div class="col-md-2 text-center">
-                <img
-                        src="images/logo.png"
-                        alt="Logo"
-                        style="width: 100%; height: 100%"
-                />
+                <a href="${pageContext.request.contextPath}/home">
+                    <img
+                            src="images/logo.png"
+                            alt="Logo"
+                            style="width: 100%; height: 100%"
+                    />
+                </a>
             </div>
             <div class="col-md-5 text-center pt-4">
                 <!-- Search Form -->
