@@ -123,18 +123,6 @@
         </dependency>
 
         <dependency>
-<<<<<<< HEAD
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.9.19</version>
-        </dependency>
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>1.9.19</version>
-        </dependency>
-
-=======
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20240303</version>
@@ -159,7 +147,6 @@
             <artifactId>restfb</artifactId>
             <version>2023.12.0</version> <!-- Hoặc phiên bản bạn dùng -->
         </dependency>
->>>>>>> 726b9f6b430b9476df13b74625bd35634630250b
     </dependencies>
     <build>
         <plugins>
