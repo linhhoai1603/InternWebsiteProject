@@ -41,6 +41,9 @@
         <div style="color: red;">
             ${error}
         </div>
+<<<<<<< HEAD
+        <form id="loginForm" method="post" action="login-user">
+=======
         <div class="social-row">
             <a href="googleLogin" class="social-button btn-google-login" title="Continue with Google">
                 <i class="fab fa-google"></i> <!-- Icon Google -->
@@ -51,6 +54,7 @@
                 <span>Continue with Facebook</span>
             </a>
         </div>
+>>>>>>> 726b9f6b430b9476df13b74625bd35634630250b
 
         <div class="lines">
             <div class="line"></div>

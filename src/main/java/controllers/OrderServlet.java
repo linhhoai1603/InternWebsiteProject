@@ -87,10 +87,10 @@ public class OrderServlet extends HttpServlet {
             if (user.getAddress() == null) {
                 throw new IllegalStateException("Người dùng không có địa chỉ mặc định.");
             }
-            delivery = new Delivery(
-                    idOrder, user.getAddress().getId(), user.getFullName(), user.getNumberPhone(),
-                    cart.getTotalArea(), cart.getShippingFee(), note, "Đang giao hàng"
-            );
+//            delivery = new Delivery(
+//                    idOrder, user.getAddress().getId(), user.getFullName(), user.getNumberPhone(),
+//                    cart.getTotalArea(), cart.getShippingFee(), note, "Đang giao hàng"
+//            );
         } else {
             int idAddress = addressService.getLastId() + 1;
             String street = request.getParameter("o-street");
@@ -102,19 +102,19 @@ public class OrderServlet extends HttpServlet {
 
             String fullName = request.getParameter("o-fullName");
             String phone = request.getParameter("o-phone");
-            delivery = new Delivery(
-                    idOrder, idAddress, fullName, phone,
-                    cart.getTotalArea(), cart.getShippingFee(), note, "Đang giao hàng"
-            );
+//            delivery = new Delivery(
+//                    idOrder, idAddress, fullName, phone,
+//                    cart.getTotalArea(), cart.getShippingFee(), note, "Đang giao hàng"
+//            );
         }
 
-        deliveryService.insertDelivery(delivery);
+//        deliveryService.insertDelivery(delivery);
 
         // Trả về đối tượng Ordered
         return new Ordered(
-                cart, idOrder, order.getTimeOrdered(),
-                user.getFullName(), delivery.getNote(),
-                addressService.getAddressById(delivery.getIdAddress()).getAddressDetail(), delivery.getStatus()
+//                cart, idOrder, order.getTimeOrdered(),
+//                user.getFullName(), delivery.getNote(),
+//                addressService.getAddressById(delivery.getIdAddress()).getAddressDetail(), delivery.getStatus()
         );
     }
 

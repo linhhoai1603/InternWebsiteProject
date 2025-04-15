@@ -4,6 +4,8 @@ package models;
 import java.util.Map;
 
 public class CartItem {
+    private int id;
+    private int idCart;
     private Style style;
     private double price;
     private int quantity;
@@ -15,6 +17,15 @@ public class CartItem {
         this.quantity = quantity;
         this.totalPrice = quantity * price;
     }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public Style getStyle() {
         return style;
     }

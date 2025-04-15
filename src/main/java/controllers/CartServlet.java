@@ -47,15 +47,15 @@ public class CartServlet extends HttpServlet {
             request.setAttribute("message", "Mã giảm giá sai!");
         }else{
             Cart cart = (Cart) request.getSession().getAttribute("cart");
-            if(!cart.applyVoucher(voucher)){
-                // Định dạng tiền Việt
-                Locale vietnam = new Locale("vi", "VN");
-                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
-                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
-                request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
-            }else{
-                request.setAttribute("message", "Giảm giá thành công!");
-            }
+//            if(!cart.applyVoucher(voucher)){
+//                // Định dạng tiền Việt
+//                Locale vietnam = new Locale("vi", "VN");
+//                NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
+//                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
+//                request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
+//            }else{
+//                request.setAttribute("message", "Giảm giá thành công!");
+//            }
         }
         request.getRequestDispatcher("shopping-cart.jsp").forward(request,response);
     }
@@ -63,16 +63,16 @@ public class CartServlet extends HttpServlet {
     private void remove(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idStyle = Integer.parseInt(request.getParameter("idStyle"));
         Cart cart = (Cart) request.getSession().getAttribute("cart");
-        cart.remove(idStyle);
-        try{
-            if(cart.getVoucher() != null) {
-                if(cart.getTotalPrice() < cart.getVoucher().getConditionAmount()){
-                    cart.applyVoucher(null);
-                }
-            }
-        }catch (NullPointerException e){
-            e.printStackTrace();
-        }
+//        cart.remove(idStyle);
+//        try{
+//            if(cart.getVoucher() != null) {
+//                if(cart.getTotalPrice() < cart.getVoucher().getConditionAmount()){
+//                    cart.applyVoucher(null);
+//                }
+//            }
+//        }catch (NullPointerException e){
+//            e.printStackTrace();
+//        }
         request.getSession().setAttribute("cart", cart);
         request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     }
@@ -81,7 +81,7 @@ public class CartServlet extends HttpServlet {
         int idStyle = Integer.parseInt(request.getParameter("idStyle"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         Cart cart = (Cart) request.getSession().getAttribute("cart");
-        cart.updateQuantity(idStyle, quantity);
+//        cart.updateQuantity(idStyle, quantity);
         request.getSession().setAttribute("cart", cart);
         request.getRequestDispatcher("shopping-cart.jsp").forward(request, response);
     }
@@ -105,11 +105,11 @@ public class CartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("cart");
             if (cart == null) {
-                cart = new Cart();
+//                cart = new Cart();
             }
 
             // Thêm sản phẩm vào giỏ hàng
-            cart.add(itemNew);
+//            cart.add(itemNew);
 
             // Cập nhật Cart vào Session
             session.setAttribute("cart", cart);
