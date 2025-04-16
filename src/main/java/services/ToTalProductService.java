@@ -74,6 +74,15 @@ public class ToTalProductService {
         System.out.println(service.getProducts("Vải may mặc",1,12,"latest",null,null));
 
     }
+    public List<Product> searchProductByName(String name) {
+        return productDao.searchProductByName(name);
+    }
+    public Product getProductByName(String name) {
+        return productDao.getProductByName(name);
+    }
+    public Product getProductById(int id) {
+        return productDao.getProductById(id);
+    }
 
     public List<Product> getProductsBestSellerByCategory(String selection, int currentPage , int nuperPage) {
         return productDao.getProductsBestSellerByCategory( selection,  currentPage ,  nuperPage);
