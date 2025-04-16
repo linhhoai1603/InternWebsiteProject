@@ -1,54 +1,39 @@
 package models;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Inventory {
     private int id;
-    private int idProduct;
-    private int idWareHouse;
-    private int quantityBefore;
-    private int quantityLoss;
-    private int quantityImported;
-    private int quantityTotal;
-    private Date importDate;
-
-    // Constructors
-    public Inventory() {}
-
-    public Inventory(int id, int idProduct, int idWareHouse, int quantityBefore, int quantityLoss,
-                     int quantityImported, int quantityTotal, Date importDate) {
+    private Timestamp import_date;
+    private Timestamp updatedAt;
+    public Inventory(int id, Timestamp import_date, Timestamp updatedAt) {
         this.id = id;
-        this.idProduct = idProduct;
-        this.idWareHouse = idWareHouse;
-        this.quantityBefore = quantityBefore;
-        this.quantityLoss = quantityLoss;
-        this.quantityImported = quantityImported;
-        this.quantityTotal = quantityTotal;
-        this.importDate = importDate;
+        this.import_date = import_date;
+        this.updatedAt = updatedAt;
+    }
+    public Inventory(){}
+
+    public int getId() {
+        return id;
     }
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getIdProduct() { return idProduct; }
-    public void setIdProduct(int idProduct) { this.idProduct = idProduct; }
+    public Timestamp getImport_date() {
+        return import_date;
+    }
 
-    public int getIdWareHouse() { return idWareHouse; }
-    public void setIdWareHouse(int idWareHouse) { this.idWareHouse = idWareHouse; }
+    public void setImport_date(Timestamp import_date) {
+        this.import_date = import_date;
+    }
 
-    public int getQuantityBefore() { return quantityBefore; }
-    public void setQuantityBefore(int quantityBefore) { this.quantityBefore = quantityBefore; }
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
 
-    public int getQuantityLoss() { return quantityLoss; }
-    public void setQuantityLoss(int quantityLoss) { this.quantityLoss = quantityLoss; }
-
-    public int getQuantityImported() { return quantityImported; }
-    public void setQuantityImported(int quantityImported) { this.quantityImported = quantityImported; }
-
-    public int getQuantityTotal() { return quantityTotal; }
-    public void setQuantityTotal(int quantityTotal) { this.quantityTotal = quantityTotal; }
-
-    public Date getImportDate() { return importDate; }
-    public void setImportDate(java.sql.Date importDate) { this.importDate = importDate; }
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }
