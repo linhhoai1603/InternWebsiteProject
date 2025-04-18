@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -54,39 +56,69 @@
         <table class="table table-striped table-hover mb-0">
           <thead class="table-light sticky-top">
           <tr>
-            <th>Xóa</th><th>Mã hàng</th><th>Tên hàng</th><th>Tên kiểu vải</th>
-            <th>Tồn kho</th><th>Thực tế</th><th>Sai lệch</th><th>Tổng sai lệch</th>
+            <th>Xóa</th>
+            <th>Mã hàng</th>
+            <th>Tên hàng</th>
+            <th>Tên kiểu vải</th>
+            <th>Tồn kho</th>
+            <th>Thực tế</th>
+            <th>Sai lệch</th>
+            <th>Tổng sai lệch</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td><button class="btn btn-sm btn-danger">🗑</button></td>
-            <td>NAM010</td>
-            <td>Cà vạt nam Hàn Quốc</td>
-            <td>
-              <div>kiểu 1</div>
-              <div style="margin-top: 12px;">kiểu 1</div>
-              <div style="margin-top: 12px;">kiểu 1</div>
-            </td>
-            <td>
-              <div class="stock">5</div>
-              <div class="stock" style="margin-top: 12px;">6</div>
-              <div class="stock" style="margin-top: 12px;">8</div>
-            </td>
-            <td>
-              <input class="form-control form-control-sm mb-1 actual" type="number" value="4" min="0">
-              <input class="form-control form-control-sm mb-1 actual" type="number" value="1" min="0">
-              <input class="form-control form-control-sm actual" type="number" value="5" min="0">
-            </td>
-            <td>
-              <div class="diff">1</div>
-              <div class="diff" style="margin-top: 12px;">5</div>
-              <div class="diff" style="margin-top: 12px;">3</div>
-            </td>
-            <td class="total-diff">9</td>
-          </tr>
+          <c:forEach var="product" items="${requestScope.products}">
+            <tr data-product-id="${product.id}">
+              <td><button class="btn btn-sm btn-danger">🗑</button></td>
+              <td>${product.id}</td>
+              <td>${product.name}</td>
+              <td>
+                <c:forEach var="style" items="${product.styles}" varStatus="loop">
+                  <c:choose>
+                    <c:when test="${loop.index == 0}">
+                      <div>${style.name}</div>
+                    </c:when>
+                    <c:otherwise>
+                      <div style="margin-top: 12px;">${style.name}</div>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+              </td>
+              <td>
+                <c:forEach var="style" items="${product.styles}" varStatus="loop">
+                  <c:choose>
+                    <c:when test="${loop.index == 0}">
+                      <div class="stock">${style.quantity}</div>
+                    </c:when>
+                    <c:otherwise>
+                      <div class="stock" style="margin-top: 12px;">${style.quantity}</div>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+              </td>
+              <td>
+                <c:forEach var="style" items="${product.styles}">
+                  <input data-style-id="${style.id}" data-quantity="${style.quantity}" class="form-control form-control-sm mb-1 actual" type="number" value="0" min="0" oninput="calculateDiff(this)">
+                </c:forEach>
+              </td>
+              <td>
+                <c:forEach var="style" items="${product.styles}" varStatus="loop">
+                  <c:choose>
+                    <c:when test="${loop.index == 0}">
+                      <div class="diff">0</div>
+                    </c:when>
+                    <c:otherwise>
+                      <div class="diff" style="margin-top: 12px;">0</div>
+                    </c:otherwise>
+                  </c:choose>
+                </c:forEach>
+              </td>
+              <td class="total-diff">0</td>
+            </tr>
+          </c:forEach>
           </tbody>
         </table>
+
       </div>
     </div>
   </div>
@@ -96,9 +128,10 @@
       <div class="card-header bg-secondary text-white">Thông tin đơn</div>
       <div class="card-body">
         <p><strong>Mã kiểm kho :</strong> PN000044</p>
-        <p><strong>Trạng thái:</strong> <span class="badge bg-success">Phiếu tạm</span></p>
+        <p><strong>Trạng thái:</strong> <span id="status-inventory" class="badge bg-success">Phiếu tạm</span></p>
         <hr>
-        <p><strong>Tổng số lượng thực tế :</strong> 0</p>
+        <p><strong>Tổng số lượng thực tế :</strong> <span id="totalActualQuantity">0</span></p>
+        <p><strong>Tổng số lượng sai lêch :</strong> <span id="totalLossQuantity">0</span></p>
 
         <div class="card mb-3">
           <div class="card-header bg-warning text-dark p-2">Các sản phẩm được kiểm</div>
@@ -108,12 +141,10 @@
               <tr><th>Tên sản phẩm</th></tr>
               </thead>
               <tbody>
-              <tr><td>Cà vạt nam Hàn Quốc</td></tr>
-              <tr><td>Áo sơ mi trắng</td></tr>
-              <tr><td>Quần tây đen</td></tr>
-              <tr><td>Giày da công sở</td></tr>
-              <tr><td>Khăn choàng cổ</td></tr>
-              <tr><td>Áo hoodie unisex</td></tr>
+              <c:forEach var="product" items="${requestScope.products}">
+                <tr><td>${product.name}</td></tr>
+              </c:forEach>
+
               </tbody>
             </table>
           </div>
@@ -123,37 +154,125 @@
           <label for="ghiChu" class="form-label">Ghi chú</label>
           <textarea class="form-control" id="ghiChu" rows="3" placeholder="Ghi chú..."></textarea>
         </div>
-        <button class="btn btn-success w-100">Lưu</button>
+        <button id="btnSave" class="btn btn-success w-100">Lưu</button>
+
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  const stockCells = document.querySelectorAll('.stock');
-  const actualInputs = document.querySelectorAll('.actual');
-  const diffCells = document.querySelectorAll('.diff');
-  const totalDiff = document.querySelector('.total-diff');
+  function calculateDiff(inputElement) {
+    // Lấy dòng sản phẩm chứa phần tử input này
+    var row = inputElement.closest('tr');
 
-  function updateDiffs() {
-    let total = 0;
-    actualInputs.forEach((input, index) => {
-      const stock = parseInt(stockCells[index].textContent);
-      let actual = parseInt(input.value);
-      if (actual > stock) {
-        actual = stock;
-        input.value = stock;
+    // Tìm phần tử Tồn kho trong dòng sản phẩm
+    var stockElements = row.querySelectorAll('.stock');
+    // Tìm phần tử Thực tế trong dòng sản phẩm
+    var actualElements = row.querySelectorAll('.actual');
+    // Tìm phần tử Sai lệch trong dòng sản phẩm
+    var diffElements = row.querySelectorAll('.diff');
+    // Tìm phần tử Tổng sai lệch trong dòng sản phẩm
+    var totalDiffElement = row.querySelector('.total-diff');
+
+    let totalDiff = 0;
+
+    // Lặp qua tất cả các kiểu vải trong sản phẩm
+    for (let i = 0; i < stockElements.length; i++) {
+      let stock = parseInt(stockElements[i].innerText);
+      let actual = parseInt(actualElements[i].value) || 0;
+
+      // Ngăn không cho nhập số âm vào ô "Thực tế"
+      if (actual < 0) {
+        actual = 0;  // Nếu có số âm, thay đổi về 0
+        actualElements[i].value = actual; // Cập nhật giá trị ô "Thực tế" về 0
       }
-      const diff = stock - actual;
-      diffCells[index].textContent = diff;
-      total += diff;
-    });
-    totalDiff.textContent = total;
+
+      // Tính sai lệch cho từng kiểu vải
+      let diff = stock - actual;
+      diffElements[i].innerText = diff >= 0 ? diff : 0; // Nếu sai lệch âm, gán bằng 0
+
+      // Cộng dồn sai lệch vào tổng sai lệch
+      totalDiff += diff >= 0 ? diff : 0;
+    }
+
+    // Cập nhật tổng sai lệch cho dòng sản phẩm
+    totalDiffElement.innerText = totalDiff;
   }
 
-  actualInputs.forEach(input => {
-    input.addEventListener('input', updateDiffs);
+  function updateTotalActualQuantity() {
+    // Lấy tất cả các phần tử "Thực tế"
+    var actualElements = document.querySelectorAll('.actual');
+
+    // Tính tổng số lượng thực tế
+    var totalActual = 0;
+    actualElements.forEach(function (element) {
+      totalActual += parseInt(element.value) || 0;  // Nếu không phải số hợp lệ, dùng 0
+    });
+
+    // Cập nhật tổng số lượng thực tế vào phần tử hiển thị
+    document.getElementById('totalActualQuantity').innerText = totalActual;
+  }
+
+
+    document.getElementById("btnSave").addEventListener("click", function () {
+    if (!confirm("Bạn có muốn lưu không?")) return;
+
+    const description = document.getElementById("ghiChu").value;
+    const status = document.getElementById("status-inventory").value;
+    const data = [];
+
+    // Duyệt tất cả các hàng sản phẩm
+    document.querySelectorAll("tr[data-product-id]").forEach(row => {
+    const productId = parseInt(row.dataset.productId);
+    const items = [];
+
+    // Duyệt qua các input thực tế trong hàng đó
+    row.querySelectorAll("input.actual").forEach(input => {
+    const styleId = parseInt(input.dataset.styleId);
+    const tonkho = parseInt(input.dataset.quantity);
+    const thucte = parseInt(input.value);
+
+    items.push({
+    id: styleId,
+    tonkho: tonkho,
+    thucte: thucte
   });
+  });
+
+    data.push({
+    id: productId,
+    items: items
+  });
+  });
+
+    // Gửi dữ liệu đến server
+    fetch("/api/create-inventory", {
+    method: "POST",
+    headers: {
+    "Content-Type": "application/json"
+  },
+    body: JSON.stringify({
+    status : status,
+    description: description,
+    products: data
+  })
+  })
+    .then(res => {
+    if (res.ok) {
+    alert("Lưu thành công!");
+  } else {
+    alert("Có lỗi khi lưu dữ liệu!");
+  }
+  })
+    .catch(err => {
+    console.error(err);
+    alert("Không thể kết nối đến server.");
+  });
+  });
+
+
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

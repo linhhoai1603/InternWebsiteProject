@@ -1,13 +1,16 @@
 package services;
 
 import dao.InventoryDao;
+import models.Inventory;
 
 public class InventoryService {
-    InventoryDao wareHouseDao;
+    InventoryDao inventoryDao;
     public InventoryService() {
-        wareHouseDao = new InventoryDao();
+        inventoryDao = new InventoryDao();
     }
-    public boolean createWareHouse() {
-        return wareHouseDao.createWareHouse();
+    public int createInventory(String description,String status ) {
+        return inventoryDao.createInventory(description,status );
     }
+
+
 }

@@ -12,39 +12,35 @@ public class InventoryDetailDao {
     public InventoryDetailDao() {
         jdbi = DBConnection.getConnetion();
     }
+    public boolean updateQuantityActualAndLoss(int idInventoryDetail, int before, int total) {
+        int loss = before - total;
 
-    public boolean createInventory(int idProduct, int idWareHouse, int quantityBefore,
-                                   int quantityLoss, int quantityImported, Date importDate) {
-        try {
-            int quantityTotal = quantityBefore - quantityLoss + quantityImported;
+        int result = jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE inventorydetail SET quantityImported = :total, quantityLoss = :loss WHERE id = :id")
+                        .bind("total", total)
+                        .bind("loss", loss)
+                        .bind("id", idInventoryDetail)
+                        .execute()
+        );
 
-            int rowsAffected = jdbi.withHandle(handle ->
-                    handle.createUpdate("""
-                    INSERT INTO inventory (
-                        idProduct, idWareHouse, quantityBefore,
-                        quantityLoss, quantityImported, quantityTotal, importDate
-                    ) VALUES (
-                        :idProduct, :idWareHouse, :quantityBefore,
-                        :quantityLoss, :quantityImported, :quantityTotal, :importDate
-                    )
-                """)
-                            .bind("idProduct", idProduct)
-                            .bind("idWareHouse", idWareHouse)
-                            .bind("quantityBefore", quantityBefore)
-                            .bind("quantityLoss", quantityLoss)
-                            .bind("quantityImported", quantityImported)
-                            .bind("quantityTotal", quantityTotal)
-                            .bind("importDate", importDate)
-                            .execute()
-            );
-
-            return rowsAffected > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        return result > 0;
     }
-    public List<InventoryDetail> getInventoryByProductId(int idProduct) {
+    public int createInventory(int idInventory, int idProduct, int quantityBefore, int quantityImported, int quantityLoss) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("INSERT INTO inventorydetail (idInventory, idProduct, quantityBefore, quantityImported, quantityLoss, importDate) " +
+                                "VALUES (:idInventory, :idProduct, :quantityBefore, :quantityImported, :quantityLoss, CURRENT_DATE)")
+                        .bind("idInventory", idInventory)
+                        .bind("idProduct", idProduct)
+                        .bind("quantityBefore", quantityBefore)
+                        .bind("quantityImported", quantityImported)
+                        .bind("quantityLoss", quantityLoss)
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(int.class)
+                        .one()
+        );
+    }
+
+    public List<InventoryDetail> getInventoryDetailByProductId(int idProduct) {
         try {
             return jdbi.withHandle(handle ->
                     handle.createQuery("SELECT * FROM inventory WHERE idProduct = :idProduct")
@@ -66,7 +62,7 @@ public class InventoryDetailDao {
             return List.of(); // Trả về danh sách rỗng nếu có lỗi
         }
     }
-    public List<InventoryDetail> getInventoryByWareHouseId(int idWareHouse) {
+    public List<InventoryDetail> getInventoryDetailByInventory(int idWareHouse) {
         try {
             return jdbi.withHandle(handle ->
                     handle.createQuery("SELECT * FROM inventory WHERE idWareHouse = :idWareHouse")
@@ -139,5 +135,6 @@ public class InventoryDetailDao {
             return List.of(); // Trả về danh sách rỗng nếu có lỗi
         }
     }
+
 
 }

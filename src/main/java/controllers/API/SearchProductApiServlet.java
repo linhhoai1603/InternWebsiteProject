@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Product;
 import services.LocalDateAdapter;
-import services.ProductService;
 import services.ToTalProductService;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "SearchProductApiServlet", value = "/api/products")
+@WebServlet(name = "SearchProductApiServlet", value = "/api/search")
 public class SearchProductApiServlet extends HttpServlet {
 
     ToTalProductService productService = new ToTalProductService(); // Gọi service xử lý DB
