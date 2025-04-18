@@ -3,8 +3,9 @@ package models;
 import models.enums.DiscountType;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Voucher implements Serializable {
     private int idVoucher;
@@ -157,6 +158,23 @@ public class Voucher implements Serializable {
         if (id != null) {
             this.idVoucher = id;
         }
+    }
+    public Date getStartDateAsDate() {
+        // Chuyển LocalDateTime thành Timestamp (là con của Date)
+        return (this.startDate == null) ? null : Timestamp.valueOf(this.startDate);
+    }
+
+    public Date getEndDateAsDate() {
+        // Chuyển LocalDateTime thành Timestamp (là con của Date)
+        return (this.endDate == null) ? null : Timestamp.valueOf(this.endDate);
+    }
+
+    public Date getCreatedAtAsDate() {
+        return (this.createdAt == null) ? null : Timestamp.valueOf(this.createdAt);
+    }
+
+    public Date getUpdatedAtAsDate() {
+        return (this.updatedAt == null) ? null : Timestamp.valueOf(this.updatedAt);
     }
 
     @Override

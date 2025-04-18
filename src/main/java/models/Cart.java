@@ -66,7 +66,7 @@ public class Cart implements Serializable {
         this.totalPrice = price;
         this.lastPrice = this.totalPrice + this.shippingFee;
         if (this.voucher != null) {
-            if (this.lastPrice >= this.voucher.getMinimumSpend() && this.voucher.getDiscountType() == DiscountType.fixed) {
+            if (this.lastPrice >= this.voucher.getMinimumSpend() && this.voucher.getDiscountType() == DiscountType.FIXED) {
                 this.lastPrice = this.lastPrice - this.voucher.getDiscountValue();
             } else {
                 this.lastPrice = this.lastPrice + (this.lastPrice * this.voucher.getDiscountValue() / 100.0);
