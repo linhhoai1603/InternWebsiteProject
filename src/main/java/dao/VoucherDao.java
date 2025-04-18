@@ -2,15 +2,20 @@ package dao;
 
 import connection.DBConnection;
 import models.Voucher;
+import models.enums.DiscountType;
 import org.jdbi.v3.core.Jdbi;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class VoucherDao {
     private Jdbi jdbi;
+
     public VoucherDao() {
         jdbi = DBConnection.getConnetion();
     }
+
     public List<Voucher> getAllVouchers() {
         String query = "SELECT * FROM vouchers;";
         return jdbi.withHandle(handle -> {
@@ -19,19 +24,37 @@ public class VoucherDao {
                     .list();
         });
     }
-    public List<Voucher> getVoucherByValid(int valid) {
-        String query = "SELECT * FROM vouchers WHERE valid = :valid;";
+
+    public List<Voucher> getVoucherByValid(int isActive) {
+        String query = "SELECT * FROM vouchers WHERE isActive = :isActive;";
         try {
             return jdbi.withHandle(handle ->
                     handle.createQuery(query)
-                            .bind("valid", valid)
+                            .bind("isActive", isActive)
                             .map((rs, ctx) -> {
                                 Voucher voucher = new Voucher();
                                 voucher.setIdVoucher(rs.getInt("idVoucher"));
                                 voucher.setCode(rs.getString("code"));
-                                voucher.setDiscountAmount(rs.getDouble("discountAmount"));
-                                voucher.setConditionAmount(rs.getDouble("condition_amount"));
-                                voucher.setValid(rs.getInt("valid"));
+                                voucher.setDescription(rs.getString("description"));
+                                String discountTypeStr = rs.getString("discountType");
+                                if (discountTypeStr != null) { //enum
+                                    try {
+                                        voucher.setDiscountType(DiscountType.valueOf(discountTypeStr));
+                                    } catch (IllegalArgumentException e) {
+                                        System.err.println("Invalid discountType value found in DB: " + discountTypeStr + " for voucher id: " + rs.getInt("idVoucher"));
+                                        voucher.setDiscountType(null);
+                                    }
+                                } else {
+                                    voucher.setDiscountType(null);
+                                }
+                                voucher.setDiscountValue(rs.getDouble("discountValue"));
+                                voucher.setMinimumSpend(rs.getDouble("minimumSpend"));
+                                voucher.setMaxDiscountAmount(rs.getDouble("maxDiscountAmount"));
+                                voucher.setStartDate(rs.getObject("startDate", LocalDateTime.class));
+                                voucher.setEndDate(rs.getObject("endDate", LocalDateTime.class));
+                                voucher.setCreatedAt(rs.getObject("createdAt", LocalDateTime.class));
+                                voucher.setUpdatedAt(rs.getObject("updatedAt", LocalDateTime.class));
+                                voucher.setIsActive(rs.getInt("isActive"));
                                 return voucher;
                             }).list()
             );
@@ -41,7 +64,12 @@ public class VoucherDao {
         }
     }
 
-    public Voucher getVoucherByCode(String code){
+    public static void main(String[] args) {
+        VoucherDao voucherDao = new VoucherDao();
+        System.out.println(voucherDao.getVoucherByValid(1).size());
+    }
+
+    public Voucher getVoucherByCode(String code) {
         String query = "SELECT * FROM vouchers WHERE code = ?;";
         return jdbi.withHandle(handle -> {
             return handle.createQuery(query)
