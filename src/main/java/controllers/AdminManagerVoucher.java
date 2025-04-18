@@ -17,6 +17,13 @@ public class AdminManagerVoucher extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         VoucherService voucherService = new VoucherService();
         List<Voucher> list = voucherService.getVoucherByValid(1);
+        if(list.isEmpty()){
+            System.out.println("No voucher found");
+        } else {
+            for(Voucher voucher : list){
+                System.out.println(voucher.toString());
+            }
+        }
         request.setAttribute("vouchers", list);
         request.getRequestDispatcher("management-vouchers.jsp").forward(request, response);
     }
