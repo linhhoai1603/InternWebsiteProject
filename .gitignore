@@ -13,6 +13,7 @@ target/
 *.ipr
 workspace.xml
 secrets.properties
+src/main/resources/client_secrets.json
 
 ### Eclipse ###
 .apt_generated
