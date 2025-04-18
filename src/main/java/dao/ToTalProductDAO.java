@@ -14,6 +14,36 @@ public class ToTalProductDAO {
     public ToTalProductDAO() {
         jdbi = DBConnection.getConnetion();
     }
+    public List<Product> getProductsByIds(List<Integer> ids) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM products WHERE id IN (<ids>)")
+                        .bindList("ids", ids)
+                        .map((rs, ctx) -> {
+                            Product product = new Product();
+                            product.setId(rs.getInt("id"));
+                            product.setName(rs.getString("name"));
+                            product.setQuantity(rs.getInt("quantity"));
+                            product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                            product.setDescription(rs.getString("description"));
+                            product.setHeight(rs.getDouble("height"));
+                            product.setWeight(rs.getDouble("weight"));
+                            product.setWidth(rs.getDouble("width"));
+                            product.setSelling(rs.getInt("selling"));
+                            product.setImage(rs.getString("img"));
+                            product.setTotalProduct(rs.getInt("quantity")); // you can calculate differently if needed
+                            CategoryDao categoryDAO = new CategoryDao();
+                            TechnicalDAO technicalDAO = new TechnicalDAO();
+                            PriceDAO priceDAO = new PriceDAO();
+
+                            product.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
+                            product.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
+                            product.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+
+                            return product;
+                        })
+                        .list()
+        );
+    }
     public List<Product> getProductsBestSellerByCategory(String selection, int currentPage, int nuPerPage) {
         int offset = (currentPage - 1) * nuPerPage;
 

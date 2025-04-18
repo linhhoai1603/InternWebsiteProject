@@ -1,11 +1,12 @@
 package models;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class InventoryDetail {
+public class InventoryDetail implements Serializable {
     private int id;
     private int idProduct;
-    private int idWareHouse;
+    private int idInventory;
     private int quantityBefore;
     private int quantityLoss;
     private int quantityImported;
@@ -15,11 +16,11 @@ public class InventoryDetail {
     // Constructors
     public InventoryDetail() {}
 
-    public InventoryDetail(int id, int idProduct, int idWareHouse, int quantityBefore, int quantityLoss,
+    public InventoryDetail(int id, int idProduct, int idInventory, int quantityBefore, int quantityLoss,
                            int quantityImported, int quantityTotal, Date importDate) {
         this.id = id;
         this.idProduct = idProduct;
-        this.idWareHouse = idWareHouse;
+        this.idInventory = idInventory;
         this.quantityBefore = quantityBefore;
         this.quantityLoss = quantityLoss;
         this.quantityImported = quantityImported;
@@ -34,8 +35,8 @@ public class InventoryDetail {
     public int getIdProduct() { return idProduct; }
     public void setIdProduct(int idProduct) { this.idProduct = idProduct; }
 
-    public int getIdWareHouse() { return idWareHouse; }
-    public void setIdWareHouse(int idWareHouse) { this.idWareHouse = idWareHouse; }
+    public int getIdWareHouse() { return idInventory; }
+    public void setIdWareHouse(int idWareHouse) { this.idInventory = idWareHouse; }
 
     public int getQuantityBefore() { return quantityBefore; }
     public void setQuantityBefore(int quantityBefore) { this.quantityBefore = quantityBefore; }

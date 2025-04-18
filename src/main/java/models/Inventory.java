@@ -1,17 +1,37 @@
 package models;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Inventory {
+public class Inventory implements Serializable {
     private int id;
-    private Timestamp import_date;
-    private Timestamp updatedAt;
-    public Inventory(int id, Timestamp import_date, Timestamp updatedAt) {
+    private Timestamp creatDate;
+    private String status;
+    private String code;
+    private String description;
+    public Inventory(int id, Timestamp creatDate , String status, String code, String description) {
         this.id = id;
-        this.import_date = import_date;
-        this.updatedAt = updatedAt;
+        this.creatDate = creatDate;
+        this.status = status;
+        this.code = code;
     }
     public Inventory(){}
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String state) {
+        this.status = state;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public int getId() {
         return id;
@@ -21,19 +41,19 @@ public class Inventory {
         this.id = id;
     }
 
-    public Timestamp getImport_date() {
-        return import_date;
+    public Timestamp getCreatDate() {
+        return creatDate;
     }
 
-    public void setImport_date(Timestamp import_date) {
-        this.import_date = import_date;
+    public void setCreatDate(Timestamp creatDate) {
+        this.creatDate = creatDate;
     }
 
-    public Timestamp getUpdatedAt() {
-        return updatedAt;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

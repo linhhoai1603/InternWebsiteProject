@@ -140,6 +140,7 @@ function updateSelection(newSelection) {
     console.log(`data-selection đã được cập nhật thành: ${newSelection}`);
 }
 function fetchFilteredProductsByPrice(selection,minPrice,maxPrice, currentPage) {
+    if (currentPage == null ) currentPage = 1
     fetch(`/ProjectWeb/api/products?selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}&currentPage=${currentPage}`)
         .then(response => response.json())
         .then(data => {

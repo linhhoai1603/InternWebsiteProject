@@ -2,6 +2,7 @@ package services;
 
 import dao.ToTalProductDAO;
 import models.Product;
+import models.Style;
 
 import java.util.List;
 
@@ -10,6 +11,16 @@ public class ToTalProductService {
     private ToTalProductDAO productDao;
     public ToTalProductService() {
         this.productDao = new ToTalProductDAO();
+
+    }
+    public List<Product> getProductsByIds(List<Integer> ids) {
+        List<Product> products = productDao.getProductsByIds(ids);
+        StyleService styleService = new StyleService();
+        for (Product product : products) {
+            List<Style> styles = styleService.getAllStylesByIDProduct(product.getId());
+            product.setStyles(styles);
+        }
+        return products;
     }
 
     public List<Product> getAllProducts(int currentPage, int nuPerPage, String option) {

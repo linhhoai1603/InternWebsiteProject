@@ -11,57 +11,18 @@ public class InventoryDao {
     public InventoryDao() {
         jdbi = DBConnection.getConnetion();
     }
-    public boolean createWareHouse() {
-        try {
-            jdbi.useHandle(handle -> {
-                handle.execute("""
-                    CREATE TABLE IF NOT EXISTS warehouse (
-                        id INT PRIMARY KEY AUTO_INCREMENT,
-                        import_date TIMESTAMP,
-                        updatedAt TIMESTAMP
-                    )
-                """);
-            });
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+
+
+    public int createInventory(String description, String status) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("INSERT INTO inventory (decription, status) VALUES (:description, :status)")
+                        .bind("description", description)
+                        .bind("status", status)
+                        .executeAndReturnGeneratedKeys("id")
+                        .mapTo(int.class)
+                        .one()
+        );
     }
-    public models.Inventory findById(int id) {
-        try {
-            return jdbi.withHandle(handle ->
-                    handle.createQuery("SELECT * FROM warehouse WHERE id = :id")
-                            .bind("id", id)
-                            .map((rs, ctx) -> new models.Inventory(
-                                    rs.getInt("id"),
-                                    rs.getTimestamp("import_date"),
-                                    rs.getTimestamp("updatedAt")
-                            ))
-                            .findOne()
-                            .orElse(null) // Trả về null nếu không tìm thấy
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-    public List<Integer> getWareHouseIdsByImportDateRange(Timestamp start, Timestamp end) {
-        try {
-            return jdbi.withHandle(handle ->
-                    handle.createQuery("""
-                SELECT id FROM warehouse 
-                WHERE import_date BETWEEN :start AND :end
-            """)
-                            .bind("start", start)
-                            .bind("end", end)
-                            .mapTo(Integer.class)
-                            .list()
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-            return List.of(); // Trả về danh sách rỗng nếu có lỗi
-        }
-    }
+
 
 }
