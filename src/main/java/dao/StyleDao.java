@@ -21,18 +21,7 @@ public class StyleDao {
         return jdbi.withHandle(h ->
                 h.createQuery(sql).mapToBean(Style.class).findOne().orElse(null));
     }
-    public Style findById(String name) {
 
-        String sql = "SELECT * FROM styles WHERE name = :name";
-        return jdbi.withHandle(h ->
-                h.createQuery(sql).mapToBean(Style.class).findOne().orElse(null));
-    }
-    public List<Style> findAll() {
-
-        String sql = "SELECT * FROM styles";
-        return jdbi.withHandle(handle ->
-                handle.createQuery(sql).mapToBean(Style.class).list());
-    }
     public List<Style> getAllStylesByIDProduct(int idProduct) {
         String query = "select * from styles where idProduct = ?";
         return jdbi.withHandle(handle -> {
@@ -42,38 +31,49 @@ public class StyleDao {
                     .list();
         });
     }
-    public Style getStyleByID(int idStyle){
-        String query = "SELECT s.id, s.name, s.image, s.quantity AS styleQuantity, p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, c.id AS idCategory, p.quantity " +
+    public Style getStyleByID(int idStyle) {
+        String query = "SELECT s.id, s.name, s.image, s.quantity AS styleQuantity, " +
+                "p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, " +
+                "c.id AS idCategory, p.quantity " +
                 "FROM styles s " +
                 "JOIN products p ON s.idProduct = p.id " +
                 "JOIN prices pr ON p.idPrice = pr.id " +
                 "JOIN categories c ON p.idCategory = c.id " +
                 "WHERE s.id = :idStyle";
-        return jdbi.withHandle(handle -> {
-            return handle.createQuery(query)
-                    .bind("idStyle", idStyle)
-                    .map((rs, ctx) ->{
-                        Style style = new Style();
-                        style.setId(rs.getInt("id"));
-                        style.setName(rs.getString("name"));
-                        style.setImage(rs.getString("image"));
-                        style.setQuantity(rs.getInt("styleQuantity"));
-                        Product product = new Product();
-                        product.setId(rs.getInt("idProduct"));
-                        product.setName(rs.getString("nameProduct"));
-                        product.setQuantity(rs.getInt("quantity"));
-                        Price price = new Price();
-                        price.setId(rs.getInt("idPrice"));
-                        price.setLastPrice(rs.getDouble("lastPrice"));
-                        Category category = new Category();
-                        category.setId(rs.getInt("idCategory"));
-                        product.setCategory(category);
-                        product.setPrice(price);
-                        style.setProduct(product);
-                        return style;
-                    }).list().getFirst();
-        });
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("idStyle", idStyle)
+                        .map((rs, ctx) -> {
+                            Style style = new Style();
+                            style.setId(rs.getInt("id"));
+                            style.setName(rs.getString("name"));
+                            style.setImage(rs.getString("image"));
+                            style.setQuantity(rs.getInt("styleQuantity"));
+
+                            Product product = new Product();
+                            product.setId(rs.getInt("idProduct"));
+                            product.setName(rs.getString("nameProduct"));
+                            product.setQuantity(rs.getInt("quantity"));
+
+                            Price price = new Price();
+                            price.setId(rs.getInt("idPrice"));
+                            price.setLastPrice(rs.getDouble("lastPrice"));
+
+                            Category category = new Category();
+                            category.setId(rs.getInt("idCategory"));
+
+                            product.setCategory(category);
+                            product.setPrice(price);
+                            style.setProduct(product);
+
+                            return style;
+                        })
+                        .findFirst()  // Tránh lỗi nếu không có kết quả
+                        .orElse(null)
+        );
     }
+
 
 
     //Thêm một phương thức mới trong StyleDao để lấy các styles liên quan đến dây kéo:

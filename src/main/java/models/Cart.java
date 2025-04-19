@@ -2,15 +2,17 @@
 package models;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Cart implements Serializable {
    private int id;
    private int idUser;
-   private int idVoucher;
+   private Voucher voucher;
    private double shippingFee;
+    private double totalPrice;
+    private int totalQuantity;
+    private int totalItems;
+    private double lastPrice;
    private List<CartItem> cartItems;
 
     public Cart(int id, int idUser) {
@@ -19,6 +21,14 @@ public class Cart implements Serializable {
     }
     public Cart(){
 
+    }
+
+    public double getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(double lastPrice) {
+        this.lastPrice = lastPrice;
     }
 
     public List<CartItem> getCartItems() {
@@ -45,12 +55,12 @@ public class Cart implements Serializable {
         this.idUser = idUser;
     }
 
-    public int getIdVoucher() {
-        return idVoucher;
+    public Voucher getVoucher() {
+        return voucher;
     }
 
-    public void setIdVoucher(int idVoucher) {
-        this.idVoucher = idVoucher;
+    public void setVoucher(Voucher voucher) {
+       this.voucher = voucher;
     }
 
     public double getShippingFee() {
@@ -59,5 +69,40 @@ public class Cart implements Serializable {
 
     public void setShippingFee(double shippingFee) {
         this.shippingFee = shippingFee;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public int getTotalItems() {
+        return totalItems;
+    }
+
+    public void setTotalItems(int totalItems) {
+        this.totalItems = totalItems;
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", idUser=" + idUser +
+                ", voucher=" + voucher +
+                ", shippingFee=" + shippingFee +
+                ", cartItems=" + cartItems +
+                '}';
     }
 }

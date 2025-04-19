@@ -1,15 +1,17 @@
 package test;
 
-import dao.AccountDao;
-import dao.CategoryDao;
+import models.Cart;
+import models.CartItem;
+import services.CartService;
 
 public class Main {
     public static void main(String[] args) {
-//        AccountDao dao = new AccountDao();
-//        System.out.println(dao.findByUsername("linhhoai", "linhhoai"));
-        CategoryDao dao = new CategoryDao();
-        System.out.println(dao.findById(1));
-
-
+        CartService cartService = new CartService();
+        Cart cart = cartService.getCart(23);
+        System.out.println(cart);
+//        cartService.addToCartItem(23, new CartItem(cart.getId(), 639, 3));
+        System.out.println(cart.getTotalItems());
+        System.out.println(cart.getTotalPrice());
+        System.out.println(cart.getTotalQuantity());
     }
 }
