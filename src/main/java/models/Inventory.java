@@ -1,54 +1,59 @@
 package models;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
-public class Inventory {
+public class Inventory implements Serializable {
     private int id;
-    private int idProduct;
-    private int idWareHouse;
-    private int quantityBefore;
-    private int quantityLoss;
-    private int quantityImported;
-    private int quantityTotal;
-    private Date importDate;
-
-    // Constructors
-    public Inventory() {}
-
-    public Inventory(int id, int idProduct, int idWareHouse, int quantityBefore, int quantityLoss,
-                     int quantityImported, int quantityTotal, Date importDate) {
+    private Timestamp creatDate;
+    private String status;
+    private String code;
+    private String description;
+    public Inventory(int id, Timestamp creatDate , String status, String code, String description) {
         this.id = id;
-        this.idProduct = idProduct;
-        this.idWareHouse = idWareHouse;
-        this.quantityBefore = quantityBefore;
-        this.quantityLoss = quantityLoss;
-        this.quantityImported = quantityImported;
-        this.quantityTotal = quantityTotal;
-        this.importDate = importDate;
+        this.creatDate = creatDate;
+        this.status = status;
+        this.code = code;
+    }
+    public Inventory(){}
+
+    public String getStatus() {
+        return status;
     }
 
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public void setStatus(String state) {
+        this.status = state;
+    }
 
-    public int getIdProduct() { return idProduct; }
-    public void setIdProduct(int idProduct) { this.idProduct = idProduct; }
+    public String getCode() {
+        return code;
+    }
 
-    public int getIdWareHouse() { return idWareHouse; }
-    public void setIdWareHouse(int idWareHouse) { this.idWareHouse = idWareHouse; }
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-    public int getQuantityBefore() { return quantityBefore; }
-    public void setQuantityBefore(int quantityBefore) { this.quantityBefore = quantityBefore; }
+    public int getId() {
+        return id;
+    }
 
-    public int getQuantityLoss() { return quantityLoss; }
-    public void setQuantityLoss(int quantityLoss) { this.quantityLoss = quantityLoss; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public int getQuantityImported() { return quantityImported; }
-    public void setQuantityImported(int quantityImported) { this.quantityImported = quantityImported; }
+    public Timestamp getCreatDate() {
+        return creatDate;
+    }
 
-    public int getQuantityTotal() { return quantityTotal; }
-    public void setQuantityTotal(int quantityTotal) { this.quantityTotal = quantityTotal; }
+    public void setCreatDate(Timestamp creatDate) {
+        this.creatDate = creatDate;
+    }
 
-    public Date getImportDate() { return importDate; }
-    public void setImportDate(java.sql.Date importDate) { this.importDate = importDate; }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
