@@ -11,19 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/AddToCartServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/GetCartServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/RemoveItemInCartServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/controllers/UpdateQuantityCartItemServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/CartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/CartServlet.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/OrderServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/OrderServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PaymentServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PaymentServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dao/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CartDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/StyleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/StyleDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CartService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/test/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +65,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Tomcat Server.Tomcat 10.1.28">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="test.Main" />
       <module name="ProjectWeb" />
@@ -215,6 +205,8 @@
       <workItem from="1744962311866" duration="4136000" />
       <workItem from="1745048388753" duration="7789000" />
       <workItem from="1745077506969" duration="11000" />
+      <workItem from="1745077551249" duration="1390000" />
+      <workItem from="1745108285081" duration="1719000" />
     </task>
     <servers />
   </component>
