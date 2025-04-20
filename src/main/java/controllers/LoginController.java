@@ -6,8 +6,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.AccountUser;
+import models.Cart;
 import models.User;
 import services.AuthenServies;
+import services.CartService;
 import services.application.HashUtil;
 
 import java.io.IOException;
@@ -48,12 +50,17 @@ public class  LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("account", acc);
+            // get cart
+            CartService cartService = new CartService();
+            Cart cart = cartService.getCart(user.getId());
+            session.setAttribute("cart", cart);
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
             // Nếu đăng nhập sai, giữ lại username và thông báo lỗi
             request.setAttribute("username", username);
             request.setAttribute("error", "Tài khoản hoặc mật khẩu sai");
             request.getRequestDispatcher("login.jsp").forward(request, response);
+
         }
     }
 

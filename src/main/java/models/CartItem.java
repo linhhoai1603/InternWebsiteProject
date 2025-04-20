@@ -1,9 +1,10 @@
 
 package models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class CartItem {
+public class CartItem implements Serializable {
     private int id;
     private int idCart;
     private Style style;
@@ -20,6 +21,10 @@ public class CartItem {
     public CartItem(){
 
     }
+    public double getTotalPrice() {
+        return unitPrice;
+    }
+
 
     public int getId() {
         return id;
