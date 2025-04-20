@@ -4,6 +4,7 @@ import connection.DBConnection;
 import models.Cart;
 import models.CartItem;
 import models.Style;
+import models.Voucher;
 import org.jdbi.v3.core.Jdbi;
 
 import java.time.LocalDate;
@@ -85,60 +86,61 @@ public class CartDAO {
                     .execute();
         });
     }
-    public void updateCartItem(int cartItemId, int quantity, double unitPrice, LocalDate addedDate) {
+    public void updateCartItem(int cartItemId, int quantity, LocalDate addedDate) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Số lượng phải lớn hơn 0");
-        }
-        if (unitPrice < 0) {
-            throw new IllegalArgumentException("Giá phải lớn hơn hoặc bằng 0");
         }
         if (addedDate == null) {
             throw new IllegalArgumentException("Ngày thêm vào không được null");
         }
 
         jdbi.useTransaction(handle -> {
-            String updateQuery = "UPDATE cart_items SET quantity = :quantity, unitPrice = :unitPrice, addedAt = :addedAt WHERE id = :cartItemId";
+            String updateQuery = "UPDATE cart_items SET quantity = :quantity, addedAt = :addedAt WHERE id = :id";
             handle.createUpdate(updateQuery)
                     .bind("quantity", quantity)
-                    .bind("unitPrice", unitPrice)
                     .bind("addedAt", addedDate)
-                    .bind("cartItemId", cartItemId)
+                    .bind("id", cartItemId)
                     .execute();
         });
     }
-    public void removeCartItem(int cartItemId) {
+    public void removeCartItem(int idCart,int cartItemId) {
         jdbi.useTransaction(handle -> {
             // Xóa cart item theo ID
-            String deleteQuery = "DELETE FROM cart_items WHERE id = :cartItemId";
+            String deleteQuery = "DELETE FROM cart_items WHERE id = :cartItemId And idCart = :idCart";
             handle.createUpdate(deleteQuery)
                     .bind("cartItemId", cartItemId)
+                    .bind("idCart", idCart)
                     .execute();
         });
     }
-    // method to apply Voucher for cart
-    public boolean applyVoucherToCart(int cartId, String voucherCode) {
+    // Method to apply a voucher to a cart and return the applied Voucher object
+    public Voucher applyVoucherToCart(int cartId, String voucherCode, double totalPriceInCart) {
         return jdbi.inTransaction(handle -> {
-            // 1. Kiểm tra voucher có tồn tại không
-            String voucherQuery = "SELECT id FROM voucher WHERE code = :code";
-            Integer voucherId = handle.createQuery(voucherQuery)
+            // 1. Tìm kiếm thông tin voucher dựa vào mã
+            String voucherQuery = "SELECT * FROM vouchers WHERE code = :code AND condition_amount < :totalPriceInCart";
+            Voucher voucher = handle.createQuery(voucherQuery)
                     .bind("code", voucherCode)
-                    .mapTo(Integer.class)
+                    .bind("totalPriceInCart", totalPriceInCart)
+                    .mapToBean(Voucher.class)
                     .findOne()
                     .orElse(null);
 
-            if (voucherId == null) {
-                return false; // Không tìm thấy voucher
+            if (voucher == null) {
+                return null; // Không tìm thấy voucher hoặc giỏ hàng đó không đủ điều kiện
             }
 
-            // 2. Cập nhật vào giỏ hàng
-            String updateQuery = "UPDATE cart SET voucherId = :voucherId WHERE id = :cartId";
+            // 2. Gán voucher cho giỏ hàng
+            String updateQuery = "UPDATE cart SET idVoucher = :idVoucher, updatedAt = :now WHERE id = :idCart";
             handle.createUpdate(updateQuery)
-                    .bind("voucherId", voucherId)
-                    .bind("cartId", cartId)
+                    .bind("idVoucher", voucher.getIdVoucher())
+                    .bind("idCart", cartId)
+                    .bind("now", LocalDate.now())
                     .execute();
 
-            return true;
+            // 3. Trả về đối tượng voucher đã áp dụng
+            return voucher;
         });
     }
+
 
 }

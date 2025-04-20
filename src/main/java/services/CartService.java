@@ -3,7 +3,9 @@ package services;
 import dao.CartDAO;
 import models.Cart;
 import models.CartItem;
+import models.Voucher;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class CartService {
@@ -42,11 +44,26 @@ public class CartService {
                 cartItem.setUnitPrice(newItem.getUnitPrice());
                 cartItem.setAddedDate(newItem.getAddedDate());
                 // update in database
-                cartDAO.updateCartItem(cartItem.getId(), cartItem.getQuantity(), cartItem.getUnitPrice(), cartItem.getAddedDate());
+                cartDAO.updateCartItem(cartItem.getId(), cartItem.getQuantity(), cartItem.getAddedDate());
                 return;
             }
         }
                 // 2.2 If don't contain then add to cart
                 cartDAO.addToCart(newItem);
+    }
+    // method to update of quantity of cart item
+    public void updateQuantity(int idItem, int quantity) {
+        cartDAO.updateCartItem(idItem, quantity, LocalDate.now());
+    }
+    // method to remove cart item in cart where id cart and id item
+    public void deleteCartItem(int idCart, int cartItemId) {
+        cartDAO.removeCartItem(idCart, cartItemId);
+    }
+    // method to apply voucher in cart
+    public void applyVoucherToCart(Cart cart, String voucherCode, double totalPrice) {
+        // execute apply
+        Voucher voucher = cartDAO.applyVoucherToCart(cart.getId(), voucherCode, totalPrice);
+        // discount price
+        if(voucher != null) cart.setTotalPrice(cart.getTotalPrice() - voucher.getDiscountAmount());
     }
 }
