@@ -26,6 +26,11 @@ public class CartService {
          cart.setTotalItems(cart.getCartItems().size());
          cart.setTotalQuantity(cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
          cart.setTotalPrice(cart.getCartItems().stream().mapToDouble(CartItem::getUnitPrice).sum());
+        if (cart.getVoucher() == null) {
+            cart.setLastPrice(cart.getTotalPrice());
+        }else{
+            cart.setLastPrice(cart.getTotalPrice() - cart.getVoucher().getDiscountAmount());
+        }
          return cart;
     }
     // method get all Cart items by cart id

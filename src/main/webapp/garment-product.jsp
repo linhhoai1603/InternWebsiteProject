@@ -133,7 +133,7 @@
                       <p class="h2 text-danger fw-bold">
                         <fmt:formatNumber value="${p.price.lastPrice}" type="number" />₫
                       </p>
-                      <form action="cart?method=add" method="post">
+                      <form action="add-to-cart" method="post">
                         <input name="currentURL" type="hidden" value="may-mac?loca=${requestScope.loca}">
                         <div class="mb-3">
                           <p class="fw-bold">Kiểu vải </p>
@@ -161,6 +161,7 @@
                         <div class="row">
                           <div class="col-6">
                             <div class="input-group">
+                              <input type="hidden" name="currentURL" value="${pageContext.request.requestURI}?loca=${requestScope.loca}">
                               <input type="number" id="quantity-${p.id}" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 100px" min="1">
                             </div>
                           </div>

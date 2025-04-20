@@ -35,10 +35,10 @@
         <location>/error/401.jsp</location>
     </error-page>
 
-    <error-page>
-        <error-code>500</error-code>
-        <location>/error/500.jsp</location>
-    </error-page>
+<!--    <error-page>-->
+<!--        <error-code>500</error-code>-->
+<!--        <location>/error/500.jsp</location>-->
+<!--    </error-page>-->
 
     <error-page>
         <error-code>503</error-code>
@@ -49,4 +49,5 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
 </web-app>
