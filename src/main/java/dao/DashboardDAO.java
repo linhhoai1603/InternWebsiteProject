@@ -60,7 +60,7 @@ public class DashboardDAO {
                     if (idVoucher != null) {
                         voucher.setIdVoucher(idVoucher);
                     } else {
-                        voucher.setIdVoucher(null); // Or do nothing if you want to keep it as null
+                        voucher.setIdVoucher(0); // Or do nothing if you want to keep it as null
                     }
                     // xu ly cho don hang
                     Order order = new Order();
@@ -76,35 +76,35 @@ public class DashboardDAO {
                 }).list());
     }
 
-    public List<Order> getAllProducts() {
-        String query = "SELECT * FROM orders";
-
-        return jdbi.withHandle(handle -> handle.createQuery(query)
-                .map((rs, ctx) -> {
-                    // xu ly cho user
-                    User user = new User();
-                    user.setId(rs.getInt("idUser"));
-                    // xu ly cho voucher
-                    Voucher voucher = new Voucher();
-                    Integer idVoucher = (Integer) rs.getObject("idVoucher");
-                    if (idVoucher != null) {
-                        voucher.setIdVoucher(idVoucher);
-                    } else {
-                        voucher.setIdVoucher(null); // Or do nothing if you want to keep it as null
-                    }
-                    // xu ly cho don hang
-                    Order order = new Order();
-                    order.setId(rs.getInt("id"));
-                    order.setTimeOrdered(rs.getObject("timeOrder", LocalDateTime.class));
-                    order.setUser(user);
-                    order.setVoucher(voucher);
-                    order.setStatus(rs.getString("statusOrder"));
-                    order.setTotalPrice(rs.getDouble("totalPrice"));
-                    order.setLastPrice(rs.getDouble("lastPrice"));
-                    return order;
-
-                }).list());
-    }
+//    public List<Order> getAllProducts() {
+//        String query = "SELECT * FROM orders";
+//
+//        return jdbi.withHandle(handle -> handle.createQuery(query)
+//                .map((rs, ctx) -> {
+//                    // xu ly cho user
+//                    User user = new User();
+//                    user.setId(rs.getInt("idUser"));
+//                    // xu ly cho voucher
+//                    Voucher voucher = new Voucher();
+//                    Integer idVoucher = (Integer) rs.getObject("idVoucher");
+//                    if (idVoucher != null) {
+//                        voucher.setIdVoucher(idVoucher);
+//                    } else {
+//                        voucher.setIdVoucher(null); // Or do nothing if you want to keep it as null
+//                    }
+//                    // xu ly cho don hang
+//                    Order order = new Order();
+//                    order.setId(rs.getInt("id"));
+//                    order.setTimeOrdered(rs.getObject("timeOrder", LocalDateTime.class));
+//                    order.setUser(user);
+//                    order.setVoucher(voucher);
+//                    order.setStatus(rs.getString("statusOrder"));
+//                    order.setTotalPrice(rs.getDouble("totalPrice"));
+//                    order.setLastPrice(rs.getDouble("lastPrice"));
+//                    return order;
+//
+//                }).list());
+//    }
 
 
     public static void main(String[] args) {

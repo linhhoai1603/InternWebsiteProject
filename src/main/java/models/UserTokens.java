@@ -1,5 +1,7 @@
 package models;
 
+import models.enums.TokenType;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
