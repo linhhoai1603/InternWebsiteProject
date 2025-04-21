@@ -1,3 +1,41 @@
+let selected = "";
+
+function handleCheckboxChange(checkbox) {
+    const selection = checkbox.getAttribute('data-selection');
+    const minPrice = checkbox.getAttribute('data-min');
+    const maxPrice = checkbox.getAttribute('data-max');
+    const isChecked = checkbox.checked;
+
+    selected = checkbox.id;
+    fetchFilteredProductsByPrice(selection,minPrice,maxPrice);
+
+
+}
+function handleDropdownClick(element) {
+    // Lấy các thuộc tính data-selection và data-option từ mục dropdown
+    const selection = element.getAttribute('data-selection');
+    const option = element.getAttribute('data-option');
+    selected = checkbox.id;
+    // Nếu bạn muốn gọi API hoặc thực hiện xử lý khác, bạn có thể làm ở đây
+    fetchFilteredProductsByOption(selection, option);
+}
+function handlePaginationClick(element) {
+    if(selected == "price2" || selected == "price1" ||selected == "price3" || selected == "price4" ){
+        const selection = document.getElementById(selected).getAttribute('data-selection');
+        const minPrice = document.getElementById(selected).getAttribute('data-min');
+        const maxPrice = document.getElementById(selected).getAttribute('data-max');
+        const currentPage = element.getAttribute('data-page');
+
+        fetchFilteredProductsByPrice(selection,minPrice,maxPrice,currentPage);
+    }else {
+        const selection = document.getElementById(selected).getAttribute('data-selection');
+        const option = document.getElementById(selected).getAttribute('data-option');
+        const currentPage = element.getAttribute('data-page');
+
+        fetchFilteredProductsByOption(selection, option, currentPage);
+    }
+}
+
 function renderProducts(products) {
     const container = document.getElementById("productContainer");
     container.innerHTML = ""; // Xóa nội dung cũ
@@ -46,42 +84,95 @@ function renderProducts(products) {
         container.innerHTML += card;
     });
 }
-function fetchProducts(option, selection, currentPage, minPrice, maxPrice) {
-    // Hiển thị loading nếu cần
-    // document.getElementById('loading').style.display = 'block';
 
-    // Tạo query parameters
-    const params = new URLSearchParams({
-        option: option || 'latest',
-        selection: selection || 'all',
-        currentPage: currentPage || 1,
-        minPrice: minPrice || '',
-        maxPrice: maxPrice || ''
+function renderPagination(currentPage, totalPages) {
+    const paginationContainer = document.getElementById("paginationContainer");
+    const ul = document.createElement("ul");
+    ul.className = "pagination pagination-lg";
+
+    // Nút Trước
+    if (currentPage > 1) {
+        const prevLi = document.createElement("li");
+        prevLi.className = "page-item";
+
+        prevLi.innerHTML = `<a class="page-link pagination-link" data-page="${currentPage - 1}" onclick="handlePaginationClick(this)"> < </a>`;
+        ul.appendChild(prevLi);
+    }
+
+    // Xác định trang bắt đầu và kết thúc
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, currentPage + 2);
+
+    // Các nút trang số
+    for (let i = startPage; i <= endPage; i++) {
+        const li = document.createElement("li");
+        li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+
+        li.innerHTML = `<a class="page-link pagination-link" data-page="${i}" onclick="handlePaginationClick(this)">${i}</a>`;
+        ul.appendChild(li);
+    }
+
+    // Nút Sau
+    if (currentPage < totalPages) {
+        const nextLi = document.createElement("li");
+        nextLi.className = "page-item";
+
+        nextLi.innerHTML = `<a class="page-link pagination-link" data-page="${currentPage + 1}" onclick="handlePaginationClick(this)"> > </a>`;
+        ul.appendChild(nextLi);
+    }
+
+    // Xóa cũ và thêm mới
+    paginationContainer.innerHTML = "";
+    paginationContainer.appendChild(ul);
+}
+
+function updateSelection(newSelection) {
+    // Cập nhật cho các checkbox
+    document.querySelectorAll('.price-filter').forEach(el => {
+        el.setAttribute('data-selection', newSelection);
     });
 
-    fetch(`/api/products?${params.toString()}`)
+    // Cập nhật cho các mục dropdown
+    document.querySelectorAll('.dropdown-item').forEach(el => {
+        el.setAttribute('data-selection', newSelection);
+    });
+
+    console.log(`data-selection đã được cập nhật thành: ${newSelection}`);
+}
+function fetchFilteredProductsByPrice(selection,minPrice,maxPrice, currentPage) {
+    if (currentPage == null ) currentPage = 1
+    fetch(`/ProjectWeb/api/products?selection=${selection}&minPrice=${minPrice}&maxPrice=${maxPrice}&currentPage=${currentPage}`)
+        .then(response => response.json())
+        .then(data => {
+            renderPagination(data.currentPage,nupage)
+            renderProducts(data.products);
+            updateSelection(data.selection);
+
+        })
+        .catch(err => console.error("Lỗi khi gọi API:", err));
+}
+function fetchFilteredProductsByOption(selection,option,currentPage) {
+    if (selection == null) selection = "all";
+    if (currentPage == null ) currentPage = 1;
+    if (!option) option = "latest";
+    fetch(`/ProjectWeb/api/products?selection=${selection}&option=${option}&currentPage=${currentPage}`)
         .then(response => {
+            // Kiểm tra mã trạng thái
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
-            // Gọi hàm renderProducts với dữ liệu nhận được
+            console.log(data.products)
+            console.log("da gui")
+            renderPagination(data.currentPage,nupage)
             renderProducts(data.products);
-
-            // Cập nhật phân trang nếu cần
-            // updatePagination(data.nupage, data.currentPage);
+            updateSelection(data.selection);
+            console.log("Kết quả fetch trả về:", data);
         })
-        .catch(error => {
-            console.error('Error fetching products:', error);
-            // Hiển thị thông báo lỗi nếu cần
-            // alert('Có lỗi xảy ra khi tải sản phẩm');
-        })
-        .finally(() => {
-            // Ẩn loading
-            // document.getElementById('loading').style.display = 'none';
-        });
+        .catch(err => console.error("Lỗi khi gọi API:", err));
 }
+
 
 

@@ -20,7 +20,7 @@ import java.util.Collections;
 
 @WebServlet(name = "oauth2callback", value = "/oauth2callback")
 public class oauth2callback extends HttpServlet {
-    private static final String CLIENT_ID = ConfigLoader.getProperty("google.oauth.clientId");;
+    private static final String CLIENT_ID = ConfigLoader.getProperty("google.oauth.clientId");
     private static final String CLIENT_SECRET = ConfigLoader.getProperty("google.oauth.clientSecret");
     private static final String REDIRECT_URI = "http://localhost:8080/ProjectWeb/oauth2callback";
 
@@ -86,7 +86,7 @@ public class oauth2callback extends HttpServlet {
 
                 // --- Xử lý logic Đăng nhập / Đăng ký trong DB ---
                 int internalUserId = authService.processGoogleLogin(googleUserId, email, givenName, familyName, pictureUrl, emailVerified);
-
+                System.out.println(internalUserId);
                 if (internalUserId > 0) {
                     request.getSession().setAttribute("loggedInUserId", internalUserId);
 
