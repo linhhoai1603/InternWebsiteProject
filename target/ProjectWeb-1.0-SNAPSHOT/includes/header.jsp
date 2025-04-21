@@ -54,7 +54,7 @@
                         cartCount = cart.getTotalQuantity(); // Giả sử Cart có phương thức getTotalItems()
                     }
                 %>
-                <a href="shopping-cart.jsp" class="btn text-white btn-bg position-relative" id="shoppingCart">
+                <a href="${pageContext.request.contextPath}/shopping-cart.jsp" class="btn text-white btn-bg position-relative" id="shoppingCart">
                     <i class="fa-solid fa-cart-shopping"></i>&nbsp;<fmt:message key="cart"/>
                     <span class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger cart-count">
                         <%= cartCount %>
@@ -64,7 +64,7 @@
                     User user = (User) session.getAttribute("user");
                     if (user == null) {
                 %>
-                <a href="${pageContext.request.contextPath}/login" class="btn text-white btn-bg" id="loginButton">
+                <a href="${pageContext.request.contextPath}/login.jsp" class="btn text-white btn-bg" id="loginButton">
                     <i class="fa-solid fa-right-to-bracket"></i>&nbsp;<fmt:message key="login"/>
                 </a>
                 <a href="register.jsp" class="btn text-white btn-bg" id="registerButton">
