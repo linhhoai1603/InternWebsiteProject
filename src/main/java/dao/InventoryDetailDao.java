@@ -5,12 +5,26 @@ import models.InventoryDetail;
 import org.jdbi.v3.core.Jdbi;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class InventoryDetailDao {
     Jdbi jdbi;
     public InventoryDetailDao() {
         jdbi = DBConnection.getConnetion();
+    }
+    public int createInventoryIn(int idInventory, int productId, int totalImport) {
+        return jdbi.withHandle(handle ->
+                handle.createUpdate("INSERT INTO inventorydetail (idProduct, idInventory, quantityBefore, quantityLoss, quantityImported, importDate) " +
+                                "VALUES (:idProduct, :idInventory, :quantityBefore, :quantityLoss, :quantityImported, :importDate)")
+                        .bind("idProduct", productId)
+                        .bind("idInventory", idInventory)
+                        .bind("quantityBefore", 0)  // mặc định
+                        .bind("quantityLoss", 0)    // mặc định
+                        .bind("quantityImported", totalImport)
+                        .bind("importDate", LocalDate.now())
+                        .execute()
+        );
     }
     public boolean updateQuantityActualAndLoss(int idInventoryDetail, int before, int total) {
         int loss = before - total;
@@ -135,6 +149,7 @@ public class InventoryDetailDao {
             return List.of(); // Trả về danh sách rỗng nếu có lỗi
         }
     }
+
 
 
 }

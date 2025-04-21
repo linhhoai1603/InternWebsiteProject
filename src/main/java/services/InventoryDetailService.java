@@ -1,5 +1,6 @@
 package services;
 
+import constant.HashCode;
 import dao.InventoryDao;
 import dao.InventoryDetailDao;
 import models.InventoryDetail;
@@ -16,5 +17,10 @@ public class InventoryDetailService {
 
     public boolean updateQuantityActualAndLoss(int idinventoryDetail, int befor, int total) {
         return inventoryDetailDao.updateQuantityActualAndLoss(idinventoryDetail,befor,total);
+    }
+
+    public int createInventoryInDetail(int idinventory, int productId,  int totalImport) {
+
+        return inventoryDetailDao.createInventoryIn(idinventory,productId,totalImport);
     }
 }
