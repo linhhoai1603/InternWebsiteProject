@@ -459,21 +459,23 @@ CREATE TABLE `products`  (
                              CONSTRAINT `products_idcategory_foreign` FOREIGN KEY (`idCategory`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
                              CONSTRAINT `products_idtechnical_foreign` FOREIGN KEY (`idTechnical`) REFERENCES `technical_information` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 185 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-CREATE TABLE ware_house (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            importDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-                            updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
 CREATE TABLE inventory (
+                            id INT AUTO_INCREMENT PRIMARY KEY,
+                            creatDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+                            code VARCHAR(50) ,
+                            status VARCHAR(50),
+                            decription VARCHAR(255)
+);
+CREATE TABLE inventorydetail (
                            id INT AUTO_INCREMENT PRIMARY KEY,
                            idProduct INT NOT NULL,
-                           idWareHouse INT NOT NULL,
+                           idInventory INT NOT NULL,
                            quantityBefore INT DEFAULT 0,
                            quantityLoss INT DEFAULT 0,
                            quantityImported INT DEFAULT 0,
                            quantityTotal INT AS (quantityBefore - quantityLoss + quantityImported) STORED,
                            importDate DATE NOT NULL,
-                           FOREIGN KEY (idWareHouse) REFERENCES ware_house(id),
+                           FOREIGN KEY (idInventory) REFERENCES inventory(id),
                            FOREIGN KEY (idProduct) REFERENCES products(id)
 );
 -- ----------------------------
@@ -814,4 +816,24 @@ CREATE TABLE cart_items (
                             UNIQUE KEY idx_cart_item_style (idCart, idStyle)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+CREATE TABLE inventory_style_detail (
+                                        id INT PRIMARY KEY AUTO_INCREMENT,
+                                        idInventoryDetail INT NOT NULL,
+                                        idStyle INT NOT NULL,
+                                        stockQuantity INT NOT NULL,
+                                        actualQuantity INT NOT NULL,
+                                        discrepancy INT GENERATED ALWAYS AS (stockQuantity - actualQuantity) STORED
+);
 
+ALTER TABLE account_users
+    MODIFY COLUMN code VARCHAR(5) DEFAULT NULL;
+
+UPDATE styles
+SET quantity = FLOOR(10 + RAND() * 21);
+UPDATE products p
+    JOIN (
+    SELECT idProduct, SUM(quantity) AS total_quantity
+    FROM styles
+    GROUP BY idProduct
+    ) AS s ON p.id = s.idProduct
+    SET p.quantity = s.total_quantity;
