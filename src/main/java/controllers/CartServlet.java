@@ -51,7 +51,7 @@ public class CartServlet extends HttpServlet {
                 // Định dạng tiền Việt
                 Locale vietnam = new Locale("vi", "VN");
                 NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
-                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
+                String formattedAmount = currencyFormatter.format(voucher.getMinimumSpend());
                 request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
             }else{
                 request.setAttribute("message", "Giảm giá thành công!");
@@ -66,7 +66,7 @@ public class CartServlet extends HttpServlet {
         cart.remove(idStyle);
         try{
             if(cart.getVoucher() != null) {
-                if(cart.getTotalPrice() < cart.getVoucher().getConditionAmount()){
+                if(cart.getTotalPrice() < cart.getVoucher().getMinimumSpend()){
                     cart.applyVoucher(null);
                 }
             }
