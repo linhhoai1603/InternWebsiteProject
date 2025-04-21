@@ -57,7 +57,7 @@
         <img id="mainImage${product.id}" src="${product.image}" alt="${product.description}" class="img-fluid main-image w-100 h-50">
 
         <!-- Danh sách các tùy chọn màu sắc hiển thị dưới dạng ảnh -->
-        <form action="cart?method=add" method="post" class="product-options-form">
+        <form action="add-to-cart" method="post" class="product-options-form">
           <input name="currentURL" type="hidden" value="product-fabric?page=${requestScope.currentPage}&option=${requestScope.option}">
           <input type="hidden" name="productID" value="${product.id}">
           <div class="product-squares d-flex justify-content-center align-items-center flex-wrap mt-2">

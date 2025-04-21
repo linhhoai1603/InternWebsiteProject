@@ -7,11 +7,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Product;
-import services.ProductService2;
+import services.ProductService;
 import services.StyleService;
 import services.ToTalProductService;
 
 @WebServlet(name = "ProductsServlet", value = "/products")
+
 public class ProductsServlet extends HttpServlet {
     int nuPerPage = 12;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -25,12 +26,6 @@ public class ProductsServlet extends HttpServlet {
         if(option.isEmpty() || option == null) option = "Mới nhất";
 
         ToTalProductService ps = new ToTalProductService();
-
-        List<Product>products = ps.getProducts(selection,currentPage,nuPerPage,option, minPrice, maxPrice);
-        int nupage = ps.getNuPage(nuPerPage,selection);
-
-        request.setAttribute("products", products);
-        request.setAttribute("pageNumber", nupage);
         request.setAttribute("currentPage", currentPage);
         request.setAttribute("option", option);
         request.setAttribute("selection", selection);

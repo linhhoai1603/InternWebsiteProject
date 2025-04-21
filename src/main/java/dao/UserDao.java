@@ -2,9 +2,9 @@ package dao;
 
 import connection.DBConnection;
 import models.*;
+import models.enums.TokenType;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
-import utils.CodeGenerator;
 
 import java.time.LocalDateTime;
 import java.util.List;

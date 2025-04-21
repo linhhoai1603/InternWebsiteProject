@@ -1,20 +1,63 @@
 
 package models;
 
-import java.util.Map;
+import java.io.Serializable;
+import java.time.LocalDate;
 
-public class CartItem {
+public class CartItem implements Serializable {
+    private int id;
+    private int idCart;
     private Style style;
-    private double price;
     private int quantity;
-    private double totalPrice;
-    private double area;
-    public CartItem(Style product, int quantity) {
-        this.style = product;
-        this.price = product.getProduct().getPrice().getLastPrice();
+    private double unitPrice;
+    private LocalDate addedDate;
+    public CartItem(int idCart , int idStyle, int quantity) {
+        this.idCart = idCart;
+        this.style = new Style();
+        this.style.setId(idStyle);
         this.quantity = quantity;
-        this.totalPrice = quantity * price;
+        this.addedDate = LocalDate.now();
     }
+    public CartItem(){
+
+    }
+    public double getTotalPrice() {
+        return unitPrice;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdCart() {
+        return idCart;
+    }
+
+    public void setIdCart(int idCart) {
+        this.idCart = idCart;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public LocalDate getAddedDate() {
+        return addedDate;
+    }
+
+    public void setAddedDate(LocalDate addedDate) {
+        this.addedDate = addedDate;
+    }
+
     public Style getStyle() {
         return style;
     }
@@ -25,27 +68,22 @@ public class CartItem {
         return quantity;
     }
 
-    public double getArea() {
-        return area;
-    }
-
-    public void setArea(double area) {
-        this.area = area;
-    }
 
     // method update số lượng sản phẩm
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-        this.totalPrice = quantity * style.getProduct().getPrice().getLastPrice();
-    }
-    public double getTotalPrice() {
-        return totalPrice;
-    }
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-    public String toString(){
-        return this.style.toString() + " " + this.quantity + " " + this.totalPrice ;
+        this.unitPrice = quantity * style.getProduct().getPrice().getLastPrice();
     }
 
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "id=" + id +
+                ", idCart=" + idCart +
+                ", style=" + style +
+                ", quantity=" + quantity +
+                ", unitPrice=" + unitPrice +
+                ", addedDate=" + addedDate.toString() +
+                '}';
+    }
 }
