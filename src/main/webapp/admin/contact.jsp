@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="includes/link/headLink.jsp" %>
+<%@include file="../includes/link/headLink.jsp" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
@@ -17,9 +17,9 @@
 <body>
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="translate.messages" scope="session"/>
-<%@include file="includes/header.jsp" %>
-<%@include file="includes/navbar.jsp" %>
-<link rel="stylesheet" href="css/contact.css">
+<%@include file="../includes/header.jsp" %>
+<%@include file="../includes/navbar.jsp" %>
+<link rel="stylesheet" href="../css/contact.css">
 <section class="contact-section">
     <c:set var="message" value="${not empty requestScope.message ? requestScope.message : ''}"/>
 
@@ -149,7 +149,7 @@
     </div>
 </section>
 
-<%@include file="includes/footer.jsp" %>
-<%@include file="includes/link/footLink.jsp" %>
+<%@include file="../includes/footer.jsp" %>
+<%@include file="../includes/link/footLink.jsp" %>
 </body>
 </html>
