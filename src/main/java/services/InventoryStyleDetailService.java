@@ -13,7 +13,7 @@ public class InventoryStyleDetailService {
         return inventoryStyleDetailDao.create( idInventoryDetail,  idStyle ,  stockQuantity,  actualQuantity);
     }
 
-    public void createInventoryInStyleDetail(int idinventoryDetail, int styleId, int quantity) {
+    public boolean createInventoryInStyleDetail(int idinventoryDetail, int styleId, int quantity) {
         return inventoryStyleDetailDao.createInventoryInStyleDetail(idinventoryDetail,styleId,quantity);
         
     }
