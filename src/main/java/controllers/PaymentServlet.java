@@ -64,8 +64,8 @@ public class PaymentServlet extends HttpServlet {
                 // Định dạng tiền Việt
                 Locale vietnam = new Locale("vi", "VN");
                 NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(vietnam);
-                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
-                request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
+//                String formattedAmount = currencyFormatter.format(voucher.getConditionAmount());
+//                request.setAttribute("message", "Áp dụng cho đơn hàng trên "+formattedAmount);
             }else{
                 request.setAttribute("message", "Giảm giá thành công!");
             }
