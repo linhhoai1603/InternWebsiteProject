@@ -131,11 +131,6 @@
                 <p><strong>Tổng số sản phẩm:</strong> <span class="">${sessionScope.cart.totalItems}</span></p>
                 <p><strong>Tổng số lượng:</strong> ${sessionScope.cart.totalQuantity}</p>
                 <p><strong>Tổng tiền:</strong> <span class="price">${sessionScope.cart.totalPrice}</span></p>
-                <p><strong>Thanh toán:</strong> <span class="price">${sessionScope.cart.lastPrice}</span></p>
-                <form action="apply-voucher" method="post" class="d-flex mb-3">
-                    <input type="text" name="voucherCode" class="form-control me-2" placeholder="Nhập mã giảm giá">
-                    <button type="submit" class="btn btn-outline-success">Áp dụng</button>
-                </form>
 
                 <a href="checkout" class="btn btn-success w-100">Tiến hành thanh toán</a>
             </div>
@@ -167,16 +162,6 @@
         const checkboxes = document.querySelectorAll(".item-checkbox");
         checkboxes.forEach(cb => cb.checked = this.checked);
     });
-    // code for cập nhật giỏ hàng
-    let idUser = ${sessionScope.account.user.id}; // hoặc từ session nếu bạn dùng attribute khác
-    const socket = new WebSocket(`ws://localhost:8080/ProjectWeb_war/cartSync/${idUser}`);
-
-    socket.onmessage = function (event) {
-        if (event.data === "refresh") {
-            console.log("Đã nhận lệnh cập nhật giỏ hàng");
-            location.reload(); // Reload lại trang để cập nhật giỏ hàng
-        }
-    };
 
     socket.onopen = () => console.log("WebSocket connected");
     socket.onclose = () => console.log("WebSocket closed");

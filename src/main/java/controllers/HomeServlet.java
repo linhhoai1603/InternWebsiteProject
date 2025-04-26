@@ -30,7 +30,7 @@ public class HomeServlet extends HttpServlet {
         System.out.println("Tên package: " + packageName);
 
 
-        ToTalProductService ps = new ToTalProductService();
+        //ToTalProductService ps = new ToTalProductService();
 
         HttpSession session = request.getSession();
         // tạo ra shopping cart của người dùng
@@ -59,6 +59,6 @@ public class HomeServlet extends HttpServlet {
 //        VoucherService vd = new VoucherService();
 //        session.setAttribute("vouchers", vd.getVoucherByValid(1));
 //        // chuyển tới trang chủ
-        request.getRequestDispatcher("index.jsp").forward(request,response);
+       response.sendRedirect("index.jsp");
     }
 }

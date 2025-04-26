@@ -36,12 +36,6 @@ public class CartDAO {
                         cart.setIdUser(rs.getInt("idUser"));
 
                         // kiểm tra nếu voucherId không null trong DB thì set, còn không thì để null
-                        int voucherId = rs.getInt("idVoucher");
-                        if (!rs.wasNull()) {
-//                            cart.setVoucher(voucher);
-                        } else {
-                            cart.setVoucher(null);
-                        }
 
                         return cart;
                     })
@@ -113,34 +107,4 @@ public class CartDAO {
                     .execute();
         });
     }
-    // Method to apply a voucher to a cart and return the applied Voucher object
-    public Voucher applyVoucherToCart(int cartId, String voucherCode, double totalPriceInCart) {
-        return jdbi.inTransaction(handle -> {
-            // 1. Tìm kiếm thông tin voucher dựa vào mã
-            String voucherQuery = "SELECT * FROM vouchers WHERE code = :code AND condition_amount < :totalPriceInCart";
-            Voucher voucher = handle.createQuery(voucherQuery)
-                    .bind("code", voucherCode)
-                    .bind("totalPriceInCart", totalPriceInCart)
-                    .mapToBean(Voucher.class)
-                    .findOne()
-                    .orElse(null);
-
-            if (voucher == null) {
-                return null; // Không tìm thấy voucher hoặc giỏ hàng đó không đủ điều kiện
-            }
-
-            // 2. Gán voucher cho giỏ hàng
-            String updateQuery = "UPDATE cart SET idVoucher = :idVoucher, updatedAt = :now WHERE id = :idCart";
-            handle.createUpdate(updateQuery)
-                    .bind("idVoucher", voucher.getIdVoucher())
-                    .bind("idCart", cartId)
-                    .bind("now", LocalDate.now())
-                    .execute();
-
-            // 3. Trả về đối tượng voucher đã áp dụng
-            return voucher;
-        });
-    }
-
-
 }
