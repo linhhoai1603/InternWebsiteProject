@@ -7,12 +7,10 @@ import java.util.List;
 public class Cart implements Serializable {
    private int id;
    private int idUser;
-   private Voucher voucher;
    private double shippingFee;
     private double totalPrice;
     private int totalQuantity;
     private int totalItems;
-    private double lastPrice;
    private List<CartItem> cartItems;
 
     public Cart(int id, int idUser) {
@@ -21,14 +19,6 @@ public class Cart implements Serializable {
     }
     public Cart(){
 
-    }
-
-    public double getLastPrice() {
-        return lastPrice;
-    }
-
-    public void setLastPrice(double lastPrice) {
-        this.lastPrice = lastPrice;
     }
 
     public List<CartItem> getCartItems() {
@@ -53,14 +43,6 @@ public class Cart implements Serializable {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
-    }
-
-    public Voucher getVoucher() {
-        return voucher;
-    }
-
-    public void setVoucher(Voucher voucher) {
-       this.voucher = voucher;
     }
 
     public double getShippingFee() {
@@ -101,7 +83,6 @@ public class Cart implements Serializable {
         return "Cart{" +
                 "id=" + id +
                 ", idUser=" + idUser +
-                ", voucher=" + voucher +
                 ", shippingFee=" + shippingFee +
                 ", cartItems=" + cartItems +
                 '}';
