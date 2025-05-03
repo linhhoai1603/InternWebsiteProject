@@ -26,11 +26,11 @@ public class CartService {
          cart.setTotalItems(cart.getCartItems().size());
          cart.setTotalQuantity(cart.getCartItems().stream().mapToInt(CartItem::getQuantity).sum());
          cart.setTotalPrice(cart.getCartItems().stream().mapToDouble(CartItem::getUnitPrice).sum());
-        if (cart.getVoucher() == null) {
-            cart.setLastPrice(cart.getTotalPrice());
-        }else{
-            cart.setLastPrice(cart.getTotalPrice() - cart.getVoucher().getMinimumSpend());
-        }
+//        if (cart.getVoucher() == null) {
+//            cart.setLastPrice(cart.getTotalPrice());
+//        }else{
+//            cart.setLastPrice(cart.getTotalPrice() - cart.getVoucher().getMinimumSpend());
+//        }
          return cart;
     }
     // method get all Cart items by cart id
@@ -65,10 +65,10 @@ public class CartService {
         cartDAO.removeCartItem(idCart, cartItemId);
     }
     // method to apply voucher in cart
-    public void applyVoucherToCart(Cart cart, String voucherCode, double totalPrice) {
-        // execute apply
-        Voucher voucher = cartDAO.applyVoucherToCart(cart.getId(), voucherCode, totalPrice);
-        // discount price
-        if(voucher != null) cart.setTotalPrice(cart.getTotalPrice() - voucher.getMinimumSpend());
-    }
+//    public void applyVoucherToCart(Cart cart, String voucherCode, double totalPrice) {
+//        // execute apply
+//        Voucher voucher = cartDAO.applyVoucherToCart(cart.getId(), voucherCode, totalPrice);
+//        // discount price
+//        if(voucher != null) cart.setTotalPrice(cart.getTotalPrice() - voucher.getMinimumSpend());
+//    }
 }
