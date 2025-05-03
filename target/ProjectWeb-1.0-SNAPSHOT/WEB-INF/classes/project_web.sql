@@ -480,91 +480,27 @@ INSERT INTO `prices` (`id`, `price`, `discountPercent`, `startDate`, `endDate`) 
                                                                                     (204, 155000, 10, '2025-04-13 17:09:22', NULL),
                                                                                     (205, 205000, 15, '2025-04-13 17:09:23', NULL);
 
-
--- ----------------------------
--- Table structure for products
--- ----------------------------
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE `products`  (
-                             `id` int(11) NOT NULL AUTO_INCREMENT,
-                             `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                             `quantity` int(11) NOT NULL,
-                             `addedDate` date NOT NULL,
-                             `idCategory` int(11) NOT NULL,
-                             `height` DOUBLE NULL ,
-                             `width` DOUBLE NULL ,
-                             `weight` DOUBLE NULL  ,
-                             `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                             `selling` tinyint(4) NOT NULL,
-                             `idTechnical` int(11) NOT NULL,
-                             `img` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-                             `idPrice` int(11) NOT NULL,
-                             PRIMARY KEY (`id`) USING BTREE,
-                             INDEX `products_idcategory_foreign`(`idCategory`) USING BTREE,
-                             INDEX `products_idtechnical_foreign`(`idTechnical`) USING BTREE,
-                             CONSTRAINT `products_idcategory_foreign` FOREIGN KEY (`idCategory`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-                             CONSTRAINT `products_idtechnical_foreign` FOREIGN KEY (`idTechnical`) REFERENCES `technical_information` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 185 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-CREATE TABLE inventory (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            creatDate DATETIME DEFAULT CURRENT_TIMESTAMP,
-                            code VARCHAR(50) ,
-                            status VARCHAR(50),
-                            decription VARCHAR(255)
-);
-CREATE TABLE inventorydetail (
-                           id INT AUTO_INCREMENT PRIMARY KEY,
-                           idProduct INT NOT NULL,
-                           idInventory INT NOT NULL,
-                           quantityBefore INT DEFAULT 0,
-                           quantityLoss INT DEFAULT 0,
-                           quantityImported INT DEFAULT 0,
-                           quantityTotal INT AS (quantityBefore - quantityLoss + quantityImported) STORED,
-                           importDate DATE NOT NULL,
-                           FOREIGN KEY (idInventory) REFERENCES inventory(id),
-                           FOREIGN KEY (idProduct) REFERENCES products(id)
-);
--- ----------------------------
--- Records of products
--- ----------------------------
-INSERT INTO products (name, quantity, addedDate, idCategory, height, width, weight, description, selling, idTechnical, img, idPrice)
-VALUES
-    ('Linen Bột', 20, '2025-04-08', 1, 50.5, 60.3, 0.8, 'vải cotton cao cấp', 1, 1, 'https://product.hstatic.net/200000898773/product/00_f90ef99c88dd4fc384abad51dc497172_master.jpg', 1),
-    ('Linen Tưng Hàn', 35, '2025-04-05', 1, 45.0, 70.2, 1.2, 'vải lụa mềm mại', 1, 2, 'https://product.hstatic.net/200000898773/product/upload_8bceb0438f664f5ea5dacfa31e87af76_master.jpg
-', 2),
-    ('Linen Bố Gân', 12, '2025-04-02', 1, 60.0, 80.0, 0.9, 'vải bố dày dặn', 0, 3, 'https://product.hstatic.net/200000898773/product/upload_5c893063cad64535b0095413662c65e8_master.jpg
-', 3),
-    ('Linen cotton lạnh', 25, '2025-03-30', 1, 55.2, 75.1, 1.1, 'vải kaki bền màu', 1, 4, 'https://product.hstatic.net/200000898773/product/110-vai-linen-cotton-lanh-min-mat-chong-nhan-may-so-mi-vay-dam-bo__1__f6b195bc103b49c485a2da4a22b80bc2_master.jpg', 4),
-    ('Linen tưng ướt', 18, '2025-03-28', 1, 48.0, 68.4, 0.7, 'vải thun co giãn', 0, 5,'https://product.hstatic.net/200000898773/product/00__2__3e2ac73090724bad9253c7f05ce1dee4_master.jpg', 5),
-    ('Linen bamboo', 22, '2025-03-25', 1, 52.7, 69.9, 1.0, 'vải linen thoáng mát', 1, 6, 'https://product.hstatic.net/200000898773/product/vai-linen-bamboo__1__99439c1b192d42e991e33a4dd564e639_master.jpg', 6),
-    ('Linen bột dày', 30, '2025-03-24', 1, 57.6, 72.5, 1.3, 'vải dạ ấm áp', 1, 7, 'https://product.hstatic.net/200000898773/product/11_1000ff25414e489cb85ae7666f58dd39_master.jpg', 7),
-    ('Linen gân nhật', 16, '2025-03-20', 1, 42.4, 65.0, 0.6, 'vải jean năng động', 1, 8, 'https://product.hstatic.net/200000898773/product/upload_35eae0b1726a47e79b52d54463512913_master.jpg', 8),
-    ('Thun gân tăm', 40, '2025-03-18', 1, 49.9, 67.2, 1.1, 'vải nỉ cao cấp', 0, 9, 'https://product.hstatic.net/200000898773/product/upload_7b0850c4e69c4820a974d52124f55870_master.jpg', 9),
-    ('Thun sóng', 28, '2025-03-16', 1, 53.3, 70.6, 1.4, 'vải canvas bền đẹp', 1, 10, 'https://product.hstatic.net/200000898773/product/vai-thun-gan-song-gian-4c__1__469c4cb081674b3e8570f2cce028d010_master.jpg', 10),
-    ('Thun giấy', 21, '2025-03-14', 1, 46.6, 66.5, 0.9, 'vải nhung mịn màng', 1, 11, 'https://product.hstatic.net/200000898773/product/vai-thun-giay-mong-mat__1__9548fb7d6f9844ae9addac1280796e30_master.jpg
-', 11),
-    ('Thun xốp nhật', 19, '2025-03-12', 1, 58.1, 73.4, 1.2, 'vải gấm họa tiết', 0, 12, 'https://product.hstatic.net/200000898773/product/upload_78acea25c3e4458aa43b89d22e2e4489_master.jpg
-', 12),
-    ('Thun ướt', 34, '2025-03-10', 1, 51.2, 69.8, 1.0, 'vải taffeta chống nước', 1, 13, 'https://product.hstatic.net/200000898773/product/vai-thun-uot-co-gian-4c__1__6d8677fe59f343bf8e90d767ca8d78eb_master.jpg
-', 13),
-    ('Lưới thun dẻo', 27, '2025-03-08', 1, 54.4, 71.1, 0.8, 'vải organza nhẹ', 0, 14, 'https://product.hstatic.net/200000898773/product/771-vai-luoi-thun-deo-co-gian-may-dam-vay-set-bo-thiet-ke__1', 14),
-    ('Thun cotton 100% 2 chiều', 32, '2025-03-06', 1, 47.3, 66.9, 0.7, 'vải chiffon bay bổng', 1, 15, 'https://product.hstatic.net/200000898773/product/upload_e2d7b48c7f364913898d44bd782a4af1_master.jpg
-', 15),
-    ('Thun hàn dày', 23, '2025-03-04', 1, 56.8, 74.2, 1.3, 'vải voan sang trọng', 1, 16, 'https://product.hstatic.net/200000898773/product/upload_d53f6dec5d2b4cc6868b0a977dc3fe09_master.jpg
-', 16),
-    ('Thun tăm lạnh', 38, '2025-03-02', 1, 50.6, 68.3, 1.0, 'vải cashmere mịn', 0, 17, 'https://product.hstatic.net/200000898773/product/upload_b019968cfbbe496cb15313d7d4897076_master.jpg
-', 17),
-    ('Thun co dãn', 29, '2025-02-28', 1, 44.7, 64.8, 0.9, 'vải tweed cổ điển', 1, 18, 'https://product.hstatic.net/200000898773/product/upload_cb178eb1ccbf4ab6ac990669de42923c_master.jpg
-', 18),
-    ('Kaki xước hoa nổi', 33, '2025-02-26', 1, 59.5, 76.0, 1.2, 'vải polyester bền', 1, 19, 'https://product.hstatic.net/200000898773/product/506-vai-kaki-xuoc-hoa-noi-may-quan-tay-vay-dam-vest-thiet-ke__1__', 19),
-    ('Jean Chấm', 17, '2025-02-24', 1, 43.9, 63.7, 0.6, 'vải rayon mềm mát', 1, 20, 'https://product.hstatic.net/200000898773/product/upload_fc8717f020c64a5c83ce03028cf5eebe_master.jpg
-', 20),
-    ('Jean demin', 24, '2025-02-22', 1, 55.9, 71.6, 1.1, 'vải modal hút ẩm', 0, 21, 'https://product.hstatic.net/200000898773/product/upload_9c56871814ad4fc0ba48af9a4aa8f6f4_master.jpg
-', 21),
-    ('Jean lụa', 36, '2025-02-20', 1, 61.2, 77.3, 1.3, 'vải spandex co dãn', 1, 22, 'https://product.hstatic.net/200000898773/product/upload_ea9df28aa38f43c585d64d9aaa8a0993_master.jpg
-', 22),
-    ('jean loang', 26, '2025-02-18', 1, 52.0, 70.0, 1.0, 'vải nylon chống thấm', 1, 23, 'https://product.hstatic.net/200000898773/product/upload_981854ba7eb5427d883f3d0d33c5bf07_master.jpg
-', 23);
+-- Dumping structure for table project_web.products
+CREATE TABLE IF NOT EXISTS `products` (
+                                          `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(255) NOT NULL,
+    `quantity` int(11) NOT NULL,
+    `addedDate` date NOT NULL,
+    `idCategory` int(11) NOT NULL,
+    `height` double DEFAULT NULL,
+    `width` double DEFAULT NULL,
+    `weight` double DEFAULT NULL,
+    `description` varchar(255) NOT NULL,
+    `selling` tinyint(4) NOT NULL,
+    `idTechnical` int(11) NOT NULL,
+    `img` varchar(255) NOT NULL,
+    `idPrice` int(11) NOT NULL,
+    PRIMARY KEY (`id`) USING BTREE,
+    KEY `products_idcategory_foreign` (`idCategory`) USING BTREE,
+    KEY `products_idtechnical_foreign` (`idTechnical`) USING BTREE,
+    CONSTRAINT `products_idcategory_foreign` FOREIGN KEY (`idCategory`) REFERENCES `categories` (`id`),
+    CONSTRAINT `products_idtechnical_foreign` FOREIGN KEY (`idTechnical`) REFERENCES `technical_information` (`id`)
+    ) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table project_web.products: ~43 rows (approximately)
 DELETE FROM `products`;
@@ -913,56 +849,8 @@ INSERT INTO `vouchers` (`idVoucher`, `code`, `discountAmount`, `condition_amount
                                                                                                 (4, 'VOUCHER04', 300000, 1500000, 1),
                                                                                                 (5, 'VOUCHER05', 250000, 1000000, 1);
 
-
-CREATE TABLE contact_info (
-                              id INT AUTO_INCREMENT PRIMARY KEY,
-                              idAddress INT NULL ,
-                              email VARCHAR(50) NOT NULL,
-                              website VARCHAR(100) NULL,
-                              hotline VARCHAR(50) NOT NULL,
-                              FOREIGN KEY (idAddress) REFERENCES addresses(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-CREATE TABLE cart (
-                      id INT AUTO_INCREMENT PRIMARY KEY,
-                      idUser INT NOT NULL,
-                      idVoucher INT NULL,
-                      shippingFee DECIMAL(15, 2) NULL DEFAULT 0.00,
-                      createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                      updatedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                      FOREIGN KEY (idUser) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-                      FOREIGN KEY (idVoucher) REFERENCES vouchers(idVoucher) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE cart_items (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            idCart INT NOT NULL,
-                            idStyle INT NOT NULL,
-                            quantity INT NOT NULL,
-                            unitPrice DECIMAL(15, 2) NOT NULL,
-                            addedAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                            FOREIGN KEY (idCart) REFERENCES cart(id) ON DELETE CASCADE ON UPDATE CASCADE,
-                            FOREIGN KEY (idStyle) REFERENCES styles(id) ON DELETE CASCADE ON UPDATE CASCADE,
-                            UNIQUE KEY idx_cart_item_style (idCart, idStyle)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE inventory_style_detail (
-                                        id INT PRIMARY KEY AUTO_INCREMENT,
-                                        idInventoryDetail INT NOT NULL,
-                                        idStyle INT NOT NULL,
-                                        stockQuantity INT NOT NULL,
-                                        actualQuantity INT NOT NULL,
-                                        discrepancy INT GENERATED ALWAYS AS (stockQuantity - actualQuantity) STORED
-);
-
-ALTER TABLE account_users
-    MODIFY COLUMN code VARCHAR(5) DEFAULT NULL;
-
-UPDATE styles
-SET quantity = FLOOR(10 + RAND() * 21);
-UPDATE products p
-    JOIN (
-    SELECT idProduct, SUM(quantity) AS total_quantity
-    FROM styles
-    GROUP BY idProduct
-    ) AS s ON p.id = s.idProduct
-    SET p.quantity = s.total_quantity;
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
