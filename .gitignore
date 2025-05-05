@@ -39,3 +39,5 @@ build/
 
 ### Mac OS ###
 .DS_Storesrc/main/resources/client_secrets.json
+.idea/
+.idea/workspace.xml
