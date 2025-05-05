@@ -50,7 +50,6 @@ public class  LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("account", acc);
-            System.out.println(acc.getUsername());
             // get cart
             CartService cartService = new CartService();
             Cart cart = cartService.getCart(user.getId());
