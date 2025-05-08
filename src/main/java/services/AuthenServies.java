@@ -13,12 +13,11 @@ public class AuthenServies {
     }
 
     public static void main(String[] args) {
-//        AuthenServies authen = new AuthenServies();
-//
-//        AccountUser acc = new AccountUser();
-//        acc = authen.checkLogin("huy1111", HashUtil.encodePasswordBase64("Anhhuy1801*"));
-//        System.out.println(acc.getUsername());
-        System.out.println(HashUtil.encodePasswordBase64("Anhhuy1801*"));
+        AuthenServies authen = new AuthenServies();
+
+        AccountUser acc = new AccountUser();
+        acc = authen.checkLogin("linhhoai", HashUtil.encodePasswordBase64("linhhoai"));
+        System.out.println(acc.getUsername());
 
     }
 }
