@@ -25,16 +25,16 @@ public class ChangeLanguage extends HttpServlet {
                 System.out.println("english");
 
                 session.setAttribute("lang", "en");
-                session.setAttribute("locale", new Locale("en"));
+                session.setAttribute("locale", Locale.forLanguageTag("en"));
             } else if (lang.equals("vi")) {
                 System.out.println("vietnamese");
 
                 session.setAttribute("lang", "vi");
-                session.setAttribute("locale", new Locale("vi"));
+                session.setAttribute("locale", Locale.forLanguageTag("vi"));
             }
         }
         if (session.getAttribute("locale") == null) {
-            session.setAttribute("locale", new Locale("vi"));
+            session.setAttribute("locale", Locale.forLanguageTag("vi"));
         }
 
         String referer = request.getHeader("referer");

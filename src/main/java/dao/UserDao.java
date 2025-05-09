@@ -8,6 +8,7 @@ import org.jdbi.v3.core.Jdbi;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -30,7 +31,7 @@ public class UserDao {
 
     public User findUserById(int id) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE id = :id")
+                handle.createQuery("SELECT * FROM users WHERE id = :id")
                         .bind("id", id)
                         .mapToBean(User.class)
                         .findOne()
@@ -210,7 +211,8 @@ public class UserDao {
                         )
                         .bind("username", username)
                         .mapTo(Integer.class)
-                        .findOnly()
+                        .findOne()
+                        .orElseThrow(() -> new NoSuchElementException("User not found: " + username))
         );
     }
 
@@ -339,7 +341,7 @@ public class UserDao {
 
     public Optional<User> findByEmail(String email) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE email = :email")
+                handle.createQuery("SELECT * FROM users WHERE email = :email")
                         .bind("email", email)
                         .mapToBean(User.class)
                         .findFirst()

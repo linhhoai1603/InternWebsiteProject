@@ -5,12 +5,14 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import dao.UserDao;
 import dao.UserProviderDao;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import models.AccountUser;
+import models.User;
 import services.AuthService;
 import utils.ConfigLoader;
 
@@ -22,9 +24,9 @@ import java.util.Collections;
 public class oauth2callback extends HttpServlet {
     private static final String CLIENT_ID = ConfigLoader.getProperty("google.oauth.clientId");
     private static final String CLIENT_SECRET = ConfigLoader.getProperty("google.oauth.clientSecret");
-    private static final String REDIRECT_URI = "http://localhost:8080/ProjectWeb/oauth2callback";
+    private static final String REDIRECT_URI = "http://192.168.74.139.nip.io/ProjectWeb/oauth2callback";
 
-    private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
     private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
 
     private UserDao userDao = new UserDao();
@@ -53,6 +55,8 @@ public class oauth2callback extends HttpServlet {
 
         try {
             // --- Đổi authorization code lấy Access Token và ID Token ---
+            log("Bắt đầu xử lý callback từ Google");
+            log("Authorization code nhận được: " + authorizationCode);
             GoogleTokenResponse tokenResponse = new GoogleAuthorizationCodeTokenRequest(
                     HTTP_TRANSPORT,
                     JSON_FACTORY,
@@ -61,6 +65,7 @@ public class oauth2callback extends HttpServlet {
                     authorizationCode,
                     REDIRECT_URI
             ).execute();
+            log("Đã lấy được token từ Google.");
 
             // --- Xác thực ID Token và lấy thông tin người dùng ---
             String idTokenString = tokenResponse.getIdToken();
@@ -86,12 +91,17 @@ public class oauth2callback extends HttpServlet {
 
                 // --- Xử lý logic Đăng nhập / Đăng ký trong DB ---
                 int internalUserId = authService.processGoogleLogin(googleUserId, email, givenName, familyName, pictureUrl, emailVerified);
-                System.out.println(internalUserId);
                 if (internalUserId > 0) {
-                    request.getSession().setAttribute("loggedInUserId", internalUserId);
+                    User user = userDao.findUserById(internalUserId);
+                    //AccountUser accountUser = new AccountUser(user);
+
+                    // Lưu vào session
+                    HttpSession session = request.getSession();
+                    session.setAttribute("loggedInUserId", internalUserId);
+                    session.setAttribute("user", user);
+                    //session.setAttribute("account", accountUser);
 
                     log("Người dùng (ID=" + internalUserId + ") đăng nhập thành công bằng Google.");
-                    System.out.println("dang nhap thanh cong bang gg");
                     response.sendRedirect(request.getContextPath() + "/home");
                 } else {
                     log("Không thể xử lý đăng nhập/đăng ký cho Google ID: " + googleUserId);
