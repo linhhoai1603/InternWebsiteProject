@@ -51,7 +51,7 @@
                     Cart cart = (Cart) session.getAttribute("cart");
                     int cartCount = 0;
                     if (cart != null) {
-                        cartCount = cart.getTotalQuantity(); // Giả sử Cart có phương thức getTotalItems()
+                        cartCount = cart.getTotalQuantity();
                     }
                 %>
                 <a href="${pageContext.request.contextPath}/shopping-cart.jsp" class="btn text-white btn-bg position-relative" id="shoppingCart">
@@ -78,7 +78,7 @@
                     <option value="${pageContext.request.contextPath}/personal-inf">
                         <fmt:message key="user"/>
                     </option>
-                    <option value="${pageContext.request.contextPath}/changePassword.jsp">
+                    <option value="${pageContext.request.contextPath}/forgotPass.jsp">
                         <fmt:message key="changepass"/>
                     </option>
                     <option value="${pageContext.request.contextPath}/ordered">
