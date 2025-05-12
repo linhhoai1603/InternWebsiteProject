@@ -9,6 +9,7 @@ import com.restfb.types.User; // RestFB User
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
 import java.io.IOException;
 // Import các lớp DAO và Service
 import dao.UserDao;
@@ -23,11 +24,12 @@ public class FacebookCallback extends HttpServlet {
 
     private static final String FACEBOOK_APP_ID = ConfigLoader.getProperty("FACEBOOK_APP_ID");
     private static final String FACEBOOK_APP_SECRET = ConfigLoader.getProperty("FACEBOOK_APP_SECRET");
-    private static final String FACEBOOK_REDIRECT_URI = "http://localhost:8080/ProjectWeb/fb-callback";
+    private static final String FACEBOOK_REDIRECT_URI = "http://192.168.74.139.nip.io/ProjectWeb/fb-callback";
     private static final Version FACEBOOK_API_VERSION = Version.VERSION_18_0;
 
     private transient AuthService authService;
     private transient Jdbi jdbi;
+    private UserDao userDao = new UserDao();
 
     @Override
     public void init() throws ServletException {
@@ -129,7 +131,13 @@ public class FacebookCallback extends HttpServlet {
             int internalUserId = authService.processFacebookLogin(facebookUserId, email, firstName, lastName, pictureUrl, true); // Giả sử bạn tạo phương thức này
 
             if (internalUserId > 0) {
-                req.getSession().setAttribute("loggedInUserId", internalUserId);
+                models.User user = userDao.findUserById(internalUserId);
+                //AccountUser accountUser = new AccountUser(user);
+
+                // Lưu vào session
+                HttpSession session = req.getSession();
+                session.setAttribute("loggedInUserId", internalUserId);
+                session.setAttribute("user", user);
                 log("Người dùng (ID=" + internalUserId + ") đăng nhập thành công bằng Facebook.");
                 resp.sendRedirect(req.getContextPath() + "/home");
             } else {
