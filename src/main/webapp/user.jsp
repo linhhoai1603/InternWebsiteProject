@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="ward">Đường</label>
+                    <label for="ward">Phường / Xã</label>
                     <input type="text" class="form-control" id="ward" name="ward" placeholder="Nhập phường/xã"
                            value="${sessionScope.user.address.ward}" required>
                 </div>

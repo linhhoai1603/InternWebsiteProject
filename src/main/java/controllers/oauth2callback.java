@@ -53,6 +53,13 @@ public class oauth2callback extends HttpServlet {
             return;
         }
 
+        HttpSession existingSession = request.getSession(false);
+        if (existingSession == null || existingSession.getAttribute("user") != null) {
+            log("Người dùng đã đăng nhập từ trước.");
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
+        }
+
         try {
             // --- Đổi authorization code lấy Access Token và ID Token ---
             log("Bắt đầu xử lý callback từ Google");
@@ -77,6 +84,26 @@ public class oauth2callback extends HttpServlet {
             if (idToken != null) {
                 GoogleIdToken.Payload payload = idToken.getPayload();
 
+                if (!CLIENT_ID.equals(payload.getAudience())) {
+                    log("Invalid audience in ID Token.");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid audience in ID Token.");
+                    return;
+                }
+                if (!CLIENT_ID.equals(payload.getAuthorizedParty())) {
+                    log("Lỗi: Token không được cấp cho ứng dụng này.");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token không hợp lệ.");
+                    return;
+                }
+
+                long expirationTime = payload.getExpirationTimeSeconds();
+                long currentTime = System.currentTimeMillis() / 1000;
+
+                if (expirationTime < currentTime) {
+                    log("ID Token đã hết hạn.");
+                    response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token hết hạn. Vui lòng đăng nhập lại.");
+                    return;
+                }
+
                 String googleUserId = payload.getSubject();
                 String email = payload.getEmail();
                 boolean emailVerified = payload.getEmailVerified();
@@ -93,13 +120,16 @@ public class oauth2callback extends HttpServlet {
                 int internalUserId = authService.processGoogleLogin(googleUserId, email, givenName, familyName, pictureUrl, emailVerified);
                 if (internalUserId > 0) {
                     User user = userDao.findUserById(internalUserId);
-                    //AccountUser accountUser = new AccountUser(user);
-
-                    // Lưu vào session
-                    HttpSession session = request.getSession();
-                    session.setAttribute("loggedInUserId", internalUserId);
-                    session.setAttribute("user", user);
-                    //session.setAttribute("account", accountUser);
+                    AccountUser accountUser = new AccountUser();
+                    accountUser.setUser(user);
+                    if (existingSession != null) {
+                        existingSession.invalidate();
+                    }
+                    HttpSession newSession = request.getSession(true);
+                    newSession.setMaxInactiveInterval(30 * 60);
+                    newSession.setAttribute("loggedInUserId", internalUserId);
+                    newSession.setAttribute("user", user);
+                    newSession.setAttribute("account", accountUser);
 
                     log("Người dùng (ID=" + internalUserId + ") đăng nhập thành công bằng Google.");
                     response.sendRedirect(request.getContextPath() + "/home");
@@ -119,7 +149,7 @@ public class oauth2callback extends HttpServlet {
         } catch (IOException e) {
             log("Lỗi IO khi giao tiếp với Google: " + e.getMessage(), e);
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error communicating with Google.");
-        } catch (Exception e) { // Bắt các lỗi khác từ logic DB/Service
+        } catch (Exception e) {
             log("Lỗi không xác định khi xử lý đăng nhập Google: " + e.getMessage(), e);
             response.sendRedirect(request.getContextPath() + "/login.jsp?error=An%20unexpected%20error%20occurred");
         }

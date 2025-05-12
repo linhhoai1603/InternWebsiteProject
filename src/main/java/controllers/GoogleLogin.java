@@ -43,7 +43,8 @@ public class GoogleLogin extends HttpServlet {
 
             if (in == null) {
                 log("LỖI NGHIÊM TRỌNG: Không tìm thấy file '" + clientSecretsFileName + "' trong classpath!");
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi cấu hình phía máy chủ. Không tìm thấy thông tin xác thực Google.");
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi cấu hình phía máy chủ. " +
+                        "Không tìm thấy thông tin xác thực Google.");
                 return;
             }
             log("Đã tìm thấy file '" + clientSecretsFileName + "' trong classpath.");
