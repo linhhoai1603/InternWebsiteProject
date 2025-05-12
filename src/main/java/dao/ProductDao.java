@@ -7,7 +7,6 @@ import models.Product;
 import models.TechnicalInfo;
 import org.jdbi.v3.core.Jdbi;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class ProductDao {
@@ -18,7 +17,7 @@ public class ProductDao {
     public Product getProductById(int id ) {
         String sql = """
        SELECT
-           p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width,, p.selling, p.img,
+           p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
            c.id AS category_id, c.name AS category_name,
            pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
            ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
@@ -73,6 +72,7 @@ public class ProductDao {
                         .findOne().orElse(null)
         );
     }
+
     public List<Product> getAllProducts() {
         Jdbi jdbi = DBConnection.getConnetion();
         String sql = "select * from products";
@@ -479,7 +479,10 @@ public class ProductDao {
 
     public static void main(String[] args) {
         ProductDao productDao = new ProductDao();
-        System.out.println(productDao.getProductsById(0, 1, 20, 0,1));
+        List<Product> products = productDao.getProductsById(0, 1, 20, 0, 1);
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
     }
 
     public int getTotalProductCount() {

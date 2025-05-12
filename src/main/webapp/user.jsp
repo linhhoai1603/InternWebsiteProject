@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: Le Dinh Hung
-  Date: 12/15/2024
-  Time: 9:48 PM
-  To change this template use File | Settings | File Templates.
+ Created by IntelliJ IDEA.
+ User: Le Dinh Hung
+ Date: 12/15/2024
+ Time: 9:48 PM
+ To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="includes/link/headLink.jsp" %>
@@ -32,7 +32,7 @@
     <!-- Header -->
     <h3 class="text-center  mb-4 title"><fmt:message key="user_information"/></h3>
     <c:if test="${not empty message}">
-        <h4 class="${messageType}">${message}</h4>
+    <h4 class="${messageType}">${message}</h4>
     </c:if>
     <!-- Form để chỉnh sửa thông tin người dùng -->
 
@@ -61,76 +61,83 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="Nhập email"
-                           value="${sessionScope.user.email}" required>
+                           value="${sessionScope.user.email}"
+                           readonly>
                 </div>
 
                 <div class="form-group">
-                    <label for="fullName"><fmt:message key="fullname"/></label>
-                    <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Nhập họ và tên"
-                           value="${sessionScope.user.fullName}" required>
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="Nhập họ"
+                           value="${sessionScope.user.firstname}" required></div>
+
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Nhập tên"
+                           value="${sessionScope.user.lastname}" required>
                 </div>
 
                 <div class="form-group">
                     <label for="phoneNumber"><fmt:message key="phone"/></label>
                     <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                           placeholder="Nhập số điện thoại" value="${sessionScope.user.numberPhone}" required>
+                           placeholder="Nhập số điện thoại" value="${sessionScope.user.getNumberPhone()}"
+                           required>
                 </div>
 
                 <!-- Địa chỉ -->
+                <h5 class="mt-4">Địa chỉ</h5>
                 <div class="form-group">
-                    <label for="province"><fmt:message key="tinh"/></label>
-                    <input type="text" class="form-control" id="province" name="province" placeholder="Nhập tỉnh"
+                    <label for="province">Tỉnh / Thành phố</label>
+                    <input type="text" class="form-control" id="province" name="province"
+                           placeholder="Nhập tỉnh/thành phố"
                            value="${sessionScope.user.address.province}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="commune"><fmt:message key="xa"/></label>
-                    <input type="text" class="form-control" id="commune" name="commune" placeholder="Nhập xã"
-                           value="${sessionScope.user.address.commune}" required>
+                    <label for="district">Quận / Huyện</label>
+                    <input type="text" class="form-control" id="district" name="district" placeholder="Nhập quận/huyện"
+                           value="${sessionScope.user.address.district}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="city"><fmt:message key="city"/></label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="Nhập thành phố"
-                           value="${sessionScope.user.address.city}" required>
+                    <label for="ward">Phường / Xã</label>
+                    <input type="text" class="form-control" id="ward" name="ward" placeholder="Nhập phường/xã"
+                           value="${sessionScope.user.address.ward}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="street"><fmt:message key="duong"/></label>
-                    <input type="text" class="form-control" id="street" name="street" placeholder="Nhập đường"
-                           value="${sessionScope.user.address.street}" required>
+                    <label for="detail">Địa chỉ chi tiết</label>
+                    <input type="text" class="form-control" id="detail" name="detail"
+                           placeholder="Nhập số nhà, tên đường"
+                           value="${sessionScope.user.address.detail}" required>
                 </div>
 
                 <!-- Nút lưu thông tin -->
-                <button type="submit" class="btn mt-3" style="background: #339C87 ;color: white "><fmt:message
-                        key="luuthongtin"/></button>
+                <button type="submit" class="btn mt-3" style="background: #339C87 ;color: white ">Lưu thông tin</button>
             </form>
         </div>
     </div>
-</div>
-<script>
+    <script>
 
-    function previewImageAndSubmit(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
+        function previewImageAndSubmit(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
 
-        reader.onload = function () {
-            // Cập nhật ảnh đại diện với ảnh người dùng đã chọn
-            const userAvatar = document.getElementById('userAvatar');
-            userAvatar.src = reader.result;
+            reader.onload = function () {
+                // Cập nhật ảnh đại diện với ảnh người dùng đã chọn
+                const userAvatar = document.getElementById('userAvatar');
+                userAvatar.src = reader.result;
 
-            // Sau khi chọn ảnh, tự động submit form
-            document.getElementById('avatarForm').submit();
+                // Sau khi chọn ảnh, tự động submit form
+                document.getElementById('avatarForm').submit();
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
         }
-
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
-</script>
-
-<%@ include file="includes/footer.jsp" %>
-<%@ include file="includes/link/footLink.jsp" %>
+    </script>
+    <%@ include file="includes/footer.jsp" %>
+    <%@ include file="includes/link/footLink.jsp" %>
 
 </body>
 </html>
