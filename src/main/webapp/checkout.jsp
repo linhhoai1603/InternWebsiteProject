@@ -56,9 +56,9 @@
                     <div class="third">
                         <label for="province">Tỉnh / thành</label>
                         <input type="text" id="province" aria-label="Tỉnh / thành" placeholder="Tỉnh / thành"
-                               value="${sessionScope.user.address.province} required/>
+                               value="${sessionScope.user.address.province}" required/>
                     </div>
-                    <div class=" third">
+                    <div class="third">
                         <label for="district">Quận / huyện</label>
                         <input type="text" id="district" aria-label="Quận / huyện" placeholder="Quận / huyện"
                                value="${sessionScope.user.address.district}" required/>
