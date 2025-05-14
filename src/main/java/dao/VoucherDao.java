@@ -61,7 +61,11 @@ public class VoucherDao {
     }
 
     public static void main(String[] args) {
-        System.out.println(DiscountType.FIXED.name());
+        VoucherDao dao = new VoucherDao();
+        List<Voucher> l = dao.getVoucherByValid(1);
+        for (Voucher voucher : l) {
+            System.out.println(voucher);
+        }
     }
 
     public Voucher getVoucherByCode(String code) {
