@@ -2,6 +2,7 @@ package dao;
 
 import connection.DBConnection;
 import models.Voucher;
+import models.VoucherUsage;
 import models.enums.DiscountType;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.Update;
@@ -62,9 +63,33 @@ public class VoucherDao {
 
     public static void main(String[] args) {
         VoucherDao dao = new VoucherDao();
-        List<Voucher> l = dao.getVoucherByValid(1);
-        for (Voucher voucher : l) {
-            System.out.println(voucher);
+        dao.getVoucherUsageCount(1);
+    }
+
+    public Boolean applyVoucherToCart(int idCart, Voucher voucher) {
+        int idVoucher = voucher.getIdVoucher();
+        String query = "UPDATE cart set idVoucher = :idVoucher WHERE id = :idCart";
+        try {
+            int rowsUpdated = jdbi.withHandle(handle -> handle.createUpdate(query).bind("idVoucher", idVoucher).bind("idCart", idCart).execute());
+            return rowsUpdated > 0;
+        } catch (Exception e) {
+            System.out.println("Lỗi khi cập nhật voucher: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public int getVoucherUsageCount(int voucherId) {
+        String query = "SELECT count(*) FROM voucher_usage WHERE voucher_id = :voucherId;";
+        try {
+            return jdbi.withHandle(handle ->
+                    handle.createQuery(query)
+                            .bind("voucherId", voucherId)
+                            .mapTo(Integer.class)
+                            .one()
+            );
+        } catch (Exception e) {
+            System.err.println("Lỗi khi đếm số lần sử dụng voucher " + voucherId + ": " + e.getMessage());
+            return 0;
         }
     }
 
