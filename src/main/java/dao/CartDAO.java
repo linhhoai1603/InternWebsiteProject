@@ -12,9 +12,11 @@ import java.util.List;
 
 public class CartDAO {
     Jdbi jdbi;
+
     public CartDAO() {
         jdbi = DBConnection.getConnetion();
     }
+
     public int createCart(int userId) {
         return jdbi.withHandle(handle -> {
             String insert = "INSERT INTO cart(idUser) VALUES (:userId)";
@@ -25,6 +27,7 @@ public class CartDAO {
                     .one();
         });
     }
+
     public Cart getCartByUserId(int userId) {
         return jdbi.withHandle(handle -> {
             String query = "SELECT * FROM cart WHERE idUser = :userId";
@@ -67,7 +70,7 @@ public class CartDAO {
         });
     }
 
-    public void addToCart( CartItem newItem) {
+    public void addToCart(CartItem newItem) {
         jdbi.useTransaction(handle -> {
             String insertQuery = "INSERT INTO cart_items (idCart, idStyle, quantity, unitPrice, addedAt) " +
                     "VALUES (:idCart, :idStyle, :quantity, :unitPrice, :addedDate)";
@@ -80,7 +83,8 @@ public class CartDAO {
                     .execute();
         });
     }
-    public void updateCartItem(int cartItemId, int quantity, LocalDate addedDate) {
+
+    public void updateCartItem(int cartItemId, int quantity, double unitPrice, LocalDate addedDate) {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Số lượng phải lớn hơn 0");
         }
@@ -89,15 +93,17 @@ public class CartDAO {
         }
 
         jdbi.useTransaction(handle -> {
-            String updateQuery = "UPDATE cart_items SET quantity = :quantity, addedAt = :addedAt WHERE id = :id";
+            String updateQuery = "UPDATE cart_items SET quantity = :quantity, unitPrice = :unitPrice, addedAt = :addedAt WHERE id = :id";
             handle.createUpdate(updateQuery)
                     .bind("quantity", quantity)
+                    .bind("unitPrice", unitPrice)
                     .bind("addedAt", addedDate)
                     .bind("id", cartItemId)
                     .execute();
         });
     }
-    public void removeCartItem(int idCart,int cartItemId) {
+
+    public void removeCartItem(int idCart, int cartItemId) {
         jdbi.useTransaction(handle -> {
             // Xóa cart item theo ID
             String deleteQuery = "DELETE FROM cart_items WHERE id = :cartItemId And idCart = :idCart";

@@ -14,9 +14,11 @@ import java.io.IOException;
 // Import các lớp DAO và Service
 import dao.UserDao;
 import dao.UserProviderDao;
+import models.Cart;
 import services.AuthService;
 import connection.DBConnection; // Import DBConnection để lấy Jdbi nếu cần khởi tạo DAO/Service ở đây
 import org.jdbi.v3.core.Jdbi; // Import Jdbi
+import services.CartService;
 import utils.ConfigLoader;
 
 @WebServlet(name = "facebookCallback", value = "/fb-callback")
@@ -138,6 +140,9 @@ public class FacebookCallback extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("loggedInUserId", internalUserId);
                 session.setAttribute("user", user);
+                CartService cartService = new CartService();
+                Cart cart = cartService.getCart(user.getId());
+                session.setAttribute("cart", cart);
                 log("Người dùng (ID=" + internalUserId + ") đăng nhập thành công bằng Facebook.");
                 resp.sendRedirect(req.getContextPath() + "/home");
             } else {

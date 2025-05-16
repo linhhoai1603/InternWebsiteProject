@@ -5,10 +5,10 @@
   Time: 11:22 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" isELIgnored="false" %>
 <jsp:include page="includes/link/headLink.jsp"/>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <html>
 <head>
@@ -34,7 +34,7 @@
 <jsp:include page="includes/navbar.jsp"/>
 <jsp:include page="includes/slides.jsp"/>
 <jsp:include page="includes/content.jsp"/>
-<jsp:include page="includes/voucher.jsp"/>
+<jsp:include page="includes/coupon.jsp"/>
 <jsp:include page="includes/footer.jsp"/>
 
 <jsp:include page="includes/link/footLink.jsp"/>
