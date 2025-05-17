@@ -23,7 +23,7 @@ public class ProductsServlet extends HttpServlet {
         String maxPrice = request.getParameter("maxPrice");
 
         int currentPage = (param != null) ? Integer.parseInt(param) : 1;
-        if(option.isEmpty() || option == null) option = "Mới nhất";
+        if(option == null || option.isEmpty()) option = "Mới nhất";
 
         ToTalProductService ps = new ToTalProductService();
         request.setAttribute("currentPage", currentPage);
@@ -32,7 +32,7 @@ public class ProductsServlet extends HttpServlet {
         request.setAttribute("minPrice", minPrice);
         request.setAttribute("maxPrice", maxPrice);
 
-        request.getRequestDispatcher("zipstar-product.jsp").forward(request, response);
+        request.getRequestDispatcher("products.jsp").forward(request, response);
     }
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);
