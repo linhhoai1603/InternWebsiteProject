@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <html>
 <head>
@@ -8,7 +8,7 @@
     <%@include file="../includes/link/headLink.jsp" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/management.css">
     <style>
-        \  .table th, .table td {
+        .table th, .table td {
             vertical-align: middle;
             font-size: 0.9rem;
         }

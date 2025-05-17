@@ -5,8 +5,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <html>
 <head>
     <title>Giỏ hàng</title>
@@ -20,9 +20,7 @@
 <link rel="stylesheet" href="css/shopping-cart.css">
 
 <c:if test="${sessionScope.cart == null}">
-    <script>
-        window.location.href = "/home";
-    </script>
+    <jsp:include page="${pageContext.request.contextPath}/home"/>
 </c:if>
 
 <!-- Content -->
@@ -40,7 +38,7 @@
                         <div class="alert alert-info text-center">
                             <fmt:message key="cart_empty_message"/>
                             <br>
-                            <a href="products.jsp" class="btn btn-warning mt-2">
+                            <a href="${pageContext.request.contextPath}/home" class="btn btn-warning mt-2">
                                 <fmt:message key="cart_continue_shopping"/>
                             </a>
                         </div>
@@ -132,7 +130,7 @@
                 <p><strong>Tổng số lượng:</strong> ${sessionScope.cart.totalQuantity}</p>
                 <p><strong>Tổng tiền:</strong> <span class="price">${sessionScope.cart.totalPrice}</span></p>
 
-                <a href="checkout" class="btn btn-success w-100">Tiến hành thanh toán</a>
+                <a href="checkout.jsp" class="btn btn-success w-100">Tiến hành thanh toán</a>
             </div>
         </div>
     </div>

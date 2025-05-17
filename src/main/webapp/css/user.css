@@ -1,25 +1,131 @@
 
-.title{
-    color:#2c8b73;
+/*.title{*/
+/*    color:#2c8b73;*/
 
+/*}*/
+
+
+/*!* Ẩn input file mặc định *!*/
+/*.file-input {*/
+/*    display: none;*/
+/*}*/
+
+/*!* Nút chọn ảnh custom *!*/
+/*.file-label{*/
+/*    display: inline-block;*/
+/*    background-color: #4fd0b6;*/
+/*    color: white;*/
+/*    padding: 10px 20px;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    font-size: 16px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.file-label:hover {*/
+/*    background-color: #36b09c;*/
+/*}*/
+
+/*.file-label:active {*/
+/*    background-color: #298d76;*/
+/*}*/
+
+/*!* Hiển thị hình ảnh sau khi chọn *!*/
+/*.avatar-container img {*/
+/*    width: 150px;*/
+/*    height: 150px;*/
+/*    border-radius: 50%;*/
+/*    object-fit: cover;*/
+/*}*/
+/* General Body & Container Styles */
+body {
+    font-family: 'Arial', sans-serif; /* Hoặc font bạn thích */
+    background-color: #f8f9fa; /* Màu nền nhẹ nhàng */
+    color: #333;
+    line-height: 1.6;
 }
 
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px; /* Giới hạn chiều rộng tối đa của container */
+}
 
-/* Ẩn input file mặc định */
+/* Title Style */
+.title {
+    color: #2c8b73; /* Giữ nguyên màu bạn đã chọn */
+    font-weight: 600;
+    margin-bottom: 30px !important; /* Tăng khoảng cách dưới tiêu đề */
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 1.5rem; /* Tăng khoảng cách giữa các group */
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.form-control {
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #4fd0b6; /* Màu khi focus, giống màu nút */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(79, 208, 182, 0.25);
+}
+
+.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+/* Avatar Section Styling */
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* Khoảng cách dưới khối avatar nếu màn hình nhỏ */
+}
+
+.avatar-container img#userAvatar { /* Cụ thể hơn cho id userAvatar */
+    width: 150px;
+    height: 150px;
+    border-radius: 50%; /* Đã có trong JSP, giữ lại để đảm bảo */
+    object-fit: cover;
+    border: 3px solid #e9ecef; /* Thêm viền nhẹ cho ảnh */
+    margin-bottom: 15px; /* Khoảng cách giữa ảnh và nút */
+}
+
+/* File Input Styling - Giữ nguyên từ code bạn cung cấp và điều chỉnh nhẹ */
 .file-input {
     display: none;
 }
 
-/* Nút chọn ảnh custom */
-.file-label{
+.file-label {
     display: inline-block;
     background-color: #4fd0b6;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 15px; /* Điều chỉnh padding cho phù hợp hơn */
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 0.9rem; /* Có thể giảm nhẹ font size */
     text-align: center;
+    border: none; /* Bỏ viền nếu có */
+    transition: background-color 0.2s ease-in-out;
+    width: 100%; /* Cho label chiếm toàn bộ chiều rộng container của nó */
+    box-sizing: border-box; /* Đảm bảo padding không làm tăng kích thước tổng thể */
 }
 
 .file-label:hover {
@@ -30,10 +136,67 @@
     background-color: #298d76;
 }
 
-/* Hiển thị hình ảnh sau khi chọn */
-.avatar-container img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
+/* Button Styling */
+.btn { /* Style chung cho button */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+
+.btn[style*="background: #339C87"] { /* Cụ thể cho nút Lưu thông tin */
+    background-color: #339C87 !important; /* Dùng !important để ghi đè inline style nếu cần */
+    color: white !important;
+    border: none;
+}
+
+.btn[style*="background: #339C87"]:hover {
+    background-color: #2c8b73 !important;
+}
+
+/* Section Headers (e.g., "Địa chỉ") */
+h5.mt-4 {
+    font-size: 1.25rem;
+    color: #2c8b73;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Message Styling (Success/Error) */
+.success {
+    color: green;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.error {
+    color: red;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md-3.text-center {
+        margin-bottom: 30px; /* Thêm khoảng cách dưới cột avatar trên màn hình nhỏ */
+    }
+    .avatar-container {
+        /* Cho phép `col-md-6` bên trong `col-md-3` hoạt động đúng hơn nếu bạn vẫn giữ nó */
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .container {
+        padding: 20px;
+    }
 }
