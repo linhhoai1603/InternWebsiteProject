@@ -2,7 +2,7 @@ package controllers;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeRequestUrl;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -19,13 +19,13 @@ import java.util.List;
 @WebServlet(name = "googleLogin", value = "/googleLogin")
 public class GoogleLogin extends HttpServlet {
     private static final String HARDCODED_CLIENT_ID_CHECK = ConfigLoader.getProperty("google.oauth.clientId");
-    private static final String REDIRECT_URI = "http://localhost:8080/ProjectWeb/oauth2callback";
+    private static final String REDIRECT_URI = "http://192.168.74.139.nip.io/ProjectWeb/oauth2callback";
     private static final List<String> SCOPES = Arrays.asList(
             "openid",
             "https://www.googleapis.com/auth/userinfo.email",
             "https://www.googleapis.com/auth/userinfo.profile"
     );
-    private static final JacksonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+    private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +43,8 @@ public class GoogleLogin extends HttpServlet {
 
             if (in == null) {
                 log("LỖI NGHIÊM TRỌNG: Không tìm thấy file '" + clientSecretsFileName + "' trong classpath!");
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi cấu hình phía máy chủ. Không tìm thấy thông tin xác thực Google.");
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Lỗi cấu hình phía máy chủ. " +
+                        "Không tìm thấy thông tin xác thực Google.");
                 return;
             }
             log("Đã tìm thấy file '" + clientSecretsFileName + "' trong classpath.");

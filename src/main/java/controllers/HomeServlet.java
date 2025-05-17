@@ -56,8 +56,8 @@ public class HomeServlet extends HttpServlet {
 //        // sản phẩm mới nhất
 //        session.setAttribute("mostProductNew", ps.getAllProducts(1, 1, "latest").getFirst());
 //        // danh sách voucher
-//        VoucherService vd = new VoucherService();
-//        session.setAttribute("vouchers", vd.getVoucherByValid(1));
+        VoucherService vd = new VoucherService();
+        session.setAttribute("vouchers", vd.getVoucherByValid(1));
 //        // chuyển tới trang chủ
        response.sendRedirect("index.jsp");
     }

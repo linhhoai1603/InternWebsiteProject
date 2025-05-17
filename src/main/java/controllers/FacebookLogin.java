@@ -13,7 +13,7 @@ import java.security.SecureRandom;
 @WebServlet(name = "facebookLogin", value = "/facebookLogin")
 public class FacebookLogin extends HttpServlet {
     private static final String FACEBOOK_APP_ID = ConfigLoader.getProperty("FACEBOOK_APP_ID");
-    private static final String FACEBOOK_REDIRECT_URI = "http://localhost:8080/ProjectWeb/fb-callback";
+    private static final String FACEBOOK_REDIRECT_URI = "http://192.168.74.139.nip.io/ProjectWeb/fb-callback";
     private static final String FACEBOOK_API_VERSION = "v18.0";
 
     @Override
