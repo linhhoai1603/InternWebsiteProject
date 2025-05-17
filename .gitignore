@@ -8,12 +8,18 @@ target/
 .idea/jarRepositories.xml
 .idea/compiler.xml
 .idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr
+*.xml
 workspace.xml
 secrets.properties
 src/main/resources/client_secrets.json
+
+# Gradle cache files
+.gradle/
+*.lock
 
 ### Eclipse ###
 .apt_generated
@@ -38,4 +44,7 @@ build/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+.DS_Storesrc/main/resources/client_secrets.json
+.idea/
+.idea/workspace.xml
+src/main/resources/client_secrets.json

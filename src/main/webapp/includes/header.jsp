@@ -4,8 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="includes/css/header.css">
 <%@ include file="link/headLink.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="translate.messages" scope="session"/>
@@ -51,7 +51,7 @@
                     Cart cart = (Cart) session.getAttribute("cart");
                     int cartCount = 0;
                     if (cart != null) {
-                        cartCount = cart.getTotalQuantity(); // Giả sử Cart có phương thức getTotalItems()
+                        cartCount = cart.getTotalQuantity();
                     }
                 %>
                 <a href="${pageContext.request.contextPath}/shopping-cart.jsp" class="btn text-white btn-bg position-relative" id="shoppingCart">
@@ -78,7 +78,7 @@
                     <option value="${pageContext.request.contextPath}/personal-inf">
                         <fmt:message key="user"/>
                     </option>
-                    <option value="${pageContext.request.contextPath}/changePassword.jsp">
+                    <option value="${pageContext.request.contextPath}/forgotPass.jsp">
                         <fmt:message key="changepass"/>
                     </option>
                     <option value="${pageContext.request.contextPath}/ordered">
