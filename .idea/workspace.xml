@@ -11,28 +11,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/HomeServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/HomeServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/CartDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/CartDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/CartService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CartService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/shopping-cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/shopping-cart.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/OrderDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/HomeServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/HomeServlet.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/dao/UserDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/services/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/navbar.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/css/navbar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/header.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/includes/header.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/shopping-cart.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/shopping-cart.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,6 +206,13 @@
       <workItem from="1745588175254" duration="1207000" />
       <workItem from="1745638452676" duration="24000" />
       <workItem from="1745641324661" duration="824000" />
+      <workItem from="1745643248960" duration="73000" />
+      <workItem from="1745804298881" duration="6000" />
+      <workItem from="1747058022740" duration="48000" />
+      <workItem from="1747059653215" duration="1395000" />
+      <workItem from="1747141200128" duration="7000" />
+      <workItem from="1747141388907" duration="1260000" />
+      <workItem from="1747325606563" duration="60000" />
     </task>
     <servers />
   </component>
