@@ -497,6 +497,7 @@ public class ToTalProductDAO {
                     p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
                     p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
 
+
                     return p;
                 })
                 .findOne() // Vì chỉ trả về 1 sản phẩm
