@@ -542,7 +542,8 @@ public class ToTalProductDAO {
                         "SELECT p.* " +
                                 "FROM products p " +
                                 "JOIN technical_information t ON p.idTechnical = t.id " +
-                                "WHERE p.name LIKE :name")
+                                "WHERE p.name LIKE :name " +
+                                "LIMIT 12") // Giới hạn 12 sản phẩm
                 .bind("name", "%" + name + "%") // tìm gần đúng
                 .map((rs, ctx) -> {
                     Product p = new Product();
@@ -571,6 +572,7 @@ public class ToTalProductDAO {
                 })
                 .list());
     }
+
 
 
 
