@@ -30,6 +30,7 @@ dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
     compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.1")
     compileOnly("jakarta.websocket:jakarta.websocket-api:2.2.0")
+    implementation 'org.apache.tomcat.embed:tomcat-embed-websocket:10.1.40'
     implementation("org.eclipse.jetty:glassfish-jstl:11.0.24")
     implementation("org.apache.tomcat.embed:tomcat-embed-jasper:10.1.40")
     implementation 'org.glassfish.jersey.containers:jersey-container-servlet:4.0.0-M1'
@@ -37,6 +38,7 @@ dependencies {
     implementation 'org.glassfish.jersey.inject:jersey-hk2:4.0.0-M1'
     implementation("org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1")
     implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.2")
+    implementation 'org.jdbi:jdbi3-sqlobject:3.47.0'
 
     // JDBI
     implementation 'org.jdbi:jdbi3-core:3.47.0'
@@ -98,6 +100,13 @@ tasks.withType(Javadoc) {
 }
 
 apply plugin: 'org.hidetake.ssh'
+//remotes {
+//    host {
+//        host = 'localhost'
+//        user = 'root'
+//        password = ''
+//    }
+//}
 remotes {
     host {
         host = '192.168.74.139'

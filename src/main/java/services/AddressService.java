@@ -5,22 +5,32 @@ import models.Address;
 
 public class AddressService {
     AddressDao dao;
-    public AddressService(){
+
+    public AddressService() {
         dao = new AddressDao();
     }
-    public int getLastId(){
+
+    public int getLastId() {
         return dao.getLastId();
     }
-    public boolean insertAddress(Address address){
+
+    public boolean insertAddress(Address address) {
         return dao.addAddress(address);
     }
-    public Address getAddressById(int id){
+
+    public Address getAddressById(int id) {
         return dao.getAddressByID(id);
     }
-    public boolean deleteAddress(int id){
+
+    public boolean deleteAddress(int id) {
         return dao.deleteAddress(id);
     }
-    public Address getAddressByID(int id){
+
+    public Address getAddressByID(int id) {
         return dao.getAddressByID(id);
+    }
+
+    public Address findAddress(String province, String district, String ward, String detail) {
+        return dao.findAddress(province, district, ward, detail);
     }
 }

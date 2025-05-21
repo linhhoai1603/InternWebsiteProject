@@ -27,7 +27,6 @@
     <div class="site-header">
         <h1>VÔ VÀN VẢI</h1>
     </div>
-
     <!-- Shipping Information Section -->
     <section id="shipping-info-section" aria-label="Thông tin giao hàng" class="main-left">
         <nav id="breadcrumb-shipping" aria-label="breadcrumb" class="breadcrumb">
@@ -55,22 +54,25 @@
                 </div>
             </div>
             <input id="address" aria-label="Địa chỉ (số nhà, tên đường)" placeholder="Địa chỉ (số nhà, tên đường)"
+                   name="detail"
                    type="text" value="${sessionScope.user.address.detail}" required/>
             <div class="form-row-wrapper">
                 <div class="form-row" style="gap:10px;">
                     <div class="third">
                         <label for="province">Tỉnh / thành</label>
                         <input type="text" id="province" aria-label="Tỉnh / thành" placeholder="Tỉnh / thành"
+                               name="province"
                                value="${sessionScope.user.address.province}" required/>
                     </div>
                     <div class="third">
                         <label for="district">Quận / huyện</label>
                         <input type="text" id="district" aria-label="Quận / huyện" placeholder="Quận / huyện"
+                               name="district"
                                value="${sessionScope.user.address.district}" required/>
                     </div>
                     <div class="third">
                         <label for="ward">Phường / xã</label>
-                        <input type="text" id="ward" aria-label="Phường / xã" placeholder="Phường / xã"
+                        <input type="text" id="ward" aria-label="Phường / xã" placeholder="Phường / xã" name="ward"
                                value="${sessionScope.user.address.ward}" required/>
                     </div>
                 </div>
@@ -88,7 +90,8 @@
             <%-- Kết thúc phần Google Maps --%>
 
             <textarea id="shippingNotes" placeholder="Ghi chú (tùy chọn)" rows="3"
-                      style="width:100%; border:1px solid #ddd; border-radius:6px; padding:10px; font-size:14px; font-family: Roboto, Arial, sans-serif; margin-bottom:15px;"></textarea>
+                      style="width:100%; border:1px solid #ddd; border-radius:6px; padding:10px; font-size:14px; font-family: Roboto, Arial, sans-serif; margin-bottom:15px;"
+                      name="note"></textarea>
 
             <div class="form-footer">
                 <a href="shopping-cart.jsp" style="color:#3b7ddd;"><i class="fas fa-chevron-left"></i> Giỏ hàng</a>
@@ -126,9 +129,9 @@
         </div>
         <!-- payment -->
         <h2>Phương thức thanh toán</h2>
-        <form id="payment-form">
+        <form id="payment-form" action="order" method="post">
             <div class="payment-option" data-value="cod">
-                <input type="radio" id="payment-cod" name="paymentMethod" value="cod" checked>
+                <input type="radio" id="payment-cod" name="payment" value="cod" checked>
                 <label for="payment-cod">Thanh toán khi nhận hàng (COD)</label>
                 <i class="fas fa-truck payment-option-icon"></i>
             </div>
@@ -137,9 +140,9 @@
             </div>
 
             <div class="payment-option" data-value="bank_transfer">
-                <input type="radio" id="payment-bank" name="paymentMethod" value="bank_transfer">
-                <label for="payment-bank">Chuyển khoản ngân hàng</label>
-                <i class="fas fa-university payment-option-icon"></i>
+                <input type="radio" id="payment-bank" name="payment" value="bank_transfer">
+                <label for="payment-bank">Chuyển khoản VnPay</label>
+                <i class="images/Icon-VNPAY.png"></i>
             </div>
             <div class="payment-option-details hidden" data-details-for="bank_transfer">
                 <p>Vui lòng chuyển khoản vào tài khoản sau với nội dung là Mã đơn hàng của bạn:</p>
@@ -151,41 +154,54 @@
 
             <h2 style="margin-top: 30px;">Địa chỉ thanh toán</h2>
             <div class="payment-option" data-value="same_as_shipping">
-                <input type="radio" id="billing-same" name="billingAddressOption" value="same_as_shipping" checked>
+                <input type="radio" id="billing-same" name="SameOtherAddress" value="same_as_shipping" checked>
                 <label for="billing-same">Giống với địa chỉ giao hàng</label>
             </div>
             <div class="payment-option" data-value="different_billing">
-                <input type="radio" id="billing-different" name="billingAddressOption" value="different_billing">
+                <input type="radio" id="billing-different" name="SameOtherAddress" value="different_billing">
                 <label for="billing-different">Sử dụng địa chỉ thanh toán khác</label>
             </div>
 
             <div id="different-billing-address-form" class="hidden"
                  style="margin-top:15px; padding-left: 10px; border-left: 2px solid #eee;">
-                <input id="billingFullName" aria-label="Họ và tên (thanh toán)" placeholder="Họ và tên" type="text"/>
-                <input id="billingAddress" aria-label="Địa chỉ (thanh toán)" placeholder="Địa chỉ (số nhà, tên đường)"
+                <input id="billingFullName" name="billingFullName" aria-label="Họ và tên (thanh toán)"
+                       placeholder="Họ và tên" type="text"/>
+                <input id="billingAddress" name="billingDetail" aria-label="Địa chỉ (thanh toán)"
+                       placeholder="Địa chỉ (số nhà, tên đường)"
                        type="text"/>
                 <div class="form-row-wrapper">
                     <div class="form-row" style="gap:10px;">
                         <div class="third">
                             <label for="billingProvince">Tỉnh / thành</label>
-                            <input type="text" id="billingProvince" aria-label="Tỉnh / thành (thanh toán)"
+                            <input type="text" id="billingProvince" name="billingProvince"
+                                   aria-label="Tỉnh / thành (thanh toán)"
                                    placeholder="Tỉnh / thành"/>
                         </div>
                         <div class="third">
                             <label for="billingDistrict">Quận / huyện</label>
-                            <input type="text" id="billingDistrict" aria-label="Quận / huyện (thanh toán)"
+                            <input type="text" id="billingDistrict" name="billingDistrict"
+                                   aria-label="Quận / huyện (thanh toán)"
                                    placeholder="Quận / huyện"/>
                         </div>
                         <div class="third">
                             <label for="billingWard">Phường / xã</label>
-                            <input type="text" id="billingWard" aria-label="Phường / xã (thanh toán)"
+                            <input type="text" id="billingWard" name="billingWard" aria-label="Phường / xã (thanh toán)"
                                    placeholder="Phường / xã"/>
                         </div>
                     </div>
                 </div>
-                <input id="billingPhone" aria-label="Số điện thoại (thanh toán)" placeholder="Số điện thoại"
+                <input id="billingPhone" name="billingPhone" aria-label="Số điện thoại (thanh toán)"
+                       placeholder="Số điện thoại"
                        type="tel"/>
             </div>
+
+            <input type="hidden" name="shippingFullNameHidden" id="shippingFullNameHidden">
+            <input type="hidden" name="shippingPhoneHidden" id="shippingPhoneHidden">
+            <input type="hidden" name="shippingDetailHidden" id="shippingDetailHidden">
+            <input type="hidden" name="shippingProvinceHidden" id="shippingProvinceHidden">
+            <input type="hidden" name="shippingDistrictHidden" id="shippingDistrictHidden">
+            <input type="hidden" name="shippingWardHidden" id="shippingWardHidden">
+            <input type="hidden" name="shippingNotesHidden" id="shippingNotesHidden">
 
             <div class="form-footer">
                 <a href="checkout.jsp" id="btn-back-to-shipping" style="color:#3b7ddd;"><i
@@ -231,8 +247,9 @@
 
         <!-- voucher -->
         <form aria-label="Mã giảm giá" class="discount-code" id="voucher-form" action="addVoucher" method="post">
-            <input aria-label="Nhập mã giảm giá" placeholder="Mã giảm giá" type="text" id="voucher-code-input" name="voucherCodeInput"
-                   value="${not empty sessionScope.cart.appliedVoucher ? sessionScope.cart.appliedVoucher.code : ''}" />
+            <input aria-label="Nhập mã giảm giá" placeholder="Mã giảm giá" type="text" id="voucher-code-input"
+                   name="voucherCodeInput"
+                   value="${not empty sessionScope.cart.appliedVoucher ? sessionScope.cart.appliedVoucher.code : ''}"/>
             <button type="submit" id="apply-voucher-btn">Sử dụng</button>
         </form>
         <c:if test="${not empty sessionScope.voucherMessage}">
@@ -255,12 +272,14 @@
                         <c:otherwise>0₫</c:otherwise>
                     </c:choose></span>
             </div>
-            <c:set var="discountAmountJSTL" value="${sessionScope.cart.getDiscountAmount()}" />
-            <div class="summary-row" id="discount-row" style="${discountAmountJSTL > 0 ? 'display: flex;' : 'display: none;'}">
+            <c:set var="discountAmountJSTL" value="${sessionScope.cart.getDiscountAmount()}"/>
+            <div class="summary-row" id="discount-row"
+                 style="${discountAmountJSTL > 0 ? 'display: flex;' : 'display: none;'}">
                 <span>Giảm giá</span>
                 <span id="discount-amount-display" class="text-success">
                     <c:if test="${discountAmountJSTL > 0}">
-                        - <fmt:formatNumber value="${discountAmountJSTL}" type="currency" currencyCode="VND" groupingUsed="true" maxFractionDigits="0"/>
+                        - <fmt:formatNumber value="${discountAmountJSTL}" type="currency" currencyCode="VND"
+                                            groupingUsed="true" maxFractionDigits="0"/>
                     </c:if>
                 </span>
             </div>

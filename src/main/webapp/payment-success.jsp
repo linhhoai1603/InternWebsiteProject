@@ -43,7 +43,7 @@
                 <hr/>
             </div>
             <!-- Lặp qua các sản phẩm trong đơn hàng -->
-            <c:forEach var="item" items="${requestScope.ordered.cart.values}">
+            <c:forEach var="item" items="${requestScope.ordered.cart.cartItems}">
                 <div class="row info-product">
                     <p class="col-md-4 text-center">
                         <a href="detail-product.jsp" style="text-decoration: none">${item.style.product.name}
