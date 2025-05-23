@@ -5,6 +5,8 @@ import connection.DBConnection;
 import models.Category;
 import org.jdbi.v3.core.Jdbi;
 
+import java.util.List;
+
 public class CategoryDao {
     public Category findByName(String name){
         Jdbi j = DBConnection.getConnetion();
@@ -24,6 +26,16 @@ public class CategoryDao {
                         .bind("id",id)
                         .mapToBean(Category.class)
                         .findFirst().orElse(null)
+        );
+    }
+
+    public List<Category> findAll() {
+        Jdbi j = DBConnection.getConnetion();
+        String sql = "select * from categories";
+        return j.withHandle(h ->
+            h.createQuery(sql)
+                .mapToBean(Category.class)
+                .list()
         );
     }
 

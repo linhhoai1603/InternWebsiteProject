@@ -205,7 +205,6 @@
         </ul>
     </nav>
 </div>
-
 <%@include file="../includes/link/footLink.jsp"%>
 </body>
 </html>

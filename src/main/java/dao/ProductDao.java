@@ -5,10 +5,15 @@ import models.Category;
 import models.Price;
 import models.Product;
 import models.TechnicalInfo;
+<<<<<<< HEAD
+import models.Style;
+=======
 import org.jdbi.v3.core.Handle;
+>>>>>>> 0e4a6d239f86628bf41c195a11079b227e8cb11a
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class ProductDao {
     private Jdbi jdbi;
@@ -19,6 +24,26 @@ public class ProductDao {
 
     public Product getProductById(int id) {
         String sql = """
+<<<<<<< HEAD
+       SELECT
+           p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
+           c.id AS category_id, c.name AS category_name,
+           pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
+           ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
+       FROM
+           products p
+       JOIN
+           categories c ON p.idCategory = c.id
+       JOIN
+           prices pr ON p.idPrice = pr.id
+       LEFT JOIN
+           technical_information ti ON p.idTechnical = ti.id
+       WHERE
+           p.id = :id;
+    """;
+        return jdbi.withHandle(handle -> {
+            Product product = handle.createQuery(sql)
+=======
                    SELECT
                        p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
                        c.id AS category_id, c.name AS category_name,
@@ -37,6 +62,7 @@ public class ProductDao {
                 """;
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
+>>>>>>> 0e4a6d239f86628bf41c195a11079b227e8cb11a
                         .bind("id", id)
                         .map((rs, ctx) -> {
 
@@ -44,36 +70,47 @@ public class ProductDao {
                             category.setId(rs.getInt("category_id"));
                             category.setName(rs.getString("category_name"));
 
-                            Product product = new Product();
-                            product.setId(rs.getInt("id"));
-                            product.setName(rs.getString("name"));
-                            product.setQuantity(rs.getInt("quantity"));
-                            product.setDateAdded(rs.getDate("addedDate").toLocalDate());
-                            product.setDescription(rs.getString("description"));
-                            product.setHeight(rs.getDouble("height")); // Thêm trường height
-                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
-                            product.setSelling(rs.getInt("selling"));
-                            product.setImage(rs.getString("img"));
-                            product.setCategory(category); // Gắn Category vào Product
+                            Product p = new Product();
+                            p.setId(rs.getInt("id"));
+                            p.setName(rs.getString("name"));
+                            p.setQuantity(rs.getInt("quantity"));
+                            java.sql.Date addedDate = rs.getDate("addedDate");
+                            p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
+                            p.setDescription(rs.getString("description"));
+                            p.setHeight(rs.getDouble("height")); // Thêm trường height
+                            p.setWeight(rs.getDouble("weight")); // Thêm trường weight
+                            p.setWidth(rs.getDouble("width"));   // Thêm trường width
+                            p.setSelling(rs.getInt("selling"));
+                            p.setImage(rs.getString("img"));
+                            p.setCategory(category); // Gắn Category vào Product
 
                             TechnicalInfo technicalInfo = new TechnicalInfo();
                             technicalInfo.setId(rs.getInt("technical_info_id"));
                             technicalInfo.setSpecification(rs.getString("specifications"));
-                            technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
-                            product.setTechnicalInfo(technicalInfo);
+                            java.sql.Date manufactureDate = rs.getDate("manufactureDate");
+                            technicalInfo.setManufactureDate(manufactureDate != null ? manufactureDate.toLocalDate() : null);
+                            p.setTechnicalInfo(technicalInfo);
 
                             Price price = new Price();
                             price.setId(rs.getInt("price_id"));
                             price.setPrice(rs.getDouble("price"));
                             price.setDiscountPercent(rs.getDouble("discountPercent"));
                             price.setLastPrice(rs.getDouble("lastPrice"));
-                            product.setPrice(price);
+                            p.setPrice(price);
 
-                            return product;
+                            return p;
                         })
-                        .findOne().orElse(null)
-        );
+                        .findOne().orElse(null);
+
+            // Load styles separately
+            if (product != null) {
+                StyleDao styleDao = new StyleDao();
+                List<Style> styles = styleDao.getAllStylesByIDProduct(product.getId());
+                product.setStyles(styles);
+            }
+
+            return product;
+        });
     }
 
     public List<Product> getAllProducts() {

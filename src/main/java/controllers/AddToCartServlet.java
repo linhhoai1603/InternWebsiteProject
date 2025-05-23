@@ -17,9 +17,6 @@ public class AddToCartServlet extends HttpServlet {
         // Lấy thông tin từ form gửi tới
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int idStyle = Integer.parseInt(request.getParameter("selectedStyle"));
-        int idProduct = productService.getIdProductByIdStyle(idStyle);
-        double price = productService.getPriceByIdProduct(idProduct);
-        double unitPrice = price * quantity;
         String originalUrl = request.getParameter("currentURL");
 
         // Xử lý thêm vào giỏ hàng
