@@ -393,7 +393,7 @@ input::placeholder {
     font-size: 14px;
     padding: 0 20px;
     cursor: not-allowed;
-    height: 40px; /* Consistent height */
+    height: 40px;
 }
 
 .summary {

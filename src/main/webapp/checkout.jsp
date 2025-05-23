@@ -5,19 +5,24 @@
   Time: 9:26 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
     <title>
-        SOUSTATE Checkout
+        Checkout
     </title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="css/checkout.css">
 </head>
 <body>
+<fmt:setLocale value="${sessionScope.locale}" scope="session"/>
+<fmt:setBundle basename="translate.messages" scope="session"/>
+
 <div class="container" role="main">
     <div class="site-header">
         <h1>VÔ VÀN VẢI</h1>
@@ -56,9 +61,9 @@
                     <div class="third">
                         <label for="province">Tỉnh / thành</label>
                         <input type="text" id="province" aria-label="Tỉnh / thành" placeholder="Tỉnh / thành"
-                               value="${sessionScope.user.address.province} required/>
+                               value="${sessionScope.user.address.province}" required/>
                     </div>
-                    <div class=" third">
+                    <div class="third">
                         <label for="district">Quận / huyện</label>
                         <input type="text" id="district" aria-label="Quận / huyện" placeholder="Quận / huyện"
                                value="${sessionScope.user.address.district}" required/>
@@ -119,7 +124,7 @@
                 <span id="review-shipping-notes" class="review-box-value"></span>
             </div>
         </div>
-
+        <!-- payment -->
         <h2>Phương thức thanh toán</h2>
         <form id="payment-form">
             <div class="payment-option" data-value="cod">
@@ -194,38 +199,91 @@
     <!-- Cart Summary (Right Pane) -->
     <aside aria-label="Thông tin giỏ hàng" class="main-right">
         <!-- Product 1 -->
-        <div class="cart-item">
-            <div class="cart-item-img-wrapper">
-                <img alt="Black Soustate mesh jersey big boxy t-shirt front view" height="70"
-                     src="https://storage.googleapis.com/a1aa/image/213ca149-0572-4eab-8e5f-fdd28a37d672.jpg"
-                     width="70"/>
-                <div aria-label="Số lượng 1" class="cart-item-quantity">1</div>
-            </div>
-            <div class="cart-item-info">
-                <p class="cart-item-name">MESH JERSEY BIG BOXY T-SHIRT</p>
-                <p class="cart-item-variant">M / Black</p>
-            </div>
-            <div aria-label="Giá 309,000 đồng" class="cart-item-price">309,000₫</div>
-        </div>
+        <c:choose>
+            <c:when test="${not empty sessionScope.cart && not empty sessionScope.cart.cartItems}">
+                <c:forEach var="item" items="${sessionScope.cart.cartItems}">
+                    <div class="cart-item">
+                        <div class="cart-item-img-wrapper">
+                            <img alt="${item.style.name}" height="70"
+                                 src="${not empty item.style.image ? item.style.image : 'images/placeholder.png'}"
+                                 width="70"/>
+                            <div aria-label="Số lượng ${item.quantity}"
+                                 class="cart-item-quantity">${item.quantity}</div>
+                        </div>
+                        <div class="cart-item-info">
+                            <p class="cart-item-name">${item.style.product.name}</p>
+                            <p class="cart-item-variant">
+                                <c:if test="${not empty item.style.product.name}">${item.style.product.name}</c:if>
+                            </p>
+                        </div>
+                        <div aria-label="Giá <fmt:formatNumber value='${item.unitPrice}' type='currency' currencyCode='VND' />"
+                             class="cart-item-price">
+                            <fmt:formatNumber value="${item.unitPrice}" type="currency"
+                                              currencyCode="VND" groupingUsed="true" maxFractionDigits="0"/>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <p style="text-align: center; padding: 20px 0;">Giỏ hàng của bạn đang trống.</p>
+            </c:otherwise>
+        </c:choose>
 
-        <form aria-label="Mã giảm giá" class="discount-code">
-            <input aria-label="Nhập mã giảm giá" placeholder="Mã giảm giá" type="text"/>
-            <button disabled="" type="button">Sử dụng</button>
+        <!-- voucher -->
+        <form aria-label="Mã giảm giá" class="discount-code" id="voucher-form" action="addVoucher" method="post">
+            <input aria-label="Nhập mã giảm giá" placeholder="Mã giảm giá" type="text" id="voucher-code-input" name="voucherCodeInput"
+                   value="${not empty sessionScope.cart.appliedVoucher ? sessionScope.cart.appliedVoucher.code : ''}" />
+            <button type="submit" id="apply-voucher-btn">Sử dụng</button>
         </form>
+        <c:if test="${not empty sessionScope.voucherMessage}">
+            <div class="voucher-message ${sessionScope.voucherStatus == 'success' ? 'text-success' : 'text-danger'}"
+                 style="font-size: 12px; margin-top: 5px; margin-bottom: 15px;">
+                    ${sessionScope.voucherMessage}
+            </div>
+            <c:remove var="voucherMessage" scope="session"/>
+            <c:remove var="voucherStatus" scope="session"/>
+        </c:if>
         <div class="summary">
             <div class="summary-row">
                 <span>Tạm tính</span>
-                <span aria-label="Tạm tính 1,409,000 đồng">1,409,000₫</span>
+                <span aria-label="Tạm tính">
+                    <c:choose>
+                        <c:when test="${not empty sessionScope.cart.totalPrice}">
+                            <fmt:formatNumber value="${sessionScope.cart.totalPrice}" type="currency" currencyCode="VND"
+                                              groupingUsed="true" maxFractionDigits="0"/>
+                        </c:when>
+                        <c:otherwise>0₫</c:otherwise>
+                    </c:choose></span>
             </div>
+            <c:set var="discountAmountJSTL" value="${sessionScope.cart.getDiscountAmount()}" />
+            <div class="summary-row" id="discount-row" style="${discountAmountJSTL > 0 ? 'display: flex;' : 'display: none;'}">
+                <span>Giảm giá</span>
+                <span id="discount-amount-display" class="text-success">
+                    <c:if test="${discountAmountJSTL > 0}">
+                        - <fmt:formatNumber value="${discountAmountJSTL}" type="currency" currencyCode="VND" groupingUsed="true" maxFractionDigits="0"/>
+                    </c:if>
+                </span>
+            </div>
+
             <div class="summary-row">
                 <span>Phí vận chuyển</span>
-                <span id="shipping-fee-display" aria-label="Phí vận chuyển chưa xác định">—</span>
+                <span id="shipping-fee-display" aria-label="Phí vận chuyển chưa xác định">..</span>
             </div>
             <div class="summary-row total">
                 <span>Tổng cộng</span>
                 <span>
                    <span class="currency">VND</span>
-                   <span id="total-price-display">1,409,000₫</span>
+                   <span id="total-price-display">
+                       <c:choose>
+                           <c:when test="${not empty sessionScope.cart.getLastPrice()}">
+                               <fmt:formatNumber
+                                       value="${sessionScope.cart.getLastPrice()}"
+                                       type="currency" currencyCode="VND" groupingUsed="true"
+                                       maxFractionDigits="0"/>
+                           </c:when>
+                           <c:otherwise>0₫</c:otherwise>
+                       </c:choose>
+                   </span>
                 </span>
             </div>
         </div>
@@ -234,8 +292,5 @@
 
 <script src="js/checkout.js"></script>
 <%-- Google Maps API Script --%>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap">
-</script>
 </body>
 </html>
