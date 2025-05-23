@@ -2,12 +2,13 @@ package dao;
 
 import connection.DBConnection;
 import models.*;
+import models.enums.TokenType;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
-import utils.CodeGenerator;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 
@@ -30,7 +31,7 @@ public class UserDao {
 
     public User findUserById(int id) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE id = :id")
+                handle.createQuery("SELECT * FROM users WHERE id = :id")
                         .bind("id", id)
                         .mapToBean(User.class)
                         .findOne()
@@ -38,19 +39,28 @@ public class UserDao {
         );
     }
 
-    public boolean updateInfo(int id, String email, String name, String phone) {
+    public boolean updateInfo(int id, String firstname, String lastname, String phone) {
         String sql = """
-                UPDATE users SET email = :email, fullName = :name, phoneNumber = :phone
+                UPDATE users SET firstName = :firstName, lastName = :lastName, phoneNumber = :phoneNumber
                 WHERE id = :id
                 """;
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
-                        .bind("name", name)
-                        .bind("email", email)
-                        .bind("phone", phone)
+                        .bind("firstName", firstname)
+                        .bind("lastName", lastname)
+                        .bind("phoneNumber", phone)
                         .execute() > 0
         );
+    }
+
+    public static void main(String[] args) {
+        UserDao userDao = new UserDao();
+        UserTokens u = new UserTokens();
+
+        User user = userDao.findUserById(1);
+        System.out.println(user.getEmail());
+        System.out.println(userDao.updateInfo(1, "1", "1",  "1"));
     }
 
     public boolean updateAvatar(int id, String url) {
@@ -210,7 +220,8 @@ public class UserDao {
                         )
                         .bind("username", username)
                         .mapTo(Integer.class)
-                        .findOnly()
+                        .findOne()
+                        .orElseThrow(() -> new NoSuchElementException("User not found: " + username))
         );
     }
 
@@ -339,18 +350,11 @@ public class UserDao {
 
     public Optional<User> findByEmail(String email) {
         return jdbi.withHandle(handle ->
-                handle.createQuery("SELECT * FROM Users WHERE email = :email")
+                handle.createQuery("SELECT * FROM users WHERE email = :email")
                         .bind("email", email)
                         .mapToBean(User.class)
                         .findFirst()
         );
-    }
-
-    public static void main(String[] args) {
-        UserDao userDao = new UserDao();
-        UserTokens u = new UserTokens();
-
-
     }
 
     // Xóa token (không thay đổi)
@@ -362,10 +366,31 @@ public class UserDao {
         );
     }
 
-    public void deleteToken(Handle handle, String tokenHash) {
-        handle.createUpdate("DELETE FROM user_tokens WHERE tokenHash = :tokenHash")
-                .bind("tokenHash", tokenHash)
-                .execute();
+    public boolean updateUserAddressId(int userId, int addressId) {
+        String sql = """
+                UPDATE users
+                SET
+                    idAddress = :idAddress,
+                    updatedAt = :updatedAt
+                WHERE
+                    id = :userId
+                """;
+
+        try {
+            return jdbi.withHandle(handle -> {
+                int rowsAffected = handle.createUpdate(sql)
+                        .bind("userId", userId)
+                        .bind("idAddress", addressId)
+                        .bind("updatedAt", LocalDateTime.now()) // Cập nhật thời gian sửa đổi
+                        .execute();
+                return rowsAffected > 0;
+            });
+        } catch (Exception e) {
+            // Log lỗi ở đây nếu cần thiết
+            // System.err.println("Error updating user's address ID: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }
 

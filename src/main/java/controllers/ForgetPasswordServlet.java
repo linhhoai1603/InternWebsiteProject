@@ -22,9 +22,6 @@ public class ForgetPasswordServlet extends HttpServlet {
     private final Gson gson = new Gson();
     private static final Pattern EMAIL_PATTERN = Pattern.compile(
             "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
-
-    // Giả lập các service (trong thực tế bạn sẽ inject hoặc tạo instance)
-    private final UserService userService = new UserService();
     UserDao userDao = new UserDao();
     private final AccountService accountService = new AccountService();
 
@@ -54,8 +51,7 @@ public class ForgetPasswordServlet extends HttpServlet {
                     break;
             }
         } catch (Exception e) {
-            // Log lỗi server chi tiết
-            log("Error processing forget password request", e); // Sử dụng log của Servlet container
+            log("Error processing forget password request", e);
             jsonResponse.put("success", false);
             jsonResponse.put("message", "An internal server error occurred. Please try again later.");
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
@@ -84,8 +80,7 @@ public class ForgetPasswordServlet extends HttpServlet {
         }
 
         // 2. Check if email exists
-        // *** THAY THẾ BẰNG LOGIC THỰC TẾ CỦA BẠN ***
-        boolean emailExists = userDao.isEmailExists(email); // Giả định phương thức này tồn tại
+        boolean emailExists = userDao.isEmailExists(email);
 
         if (!emailExists) {
             // Trả về thông báo chung chung để tránh tiết lộ email nào đã đăng ký
@@ -100,8 +95,7 @@ public class ForgetPasswordServlet extends HttpServlet {
             String code = Code.createCode();
             System.out.println("code của bạn " + code);
 
-            // *** THAY THẾ BẰNG LOGIC THỰC TẾ CỦA BẠN ***
-            boolean updated = accountService.updateCodeByEmail(email, code); // Giả định phương thức này tồn tại
+            boolean updated = accountService.updateCodeByEmail(email, code);
 
             if (!updated) {
                 log("Failed to update verification code for email: " + email); // Ghi log lỗi
@@ -120,12 +114,7 @@ public class ForgetPasswordServlet extends HttpServlet {
                 // Ở đây ta vẫn tiếp tục, nhưng ghi log lỗi nghiêm trọng
                 log("CRITICAL: Failed to send verification email to " + email + " after updating code.", emailEx);
                 // Cân nhắc: Có nên rollback việc update code? Hoặc thông báo lỗi khác?
-                // Hiện tại: Vẫn trả về success=true để user có thể thử nhập code (nếu họ biết cách lấy)
-                // Hoặc trả về lỗi:
-                // jsonResponse.put("success", false);
-                // jsonResponse.put("message", "Could not send verification email. Please contact support.");
-                // response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                // return;
+
             }
 
 
@@ -133,7 +122,7 @@ public class ForgetPasswordServlet extends HttpServlet {
             HttpSession session = request.getSession(); // Tạo session nếu chưa có
             session.setAttribute("resetEmail", email); // Dùng key khác username
             session.setAttribute("resetCode", code);
-            session.setMaxInactiveInterval(15 * 60); // Ví dụ: session timeout 15 phút
+            session.setMaxInactiveInterval(15 * 60);
 
             jsonResponse.put("success", true);
             // Không cần message, JS sẽ tự chuyển bước
@@ -225,7 +214,6 @@ public class ForgetPasswordServlet extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
-        // *** Thêm kiểm tra độ mạnh mật khẩu phía server nếu cần ***
         if (password.length() < 8) {
             jsonResponse.put("success", false);
             jsonResponse.put("message", "Password must be at least 8 characters long.");
@@ -236,9 +224,7 @@ public class ForgetPasswordServlet extends HttpServlet {
         // 3. Hash Password and Update DB
         try {
             String hashedPassword = HashUtil.encodePasswordBase64(password);
-
-            // *** THAY THẾ BẰNG LOGIC THỰC TẾ CỦA BẠN ***
-            boolean success = accountService.resetPasswordByEmail(email, hashedPassword); // Giả định phương thức này tồn tại
+            boolean success = accountService.resetPasswordByEmail(email, hashedPassword);
 
             if (success) {
                 jsonResponse.put("success", true);
