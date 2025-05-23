@@ -7,9 +7,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.Product;
-import services.ProductService;
-import services.StyleService;
+import models.Category;
 import services.ToTalProductService;
+import services.CategoryService;
 
 @WebServlet(name = "ProductsServlet", value = "/products")
 public class ProductsServlet extends HttpServlet {
@@ -19,9 +19,10 @@ public class ProductsServlet extends HttpServlet {
         try {
             String option = request.getParameter("option");
             String selection = request.getParameter("selection");
-            String param = request.getParameter("currentPage");
+            String param = request.getParameter("page");
             String minPrice = request.getParameter("minPrice");
             String maxPrice = request.getParameter("maxPrice");
+            String[] categories = request.getParameterValues("categories");
 
             // Validate and set default values
             if (selection == null) selection = "all";
@@ -35,10 +36,47 @@ public class ProductsServlet extends HttpServlet {
                 currentPage = 1;
             }
             
-            if(option == null || option.isEmpty()) option = "latest";
+            // Convert option to the correct format
+            String sortOption = "latest";
+            if (option != null && !option.isEmpty()) {
+                switch (option) {
+                    case "1":
+                        sortOption = "latest";
+                        break;
+                    case "2":
+                        sortOption = "expensive";
+                        break;
+                    case "3":
+                        sortOption = "cheap";
+                        break;
+                    case "4":
+                        sortOption = "bestselling";
+                        break;
+                    case "5":
+                        sortOption = "discount";
+                        break;
+                    default:
+                        sortOption = "latest";
+                }
+            }
+
+            // Load categories for filter
+            CategoryService categoryService = new CategoryService();
+            List<Category> allCategories = categoryService.getAllCategories();
+            request.setAttribute("categories", allCategories);
 
             ToTalProductService ps = new ToTalProductService();
-            List<Product> products = ps.getProducts(selection, currentPage, nuPerPage, option, minPrice, maxPrice);
+            List<Product> products;
+            
+            // Apply filters
+            if (categories != null && categories.length > 0) {
+                // If categories are selected, filter by categories
+                products = ps.getProductsByCategories(categories, currentPage, nuPerPage, sortOption, minPrice, maxPrice);
+            } else {
+                // Otherwise use normal product loading
+                products = ps.getProducts(selection, currentPage, nuPerPage, sortOption, minPrice, maxPrice);
+            }
+            
             int nupage = ps.getNuPage(nuPerPage, selection);
 
             request.setAttribute("products", products);
@@ -48,6 +86,7 @@ public class ProductsServlet extends HttpServlet {
             request.setAttribute("selection", selection);
             request.setAttribute("minPrice", minPrice);
             request.setAttribute("maxPrice", maxPrice);
+            request.setAttribute("selectedCategories", categories);
 
             request.getRequestDispatcher("products.jsp").forward(request, response);
         } catch (Exception e) {

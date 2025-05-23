@@ -14,7 +14,7 @@ public class AddToCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Lấy thông tin từ form gửi tới
         int quantity = Integer.parseInt(request.getParameter("quantity"));
-        int idStyle = Integer.parseInt(request.getParameter("selectedStyle"));
+        int idStyle = Integer.parseInt(request.getParameter("styleId"));
         String originalUrl = request.getParameter("currentURL");
 
         // Xử lý thêm vào giỏ hàng

@@ -13,17 +13,19 @@ public class ToTalProductService {
     }
 
     public List<Product> getAllProducts(int currentPage, int nuPerPage, String option) {
-        switch (option){
+        switch (option) {
             case "latest":
-                return productDao.getProductLatest(currentPage,nuPerPage);
+                return productDao.getProductLatest(currentPage, nuPerPage);
             case "expensive":
-                return productDao.getProductByPrice(currentPage,nuPerPage,"decreasing");
+                return productDao.getProductByPrice(currentPage, nuPerPage, "decreasing");
             case "cheap":
-                return productDao.getProductByPrice(currentPage,nuPerPage,"ascending");
+                return productDao.getProductByPrice(currentPage, nuPerPage, "ascending");
+            case "bestselling":
+                return productDao.getProductBestSelling(currentPage, nuPerPage);
             case "discount":
-                return productDao.getProductBiggestDiscount(currentPage,nuPerPage);
+                return productDao.getProductBiggestDiscount(currentPage, nuPerPage);
             default:
-                return productDao.getAllProducts(currentPage,nuPerPage);
+                return productDao.getAllProducts(currentPage, nuPerPage);
         }
     }
     public List<Product> getProductByCategoryName(String selection, int currentPage, int nuPerPage, String option) {
@@ -93,5 +95,9 @@ public class ToTalProductService {
 
     public List<Product> getProductsBestSellerByCategory(String selection, int currentPage , int nuperPage) {
         return productDao.getProductsBestSellerByCategory( selection,  currentPage ,  nuperPage);
+    }
+
+    public List<Product> getProductsByCategories(String[] categoryIds, int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
+        return ToTalProductDAO.getProductByCategories(categoryIds, currentPage, nuPerPage, option, minPrice, maxPrice);
     }
 }
