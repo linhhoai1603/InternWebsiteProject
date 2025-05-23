@@ -8,6 +8,10 @@ import models.TechnicalInfo;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class ToTalProductDAO {
     private Jdbi jdbi;
@@ -538,6 +542,184 @@ public class ToTalProductDAO {
 
     }
 
+    public List<Product> getProductBestSelling(int currentPage, int nuPerPage) {
+        int offset = (currentPage - 1) * nuPerPage;
 
+        String sql = """
+            SELECT p.*, SUM(od.quantity) as total_sold
+            FROM products p
+            JOIN prices pr ON p.idPrice = pr.id
+            LEFT JOIN styles s ON s.idProduct = p.id
+            LEFT JOIN order_details od ON od.idStyle = s.id
+            WHERE p.quantity > 0 AND p.selling > 0
+            GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description,
+                     p.height, p.weight, p.width, p.selling, p.img,
+                     p.idCategory, p.idTechnical, p.idPrice
+            ORDER BY total_sold DESC
+            LIMIT :limit OFFSET :offset
+            """;
 
+        return jdbi.withHandle(handle -> handle.createQuery(sql)
+                .bind("limit", nuPerPage)
+                .bind("offset", offset)
+                .map((rs, ctx) -> {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setName(rs.getString("name"));
+                    p.setQuantity(rs.getInt("quantity"));
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
+                    p.setDescription(rs.getString("description"));
+                    p.setHeight(rs.getDouble("height"));
+                    p.setWeight(rs.getDouble("weight"));
+                    p.setWidth(rs.getDouble("width"));
+                    p.setSelling(rs.getInt("selling"));
+                    p.setImage(rs.getString("img"));
+                    p.setTotalProduct(rs.getInt("quantity"));
+
+                    // Load related data
+                    CategoryDao categoryDAO = new CategoryDao();
+                    TechnicalDAO technicalDAO = new TechnicalDAO();
+                    PriceDAO priceDAO = new PriceDAO();
+
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
+
+                    return p;
+                })
+                .list());
+    }
+
+    public static List<Product> getProductByCategories(String[] categoryIds, int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
+        try {
+            Jdbi jdbi = DBConnection.getConnetion();
+            return jdbi.withHandle(handle -> {
+                // Build the base query
+                StringBuilder sql = new StringBuilder(
+                    "SELECT p.*, pr.price, pr.discountPercent, pr.lastPrice, " +
+                    "COALESCE(SUM(od.quantity), 0) as total_sold " +
+                    "FROM products p " +
+                    "LEFT JOIN prices pr ON p.idPrice = pr.id " +
+                    "LEFT JOIN styles s ON p.id = s.idProduct " +
+                    "LEFT JOIN order_details od ON s.id = od.idStyle " +
+                    "WHERE p.quantity > 0 AND p.selling = 1 "
+                );
+
+                // Add category filter
+                if (categoryIds != null && categoryIds.length > 0) {
+                    sql.append("AND p.idCategory IN (");
+                    for (int i = 0; i < categoryIds.length; i++) {
+                        sql.append(":category").append(i);
+                        if (i < categoryIds.length - 1) {
+                            sql.append(",");
+                        }
+                    }
+                    sql.append(") ");
+                }
+
+                // Add price filter
+                if (minPrice != null && !minPrice.isEmpty()) {
+                    sql.append("AND pr.price >= :minPrice ");
+                }
+                if (maxPrice != null && !maxPrice.isEmpty()) {
+                    sql.append("AND pr.price <= :maxPrice ");
+                }
+
+                sql.append("GROUP BY p.id, pr.price, pr.discountPercent, pr.lastPrice ");
+
+                // Add sorting
+                switch (option) {
+                    case "latest":
+                        sql.append("ORDER BY p.addedDate DESC ");
+                        break;
+                    case "expensive":
+                        sql.append("ORDER BY pr.lastPrice DESC ");
+                        break;
+                    case "cheap":
+                        sql.append("ORDER BY pr.lastPrice ASC ");
+                        break;
+                    case "bestselling":
+                        sql.append("ORDER BY total_sold DESC ");
+                        break;
+                    case "discount":
+                        sql.append("ORDER BY pr.discountPercent DESC ");
+                        break;
+                    default:
+                        sql.append("ORDER BY p.addedDate DESC ");
+                }
+
+                sql.append("LIMIT :limit OFFSET :offset");
+
+                // Create the query
+                var query = handle.createQuery(sql.toString());
+
+                // Bind category parameters
+                if (categoryIds != null) {
+                    for (int i = 0; i < categoryIds.length; i++) {
+                        query.bind("category" + i, Integer.parseInt(categoryIds[i]));
+                    }
+                }
+
+                // Bind price parameters
+                if (minPrice != null && !minPrice.isEmpty()) {
+                    query.bind("minPrice", Double.parseDouble(minPrice));
+                }
+                if (maxPrice != null && !maxPrice.isEmpty()) {
+                    query.bind("maxPrice", Double.parseDouble(maxPrice));
+                }
+
+                // Bind pagination parameters
+                query.bind("limit", nuPerPage)
+                     .bind("offset", (currentPage - 1) * nuPerPage);
+
+                // Execute query and map results
+                return query.map((rs, ctx) -> {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setName(rs.getString("name"));
+                    p.setDescription(rs.getString("description"));
+                    p.setQuantity(rs.getInt("quantity"));
+                    p.setImage(rs.getString("img"));
+                    p.setSelling(rs.getInt("selling"));
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
+                    
+                    // Load related data
+                    CategoryDao categoryDAO = new CategoryDao();
+                    TechnicalDAO technicalDAO = new TechnicalDAO();
+                    PriceDAO priceDAO = new PriceDAO();
+                    
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+                    
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
+                    
+                    return p;
+                }).list();
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 }
