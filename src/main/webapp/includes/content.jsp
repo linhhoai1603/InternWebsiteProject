@@ -1,8 +1,8 @@
 <%@ page import="models.Style" %>
 <%@ page import="java.util.List" %>
 <%@ page import="dao.StyleDao" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: hoai1

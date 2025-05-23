@@ -2,7 +2,7 @@ package services;
 
 import dao.UserDao;
 import models.AccountUser;
-import models.TokenType;
+import models.enums.TokenType;
 import models.UserTokens;
 import services.application.EmailSender;
 import services.application.HashUtil;

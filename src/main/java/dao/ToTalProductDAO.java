@@ -18,6 +18,36 @@ public class ToTalProductDAO {
     public ToTalProductDAO() {
         jdbi = DBConnection.getConnetion();
     }
+    public List<Product> getProductsByIds(List<Integer> ids) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM products WHERE id IN (<ids>)")
+                        .bindList("ids", ids)
+                        .map((rs, ctx) -> {
+                            Product product = new Product();
+                            product.setId(rs.getInt("id"));
+                            product.setName(rs.getString("name"));
+                            product.setQuantity(rs.getInt("quantity"));
+                            product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                            product.setDescription(rs.getString("description"));
+                            product.setHeight(rs.getDouble("height"));
+                            product.setWeight(rs.getDouble("weight"));
+                            product.setWidth(rs.getDouble("width"));
+                            product.setSelling(rs.getInt("selling"));
+                            product.setImage(rs.getString("img"));
+                            product.setTotalProduct(rs.getInt("quantity")); // you can calculate differently if needed
+                            CategoryDao categoryDAO = new CategoryDao();
+                            TechnicalDAO technicalDAO = new TechnicalDAO();
+                            PriceDAO priceDAO = new PriceDAO();
+
+                            product.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
+                            product.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
+                            product.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+
+                            return product;
+                        })
+                        .list()
+        );
+    }
     public List<Product> getProductsBestSellerByCategory(String selection, int currentPage, int nuPerPage) {
         int offset = (currentPage - 1) * nuPerPage;
 
@@ -541,6 +571,109 @@ public class ToTalProductDAO {
         );
 
     }
+    public Product getProductById(int id) {
+        return jdbi.withHandle(handle -> handle.createQuery(
+                        "SELECT p.* " +
+                                "FROM products p " +
+                                "WHERE p.id = :id")
+                .bind("id", id)
+                .map((rs, ctx) -> {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setName(rs.getString("name"));
+                    p.setQuantity(rs.getInt("quantity"));
+                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    p.setDescription(rs.getString("description"));
+                    p.setHeight(rs.getDouble("height"));
+                    p.setWeight(rs.getDouble("weight"));
+                    p.setWidth(rs.getDouble("width"));
+                    p.setSelling(rs.getInt("selling"));
+                    p.setImage(rs.getString("img"));
+                    p.setTotalProduct(rs.getInt("quantity"));
+
+                    // Gọi DAO để lấy dữ liệu liên quan
+                    CategoryDao categoryDAO = new CategoryDao();
+                    TechnicalDAO technicalDAO = new TechnicalDAO();
+                    PriceDAO priceDAO = new PriceDAO();
+
+                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
+                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
+                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+
+                    return p;
+                })
+                .findOne() // Vì chỉ trả về 1 sản phẩm
+                .orElse(null)); // Trả về null nếu không tìm thấy
+    }
+    public Product getProductByName(String name) {
+        return jdbi.withHandle(handle -> handle.createQuery(
+                        "SELECT p.* " +
+                                "FROM products p " +
+                                "WHERE p.name = :name")
+                .bind("name", name)
+                .map((rs, ctx) -> {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setName(rs.getString("name"));
+                    p.setQuantity(rs.getInt("quantity"));
+                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    p.setDescription(rs.getString("description"));
+                    p.setHeight(rs.getDouble("height"));
+                    p.setWeight(rs.getDouble("weight"));
+                    p.setWidth(rs.getDouble("width"));
+                    p.setSelling(rs.getInt("selling"));
+                    p.setImage(rs.getString("img"));
+                    p.setTotalProduct(rs.getInt("quantity"));
+
+                    // Gọi DAO để lấy dữ liệu liên quan
+                    CategoryDao categoryDAO = new CategoryDao();
+                    TechnicalDAO technicalDAO = new TechnicalDAO();
+                    PriceDAO priceDAO = new PriceDAO();
+
+                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
+                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
+                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+
+                    return p;
+                })
+                .findOne() // Vì chỉ trả về 1 sản phẩm
+                .orElse(null)); // Trả về null nếu không tìm thấy
+    }
+    public List<Product> searchProductByName(String name) {
+        return jdbi.withHandle(handle -> handle.createQuery(
+                        "SELECT p.* " +
+                                "FROM products p " +
+                                "JOIN technical_information t ON p.idTechnical = t.id " +
+                                "WHERE p.name LIKE :name")
+                .bind("name", "%" + name + "%") // tìm gần đúng
+                .map((rs, ctx) -> {
+                    Product p = new Product();
+                    p.setId(rs.getInt("id"));
+                    p.setName(rs.getString("name"));
+                    p.setQuantity(rs.getInt("quantity"));
+                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    p.setDescription(rs.getString("description"));
+                    p.setHeight(rs.getDouble("height"));
+                    p.setWeight(rs.getDouble("weight"));
+                    p.setWidth(rs.getDouble("width"));
+                    p.setSelling(rs.getInt("selling"));
+                    p.setImage(rs.getString("img"));
+                    p.setTotalProduct(rs.getInt("quantity"));
+
+                    // Gọi DAO để lấy dữ liệu liên quan
+                    CategoryDao categoryDAO = new CategoryDao();
+                    TechnicalDAO technicalDAO = new TechnicalDAO();
+                    PriceDAO priceDAO = new PriceDAO();
+
+                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
+                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
+                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+
+                    return p;
+                })
+                .list());
+    }
+
 
     public List<Product> getProductBestSelling(int currentPage, int nuPerPage) {
         int offset = (currentPage - 1) * nuPerPage;

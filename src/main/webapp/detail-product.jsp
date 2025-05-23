@@ -7,8 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <html>
 <head>
     <title>Chi tiết sản phẩm</title>
@@ -129,7 +129,7 @@
             </div>
 
 
-            <form action="cart?method=add" method="post">
+            <form action="add-to-cart?method=add" method="post">
                 <input name="currentURL" type="hidden" value="detail-product?productId=${requestScope.product.id}">
                 <input type="hidden" name="selectedStyle" id="selectedStyle" value="">
 
@@ -148,7 +148,7 @@
                     </button>
                 </div>
             </form>
-            <form action="cart?method=add" method="post">
+            <form action="add-to-cart?method=add" method="post">
                 <input name="currentURL" type="hidden" value="shopping-cart.jsp">
                 <input type="hidden" name="selectedStyle" id="selectedStyle1" value="">
                 <input type="hidden" name="quantity" class="form-control text-center quantity-input" value="1"
