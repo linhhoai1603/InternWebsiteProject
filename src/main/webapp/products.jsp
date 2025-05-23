@@ -1,11 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="includes/link/headLink.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <html>
 <head>
     <title>Danh mục sản phẩm</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/products.css">
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" defer></script>
 </head>
 <style>
     /* Thay đổi giao diện khi người dùng chọn */
@@ -171,9 +178,11 @@
                                        id="category${category.id}" 
                                        name="categories" 
                                        value="${category.id}"
-                                       <c:forEach var="selectedCategory" items="${paramValues.categories}">
-                                           <c:if test="${selectedCategory == category.id}">checked</c:if>
-                                       </c:forEach>>
+                                       <c:if test="${not empty paramValues.categories}">
+                                           <c:forEach var="selectedCategory" items="${paramValues.categories}">
+                                               <c:if test="${selectedCategory eq category.id}">checked</c:if>
+                                           </c:forEach>
+                                       </c:if>>
                                 <label class="form-check-label" for="category${category.id}">
                                     ${category.name}
                                 </label>
@@ -404,11 +413,9 @@
 </div>
 
 <script>
-// JavaScript to handle modal and AJAX, style selection, quantity, and add to cart
 document.addEventListener('DOMContentLoaded', function () {
-
-    // --- Existing Filter JavaScript (keep) ---
-    function applyFilters() {
+    // --- Filter Functions ---
+    window.applyFilters = function() {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
 
@@ -435,9 +442,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Redirect to new URL
         window.location.href = url.pathname + '?' + params.toString();
-    }
+    };
 
-    function clearFilters() {
+    window.clearFilters = function() {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
 
@@ -451,9 +458,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Redirect to new URL
         window.location.href = url.pathname + '?' + params.toString();
-    }
+    };
 
-    function removePriceFilter() {
+    window.removePriceFilter = function() {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
 
@@ -461,9 +468,9 @@ document.addEventListener('DOMContentLoaded', function () {
         params.delete('maxPrice');
 
         window.location.href = url.pathname + '?' + params.toString();
-    }
+    };
 
-    function removeCategoryFilter(categoryId) {
+    window.removeCategoryFilter = function(categoryId) {
         let url = new URL(window.location.href);
         let params = new URLSearchParams(url.search);
 
@@ -479,9 +486,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         window.location.href = url.pathname + '?' + params.toString();
-    }
-    // --- End Existing Filter JavaScript ---
-
+    };
 
     // --- Modal and AJAX Handling ---
     const productDetailModal = document.getElementById('productDetailModal');
@@ -494,6 +499,11 @@ document.addEventListener('DOMContentLoaded', function () {
             // Extract product ID from data-product-id attribute
             const productId = button.getAttribute('data-product-id');
 
+            if (!productId) {
+                modalProductDetails.innerHTML = 'Lỗi: Không tìm thấy ID sản phẩm';
+                return;
+            }
+
             // Clear previous content
             modalProductDetails.innerHTML = 'Đang tải...';
 
@@ -501,20 +511,17 @@ document.addEventListener('DOMContentLoaded', function () {
             fetch(`detail-product?productId=${productId}&ajax=true`)
                 .then(response => {
                     if (!response.ok) {
-                        // Check for HTTP errors (e.g., 404, 500)
                         throw new Error(`HTTP error! status: ${response.status}`);
                     }
                     return response.json();
                 })
                 .then(product => {
-                    // Check if product data is null or empty
                     if (!product) {
-                         modalProductDetails.innerHTML = 'Không tìm thấy chi tiết sản phẩm.';
-                         return;
+                        modalProductDetails.innerHTML = 'Không tìm thấy chi tiết sản phẩm.';
+                        return;
                     }
 
                     // Populate modal with product details
-                    // Use optional chaining and checks for nested objects
                     const productName = product.name || 'N/A';
                     const productImage = product.image || '';
                     const productLastPrice = product.price && product.price.lastPrice !== undefined ? product.price.lastPrice + '₫' : 'N/A';
@@ -531,10 +538,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <h5>${productName}</h5>
                                 <p><strong>Giá:</strong> ${productLastPrice}</p>
                                 <p><strong>Mô tả:</strong> ${productDescription}</p>
-                                <!-- Add more product details as needed -->
                                 <p><strong>Số lượng còn lại:</strong> ${productQuantity}</p>
                                 <p><strong>Ngày thêm:</strong> ${productDateAdded}</p>
-                                <!-- You might want to add styles/technical info here if needed -->
                             </div>
                         </div>
                     `;
@@ -545,12 +550,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
         });
     }
-    // --- End Modal and AJAX Handling ---
 
-
-    // --- Style Selection, Quantity, Add to Cart Handling (Moved from original script block) ---
-
-    // Style selection handling
+    // --- Style Selection, Quantity, Add to Cart Handling ---
     const styleInputs = document.querySelectorAll('input[type="radio"][name="styleId"]');
     styleInputs.forEach(input => {
         input.addEventListener("change", function () {
@@ -558,9 +559,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const productId = form.querySelector('input[name="productId"]');
             const imageUrl = this.nextElementSibling.src;
             if (productId) {
-                 changeMainImage(productId.value, imageUrl);
+                changeMainImage(productId.value, imageUrl);
             }
-
         });
     });
 
@@ -586,7 +586,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
             // Show quantity input and confirm/cancel buttons
-            if (quantityAndButtons) { // Add null check
+            if (quantityAndButtons) {
                 quantityAndButtons.style.display = "block";
             }
             this.style.display = "none";
@@ -601,11 +601,11 @@ document.addEventListener('DOMContentLoaded', function () {
             const quantityAndButtons = form.querySelector(".quantity-and-buttons");
             const addToCartButton = form.querySelector(".add-to-cart-button");
 
-            if (quantityAndButtons) { // Add null check
-                 quantityAndButtons.style.display = "none";
+            if (quantityAndButtons) {
+                quantityAndButtons.style.display = "none";
             }
-            if (addToCartButton) { // Add null check
-                 addToCartButton.style.display = "block";
+            if (addToCartButton) {
+                addToCartButton.style.display = "block";
             }
         });
     });
@@ -614,7 +614,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const forms = document.querySelectorAll(".product-options-form");
     forms.forEach(form => {
         form.addEventListener("submit", function(e) {
-            e.preventDefault(); // Prevent default form submission
+            e.preventDefault();
 
             const quantityInput = form.querySelector(".quantity-input");
             const styleInput = form.querySelector('input[type="radio"][name="styleId"]:checked');
@@ -649,113 +649,29 @@ document.addEventListener('DOMContentLoaded', function () {
             mainImage.src = imageUrl;
         }
     }
-
-    // --- End Style Selection, Quantity, Add to Cart Handling ---
-
 }); // End DOMContentLoaded
-
-// Keep global functions outside DOMContentLoaded if they are called from inline event handlers
-// For example, filter functions if they are called like onclick="applyFilters()"
-
-// Note: It's generally better practice to attach event listeners using addEventListener inside DOMContentLoaded
-// instead of inline onclick attributes. If you move these to event listeners, they should be inside
-// the DOMContentLoaded block above.
-
-function applyFilters() {
-    let url = new URL(window.location.href);
-    let params = new URLSearchParams(url.search);
-
-    // Get price range
-    const minPrice = document.getElementById('minPrice').value;
-    const maxPrice = document.getElementById('maxPrice').value;
-
-    if (minPrice) params.set('minPrice', minPrice);
-    if (maxPrice) params.set('maxPrice', maxPrice);
-
-    // Get selected categories
-    const selectedCategories = Array.from(document.querySelectorAll('input[name="categories"]:checked'))
-        .map(cb => cb.value);
-
-    if (selectedCategories.length > 0) {
-        params.delete('categories');
-        selectedCategories.forEach(category => {
-            params.append('categories', category);
-        });
-    }
-
-    // Reset to page 1 when applying filters
-    params.set('page', '1');
-
-    // Redirect to new URL
-    window.location.href = url.pathname + '?' + params.toString();
-}
-
-function clearFilters() {
-    let url = new URL(window.location.href);
-    let params = new URLSearchParams(url.search);
-
-    // Remove filter parameters
-    params.delete('minPrice');
-    params.delete('maxPrice');
-    params.delete('categories');
-
-    // Reset to page 1
-    params.set('page', '1');
-
-    // Redirect to new URL
-    window.location.href = url.pathname + '?' + params.toString();
-}
-
-function removePriceFilter() {
-    let url = new URL(window.location.href);
-    let params = new URLSearchParams(url.search);
-
-    params.delete('minPrice');
-    params.delete('maxPrice');
-
-    window.location.href = url.pathname + '?' + params.toString();
-}
-
-function removeCategoryFilter(categoryId) {
-    let url = new URL(window.location.href);
-    let params = new URLSearchParams(url.search);
-
-    // Get current categories
-    let categories = params.getAll('categories');
-    // Remove the specified category
-    categories = categories.filter(id => id !== categoryId.toString());
-
-    // Update URL
-    params.delete('categories');
-    categories.forEach(category => {
-        params.append('categories', category);
-    });
-
-    window.location.href = url.pathname + '?' + params.toString();
-}
 </script>
 
 <%@include file="includes/footer.jsp" %>
 
-<%-- Product Detail Modal --%>
+<!-- Product Detail Modal -->
 <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="productDetailModalLabel">Chi tiết sản phẩm</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Product details will be loaded here via JavaScript -->
-        <div id="modalProductDetails">
-          <!-- Content will be populated dynamically -->
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productDetailModalLabel">Chi tiết sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="modalProductDetails">
+                    <!-- Content will be populated dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-      </div>
     </div>
-  </div>
 </div>
 
 </body>

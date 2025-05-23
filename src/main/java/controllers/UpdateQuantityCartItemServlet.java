@@ -2,15 +2,18 @@ package controllers;
 
 import java.io.IOException;
 
+import dao.CartItemDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.AccountUser;
 import models.Cart;
 import services.CartService;
+import services.ProductService;
 
 @WebServlet(name = "UpdateQuantityCartItemServlet", value = "/update-cart-item")
 public class UpdateQuantityCartItemServlet extends HttpServlet {
+    ProductService productService = new ProductService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             // Lấy dữ liệu từ form
@@ -24,8 +27,13 @@ public class UpdateQuantityCartItemServlet extends HttpServlet {
 
             // Kiểm tra đăng nhập và giỏ hàng
             if (acc != null && cart != null) {
+                CartItemDAO cartItemDAO = new CartItemDAO();
+                int idStyle = cartItemDAO.getIdStyleByidItem(idItem);
+                int idProduct = productService.getIdProductByIdStyle(idStyle);
+                double price = productService.getPriceByIdProduct(idProduct);
+                double unitPrice = price * quantity;
                 CartService cartService = new CartService();
-                cartService.updateQuantity(idItem, quantity);
+                cartService.updateQuantity(idItem, quantity, unitPrice);
 
                 // Cập nhật lại cart trong session
                 session.setAttribute("cart", cartService.getCart(acc.getUser().getId()));
