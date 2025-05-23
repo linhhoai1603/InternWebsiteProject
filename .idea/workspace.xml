@@ -11,13 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.13/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project_web.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ToTalProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ToTalProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/products.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/products.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ProductsServlet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/WEB-INF/classes/controllers/ProductsServlet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/products.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/target/ProjectWeb-1.0-SNAPSHOT/products.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +218,12 @@
       <workItem from="1745124179715" duration="10875000" />
       <workItem from="1745199247829" duration="56000" />
       <workItem from="1745199671886" duration="602000" />
-      <workItem from="1747471948154" duration="1873000" />
+      <workItem from="1747471948154" duration="2910000" />
+      <workItem from="1747483228081" duration="627000" />
+      <workItem from="1747626138567" duration="3815000" />
+      <workItem from="1747658806332" duration="10000" />
+      <workItem from="1747660172560" duration="258000" />
+      <workItem from="1747722317680" duration="23000" />
     </task>
     <servers />
   </component>

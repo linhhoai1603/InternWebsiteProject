@@ -39,7 +39,8 @@ public class ToTalProductDAO {
                         product.setId(rs.getInt("id"));
                         product.setName(rs.getString("name"));
                         product.setQuantity(rs.getInt("quantity"));
-                        product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                        java.sql.Date addedDate = rs.getDate("addedDate");
+                        product.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                         product.setDescription(rs.getString("description"));
                         product.setHeight(rs.getDouble("height"));
                         product.setWeight(rs.getDouble("weight"));
@@ -51,9 +52,19 @@ public class ToTalProductDAO {
                         TechnicalDAO technicalDAO = new TechnicalDAO();
                         PriceDAO priceDAO = new PriceDAO();
 
-                        product.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                        product.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                        product.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                        int categoryId = rs.getInt("idCategory");
+                        int technicalId = rs.getInt("idTechnical");
+                        int priceId = rs.getInt("idPrice");
+
+                        if (categoryId > 0) {
+                            product.setCategory(categoryDAO.findById(categoryId));
+                        }
+                        if (technicalId > 0) {
+                            product.setTechnicalInfo(technicalDAO.findById(technicalId));
+                        }
+                        if (priceId > 0) {
+                            product.setPrice(priceDAO.findById(priceId));
+                        }
 
                         return product;
                     })
@@ -72,7 +83,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -84,9 +96,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
                     return p;
                 })
                 .list());
@@ -107,7 +129,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -121,9 +144,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
 
                     return p;
                 })
@@ -151,7 +184,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -165,9 +199,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
 
                     return p;
                 })
@@ -190,7 +234,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -204,9 +249,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
 
                     return p;
                 })
@@ -230,7 +285,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -244,9 +300,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
 
                     return p;
                 })
@@ -292,7 +358,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -306,9 +373,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
 
                     return p;
                 })
@@ -336,7 +413,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -350,9 +428,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
 
                     return p;
                 })
@@ -379,7 +467,8 @@ public class ToTalProductDAO {
                     p.setId(rs.getInt("id"));
                     p.setName(rs.getString("name"));
                     p.setQuantity(rs.getInt("quantity"));
-                    p.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                    java.sql.Date addedDate = rs.getDate("addedDate");
+                    p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
                     p.setDescription(rs.getString("description"));
                     p.setHeight(rs.getDouble("height"));
                     p.setWeight(rs.getDouble("weight"));
@@ -393,9 +482,19 @@ public class ToTalProductDAO {
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
 
-                    p.setCategory(categoryDAO.findById(rs.getInt("idCategory")));
-                    p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
-                    p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
+                    int categoryId = rs.getInt("idCategory");
+                    int technicalId = rs.getInt("idTechnical");
+                    int priceId = rs.getInt("idPrice");
+
+                    if (categoryId > 0) {
+                        p.setCategory(categoryDAO.findById(categoryId));
+                    }
+                    if (technicalId > 0) {
+                        p.setTechnicalInfo(technicalDAO.findById(technicalId));
+                    }
+                    if (priceId > 0) {
+                        p.setPrice(priceDAO.findById(priceId));
+                    }
 
                     return p;
                 })
