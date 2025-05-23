@@ -154,11 +154,13 @@ public class Voucher implements Serializable {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
+
     public void setIdVoucher(Integer id) {
         if (id != null) {
             this.idVoucher = id;
         }
     }
+
     public Date getStartDateAsDate() {
         // Chuyển LocalDateTime thành Timestamp (là con của Date)
         return (this.startDate == null) ? null : Timestamp.valueOf(this.startDate);
@@ -175,6 +177,33 @@ public class Voucher implements Serializable {
 
     public Date getUpdatedAtAsDate() {
         return (this.updatedAt == null) ? null : Timestamp.valueOf(this.updatedAt);
+    }
+
+    public boolean isApplicable(double currentOrderTotal) {
+        LocalDateTime now = LocalDateTime.now();
+        return this.isActive == 1 &&
+                (this.startDate == null || !now.isBefore(this.startDate)) &&
+                (this.endDate == null || !now.isAfter(this.endDate)) &&
+                currentOrderTotal >= this.minimumSpend;
+    }
+
+    public double calculateDiscount(double orderTotal) {
+        if (!isApplicable(orderTotal)) {
+            return 0;
+        }
+
+        double discount = 0;
+        if (this.discountType == DiscountType.PERCENTAGE) {
+            discount = orderTotal * (this.discountValue / 100.0);
+            if (this.maxDiscountAmount > 0 && discount > this.maxDiscountAmount) {
+                discount = this.maxDiscountAmount;
+            }
+        } else if (this.discountType == DiscountType.FIXED) {
+            discount = this.discountValue;
+        }
+
+        // Đảm bảo không giảm nhiều hơn tổng đơn hàng
+        return Math.min(discount, orderTotal);
     }
 
     @Override

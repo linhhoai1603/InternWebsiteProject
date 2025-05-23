@@ -12,8 +12,10 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.AccountUser;
+import models.Cart;
 import models.User;
 import services.AuthService;
+import services.CartService;
 import utils.ConfigLoader;
 
 import java.io.IOException;
@@ -130,7 +132,9 @@ public class oauth2callback extends HttpServlet {
                     newSession.setAttribute("loggedInUserId", internalUserId);
                     newSession.setAttribute("user", user);
                     newSession.setAttribute("account", accountUser);
-
+                    CartService cartService = new CartService();
+                    Cart cart = cartService.getCart(user.getId());
+                    newSession.setAttribute("cart", cart);
                     log("Người dùng (ID=" + internalUserId + ") đăng nhập thành công bằng Google.");
                     response.sendRedirect(request.getContextPath() + "/home");
                 } else {
