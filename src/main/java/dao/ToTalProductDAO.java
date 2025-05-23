@@ -497,6 +497,7 @@ public class ToTalProductDAO {
                     p.setTechnicalInfo(technicalDAO.findById(rs.getInt("idTechnical")));
                     p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
 
+
                     return p;
                 })
                 .findOne() // Vì chỉ trả về 1 sản phẩm
@@ -541,8 +542,9 @@ public class ToTalProductDAO {
                         "SELECT p.* " +
                                 "FROM products p " +
                                 "JOIN technical_information t ON p.idTechnical = t.id " +
-                                "WHERE p.name LIKE :name")
-                .bind("name", "%" + name + "%") // tìm gần đúng
+                                "WHERE LOWER(p.name) LIKE LOWER(:name) " +
+                                "LIMIT 12")
+                .bind("name", "%" + name.trim() + "%")
                 .map((rs, ctx) -> {
                     Product p = new Product();
                     p.setId(rs.getInt("id"));
@@ -557,7 +559,7 @@ public class ToTalProductDAO {
                     p.setImage(rs.getString("img"));
                     p.setTotalProduct(rs.getInt("quantity"));
 
-                    // Gọi DAO để lấy dữ liệu liên quan
+                    // Gọi DAO liên quan
                     CategoryDao categoryDAO = new CategoryDao();
                     TechnicalDAO technicalDAO = new TechnicalDAO();
                     PriceDAO priceDAO = new PriceDAO();
@@ -567,11 +569,11 @@ public class ToTalProductDAO {
                     p.setPrice(priceDAO.findById(rs.getInt("idPrice")));
 
                     return p;
-                })
-                .list());
+                }).list());
     }
 
 
 
 
-}
+
+    }

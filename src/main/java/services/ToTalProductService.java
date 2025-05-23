@@ -82,7 +82,8 @@ public class ToTalProductService {
     public static void main(String[] args) {
         ToTalProductService service = new ToTalProductService();
         //System.out.println(service.getNuPage(1, "all"));
-        System.out.println(service.getProducts("Vải may mặc",1,12,"latest",null,null));
+//        System.out.println(service.getProducts("Vải may mặc",1,12,"latest",null,null));
+        System.out.println(service.getProductById(185));
 
     }
     public List<Product> searchProductByName(String name) {
@@ -92,7 +93,10 @@ public class ToTalProductService {
         return productDao.getProductByName(name);
     }
     public Product getProductById(int id) {
-        return productDao.getProductById(id);
+        Product product = productDao.getProductById(id);
+        StyleService styleService = new StyleService();
+        product.setStyles(styleService.getAllStylesByIDProduct(id));
+        return product;
     }
 
     public List<Product> getProductsBestSellerByCategory(String selection, int currentPage , int nuperPage) {

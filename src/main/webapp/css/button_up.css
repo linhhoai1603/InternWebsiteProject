@@ -291,3 +291,65 @@ body {
     opacity: 1 !important;
     pointer-events: all !important;
 }
+/* Thêm một số CSS cho việc chọn Style */
+.style-selection {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.style-option {
+    position: relative;
+    cursor: pointer;
+}
+.style-option img {
+    width: 60px;
+    height: 60px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: transform 0.2s, border-color 0.2s;
+    padding: 2px;
+}
+.style-option.selected img {
+    border-color: #007bff;
+    transform: scale(1.1);
+}
+/* Hiển thị thông báo */
+.alert-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: none;
+}
+.pagination .page-item.active .page-link {
+    background-color: #339C87 !important;
+    color: white !important;
+    border-color: #339C87 !important;
+}
+.pagination .page-link {
+    color: #339C87;
+}
+.pagination .page-link:hover {
+    background-color: #287a6a;
+    color: white;
+    border-color: #287a6a;
+}
+/* Thêm CSS cho loading spinner */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    display: none;
+}
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
