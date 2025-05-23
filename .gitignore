@@ -47,3 +47,4 @@ build/
 .DS_Storesrc/main/resources/client_secrets.json
 .idea/
 .idea/workspace.xml
+src/main/resources/client_secrets.json
