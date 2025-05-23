@@ -29,13 +29,13 @@
             </div>
             <div class="col-md-5 text-center pt-4">
                 <!-- Search Form -->
-                <form action="${pageContext.request.contextPath}/products" method="get">
+                <form action="${pageContext.request.contextPath}/search" method="get">
                     <div class="input-group">
                         <input
                                 type="text"
                                 class="form-control w-80"
                                 placeholder="Tìm kiếm sản phẩm"
-                                name="search"
+                                name="input"
                                 id="searchInput"
                         />
                         <button class="btn text-white btn-bg" type="submit">
