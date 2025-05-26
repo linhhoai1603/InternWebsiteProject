@@ -1,0 +1,10 @@
+.slide-container {
+    width: 70%;
+    height: 100vh;
+}
+.ad-section {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}   

@@ -65,5 +65,7 @@ public class OrderService {
         return ordersForPage;
     }
 
-
+    public void updateOrderStatus(int orderId, String newStatus) {
+        dao.updateOrderStatus(orderId, newStatus);
+    }
 }

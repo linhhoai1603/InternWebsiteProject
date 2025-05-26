@@ -5,6 +5,8 @@ import models.Category;
 import models.Price;
 import models.Product;
 import models.TechnicalInfo;
+import models.Style;
+
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
@@ -19,61 +21,71 @@ public class ProductDao {
 
     public Product getProductById(int id) {
         String sql = """
-                   SELECT
-                       p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
-                       c.id AS category_id, c.name AS category_name,
-                       pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
-                       ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
-                   FROM
-                       products p
-                   JOIN
-                       categories c ON p.idCategory = c.id
-                   JOIN
-                       prices pr ON p.idPrice = pr.id
-                   LEFT JOIN
-                       technical_information ti ON p.idTechnical = ti.id
-                   WHERE
-                       p.id = :id;
-                """;
-        return jdbi.withHandle(handle ->
-                handle.createQuery(sql)
-                        .bind("id", id)
-                        .map((rs, ctx) -> {
+       SELECT
+           p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
+           c.id AS category_id, c.name AS category_name,
+           pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
+           ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
+       FROM
+           products p
+       JOIN
+           categories c ON p.idCategory = c.id
+       JOIN
+           prices pr ON p.idPrice = pr.id
+       LEFT JOIN
+           technical_information ti ON p.idTechnical = ti.id
+       WHERE
+           p.id = :id;
+    """;
+        return jdbi.withHandle(handle -> {
+            Product product = handle.createQuery(sql)
+                    .bind("id", id)
+                    .map((rs, ctx) -> {
 
-                            Category category = new Category();
-                            category.setId(rs.getInt("category_id"));
-                            category.setName(rs.getString("category_name"));
+                        Category category = new Category();
+                        category.setId(rs.getInt("category_id"));
+                        category.setName(rs.getString("category_name"));
 
-                            Product product = new Product();
-                            product.setId(rs.getInt("id"));
-                            product.setName(rs.getString("name"));
-                            product.setQuantity(rs.getInt("quantity"));
-                            product.setDateAdded(rs.getDate("addedDate").toLocalDate());
-                            product.setDescription(rs.getString("description"));
-                            product.setHeight(rs.getDouble("height")); // Thêm trường height
-                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
-                            product.setSelling(rs.getInt("selling"));
-                            product.setImage(rs.getString("img"));
-                            product.setCategory(category); // Gắn Category vào Product
+                        Product p = new Product();
+                        p.setId(rs.getInt("id"));
+                        p.setName(rs.getString("name"));
+                        p.setQuantity(rs.getInt("quantity"));
+                        java.sql.Date addedDate = rs.getDate("addedDate");
+                        p.setDateAdded(addedDate != null ? addedDate.toLocalDate() : null);
+                        p.setDescription(rs.getString("description"));
+                        p.setHeight(rs.getDouble("height"));
+                        p.setWeight(rs.getDouble("weight"));
+                        p.setWidth(rs.getDouble("width"));
+                        p.setSelling(rs.getInt("selling"));
+                        p.setImage(rs.getString("img"));
+                        p.setCategory(category);
 
-                            TechnicalInfo technicalInfo = new TechnicalInfo();
-                            technicalInfo.setId(rs.getInt("technical_info_id"));
-                            technicalInfo.setSpecification(rs.getString("specifications"));
-                            technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
-                            product.setTechnicalInfo(technicalInfo);
+                        TechnicalInfo technicalInfo = new TechnicalInfo();
+                        technicalInfo.setId(rs.getInt("technical_info_id"));
+                        technicalInfo.setSpecification(rs.getString("specifications"));
+                        java.sql.Date manufactureDate = rs.getDate("manufactureDate");
+                        technicalInfo.setManufactureDate(manufactureDate != null ? manufactureDate.toLocalDate() : null);
+                        p.setTechnicalInfo(technicalInfo);
 
-                            Price price = new Price();
-                            price.setId(rs.getInt("price_id"));
-                            price.setPrice(rs.getDouble("price"));
-                            price.setDiscountPercent(rs.getDouble("discountPercent"));
-                            price.setLastPrice(rs.getDouble("lastPrice"));
-                            product.setPrice(price);
+                        Price price = new Price();
+                        price.setId(rs.getInt("price_id"));
+                        price.setPrice(rs.getDouble("price"));
+                        price.setDiscountPercent(rs.getDouble("discountPercent"));
+                        price.setLastPrice(rs.getDouble("lastPrice"));
+                        p.setPrice(price);
 
-                            return product;
-                        })
-                        .findOne().orElse(null)
-        );
+                        return p;
+                    })
+                    .findOne().orElse(null);
+
+            if (product != null) {
+                StyleDao styleDao = new StyleDao();
+                List<Style> styles = styleDao.getAllStylesByIDProduct(product.getId());
+                product.setStyles(styles);
+            }
+
+            return product;
+        });
     }
 
     public List<Product> getAllProducts() {
@@ -139,11 +151,11 @@ public class ProductDao {
                         """;
                 groupBy = """
                         GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
-                                 p.area, p.selling, p.img, c.id, c.name, 
+                                 p.height, p.weight, p.width, p.selling, p.img, c.id, c.name, 
                                  t.id, t.specifications, t.manufactureDate, 
                                  pr.id, pr.price, pr.discountPercent, pr.lastPrice
                         """;
-                sum = ", SUM(od.quantity) AS totalProduct"; // tổng số lượng đã bán
+                sum = ", SUM(od.quantity) AS totalProduct";
                 break;
             case 5:
                 sortBy = " pr.discountPercent ";
@@ -151,7 +163,7 @@ public class ProductDao {
                 break;
             default:
                 sortBy = " p.id ";
-                sortOrder = " ASC "; // mặc định sắp xếp theo id
+                sortOrder = " ASC ";
                 break;
         }
 
@@ -162,7 +174,7 @@ public class ProductDao {
                     p.quantity,
                     p.addedDate,
                     p.description,
-                    p.area,
+                    p.height, p.weight, p.width, 
                     p.selling,
                     p.img,
                     c.id AS idCategory,
@@ -177,7 +189,7 @@ public class ProductDao {
                 """ + sum + """
                  FROM products p
                 JOIN categories c ON p.idCategory = c.id
-                JOIN technical_information t ON p.id = t.id
+                JOIN technical_information t ON p.idTechnical = t.id 
                 JOIN prices pr ON p.idPrice = pr.id
                 """ + join + """
                 WHERE """ + categoryQuery + """
@@ -191,33 +203,31 @@ public class ProductDao {
                 .bind(0, pageSize)
                 .bind(1, (pageNumber - 1) * pageSize)
                 .map((rs, ctx) -> {
-                    // Product
                     Product product = new Product();
                     product.setId(rs.getInt("idProduct"));
                     product.setName(rs.getString("nameProduct"));
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setHeight(rs.getDouble("height")); // Thêm trường height
-                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                    product.setWidth(rs.getDouble("width"));   // Thêm trường width
+                    product.setHeight(rs.getDouble("height"));
+                    product.setWeight(rs.getDouble("weight"));
+                    product.setWidth(rs.getDouble("width"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
-                    // Category
                     Category category = new Category();
                     category.setId(rs.getInt("idCategory"));
                     category.setName(rs.getString("categoryName"));
                     product.setCategory(category);
 
-                    // Technical Information
                     TechnicalInfo technicalInfo = new TechnicalInfo();
                     technicalInfo.setId(rs.getInt("idTechnicalInfo"));
                     technicalInfo.setSpecification(rs.getString("specifications"));
-                    technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                    if (rs.getDate("manufactureDate") != null) {
+                        technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                    }
                     product.setTechnicalInfo(technicalInfo);
 
-                    // Price
                     Price price = new Price();
                     price.setId(rs.getInt("idPrice"));
                     price.setPrice(rs.getDouble("price"));
@@ -263,11 +273,11 @@ public class ProductDao {
                         """;
                 groupBy = """
                         GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
-                                 p.area, p.selling, p.img, c.id, c.name, 
+                                 p.height, p.weight, p.width, p.selling, p.img, c.id, c.name, 
                                  t.id, t.specifications, t.manufactureDate, 
                                  pr.id, pr.price, pr.discountPercent, pr.lastPrice
                         """;
-                sum = ", SUM(od.quantity) AS totalProduct"; // tổng số lượng đã bán
+                sum = ", SUM(od.quantity) AS totalProduct";
                 break;
             case 5:
                 sortBy = " pr.discountPercent ";
@@ -275,7 +285,7 @@ public class ProductDao {
                 break;
             default:
                 sortBy = " p.id ";
-                sortOrder = " ASC "; // mặc định sắp xếp theo id
+                sortOrder = " ASC ";
                 break;
         }
 
@@ -301,7 +311,7 @@ public class ProductDao {
                 """ + sum + """
                  FROM products p
                 JOIN categories c ON p.idCategory = c.id
-                JOIN technical_information t ON p.id = t.id
+                JOIN technical_information t ON p.idTechnical = t.id 
                 JOIN prices pr ON p.idPrice = pr.id
                 """ + join + """
                 WHERE p.name LIKE ? AND """ + categoryQuery + """
@@ -316,33 +326,31 @@ public class ProductDao {
                 .bind(1, pageSize)
                 .bind(2, (pageNumber - 1) * pageSize)
                 .map((rs, ctx) -> {
-                    // Product
                     Product product = new Product();
                     product.setId(rs.getInt("idProduct"));
                     product.setName(rs.getString("nameProduct"));
                     product.setQuantity(rs.getInt("quantity"));
                     product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                     product.setDescription(rs.getString("description"));
-                    product.setHeight(rs.getDouble("height")); // Thêm trường height
-                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                    product.setWidth(rs.getDouble("width"));   // Thêm trường width
+                    product.setHeight(rs.getDouble("height"));
+                    product.setWeight(rs.getDouble("weight"));
+                    product.setWidth(rs.getDouble("width"));
                     product.setSelling(rs.getInt("selling"));
                     product.setImage(rs.getString("img"));
 
-                    // Category
                     Category category = new Category();
                     category.setId(rs.getInt("idCategory"));
                     category.setName(rs.getString("categoryName"));
                     product.setCategory(category);
 
-                    // Technical Information
                     TechnicalInfo technicalInfo = new TechnicalInfo();
                     technicalInfo.setId(rs.getInt("idTechnicalInfo"));
                     technicalInfo.setSpecification(rs.getString("specifications"));
-                    technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                    if (rs.getDate("manufactureDate") != null) {
+                        technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                    }
                     product.setTechnicalInfo(technicalInfo);
 
-                    // Price
                     Price price = new Price();
                     price.setId(rs.getInt("idPrice"));
                     price.setPrice(rs.getDouble("price"));
@@ -366,126 +374,89 @@ public class ProductDao {
             categoryQuery = "AND p.idCategory = :idCategory ";
         }
 
-        // Xử lý các tùy chọn sắp xếp
         switch (options) {
-            case 1:
-                sortBy = " p.addedDate ";
-                sortOrder = " DESC ";
-                break;
-            case 2:
-                sortBy = " pr.lastPrice ";
-                sortOrder = " DESC ";
-                break;
-            case 3:
-                sortBy = " pr.lastPrice ";
-                sortOrder = " ASC ";
-                break;
+            case 1: sortBy = " p.addedDate "; sortOrder = " DESC "; break;
+            case 2: sortBy = " pr.lastPrice "; sortOrder = " DESC "; break;
+            case 3: sortBy = " pr.lastPrice "; sortOrder = " ASC "; break;
             case 4:
                 sortBy = " totalProduct ";
                 sortOrder = " DESC ";
-                join = """
-                        LEFT JOIN styles s ON s.idProduct = p.id
-                        LEFT JOIN order_details od ON od.idStyle = s.id
-                        """;
-                groupBy = """
-                        GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
-                                 p.height, p.weight, p.width, p.selling, p.img, c.id, c.name, 
-                                 t.id, t.specifications, t.manufactureDate, 
-                                 pr.id, pr.price, pr.discountPercent, pr.lastPrice
-                        """;
-                sum = ", SUM(od.quantity) AS totalProduct"; // Tổng số lượng đã bán
+                join = "LEFT JOIN styles s ON s.idProduct = p.id LEFT JOIN order_details od ON od.idStyle = s.id";
+                groupBy = "GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img, c.id, c.name, t.id, t.specifications, t.manufactureDate, pr.id, pr.price, pr.discountPercent, pr.lastPrice";
+                sum = ", SUM(od.quantity) AS totalProduct";
                 break;
-            case 5:
-                sortBy = " pr.discountPercent ";
-                sortOrder = " DESC ";
-                break;
-            default:
-                sortBy = " p.id ";
-                sortOrder = " ASC "; // Mặc định sắp xếp theo ID
-                break;
+            case 5: sortBy = " pr.discountPercent "; sortOrder = " DESC "; break;
+            default: sortBy = " p.id "; sortOrder = " ASC "; break;
         }
 
         String query = """
                 SELECT 
-                    p.id AS idProduct,
-                    p.name AS nameProduct,
-                    p.quantity,
-                    p.addedDate,
-                    p.description,
-                    p.height, p.weight, p.width,
-                    p.selling,
-                    p.img,
-                    c.id AS idCategory,
-                    c.name AS categoryName,
-                    t.id AS idTechnicalInfo,
-                    t.specifications,
-                    t.manufactureDate,
-                    pr.id AS idPrice,
-                    pr.price,
-                    pr.discountPercent,
-                    pr.lastPrice
-                """ + sum + """
+                    p.id AS idProduct, p.name AS nameProduct, p.quantity, p.addedDate, p.description,
+                    p.height, p.weight, p.width, p.selling, p.img,
+                    c.id AS idCategory, c.name AS categoryName,
+                    t.id AS idTechnicalInfo, t.specifications, t.manufactureDate,
+                    pr.id AS idPrice, pr.price, pr.discountPercent, pr.lastPrice
+                    """ + sum + """
                 FROM products p
                 JOIN categories c ON p.idCategory = c.id
-                JOIN technical_information t ON p.id = t.id
+                JOIN technical_information t ON p.idTechnical = t.id 
                 JOIN prices pr ON p.idPrice = pr.id
                 """ + join + """
-                WHERE p.id = :inputId""" + categoryQuery + """
-                """ + groupBy + """
-                \n ORDER BY """ + sortBy + " " + sortOrder + """
-                    LIMIT :pageSize OFFSET :offset;
+                WHERE p.id = :inputId """ + categoryQuery +
+                (groupBy.isEmpty() ? "" : "\n" + groupBy) +
+                """
+                \nORDER BY """ + sortBy + sortOrder + """
+                LIMIT :pageSize OFFSET :offset;
                 """;
 
-        // Thực thi truy vấn với các tham số đầu vào
-        return jdbi.withHandle(handle -> handle.createQuery(query)
-                .bind("inputId", inputId)  // Tìm theo ID
-                .bind("pageSize", pageSize)
-                .bind("offset", (pageNumber - 1) * pageSize)
-                .bind("idCategory", idCategory)  // Bind category nếu có
-                .map((rs, ctx) -> {
-                    // Xử lý kết quả trả về và ánh xạ vào đối tượng Product
-                    Product product = new Product();
-                    product.setId(rs.getInt("idProduct"));
-                    product.setName(rs.getString("nameProduct"));
-                    product.setQuantity(rs.getInt("quantity"));
-                    product.setDateAdded(rs.getDate("addedDate").toLocalDate());
-                    product.setDescription(rs.getString("description"));
-                    product.setHeight(rs.getDouble("height")); // Thêm trường height
-                    product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                    product.setWidth(rs.getDouble("width"));   // Thêm trường width
-                    product.setSelling(rs.getInt("selling"));
-                    product.setImage(rs.getString("img"));
+        return jdbi.withHandle(handle -> {
+            var q = handle.createQuery(query)
+                    .bind("inputId", inputId)
+                    .bind("pageSize", pageSize)
+                    .bind("offset", (pageNumber - 1) * pageSize);
+            if (idCategory != 0) {
+                q.bind("idCategory", idCategory);
+            }
+            return q.map((rs, ctx) -> {
+                Product product = new Product();
+                product.setId(rs.getInt("idProduct"));
+                product.setName(rs.getString("nameProduct"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                product.setDescription(rs.getString("description"));
+                product.setHeight(rs.getDouble("height"));
+                product.setWeight(rs.getDouble("weight"));
+                product.setWidth(rs.getDouble("width"));
+                product.setSelling(rs.getInt("selling"));
+                product.setImage(rs.getString("img"));
 
-                    // Category
-                    Category category = new Category();
-                    category.setId(rs.getInt("idCategory"));
-                    category.setName(rs.getString("categoryName"));
-                    product.setCategory(category);
+                Category category = new Category();
+                category.setId(rs.getInt("idCategory"));
+                category.setName(rs.getString("categoryName"));
+                product.setCategory(category);
 
-                    // Technical Information
-                    TechnicalInfo technicalInfo = new TechnicalInfo();
-                    technicalInfo.setId(rs.getInt("idTechnicalInfo"));
-                    technicalInfo.setSpecification(rs.getString("specifications"));
+                TechnicalInfo technicalInfo = new TechnicalInfo();
+                technicalInfo.setId(rs.getInt("idTechnicalInfo"));
+                technicalInfo.setSpecification(rs.getString("specifications"));
+                if (rs.getDate("manufactureDate") != null) {
                     technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
-                    product.setTechnicalInfo(technicalInfo);
+                }
+                product.setTechnicalInfo(technicalInfo);
 
-                    // Price
-                    Price price = new Price();
-                    price.setId(rs.getInt("idPrice"));
-                    price.setPrice(rs.getDouble("price"));
-                    price.setDiscountPercent(rs.getDouble("discountPercent"));
-                    price.setLastPrice(rs.getDouble("lastPrice"));
-                    product.setPrice(price);
-
-                    return product;
-                }).list());
+                Price price = new Price();
+                price.setId(rs.getInt("idPrice"));
+                price.setPrice(rs.getDouble("price"));
+                price.setDiscountPercent(rs.getDouble("discountPercent"));
+                price.setLastPrice(rs.getDouble("lastPrice"));
+                product.setPrice(price);
+                return product;
+            }).list();
+        });
     }
-
 
     public static void main(String[] args) {
         ProductDao productDao = new ProductDao();
-        System.out.println(productDao.getProductByIdStyle(446));
-        System.out.println(productDao.getPriceByIdProduct(185));
+        System.out.println(productDao.getProductById(1));
     }
 
     public int getTotalProductCount() {
@@ -494,7 +465,6 @@ public class ProductDao {
     }
 
     public List<Product> getProductByCategory(String name) {
-        Jdbi jdbi = DBConnection.getConnetion();
         String sql = """
                    SELECT
                        p.id, p.name, p.quantity, p.addedDate, p.description,p.height, p.weight, p.width, p.selling, p.img,
@@ -517,7 +487,6 @@ public class ProductDao {
                 handle.createQuery(sql)
                         .bind("categoryName", name)
                         .map((rs, ctx) -> {
-
                             Category category = new Category();
                             category.setId(rs.getInt("category_id"));
                             category.setName(rs.getString("category_name"));
@@ -528,17 +497,19 @@ public class ProductDao {
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                             product.setDescription(rs.getString("description"));
-                            product.setHeight(rs.getDouble("height")); // Thêm trường height
-                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
+                            product.setHeight(rs.getDouble("height"));
+                            product.setWeight(rs.getDouble("weight"));
+                            product.setWidth(rs.getDouble("width"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
-                            product.setCategory(category); // Gắn Category vào Product
+                            product.setCategory(category);
 
                             TechnicalInfo technicalInfo = new TechnicalInfo();
                             technicalInfo.setId(rs.getInt("technical_info_id"));
                             technicalInfo.setSpecification(rs.getString("specifications"));
-                            technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                            if (rs.getDate("manufactureDate") != null) {
+                                technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                            }
                             product.setTechnicalInfo(technicalInfo);
 
                             Price price = new Price();
@@ -547,7 +518,6 @@ public class ProductDao {
                             price.setDiscountPercent(rs.getDouble("discountPercent"));
                             price.setLastPrice(rs.getDouble("lastPrice"));
                             product.setPrice(price);
-
                             return product;
                         })
                         .list()
@@ -555,54 +525,56 @@ public class ProductDao {
     }
 
     public int updateProduct(Product product) {
-        // Cập nhật thông tin sản phẩm
         String updateProductQuery = """
                     UPDATE products 
-                    SET name = :name, quantity = :quantity, description = :description
+                    SET name = :name, quantity = :quantity, description = :description, 
+                        height = :height, weight = :weight, width = :width 
                     WHERE id = :idProduct;
                 """;
-        // Cập nhật thông tin kỹ thuật
         String updateTechnicalInfoQuery = """
                     UPDATE technical_information 
                     SET specifications = :specifications, manufactureDate = :manufactureDate 
                     WHERE id = :idTechnicalInfo;
                 """;
-
-        // Cập nhật thông tin giá
         String updatePriceQuery = """
                     UPDATE prices 
-                    SET price = :price, discountPercent = :discountPercent
+                    SET price = :price, discountPercent = :discountPercent 
                     WHERE id = :idPrice;
                 """;
 
-        // Thực thi các câu lệnh SQL
         return jdbi.withHandle(handle -> {
-            handle.createUpdate(updateProductQuery)
+            int productRows = handle.createUpdate(updateProductQuery)
                     .bind("idProduct", product.getId())
                     .bind("name", product.getName())
                     .bind("quantity", product.getQuantity())
                     .bind("description", product.getDescription())
+                    .bind("height", product.getHeight())
+                    .bind("weight", product.getWeight())
+                    .bind("width", product.getWidth())
                     .execute();
 
-            handle.createUpdate(updateTechnicalInfoQuery)
-                    .bind("idTechnicalInfo", product.getTechnicalInfo().getId())
-                    .bind("specifications", product.getTechnicalInfo().getSpecification())
-                    .bind("manufactureDate", product.getTechnicalInfo().getManufactureDate())
-                    .execute();
+            int techInfoRows = 0;
+            if (product.getTechnicalInfo() != null) {
+                techInfoRows = handle.createUpdate(updateTechnicalInfoQuery)
+                        .bind("idTechnicalInfo", product.getTechnicalInfo().getId())
+                        .bind("specifications", product.getTechnicalInfo().getSpecification())
+                        .bind("manufactureDate", product.getTechnicalInfo().getManufactureDate() != null ? java.sql.Date.valueOf(product.getTechnicalInfo().getManufactureDate()) : null)
+                        .execute();
+            }
 
-            handle.createUpdate(updatePriceQuery)
-                    .bind("idPrice", product.getPrice().getId())
-                    .bind("price", product.getPrice().getPrice())
-                    .bind("discountPercent", product.getPrice().getDiscountPercent())
-                    .execute();
-
-            return 1; // Trả về 1 khi thành công
+            int priceRows = 0;
+            if (product.getPrice() != null) {
+                priceRows = handle.createUpdate(updatePriceQuery)
+                        .bind("idPrice", product.getPrice().getId())
+                        .bind("price", product.getPrice().getPrice())
+                        .bind("discountPercent", product.getPrice().getDiscountPercent())
+                        .execute();
+            }
+            return (productRows > 0 || techInfoRows > 0 || priceRows > 0) ? 1 : 0;
         });
     }
 
     public List<Product> getProductByCategory(String name, int psize, int pageNumber) {
-
-
         String sql = """
                    SELECT
                        p.id, p.name, p.quantity, p.addedDate, p.description,p.height, p.weight, p.width, p.selling, p.img,
@@ -621,8 +593,7 @@ public class ProductDao {
                        c.name = :categoryName
                    LIMIT :psize OFFSET :offset;
                 """;
-
-        int offset = psize * (pageNumber - 1); // Tính offset dựa trên trang hiện tại và số lượng sản phẩm mỗi trang
+        int offset = psize * (pageNumber - 1);
 
         return jdbi.withHandle(handle ->
                 handle.createQuery(sql)
@@ -630,7 +601,6 @@ public class ProductDao {
                         .bind("psize", psize)
                         .bind("offset", offset)
                         .map((rs, ctx) -> {
-
                             Category category = new Category();
                             category.setId(rs.getInt("category_id"));
                             category.setName(rs.getString("category_name"));
@@ -640,17 +610,20 @@ public class ProductDao {
                             product.setName(rs.getString("name"));
                             product.setQuantity(rs.getInt("quantity"));
                             product.setDateAdded(rs.getDate("addedDate").toLocalDate());
-                            product.setHeight(rs.getDouble("height")); // Thêm trường height
-                            product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                            product.setWidth(rs.getDouble("width"));   // Thêm trường width
+                            product.setDescription(rs.getString("description"));
+                            product.setHeight(rs.getDouble("height"));
+                            product.setWeight(rs.getDouble("weight"));
+                            product.setWidth(rs.getDouble("width"));
                             product.setSelling(rs.getInt("selling"));
                             product.setImage(rs.getString("img"));
-                            product.setCategory(category); // Gắn Category vào Product
+                            product.setCategory(category);
 
                             TechnicalInfo technicalInfo = new TechnicalInfo();
                             technicalInfo.setId(rs.getInt("technical_info_id"));
                             technicalInfo.setSpecification(rs.getString("specifications"));
-                            technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                            if (rs.getDate("manufactureDate") != null) {
+                                technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                            }
                             product.setTechnicalInfo(technicalInfo);
 
                             Price price = new Price();
@@ -659,7 +632,6 @@ public class ProductDao {
                             price.setDiscountPercent(rs.getDouble("discountPercent"));
                             price.setLastPrice(rs.getDouble("lastPrice"));
                             product.setPrice(price);
-
                             return product;
                         })
                         .list()
@@ -684,97 +656,51 @@ public class ProductDao {
         String sum = "";
 
         switch (option) {
-            case 1:
-                sortBy = "p.addedDate";
-                sortOrder = "DESC";
-                break;
-            case 2:
-                sortBy = "pr.lastPrice";
-                sortOrder = "DESC";
-                break;
-            case 3:
-                sortBy = "pr.lastPrice";
-                sortOrder = "ASC";
-                break;
+            case 1: sortBy = "p.addedDate"; sortOrder = "DESC"; break;
+            case 2: sortBy = "pr.lastPrice"; sortOrder = "DESC"; break;
+            case 3: sortBy = "pr.lastPrice"; sortOrder = "ASC"; break;
             case 4:
-                sortBy = "totalProduct";
-                sortOrder = "DESC";
-                join = "LEFT JOIN styles s ON s.idProduct = p.id " +
-                        "LEFT JOIN order_details od ON od.idStyle = s.id ";
-                groupBy = "GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, " +
-                        "p.area, p.selling, p.img, c.id, c.name, " +
-                        "t.id, t.specifications, t.manufactureDate, " +
-                        "pr.id, pr.price, pr.discountPercent, pr.lastPrice ";
-                sum = ", SUM(od.quantity) AS totalProduct ";
+                sortBy = "totalProduct"; sortOrder = "DESC";
+                join = "LEFT JOIN styles s ON s.idProduct = p.id LEFT JOIN order_details od ON od.idStyle = s.id ";
+                groupBy = "GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img, c.id, c.name, t.id, t.specifications, t.manufactureDate, pr.id, pr.price, pr.discountPercent, pr.lastPrice ";
+                sum = ", SUM(COALESCE(od.quantity, 0)) AS totalProduct ";
                 break;
-            case 5:
-                sortBy = "pr.discountPercent";
-                sortOrder = "DESC";
-                break;
-            default:
-                sortBy = "p.id";
-                sortOrder = "ASC";
-                break;
+            case 5: sortBy = "pr.discountPercent"; sortOrder = "DESC"; break;
+            default: sortBy = "p.id"; sortOrder = "ASC"; break;
         }
 
-        StringBuilder query = new StringBuilder();
-        query.append("SELECT p.id AS idProduct, ")
-                .append("p.name AS nameProduct, ")
-                .append("p.quantity, ")
-                .append("p.addedDate, ")
-                .append("p.description, ")
-                .append("p.area, ")
-                .append("p.selling, ")
-                .append("p.img, ")
-                .append("c.id AS idCategory, ")
-                .append("c.name AS categoryName, ")
-                .append("t.id AS idTechnicalInfo, ")
-                .append("t.specifications, ")
-                .append("t.manufactureDate, ")
-                .append("pr.id AS idPrice, ")
-                .append("pr.price, ")
-                .append("pr.discountPercent, ")
-                .append("pr.lastPrice ")
+        StringBuilder queryBuilder = new StringBuilder();
+        queryBuilder.append("SELECT p.id AS idProduct, p.name AS nameProduct, p.quantity, p.addedDate, p.description, ")
+                .append("p.height, p.weight, p.width, p.selling, p.img, ")
+                .append("c.id AS idCategory, c.name AS categoryName, ")
+                .append("t.id AS idTechnicalInfo, t.specifications, t.manufactureDate, ")
+                .append("pr.id AS idPrice, pr.price, pr.discountPercent, pr.lastPrice ")
                 .append(sum)
                 .append("FROM products p ")
                 .append("JOIN categories c ON p.idCategory = c.id ")
                 .append("JOIN prices pr ON p.idPrice = pr.id ")
                 .append("JOIN technical_information t ON p.idTechnical = t.id ")
                 .append(join)
-                .append("WHERE p.idCategory = :idCategory ")
-                .append("AND p.quantity > 0 ")
-                .append("AND p.selling > 0 ");
+                .append("WHERE p.idCategory = :idCategory AND p.quantity > 0 AND p.selling > 0 ");
 
-        if (minPrice != null) {
-            query.append("AND pr.lastPrice >= :minPrice ");
-        }
-        if (maxPrice != null) {
-            query.append("AND pr.lastPrice <= :maxPrice ");
-        }
+        if (minPrice != null) queryBuilder.append("AND pr.lastPrice >= :minPrice ");
+        if (maxPrice != null) queryBuilder.append("AND pr.lastPrice <= :maxPrice ");
+        if (!groupBy.isEmpty()) queryBuilder.append(groupBy);
+        queryBuilder.append("ORDER BY ").append(sortBy).append(" ").append(sortOrder)
+                .append(" LIMIT :pageSize OFFSET :offset;");
 
-        if (option == 4) { // Best-selling
-            query.append(groupBy);
-        }
-
-        query.append("ORDER BY ").append(sortBy).append(" ").append(sortOrder).append(" ");
-        query.append("LIMIT :pageSize OFFSET :offset;");
-
-        // Logging truy vấn và các tham số
-        System.out.println("Executing SQL Query: " + query.toString());
+        String query = queryBuilder.toString();
+        System.out.println("Executing SQL Query: " + query);
         System.out.println("Parameters - idCategory: " + idCategory + ", pageSize: " + pageSize + ", offset: " + ((pageNumber - 1) * pageSize) + ", minPrice: " + minPrice + ", maxPrice: " + maxPrice);
 
         return jdbi.withHandle(handle -> {
-            var q = handle.createQuery(query.toString())
+            var q = handle.createQuery(query)
                     .bind("idCategory", idCategory)
                     .bind("pageSize", pageSize)
                     .bind("offset", (pageNumber - 1) * pageSize);
+            if (minPrice != null) q.bind("minPrice", minPrice);
+            if (maxPrice != null) q.bind("maxPrice", maxPrice);
 
-            if (minPrice != null) {
-                q.bind("minPrice", minPrice);
-            }
-            if (maxPrice != null) {
-                q.bind("maxPrice", maxPrice);
-            }
             return q.map((rs, ctx) -> {
                 Product product = new Product();
                 product.setId(rs.getInt("idProduct"));
@@ -782,9 +708,9 @@ public class ProductDao {
                 product.setQuantity(rs.getInt("quantity"));
                 product.setDateAdded(rs.getDate("addedDate").toLocalDate());
                 product.setDescription(rs.getString("description"));
-                product.setHeight(rs.getDouble("height")); // Thêm trường height
-                product.setWeight(rs.getDouble("weight")); // Thêm trường weight
-                product.setWidth(rs.getDouble("width"));   // Thêm trường width
+                product.setHeight(rs.getDouble("height"));
+                product.setWeight(rs.getDouble("weight"));
+                product.setWidth(rs.getDouble("width"));
                 product.setSelling(rs.getInt("selling"));
                 product.setImage(rs.getString("img"));
 
@@ -796,106 +722,61 @@ public class ProductDao {
                 TechnicalInfo technicalInfo = new TechnicalInfo();
                 technicalInfo.setId(rs.getInt("idTechnicalInfo"));
                 technicalInfo.setSpecification(rs.getString("specifications"));
-                technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                if (rs.getDate("manufactureDate") != null) {
+                    technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
+                }
                 product.setTechnicalInfo(technicalInfo);
 
-                Price price = new Price();
-                price.setId(rs.getInt("idPrice"));
-                price.setPrice(rs.getDouble("price"));
-                price.setDiscountPercent(rs.getDouble("discountPercent"));
-                price.setLastPrice(rs.getDouble("lastPrice"));
-                product.setPrice(price);
-
+                Price priceModel = new Price();
+                priceModel.setId(rs.getInt("idPrice"));
+                priceModel.setPrice(rs.getDouble("price"));
+                priceModel.setDiscountPercent(rs.getDouble("discountPercent"));
+                priceModel.setLastPrice(rs.getDouble("lastPrice"));
+                product.setPrice(priceModel);
                 return product;
             }).list();
         });
     }
 
     public int getNumberPageProductByCategoryButton(int idCategory, int pageSize, Double minPrice, Double maxPrice) {
-        StringBuilder query = new StringBuilder("SELECT COUNT(*) FROM products p ");
+        StringBuilder query = new StringBuilder("SELECT COUNT(DISTINCT p.id) FROM products p ");
         query.append("JOIN prices pr ON p.idPrice = pr.id ");
         query.append("WHERE p.idCategory = :idCategory AND p.quantity > 0 AND p.selling > 0 ");
-
-        if (minPrice != null) {
-            query.append("AND pr.lastPrice >= :minPrice ");
-        }
-        if (maxPrice != null) {
-            query.append("AND pr.lastPrice <= :maxPrice ");
-        }
+        if (minPrice != null) query.append("AND pr.lastPrice >= :minPrice ");
+        if (maxPrice != null) query.append("AND pr.lastPrice <= :maxPrice ");
 
         Integer count = jdbi.withHandle(handle -> {
-            var q = handle.createQuery(query.toString())
-                    .bind("idCategory", idCategory);
-            if (minPrice != null) {
-                q.bind("minPrice", minPrice);
-            }
-            if (maxPrice != null) {
-                q.bind("maxPrice", maxPrice);
-            }
+            var q = handle.createQuery(query.toString()).bind("idCategory", idCategory);
+            if (minPrice != null) q.bind("minPrice", minPrice);
+            if (maxPrice != null) q.bind("maxPrice", maxPrice);
             return q.mapTo(Integer.class).one();
         });
-
         return (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
     }
 
     public int getNumberPageProductByCategoryZipStar(int idCategory, int pageSize, Double minPrice, Double maxPrice) {
-        StringBuilder query = new StringBuilder("SELECT COUNT(*) FROM products p ");
-        query.append("JOIN prices pr ON p.idPrice = pr.id ");
-        query.append("WHERE p.idCategory = :idCategory AND p.quantity > 0 AND p.selling > 0 ");
-
-        if (minPrice != null) {
-            query.append("AND pr.lastPrice >= :minPrice ");
-        }
-        if (maxPrice != null) {
-            query.append("AND pr.lastPrice <= :maxPrice ");
-        }
-
-        Integer count = jdbi.withHandle(handle -> {
-            var q = handle.createQuery(query.toString())
-                    .bind("idCategory", idCategory);
-            if (minPrice != null) {
-                q.bind("minPrice", minPrice);
-            }
-            if (maxPrice != null) {
-                q.bind("maxPrice", maxPrice);
-            }
-            return q.mapTo(Integer.class).one();
-        });
-
-        return (count % pageSize == 0) ? count / pageSize : count / pageSize + 1;
+        return getNumberPageProductByCategoryButton(idCategory, pageSize, minPrice, maxPrice);
     }
-
 
     public int addProduct(Product product) {
         return jdbi.inTransaction(handle -> {
-            // Thêm TechnicalInfo và lấy ID
             int technicalId = handle.createUpdate(
                             "INSERT INTO technical_information (specifications, manufactureDate) VALUES (:specifications, :manufactureDate)")
                     .bind("specifications", product.getTechnicalInfo().getSpecification())
-                    .bind("manufactureDate", java.sql.Date.valueOf(product.getTechnicalInfo().getManufactureDate()))
-                    .executeAndReturnGeneratedKeys("id")
-                    .mapTo(int.class)
-                    .one();
-
-            // Gán ID đã tạo cho TechnicalInfo trong product
+                    .bind("manufactureDate", product.getTechnicalInfo().getManufactureDate() != null ? java.sql.Date.valueOf(product.getTechnicalInfo().getManufactureDate()) : null)
+                    .executeAndReturnGeneratedKeys("id").mapTo(int.class).one();
             product.getTechnicalInfo().setId(technicalId);
 
-            // Thêm Price và lấy ID
             int priceId = handle.createUpdate(
                             "INSERT INTO prices (price, discountPercent) VALUES (:price, :discountPercent)")
                     .bind("price", product.getPrice().getPrice())
                     .bind("discountPercent", product.getPrice().getDiscountPercent())
-                    .executeAndReturnGeneratedKeys("id")
-                    .mapTo(int.class)
-                    .one();
-
-            // Gán ID đã tạo cho Price trong product
+                    .executeAndReturnGeneratedKeys("id").mapTo(int.class).one();
             product.getPrice().setId(priceId);
 
-            // Thêm Product và lấy ID
             String query = """
-                    INSERT INTO products (name, quantity, idCategory, addedDate, description, area, selling, img, idTechnical, idPrice)
-                    VALUES (:name, :quantity, :idCategory, :addedDate, :description, :area, :selling, :img, :idTechnical, :idPrice)
+                    INSERT INTO products (name, quantity, idCategory, addedDate, description, height, weight, width, selling, img, idTechnical, idPrice)
+                    VALUES (:name, :quantity, :idCategory, :addedDate, :description, :height, :weight, :width, :selling, :img, :idTechnical, :idPrice)
                     """;
             return handle.createUpdate(query)
                     .bind("name", product.getName())
@@ -903,135 +784,104 @@ public class ProductDao {
                     .bind("idCategory", product.getCategory().getId())
                     .bind("addedDate", java.sql.Date.valueOf(product.getDateAdded()))
                     .bind("description", product.getDescription())
+                    .bind("height", product.getHeight())
+                    .bind("weight", product.getWeight())
+                    .bind("width", product.getWidth())
                     .bind("selling", product.getSelling())
                     .bind("img", product.getImage())
                     .bind("idTechnical", technicalId)
                     .bind("idPrice", priceId)
-                    .executeAndReturnGeneratedKeys("id")
-                    .mapTo(int.class)
-                    .one();
+                    .executeAndReturnGeneratedKeys("id").mapTo(int.class).one();
         });
     }
 
-
     public List<Product> getAllProductForAdmin(int idCategory, int pageNumber, int pageSize, int options) {
-        String sortBy = "";
-        String sortOrder = "";
-        String groupBy = "";
-        String join = "";
-        String sum = "";
-        String categoryQuery = "";
-        if (idCategory != 0) {
-            categoryQuery = " p.idCategory = " + idCategory + " AND ";
-        }
+        String sortBy = ""; String sortOrder = ""; String groupBy = ""; String join = ""; String sum = "";
 
         switch (options) {
-            case 1:
-                sortBy = " p.addedDate ";
-                sortOrder = " DESC ";
-                break;
-            case 2:
-                sortBy = " pr.lastPrice ";
-                sortOrder = " DESC ";
-                break;
-            case 3:
-                sortBy = " pr.lastPrice ";
-                sortOrder = " ASC ";
-                break;
+            case 1: sortBy = " p.addedDate "; sortOrder = " DESC "; break;
+            case 2: sortBy = " pr.lastPrice "; sortOrder = " DESC "; break;
+            case 3: sortBy = " pr.lastPrice "; sortOrder = " ASC "; break;
             case 4:
-                sortBy = " totalProduct ";
-                sortOrder = " DESC ";
-                join = """
-                        LEFT JOIN styles s ON s.idProduct = p.id
-                        LEFT JOIN order_details od ON od.idStyle = s.id
-                        """;
-                groupBy = """
-                        GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, 
-                                 p.area, p.selling, p.img, c.id, c.name, 
-                                 t.id, t.specifications, t.manufactureDate, 
-                                 pr.id, pr.price, pr.discountPercent, pr.lastPrice
-                        """;
-                sum = ", SUM(od.quantity) AS totalProduct"; // tổng số lượng đã bán
+                sortBy = " totalProduct "; sortOrder = " DESC ";
+                join = "LEFT JOIN styles s ON s.idProduct = p.id LEFT JOIN order_details od ON od.idStyle = s.id";
+                groupBy = "GROUP BY p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img, c.id, c.name, t.id, t.specifications, t.manufactureDate, pr.id, pr.price, pr.discountPercent, pr.lastPrice";
+                sum = ", SUM(COALESCE(od.quantity,0)) AS totalProduct";
                 break;
-            case 5:
-                sortBy = " pr.discountPercent ";
-                sortOrder = " DESC ";
-                break;
-            default:
-                sortBy = " p.id ";
-                sortOrder = " ASC "; // mặc định sắp xếp theo id
-                break;
+            case 5: sortBy = " pr.discountPercent "; sortOrder = " DESC "; break;
+            default: sortBy = " p.id "; sortOrder = " ASC "; break;
         }
+
+        String whereClause = "";
+        if (idCategory != 0) {
+            whereClause = " WHERE p.idCategory = :idCategory ";
+        }
+
 
         String query = """
                 SELECT 
-                    p.id AS idProduct,
-                    p.name AS nameProduct,
-                    p.quantity,
-                    p.addedDate,
-                    p.description,
-                    p.area,
-                    p.selling,
-                    p.img,
-                    c.id AS idCategory,
-                    c.name AS categoryName,
-                    t.id AS idTechnicalInfo,
-                    t.specifications,
-                    t.manufactureDate,
-                    pr.id AS idPrice,
-                    pr.price,
-                    pr.discountPercent,
-                    pr.lastPrice
-                """ + sum + """
+                    p.id AS idProduct, p.name AS nameProduct, p.quantity, p.addedDate, p.description,
+                    p.height, p.weight, p.width, 
+                    p.selling, p.img,
+                    c.id AS idCategory, c.name AS categoryName,
+                    t.id AS idTechnicalInfo, t.specifications, t.manufactureDate,
+                    pr.id AS idPrice, pr.price, pr.discountPercent, pr.lastPrice
+                    """ + sum + """
                  FROM products p
                 JOIN categories c ON p.idCategory = c.id
-                JOIN technical_information t ON p.id = t.id
+                JOIN technical_information t ON p.idTechnical = t.id 
                 JOIN prices pr ON p.idPrice = pr.id
-                """ + join + """
-                """ + groupBy + """
-                ORDER BY """ + sortBy + " " + sortOrder + """
-                LIMIT ? OFFSET ?;
+                """ + join +
+                whereClause +
+                (groupBy.isEmpty() ? "" : "\n" + groupBy) +
+                """
+                ORDER BY """ + sortBy + sortOrder + """
+                LIMIT :pageSize OFFSET :offset; 
                 """;
 
-        return jdbi.withHandle(handle -> handle.createQuery(query)
-                .bind(0, pageSize)
-                .bind(1, (pageNumber - 1) * pageSize)
-                .map((rs, ctx) -> {
-                    // Product
-                    Product product = new Product();
-                    product.setId(rs.getInt("idProduct"));
-                    product.setName(rs.getString("nameProduct"));
-                    product.setQuantity(rs.getInt("quantity"));
-                    product.setDateAdded(rs.getDate("addedDate").toLocalDate());
-                    product.setDescription(rs.getString("description"));
-                    product.setSelling(rs.getInt("selling"));
-                    product.setImage(rs.getString("img"));
+        return jdbi.withHandle(handle -> {
+            var q = handle.createQuery(query)
+                    .bind("pageSize", pageSize)
+                    .bind("offset", (pageNumber - 1) * pageSize);
+            if (idCategory != 0) {
+                q.bind("idCategory", idCategory);
+            }
+            return q.map((rs, ctx) -> {
+                Product product = new Product();
+                product.setId(rs.getInt("idProduct"));
+                product.setName(rs.getString("nameProduct"));
+                product.setQuantity(rs.getInt("quantity"));
+                product.setDateAdded(rs.getDate("addedDate").toLocalDate());
+                product.setDescription(rs.getString("description"));
+                product.setHeight(rs.getDouble("height"));
+                product.setWeight(rs.getDouble("weight"));
+                product.setWidth(rs.getDouble("width"));
+                product.setSelling(rs.getInt("selling"));
+                product.setImage(rs.getString("img"));
 
-                    // Category
-                    Category category = new Category();
-                    category.setId(rs.getInt("idCategory"));
-                    category.setName(rs.getString("categoryName"));
-                    product.setCategory(category);
+                Category category = new Category();
+                category.setId(rs.getInt("idCategory"));
+                category.setName(rs.getString("categoryName"));
+                product.setCategory(category);
 
-                    // Technical Information
-                    TechnicalInfo technicalInfo = new TechnicalInfo();
-                    technicalInfo.setId(rs.getInt("idTechnicalInfo"));
-                    technicalInfo.setSpecification(rs.getString("specifications"));
+                TechnicalInfo technicalInfo = new TechnicalInfo();
+                technicalInfo.setId(rs.getInt("idTechnicalInfo"));
+                technicalInfo.setSpecification(rs.getString("specifications"));
+                if (rs.getDate("manufactureDate") != null) {
                     technicalInfo.setManufactureDate(rs.getDate("manufactureDate").toLocalDate());
-                    product.setTechnicalInfo(technicalInfo);
+                }
+                product.setTechnicalInfo(technicalInfo);
 
-                    // Price
-                    Price price = new Price();
-                    price.setId(rs.getInt("idPrice"));
-                    price.setPrice(rs.getDouble("price"));
-                    price.setDiscountPercent(rs.getDouble("discountPercent"));
-                    price.setLastPrice(rs.getDouble("lastPrice"));
-                    product.setPrice(price);
-
-                    return product;
-                }).list());
+                Price priceModel = new Price();
+                priceModel.setId(rs.getInt("idPrice"));
+                priceModel.setPrice(rs.getDouble("price"));
+                priceModel.setDiscountPercent(rs.getDouble("discountPercent"));
+                priceModel.setLastPrice(rs.getDouble("lastPrice"));
+                product.setPrice(priceModel);
+                return product;
+            }).list();
+        });
     }
-
 
     public int getProductByIdStyle(int idStyle) {
         String sql = "SELECT idProduct FROM styles WHERE id = :idStyle";
@@ -1049,12 +899,11 @@ public class ProductDao {
 
     public double getPriceByIdProduct(int idProduct) {
         String sql = """
-        SELECT p.lastPrice
-        FROM prices p
-        JOIN products pr ON p.id = pr.idPrice
-        WHERE pr.id = :idProduct
+        SELECT pr.lastPrice
+        FROM prices pr
+        JOIN products p ON pr.id = p.idPrice
+        WHERE p.id = :idProduct
     """;
-
         try (Handle handle = jdbi.open()) {
             return handle.createQuery(sql)
                     .bind("idProduct", idProduct)
