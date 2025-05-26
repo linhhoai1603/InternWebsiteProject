@@ -1,0 +1,16 @@
+JarIndex-Version: 1.0
+
+google-auth-library-oauth2-http-1.30.0.jar
+META-INF
+META-INF/maven
+META-INF/maven/com.google.auth
+META-INF/maven/com.google.auth/google-auth-library-oauth2-http
+META-INF/native-image
+META-INF/native-image/com.google.auth
+META-INF/native-image/com.google.auth/google-auth-library-oauth2-http
+com
+com/google
+com/google/auth
+com/google/auth/http
+com/google/auth/oauth2
+
