@@ -1,0 +1,15 @@
+.product-container {
+    flex-wrap: wrap; /* Đảm bảo sản phẩm tự động xuống dòng khi đủ 4 sản phẩm */
+}
+.product-item {
+    flex: 0 0 calc(25% - 15px); /* Mỗi sản phẩm chiếm 25% chiều rộng, trừ khoảng cách */
+    margin: 7.5px; /* Tạo khoảng cách giữa các sản phẩm */
+}
+.square {
+    transition: transform 0.2s ease-in-out;
+}
+
+.square:hover {
+    transform: scale(1.2); /* Phóng to khi hover */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
