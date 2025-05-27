@@ -149,7 +149,7 @@
                 <p><strong>Ngân hàng:</strong> Techcombank<br>
                     <strong>Số tài khoản:</strong> 190xxxxxxxxxx<br>
                     <strong>Chủ tài khoản:</strong> SOUSTATE STORE</p>
-                <p>Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán.</p>
+                <p>Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán. aaaaaaaa</p>
             </div>
 
             <h2 style="margin-top: 30px;">Địa chỉ thanh toán</h2>
