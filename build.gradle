@@ -14,9 +14,7 @@ plugins {
 tasks.withType(JavaCompile) {
     options.release = 21
     options.compilerArgs << "-Xlint:deprecation"
-
 }
-
 
 repositories {
     google()
@@ -71,10 +69,7 @@ dependencies {
     implementation 'org.aspectj:aspectjrt:1.9.22'
     implementation 'com.mysql:mysql-connector-j:8.3.0'
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.11'
-
-
 }
-
 
 group = 'web.sale.hoai'
 version = '1.0-SNAPSHOT'
@@ -144,5 +139,10 @@ task docker_deploy {
     docker_deploy.dependsOn docker_upload_file_to_server
     docker_deploy.dependsOn build
     tasks.getByName('docker_app_start').mustRunAfter docker_upload_file_to_server
+}
+
+war {
+    archiveFileName = 'ProjectWeb.war'
+    webAppDirName = 'src/main/webapp'
 }
 

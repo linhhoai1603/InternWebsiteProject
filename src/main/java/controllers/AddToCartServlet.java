@@ -2,8 +2,10 @@ package controllers;
 
 import java.io.*;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import models.AccountUser;
 import models.Cart;
 import models.CartItem;
@@ -23,6 +25,11 @@ public class AddToCartServlet extends HttpServlet {
         CartService cartService = new CartService();
         AccountUser acc = (AccountUser) request.getSession().getAttribute("account");
         Cart cart = (Cart) request.getSession().getAttribute("cart");
+
+        // Get the product ID from the style
+        int productId = productService.getIdProductByIdStyle(idStyle);
+        // Get the unit price for the product
+        double unitPrice = productService.getPriceByIdProduct(productId);
 
         // Thêm item vào giỏ
         cartService.addToCartItem(acc.getUser().getId(), new CartItem(cart.getId(), idStyle, quantity, unitPrice));
