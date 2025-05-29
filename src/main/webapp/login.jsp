@@ -18,7 +18,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
 <link rel="stylesheet" href="css/login.css">
 <div class="container ">
     <!-- Lấy giá trị error và username từ request scope -->
