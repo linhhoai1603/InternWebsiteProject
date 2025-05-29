@@ -42,11 +42,11 @@ public class AddressDao {
     }
 
     public boolean addAddress(Address address) {
-        String query = "insert into addresses (city, province, commune, street) values (?,?,?,?)";
+        String query = "insert into addresses (province, district, ward, detail) values (?,?,?,?)";
         return jdbi.withHandle(handle -> {
             return handle.createUpdate(query)
-                    .bind(0, address.getDistrict())
-                    .bind(1, address.getProvince())
+                    .bind(0, address.getProvince())
+                    .bind(1, address.getDistrict())
                     .bind(2, address.getWard())
                     .bind(3, address.getDetail())
                     .execute() > 0;
@@ -92,5 +92,26 @@ public class AddressDao {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public Address findAddress(String province, String district, String ward, String detail) {
+        String query = "SELECT * FROM addresses\n" +
+                "WHERE province = :province AND district = :district AND ward = :ward AND detail = :detail";
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .bind("province", province)
+                        .bind("district", district)
+                        .bind("ward", ward)
+                        .bind("detail", detail)
+                        .mapToBean(Address.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
+
+    public static void main(String[] args) {
+        AddressDao dao = new AddressDao();
+        Address address = dao.findAddress("Long Bình", "Đồng Nai", "Biên Hòa", "Yết Kiêu");
+        System.out.println(address.toString());
     }
 }

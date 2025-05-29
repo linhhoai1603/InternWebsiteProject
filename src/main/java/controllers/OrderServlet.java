@@ -1,121 +1,243 @@
 package controllers;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
+import connection.DBConnection;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.*;
+import org.jdbi.v3.core.Jdbi;
 import services.*;
 
 @WebServlet(name = "OrderServlet", value = "/order")
 public class OrderServlet extends HttpServlet {
-//
-//    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        // get info and create order from cart
-//        // get method payment
-//        String methodPay = request.getParameter("payment");
-//        if("cash".equals(methodPay)) {
-//          Ordered ordered = createOrder(request, response);
-//            // remove cart
-//            removeCart(request, response);
-//            // set attribute
-//            request.setAttribute("ordered", ordered);
-//            // forward to payment-success.jsp
-//            request.setAttribute("message", "Đặt hàng thành công!");
-//            request.getRequestDispatcher("payment-success.jsp").forward(request, response);
-//        } else {
-//
-//        }
-//    }
-//
-//    private void removeCart(HttpServletRequest request, HttpServletResponse response) {
-//       Cart cart = new Cart();
-//         request.getSession().setAttribute("cart", cart);
-//    }
-//
-//    private Ordered createOrder(HttpServletRequest request, HttpServletResponse response) {
-//        OrderService orderService = new OrderService();
-//        OrderDetailService orderDetailService = new OrderDetailService();
-//        DeliveryService deliveryService = new DeliveryService();
-//        AddressService addressService = new AddressService();
-//        StyleService styleService = new StyleService();
-//
-//
-//        // Kiểm tra session và lấy thông tin
-//        Cart cart = (Cart) request.getSession().getAttribute("cart");
-//        if (cart == null || cart.getItems().isEmpty()) {
-//            throw new IllegalStateException("Giỏ hàng trống hoặc không tồn tại.");
-//        }
-//
-//        User user = (User) request.getSession().getAttribute("user");
-//        if (user == null) {
-//            throw new IllegalStateException("Người dùng chưa đăng nhập.");
-//        }
-//
-//        // Tạo order
-//        Voucher voucher = cart.getVoucher();
-//        String status = "Đang giao hàng";
-//        double totalPrice = cart.getTotalPrice();
-//        double lastPrice = cart.getLastPrice();
-//        Order order = new Order(user, voucher, status, totalPrice, lastPrice);
-//        int idOrder = orderService.insertOrder(order); // Trả về idOrder sau khi chèn
-//
-//        // Tạo chi tiết đơn hàng
-//        for (CartItem item : cart.getItems().values()) {
-//            Style style = item.getStyle();
-//            int quantity = item.getQuantity();
-//            if (quantity > style.getProduct().getQuantity()) {
-//                throw new IllegalStateException("Số lượng sản phẩm không đủ.");
-//            }else{
-//                style.getProduct().setQuantity(style.getProduct().getQuantity() - quantity);
-//                style.setQuantity(style.getQuantity() - quantity);
-//                styleService.updateQuantityForStyle(style.getId(), style.getQuantity());
-//                styleService.updateQuantityForProduct(style.getProduct().getId(), style.getProduct().getQuantity());
-//                OrderDetail orderDetail = new OrderDetail(idOrder, style, quantity);
-//                orderDetailService.insertOrderDetail(orderDetail);
-//                order.getListOfDetailOrder().add(orderDetail);
-//            }
-//        }
-//
-//        // Xử lý thông tin giao hàng
-//        String otherAddress = request.getParameter("otherAddress");
-//        String note = request.getParameter("note");
-//        Delivery delivery;
-//
-//        if (otherAddress == null) {
-//            if (user.getAddress() == null) {
-//                throw new IllegalStateException("Người dùng không có địa chỉ mặc định.");
-//            }
-////            delivery = new Delivery(
-////                    idOrder, user.getAddress().getId(), user.getFullName(), user.getNumberPhone(),
-////                    cart.getTotalArea(), cart.getShippingFee(), note, "Đang giao hàng"
-////            );
-//        } else {
-//            int idAddress = addressService.getLastId() + 1;
-//            String street = request.getParameter("o-street");
-//            String commune = request.getParameter("o-commune");
-//            String city = request.getParameter("o-city");
-//            String province = request.getParameter("o-province");
-//            Address address = new Address(idAddress, street, commune, city, province);
-//            addressService.insertAddress(address);
-//
-//            String fullName = request.getParameter("o-fullName");
-//            String phone = request.getParameter("o-phone");
-////            delivery = new Delivery(
-////                    idOrder, idAddress, fullName, phone,
-////                    cart.getTotalArea(), cart.getShippingFee(), note, "Đang giao hàng"
-////            );
-//        }
-//
-////        deliveryService.insertDelivery(delivery);
-//
-//        // Trả về đối tượng Ordered
-//        return new Ordered(
-////                cart, idOrder, order.getTimeOrdered(),
-////                user.getFullName(), delivery.getNote(),
-////                addressService.getAddressById(delivery.getIdAddress()).getAddressDetail(), delivery.getStatus()
-//        );
-//    }
+    private OrderService orderService;
+    private OrderDetailService orderDetailService;
+    private DeliveryService deliveryService;
+    private AddressService addressService;
+    private StyleService styleService;
 
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        orderService = new OrderService();
+        orderDetailService = new OrderDetailService();
+        deliveryService = new DeliveryService();
+        addressService = new AddressService();
+        styleService = new StyleService();
+    }
+
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
+        String paymentMethod = request.getParameter("payment");
+        System.out.println("Payment Method chosen: " + paymentMethod);
+
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        User user = (User) session.getAttribute("user");
+
+        try {
+            if (cart == null || cart.getCartItems().isEmpty()) {
+                throw new IllegalStateException("Giỏ hàng của bạn đang trống.");
+            }
+            // 5. BƯỚC 1: TẠO THÔNG TIN ĐƠN HÀNG CƠ BẢN (ORDER)
+            // Gọi hàm processOrderCreation để tạo đối tượng Order, lưu vào DB và lấy lại Order đã có ID
+            Order newOrder = processOrderCreation(request, user, cart, paymentMethod);
+
+            // 6. BƯỚC 2: XỬ LÝ CHI TIẾT ĐƠN HÀNG (ORDER DETAILS) VÀ CẬP NHẬT KHO HÀNG
+            // Gọi hàm processOrderDetailsAndUpdateStock để:
+            // - Tạo các đối tượng OrderDetail cho từng sản phẩm trong giỏ hàng.
+            // - Liên kết chúng với Order vừa tạo.
+            // - Giảm số lượng tồn kho của sản phẩm tương ứng.
+            // - Lưu các OrderDetail vào DB.
+            List<OrderDetail> orderDetails = processOrderDetailsAndUpdateStock(newOrder.getId(), cart);
+            newOrder.setListOfDetailOrder(orderDetails); // Gán danh sách chi tiết vào Order
+
+            // 7. BƯỚC 3: XỬ LÝ THÔNG TIN ĐỊA CHỈ GIAO HÀNG (DELIVERY ADDRESS)
+            // Gọi hàm processDeliveryAddress để:
+            // - Xác định địa chỉ giao hàng dựa trên lựa chọn của người dùng (giống địa chỉ shipping hay địa chỉ khác).
+            // - Tạo và lưu đối tượng Address cho việc giao hàng này vào DB.
+            Address deliveryAddress = processDeliveryAddress(request, user);
+
+            // 8. BƯỚC 4: TẠO THÔNG TIN VẬN CHUYỂN (DELIVERY INFORMATION)
+            // Gọi hàm processDeliveryInformation để:
+            // - Tạo đối tượng Delivery, liên kết với Order và Address giao hàng.
+            // - Bao gồm thông tin người nhận, SĐT, ghi chú, phí ship, trạng thái vận chuyển.
+            // - Lưu đối tượng Delivery vào DB.
+            Delivery deliveryInfo = processDeliveryInformation(newOrder.getId(), deliveryAddress.getId(), request, cart, deliveryPersonNameFromRequest(request), deliveryPhoneFromRequest(request));
+
+            // Sau khi tất cả thành công, xóa giỏ hàng
+            removeCart(session);
+
+            // Chuẩn bị dữ liệu cho trang thành công
+            Ordered orderedDataForView = new Ordered(cart,
+                    newOrder.getId(), newOrder.getTimeOrdered(), deliveryInfo.getFullName(),
+                    deliveryInfo.getNote(), deliveryAddress.getAddressDetail(), deliveryInfo.getStatus(),
+                    newOrder.getLastPrice(), paymentMethod);
+
+            request.setAttribute("ordered", orderedDataForView);
+            request.setAttribute("message", "Đặt hàng thành công!");
+            request.getRequestDispatcher("payment-success.jsp").forward(request, response);
+
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+            String currentStep = "shipping";
+            if (request.getParameter("SameOtherAddress") != null) {
+                currentStep = "payment";
+            }
+            response.sendRedirect("checkout.jsp?step=" + currentStep + "&errorMessage=" + java.net.URLEncoder.encode(e.getMessage(), "UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Đã có lỗi không mong muốn xảy ra.");
+            request.getRequestDispatcher("error-page.jsp").forward(request, response);
+        }
+    }
+
+    private void removeCart(HttpSession session) {
+        session.removeAttribute("cart");
+    }
+
+    /**
+     * Tạo và lưu đối tượng Order cơ bản.
+     */
+    private Order processOrderCreation(HttpServletRequest request, User user, Cart cart, String paymentMethod) {
+        Voucher voucher = cart.getAppliedVoucher();
+        String orderStatus = "Đang xử lý";
+        if ("cod".equals(paymentMethod)) {
+            orderStatus = "Đang giao hàng";
+        } else if ("bank_transfer".equals(paymentMethod)) {
+            orderStatus = "Chờ thanh toán";
+        }
+
+        double totalPrice = cart.getTotalPrice();
+        double lastPrice = cart.getLastPrice();
+
+        Order order = new Order(user, voucher, orderStatus, totalPrice, lastPrice);
+        int idOrder = orderService.insertOrder(order);
+        order.setId(idOrder);
+        return order;
+    }
+
+    /**
+     * Xử lý tạo các OrderDetail, cập nhật số lượng tồn kho.
+     * Trả về danh sách OrderDetail đã được tạo.
+     */
+    private List<OrderDetail> processOrderDetailsAndUpdateStock(int orderId, Cart cart) {
+        List<OrderDetail> createdOrderDetails = new ArrayList<>();
+        for (CartItem item : cart.getCartItems()) {
+            Style styleFromCart = item.getStyle();
+            Style currentStyleInDB = styleService.getStyleByID(styleFromCart.getId());
+
+            if (currentStyleInDB == null) {
+                throw new IllegalStateException("Sản phẩm '" + styleFromCart.getProduct().getName() + " - " + styleFromCart.getName() + "' không còn tồn tại.");
+            }
+
+            int quantityOrdered = item.getQuantity();
+            if (quantityOrdered <= 0) {
+                throw new IllegalStateException("Số lượng đặt cho sản phẩm '" + styleFromCart.getProduct().getName() + "' phải lớn hơn 0.");
+            }
+
+            if (quantityOrdered > currentStyleInDB.getQuantity()) {
+                throw new IllegalStateException("Sản phẩm '" + styleFromCart.getProduct().getName() + " - " + styleFromCart.getName() + "' không đủ số lượng. Yêu cầu: " + quantityOrdered + ", Hiện có: " + currentStyleInDB.getQuantity());
+            }
+
+            // Cập nhật số lượng trong DB
+            boolean updateSuccess = styleService.decreaseStyleAndProductQuantity(currentStyleInDB.getId(), currentStyleInDB.getProduct().getId(), quantityOrdered);
+            if (!updateSuccess) {
+                throw new RuntimeException("Lỗi khi cập nhật số lượng cho sản phẩm: " + currentStyleInDB.getProduct().getName());
+            }
+
+            OrderDetail orderDetail = new OrderDetail(orderId, currentStyleInDB, quantityOrdered);
+            orderDetailService.insertOrderDetail(orderDetail);
+            createdOrderDetails.add(orderDetail);
+        }
+        return createdOrderDetails;
+    }
+
+    /**
+     * Xác định tên người nhận hàng từ request.
+     */
+    private String deliveryPersonNameFromRequest(HttpServletRequest request) {
+        String billingAddressOption = request.getParameter("SameOtherAddress");
+        if ("same_as_shipping".equals(billingAddressOption)) {
+            return request.getParameter("shippingFullNameHidden");
+        } else {
+            return request.getParameter("billingFullName");
+        }
+    }
+
+    /**
+     * Xác định số điện thoại nhận hàng từ request.
+     */
+    private String deliveryPhoneFromRequest(HttpServletRequest request) {
+        String billingAddressOption = request.getParameter("SameOtherAddress");
+        if ("same_as_shipping".equals(billingAddressOption)) {
+            return request.getParameter("shippingPhoneHidden");
+        } else {
+            return request.getParameter("billingPhone");
+        }
+    }
+
+
+    /**
+     * Xử lý và tạo/lưu đối tượng Address cho việc giao hàng.
+     * Trả về đối tượng Address đã được lưu.
+     */
+    private Address processDeliveryAddress(HttpServletRequest request, User user) {
+        String billingAddressOption = request.getParameter("SameOtherAddress");
+        String detail, ward, district, province;
+
+        if ("same_as_shipping".equals(billingAddressOption)) {
+            detail = request.getParameter("shippingDetailHidden");
+            ward = request.getParameter("shippingWardHidden");
+            district = request.getParameter("shippingDistrictHidden");
+            province = request.getParameter("shippingProvinceHidden");
+            System.out.println("địa chỉ: " + detail + ward + district + province);
+            System.out.println("Servlet: Delivery address is SAME AS SHIPPING info from hidden fields.");
+        } else {
+            detail = request.getParameter("billingDetail");
+            ward = request.getParameter("billingWard");
+            district = request.getParameter("billingDistrict");
+            province = request.getParameter("billingProvince");
+            System.out.println("Servlet: Delivery address from DIFFERENT BILLING form.");
+        }
+
+        if (detail == null || detail.trim().isEmpty() || ward == null || ward.trim().isEmpty() || district == null || district.trim().isEmpty() || province == null || province.trim().isEmpty()) {
+            throw new IllegalStateException("Thông tin địa chỉ giao hàng (chi tiết, phường/xã, quận/huyện, tỉnh/thành) không đầy đủ.");
+        }
+
+        // Cân nhắc việc tìm kiếm địa chỉ đã tồn tại trước khi tạo mới
+        Address existingAddress = addressService.findAddress(province, district, ward, detail);
+        if (existingAddress != null) {
+            return existingAddress;
+        } else {
+            int idAddressForDelivery = existingAddress.getId() + 1;
+            Address deliveryAddressObject = new Address(idAddressForDelivery, province, district, ward, detail);
+            addressService.insertAddress(deliveryAddressObject);
+            return deliveryAddressObject;
+        }
+    }
+
+    /**
+     * Tạo và lưu thông tin Delivery.
+     * Trả về đối tượng Delivery đã được lưu.
+     */
+    private Delivery processDeliveryInformation(int orderId, int deliveryAddressId, HttpServletRequest request, Cart cart, String deliveryPersonName, String deliveryPhone) {
+        String deliveryNotes = request.getParameter("shippingNotesHidden");
+
+        // Kiểm tra tên người nhận và số điện thoại
+        if (deliveryPersonName == null || deliveryPersonName.trim().isEmpty() || deliveryPhone == null || deliveryPhone.trim().isEmpty()) {
+            throw new IllegalStateException("Tên người nhận hoặc số điện thoại giao hàng không được để trống.");
+        }
+
+        double shippingFee = cart.getShippingFee();
+        String deliveryStatus = "Đang chuẩn bị hàng";
+
+        Delivery delivery = new Delivery(orderId, deliveryAddressId, deliveryPersonName, deliveryPhone, 0, shippingFee, deliveryNotes, deliveryStatus);
+        deliveryService.insertDelivery(delivery);
+        return delivery;
+    }
 }
