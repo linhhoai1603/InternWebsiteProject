@@ -2,6 +2,7 @@ package dao;
 
 import connection.DBConnection;
 import models.Address;
+import models.Order;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
@@ -41,16 +42,17 @@ public class AddressDao {
         );
     }
 
-    public boolean addAddress(Address address) {
+    public int addAddress(Address address) {
         String query = "insert into addresses (province, district, ward, detail) values (?,?,?,?)";
-        return jdbi.withHandle(handle -> {
-            return handle.createUpdate(query)
-                    .bind(0, address.getProvince())
-                    .bind(1, address.getDistrict())
-                    .bind(2, address.getWard())
-                    .bind(3, address.getDetail())
-                    .execute() > 0;
-        });
+
+        return jdbi.withHandle(handle -> handle.createUpdate(query)
+                .bind(0, address.getProvince())
+                .bind(1, address.getDistrict())
+                .bind(2, address.getWard())
+                .bind(3, address.getDetail())
+                .executeAndReturnGeneratedKeys("id")
+                .mapTo(Integer.class)
+                .findOnly());
     }
 
     public int getLastId() {

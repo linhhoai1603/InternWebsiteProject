@@ -101,7 +101,7 @@ tasks.withType(Javadoc) {
 apply plugin: 'org.hidetake.ssh'
 remotes {
     host {
-        host = '192.168.1.250'
+        host = '192.168.74.139'
         user = 'root'
         password = 'centos'
     }

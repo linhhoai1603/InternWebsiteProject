@@ -239,4 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         showShippingStep();
     }
+
+
 });

@@ -1,27 +1,29 @@
 package models;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Payment implements Serializable {
-   private int id;
-   private Order order;
-   private int method;
-   private int status;
-   private LocalDateTime timePayment;
-   private double price;
-   public Payment(){
+public class Payment {
+    private int id;
+    private int idOrder;
+    private int method; // 1: COD, 2: VNPAY
+    private String status; // "Pending", "Completed", "Failed"
+    private LocalDateTime time;
+    private double price;
+    private String vnpTxnRef;
 
-   }
-   public Payment(int id, Order order, int method, int status, LocalDateTime timePayment) {
-       this.id  = id;
-       this.order = order;
-       this.method = method;
-       this.status = status;
-       this.timePayment = timePayment;
-       this.price = order.calculateLastPrice();
-   }
+    public Payment() {
+    }
 
+    public Payment(int idOrder, int method, String status, LocalDateTime time, double price, String vnpTxnRef) {
+        this.idOrder = idOrder;
+        this.method = method;
+        this.status = status;
+        this.time = time;
+        this.price = price;
+        this.vnpTxnRef = vnpTxnRef;
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -30,12 +32,12 @@ public class Payment implements Serializable {
         this.id = id;
     }
 
-    public Order getOrder() {
-        return order;
+    public int getIdOrder() {
+        return idOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setIdOrder(int idOrder) {
+        this.idOrder = idOrder;
     }
 
     public int getMethod() {
@@ -46,20 +48,20 @@ public class Payment implements Serializable {
         this.method = method;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public LocalDateTime getTimePayment() {
-        return timePayment;
+    public LocalDateTime getTime() {
+        return time;
     }
 
-    public void setTimePayment(LocalDateTime timePayment) {
-        this.timePayment = timePayment;
+    public void setTime(LocalDateTime time) {
+        this.time = time;
     }
 
     public double getPrice() {
@@ -70,12 +72,24 @@ public class Payment implements Serializable {
         this.price = price;
     }
 
-    public Payment(int id, Order order, int method, int status, LocalDateTime timePayment, double price) {
-        this.id = id;
-        this.order = order;
-        this.method = method;
-        this.status = status;
-        this.timePayment = timePayment;
-        this.price = price;
+    public String getVnpTxnRef() {
+        return vnpTxnRef;
+    }
+
+    public void setVnpTxnRef(String vnpTxnRef) {
+        this.vnpTxnRef = vnpTxnRef;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", idOrder=" + idOrder +
+                ", method=" + method +
+                ", status='" + status + '\'' +
+                ", time=" + time +
+                ", price=" + price +
+                ", vnpTxnRef='" + vnpTxnRef + '\'' +
+                '}';
     }
 }

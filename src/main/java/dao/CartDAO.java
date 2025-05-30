@@ -5,6 +5,7 @@ import models.Cart;
 import models.CartItem;
 import models.Style;
 import models.Voucher;
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
 import java.time.LocalDate;
@@ -112,5 +113,19 @@ public class CartDAO {
                     .bind("idCart", idCart)
                     .execute();
         });
+    }
+
+    public boolean clearCartItemsByCartId(int idCart) {
+        String sql = "DELETE FROM cart_items WHERE idCart = :idCart";
+        try (Handle handle = jdbi.open()) {
+            int rowsAffected = handle.createUpdate(sql)
+                    .bind("idCart", idCart)
+                    .execute();
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error clearing cart items for idCart " + idCart + ": " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }
