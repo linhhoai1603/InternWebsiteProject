@@ -42,6 +42,7 @@ DROP TABLE IF EXISTS `categories`;
 DROP TABLE IF EXISTS `addresses`;
 
 -- Create tables in correct order of dependency
+ALTER TABLE payments ADD vnpTxnRef VARCHAR(100) DEFAULT NULL;
 
 CREATE TABLE user_logs (
                            id INT PRIMARY KEY AUTO_INCREMENT,
