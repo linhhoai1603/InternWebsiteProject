@@ -14,7 +14,7 @@ public class AddressService {
         return dao.getLastId();
     }
 
-    public boolean insertAddress(Address address) {
+    public int insertAddress(Address address) {
         return dao.addAddress(address);
     }
 
