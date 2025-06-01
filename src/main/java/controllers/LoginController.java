@@ -1,5 +1,4 @@
 package controllers;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,6 +11,7 @@ import models.User;
 import services.AuthenServies;
 import services.CartService;
 import services.application.EnvLoader;
+import services.UserLogService;
 import services.application.HashUtil;
 
 import java.io.BufferedReader;
@@ -124,4 +124,5 @@ public class LoginController extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
     }
+
 }
