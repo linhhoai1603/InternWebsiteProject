@@ -140,17 +140,11 @@
             </div>
 
             <div class="payment-option" data-value="bank_transfer">
-                <input type="radio" id="payment-bank" name="payment" value="bank_transfer">
+                <input type="radio" id="payment-bank" name="payment" value="vnpay">
                 <label for="payment-bank">Chuyển khoản VnPay</label>
-                <i class="images/Icon-VNPAY.png"></i>
+                <img src="images/Icon-VNPAY.png" alt="VNPAY logo" class="payment-option-icon" width="20" height="20"/>
             </div>
-            <div class="payment-option-details hidden" data-details-for="bank_transfer">
-                <p>Vui lòng chuyển khoản vào tài khoản sau với nội dung là Mã đơn hàng của bạn:</p>
-                <p><strong>Ngân hàng:</strong> Techcombank<br>
-                    <strong>Số tài khoản:</strong> 190xxxxxxxxxx<br>
-                    <strong>Chủ tài khoản:</strong> SOUSTATE STORE</p>
-                <p>Đơn hàng sẽ được xử lý sau khi chúng tôi xác nhận thanh toán. aaaaaaaa</p>
-            </div>
+
 
             <h2 style="margin-top: 30px;">Địa chỉ thanh toán</h2>
             <div class="payment-option" data-value="same_as_shipping">
