@@ -50,3 +50,6 @@ build/
 .idea/
 .idea/workspace.xml
 src/main/resources/client_secrets.json
+echo ".gradle/" >> .gitignore
+git add .gitignore
+
