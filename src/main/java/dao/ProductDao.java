@@ -168,7 +168,7 @@ public class ProductDao {
         }
 
         String query = """
-                SELECT 
+                SELECT
                     p.id AS idProduct,
                     p.name AS nameProduct,
                     p.quantity,
@@ -192,10 +192,10 @@ public class ProductDao {
                 JOIN technical_information t ON p.idTechnical = t.id 
                 JOIN prices pr ON p.idPrice = pr.id
                 """ + join + """
-                WHERE """ + categoryQuery + """
+                WHERE""" + categoryQuery + """
                  p.quantity > 0 AND p.selling > 0
                 """ + groupBy + """
-                ORDER BY """ + sortBy + " " + sortOrder + """
+                ORDER BY""" + sortBy + " " + sortOrder + """
                 LIMIT ? OFFSET ?;
                 """;
 
