@@ -1,0 +1,168 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.container-fluid.order-history-page {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background-color: #e7e7e7;
+}
+
+.order-history-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.order-history-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.no-orders-message {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.no-orders-message h4 {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.orders-table {
+    margin-top: 20px;
+    border: 1px solid #dee2e6;
+}
+
+.orders-table thead.table-dark th {
+    background-color: #343a40;
+    color: #fff;
+    border-color: #454d55;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.orders-table tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+.orders-table td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 12px 8px;
+}
+
+.orders-table td:first-child {
+    font-weight: bold;
+}
+
+.order-details-table {
+    margin-top: 10px;
+    margin-bottom: 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+.order-details-table thead {
+    background-color: #f8f9fa;
+}
+
+.order-details-table th {
+    padding: 8px;
+    color: #495057;
+    border-bottom-width: 1px;
+    text-align: left;
+}
+
+.order-details-table th:nth-child(3),
+.order-details-table th:nth-child(4),
+.order-details-table th:nth-child(5) {
+    text-align: right;
+}
+
+.order-details-table td {
+    padding: 8px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.order-details-table td:nth-child(3),
+.order-details-table td:nth-child(4),
+.order-details-table td:nth-child(5) {
+    text-align: right;
+}
+
+.order-status {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    color: black;
+    min-width: 110px;
+    text-align: center;
+}
+
+.status-default {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.status-pending {
+    background-color: #ffc107;
+    color: #212529;
+    border-color: #e0a800;
+}
+
+.status-processing {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.status-shipped {
+    background-color: #fd7e18 !important;
+    color: #fff !important;
+}
+
+.status-delivered, .status-completed {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.status-cancelled {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.status-paid {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.price {
+    font-weight: 500;
+    color: #28a745;
+}
+
+@media (max-width: 768px) {
+    .order-history-container {
+        padding: 20px;
+    }
+    .orders-table, .order-details-table {
+        font-size: 0.85em;
+    }
+    .orders-table td, .orders-table th,
+    .order-details-table td, .order-details-table th {
+        padding: 8px 5px;
+    }
+}
