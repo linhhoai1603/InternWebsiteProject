@@ -71,7 +71,7 @@ public class ProductsServlet extends HttpServlet {
             // Apply filters
             if (categories != null && categories.length > 0) {
                 // If categories are selected, filter by categories
-                products = ps.getProductsByCategories(categories, currentPage, nuPerPage, sortOption, minPrice, maxPrice);
+                //products = ps.getProductsByCategories(categories, currentPage, nuPerPage, sortOption, minPrice, maxPrice);
             } else {
                 // Otherwise use normal product loading
                 products = ps.getProducts(selection, currentPage, nuPerPage, sortOption, minPrice, maxPrice);
@@ -79,7 +79,7 @@ public class ProductsServlet extends HttpServlet {
             
             int nupage = ps.getNuPage(nuPerPage, selection);
 
-            request.setAttribute("products", products);
+            //request.setAttribute("products", products);
             request.setAttribute("nupage", nupage);
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("option", option);
