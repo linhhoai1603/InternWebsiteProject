@@ -6,7 +6,7 @@ import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.Query;
 
 public class DBConnection {
-    static Jdbi jdbi;
+    public static Jdbi jdbi;
 
 
     public static Jdbi getJdbi() {
