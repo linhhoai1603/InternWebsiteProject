@@ -22,6 +22,7 @@ public class ToTalProductService {
     }
 
     public List<Product> getAllProducts(int currentPage, int nuPerPage, String option) {
+<<<<<<< HEAD
         switch (option) {
             case "latest":
                 return productDao.getProductLatest(currentPage, nuPerPage);
@@ -36,9 +37,10 @@ public class ToTalProductService {
             default:
                 return productDao.getAllProducts(currentPage, nuPerPage);
         }
+
     }
     public List<Product> getProductByCategoryName(String selection, int currentPage, int nuPerPage, String option) {
-        if(option != null && !option.isEmpty()){
+        if(option.equals("")||option==null){
             return productDao.getProductByCategoryNameWithOption(selection,currentPage,nuPerPage, option);
         }
         return productDao.getProductByCategoryName(selection, currentPage, nuPerPage);
@@ -58,6 +60,7 @@ public class ToTalProductService {
     }
 
     public List<Product> getProducts(String selection, int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
+<<<<<<< HEAD
         List<Product> products;
         
         // Check if price parameters are valid
@@ -82,23 +85,39 @@ public class ToTalProductService {
             // No price range, use normal category search
             if ("all".equals(selection)) {
                 products = getAllProducts(currentPage, nuPerPage, option);
+=======
+
+        if (selection == null) {
+            selection = "all";
+        }
+        selection = switch (selection) {
+            case "1" -> "Vải may mặc";
+            case "2" -> "Vải nội thất";
+            case "3" -> "Nút áo";
+            case "4" -> "Dây kéo";
+            default -> selection;
+        };
+        if (minPrice != null && maxPrice != null) {
+            if (selection.equals("all")) {
+                return productDao.getAllProductByPriceRange(currentPage, nuPerPage, minPrice, maxPrice);
+>>>>>>> 0e4a6d239f86628bf41c195a11079b227e8cb11a
             } else {
-                products = getProductByCategoryName(selection, currentPage, nuPerPage, option);
+                return productDao.getProductByCategoryAndPriceRange(selection, currentPage, nuPerPage, minPrice, maxPrice);
             }
         }
-        
-        // Load styles for each product
-        StyleService styleService = new StyleService();
-        for (Product product : products) {
-            product.setStyles(styleService.getAllStylesByIDProduct(product.getId()));
+
+
+        if (selection.equals("all")) {
+            return getAllProducts(currentPage, nuPerPage, option);
+        } else {
+            return getProductByCategoryName(selection, currentPage, nuPerPage, option);
         }
-        
-        return products;
     }
     public static void main(String[] args) {
         ToTalProductService service = new ToTalProductService();
         //System.out.println(service.getNuPage(1, "all"));
         System.out.println(service.getProducts("Vải may mặc",1,12,"latest",null,null));
+
     }
     public List<Product> searchProductByName(String name) {
         return productDao.searchProductByName(name);
@@ -107,14 +126,13 @@ public class ToTalProductService {
         return productDao.getProductByName(name);
     }
     public Product getProductById(int id) {
-        return productDao.getProductById(id);
+        Product product = productDao.getProductById(id);
+        StyleService styleService = new StyleService();
+        product.setStyles(styleService.getAllStylesByIDProduct(id));
+        return product;
     }
 
     public List<Product> getProductsBestSellerByCategory(String selection, int currentPage , int nuperPage) {
         return productDao.getProductsBestSellerByCategory( selection,  currentPage ,  nuperPage);
-    }
-
-    public List<Product> getProductsByCategories(String[] categoryIds, int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
-        return ToTalProductDAO.getProductByCategories(categoryIds, currentPage, nuPerPage, option, minPrice, maxPrice);
     }
 }

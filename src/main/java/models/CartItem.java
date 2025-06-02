@@ -11,12 +11,11 @@ public class CartItem implements Serializable {
     private int quantity;
     private double unitPrice;
     private LocalDate addedDate;
-    public CartItem(int idCart , int idStyle, int quantity, double unitPrice) {
+    public CartItem(int idCart , int idStyle, int quantity) {
         this.idCart = idCart;
         this.style = new Style();
         this.style.setId(idStyle);
         this.quantity = quantity;
-        this.unitPrice = unitPrice;
         this.addedDate = LocalDate.now();
     }
     public CartItem(){

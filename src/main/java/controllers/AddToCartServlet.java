@@ -32,7 +32,7 @@ public class AddToCartServlet extends HttpServlet {
         double unitPrice = productService.getPriceByIdProduct(productId);
 
         // Thêm item vào giỏ
-        cartService.addToCartItem(acc.getUser().getId(), new CartItem(cart.getId(), idStyle, quantity, unitPrice));
+        cartService.addToCartItem(acc.getUser().getId(), new CartItem(cart.getId(), idStyle, quantity));
 
         // Cập nhật lại giỏ hàng trong session
         request.getSession().setAttribute("cart", cartService.getCart(acc.getUser().getId()));

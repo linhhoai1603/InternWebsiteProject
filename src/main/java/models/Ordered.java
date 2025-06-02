@@ -11,7 +11,38 @@ public class Ordered {
     private String personName;
     private String note;
     private String address;
+    private String status;
+    private double lastPrice;
     private String methodPayment;
+
+    public double getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(double lastPrice) {
+        this.lastPrice = lastPrice;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Ordered(Cart cart, int idOrder, LocalDateTime timeOrdered, String personName,
+                   String note, String address, String status, double lastPrice, String methodPayment) {
+        this.cart = cart;
+        this.idOrder = idOrder;
+        this.timeOrdered = timeOrdered;
+        this.personName = personName;
+        this.note = note;
+        this.address = address;
+        this.status = status; // Thêm status
+        this.lastPrice = lastPrice; // Thêm lastPrice
+        this.methodPayment = methodPayment;
+    }
 
     public Cart getCart() {
         return cart;
