@@ -87,4 +87,7 @@ public class CartService {
         cartDAO.removeCartItem(idCart, cartItemId);
     }
 
+    public boolean clearCartInDatabase(int cartId) {
+        return cartDAO.clearCartItemsByCartId(cartId);
+    }
 }

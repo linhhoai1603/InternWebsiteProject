@@ -42,7 +42,18 @@ DROP TABLE IF EXISTS `categories`;
 DROP TABLE IF EXISTS `addresses`;
 
 -- Create tables in correct order of dependency
+ALTER TABLE payments ADD vnpTxnRef VARCHAR(100) DEFAULT NULL;
 
+CREATE TABLE user_logs (
+                           id INT PRIMARY KEY AUTO_INCREMENT,
+                           user_id INT,
+                           action VARCHAR(255) NOT NULL,
+                           description TEXT,
+                           ip_address VARCHAR(45),
+                           user_agent TEXT,
+                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                           FOREIGN KEY (user_id) REFERENCES users(id)
+);
 -- Dependencies: None
 CREATE TABLE `addresses` (
                              `id` int(11) NOT NULL AUTO_INCREMENT,

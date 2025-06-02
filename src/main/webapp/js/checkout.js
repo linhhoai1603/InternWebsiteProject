@@ -1,25 +1,26 @@
+console.log("checkout.js loaded!");
 document.addEventListener('DOMContentLoaded', function () {
+    console.log("DOMContentLoaded event fired!");
     const shippingForm = document.getElementById('shipping-form');
-    const paymentForm = document.getElementById('payment-form'); // Form đặt hàng
+    const paymentForm = document.getElementById('payment-form');
 
     const shippingSection = document.getElementById('shipping-info-section');
     const paymentSection = document.getElementById('payment-method-section');
 
     const btnToPayment = document.getElementById('btn-to-payment');
-    const btnBackToShipping = document.getElementById('btn-back-to-shipping');
-    const btnCompleteOrder = document.getElementById('btn-complete-order'); // Nút "Hoàn tất đơn hàng"
+    // Nút "Quay lại thông tin giao hàng" trong footer của payment-form
+    const btnBackToShippingFooter = document.getElementById('btn-back-to-shipping'); // ID từ HTML của bạn
+    const btnCompleteOrder = document.getElementById('btn-complete-order');
 
     const breadcrumbBackToShippingLink = document.getElementById('breadcrumb-back-to-shipping');
     const changeContactLink = document.getElementById('change-shipping-info-contact');
     const changeAddressLink = document.getElementById('change-shipping-info-address');
 
-    // Review elements
     const reviewEmail = document.getElementById('review-email');
     const reviewAddress = document.getElementById('review-address');
     const reviewNotesRow = document.getElementById('review-notes-row');
     const reviewShippingNotes = document.getElementById('review-shipping-notes');
 
-    // Form fields (shipping)
     const fullNameInput = document.getElementById('fullName');
     const emailInput = document.getElementById('email');
     const phoneInput = document.getElementById('phone');
@@ -29,54 +30,42 @@ document.addEventListener('DOMContentLoaded', function () {
     const wardInput = document.getElementById('ward');
     const shippingNotesInput = document.getElementById('shippingNotes');
 
-    // Form fields (billing)
-    const billingFullNameInput = document.getElementById('billingFullName');
-    const billingAddressInput = document.getElementById('billingAddress');
-    const billingProvinceInput = document.getElementById('billingProvince');
-    const billingDistrictInput = document.getElementById('billingDistrict');
-    const billingWardInput = document.getElementById('billingWard');
-    const billingPhoneInput = document.getElementById('billingPhone');
-
-    // Hidden fields for payment form
-    const hiddenShippingFullName = document.getElementById('hiddenShippingFullName');
-    const hiddenShippingEmail = document.getElementById('hiddenShippingEmail');
-    const hiddenShippingPhone = document.getElementById('hiddenShippingPhone');
-    const hiddenShippingAddressDetail = document.getElementById('hiddenShippingAddressDetail');
-    const hiddenShippingProvince = document.getElementById('hiddenShippingProvince');
-    const hiddenShippingDistrict = document.getElementById('hiddenShippingDistrict');
-    const hiddenShippingWard = document.getElementById('hiddenShippingWard');
-    const hiddenShippingNotes = document.getElementById('hiddenShippingNotes');
-    const hiddenPaymentMethodValue = document.getElementById('hiddenPaymentMethodValue');
-
-
-    // Billing address form elements
-    const billingAddressRadios = document.querySelectorAll('input[name="billingAddressOption"]');
     const differentBillingForm = document.getElementById('different-billing-address-form');
+    let billingInputs = [];
+    if (differentBillingForm) {
+        billingInputs = differentBillingForm.querySelectorAll('input[type="text"], input[type="tel"]');
+    }
 
-    // Payment Options
-    const paymentOptions = document.querySelectorAll('.payment-option');
-    const paymentOptionDetails = document.querySelectorAll('.payment-option-details');
+    const hiddenShippingFullName = document.getElementById('shippingFullNameHidden');
+    // const hiddenShippingEmail = document.getElementById('shippingEmailHidden'); // Bỏ qua nếu không có trong HTML
+    const hiddenShippingPhone = document.getElementById('shippingPhoneHidden');
+    const hiddenShippingAddressDetail = document.getElementById('shippingDetailHidden');
+    const hiddenShippingProvince = document.getElementById('shippingProvinceHidden');
+    const hiddenShippingDistrict = document.getElementById('shippingDistrictHidden');
+    const hiddenShippingWard = document.getElementById('shippingWardHidden');
+    const hiddenShippingNotes = document.getElementById('shippingNotesHidden');
 
+    const billingAddressRadios = document.querySelectorAll('input[name="SameOtherAddress"]');
 
-    // --- Step Navigation ---
+    const paymentOptionsRadios = document.querySelectorAll('#payment-form input[name="payment"]');
+    const paymentOptionDivs = document.querySelectorAll('#payment-form .payment-option');
+    const paymentOptionDetails = document.querySelectorAll('#payment-form .payment-option-details');
+
     function showShippingStep() {
-        if(shippingSection) shippingSection.classList.remove('hidden');
-        if(paymentSection) paymentSection.classList.add('hidden');
+        if (shippingSection) shippingSection.classList.remove('hidden');
+        if (paymentSection) paymentSection.classList.add('hidden');
         window.scrollTo(0, 0);
     }
 
-    function showPaymentStep() {
-        // Populate review box with current shipping info
+    function updateReviewBoxAndHiddenFields() {
+        console.log("updateReviewBoxAndHiddenFields CALLED!");
+        console.log("addressInput value:", addressInput ? addressInput.value : 'addressInput not found');
+        console.log("provinceInput value:", provinceInput ? provinceInput.value : 'provinceInput not found');
+        console.log("districtInput value:", districtInput ? districtInput.value : 'districtInput not found');
+        console.log("wardInput value:", wardInput ? wardInput.value : 'wardInput not found');
         if (reviewEmail && emailInput) reviewEmail.textContent = emailInput.value || 'N/A';
-
-        const fullAddressParts = [
-            fullNameInput?.value,
-            addressInput?.value,
-            wardInput?.value,
-            districtInput?.value,
-            provinceInput?.value
-        ];
-        if (reviewAddress) reviewAddress.textContent = fullAddressParts.filter(Boolean).join(', ') || 'N/A';
+        const fullAddressDisplayParts = [addressInput?.value, wardInput?.value, districtInput?.value, provinceInput?.value].filter(Boolean).join(', ');
+        if (reviewAddress) reviewAddress.textContent = fullAddressDisplayParts || 'N/A';
 
         if (reviewShippingNotes && reviewNotesRow && shippingNotesInput) {
             if (shippingNotesInput.value.trim() !== "") {
@@ -87,38 +76,45 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-        // Populate hidden fields in payment form
-        if(hiddenShippingFullName && fullNameInput) hiddenShippingFullName.value = fullNameInput.value;
-        if(hiddenShippingEmail && emailInput) hiddenShippingEmail.value = emailInput.value;
-        if(hiddenShippingPhone && phoneInput) hiddenShippingPhone.value = phoneInput.value;
-        if(hiddenShippingAddressDetail && addressInput) hiddenShippingAddressDetail.value = addressInput.value;
-        if(hiddenShippingProvince && provinceInput) hiddenShippingProvince.value = provinceInput.value;
-        if(hiddenShippingDistrict && districtInput) hiddenShippingDistrict.value = districtInput.value;
-        if(hiddenShippingWard && wardInput) hiddenShippingWard.value = wardInput.value;
-        if(hiddenShippingNotes && shippingNotesInput) hiddenShippingNotes.value = shippingNotesInput.value;
+        if (hiddenShippingFullName && fullNameInput) hiddenShippingFullName.value = fullNameInput.value;
+        //if (hiddenShippingEmail && emailInput) hiddenShippingEmail.value = emailInput.value;
+        if (hiddenShippingPhone && phoneInput) hiddenShippingPhone.value = phoneInput.value;
+        if (hiddenShippingAddressDetail && addressInput) hiddenShippingAddressDetail.value = addressInput.value;
+        if (hiddenShippingProvince && provinceInput) hiddenShippingProvince.value = provinceInput.value;
+        if (hiddenShippingDistrict && districtInput) hiddenShippingDistrict.value = districtInput.value;
+        if (hiddenShippingWard && wardInput) hiddenShippingWard.value = wardInput.value;
+        if (hiddenShippingNotes && shippingNotesInput) hiddenShippingNotes.value = shippingNotesInput.value;
 
-        const selectedPaymentMethodRadio = document.querySelector('input[name="paymentMethod"]:checked');
-        if(hiddenPaymentMethodValue && selectedPaymentMethodRadio) hiddenPaymentMethodValue.value = selectedPaymentMethodRadio.value;
+        console.log("hiddenShippingDetailHidden value set to:", hiddenShippingAddressDetail ? hiddenShippingAddressDetail.value : 'hidden field not found');
+        console.log("hiddenShippingProvinceHidden value set to:", hiddenShippingProvince ? hiddenShippingProvince.value : 'hidden field not found');
+    }
 
-
-        if(shippingSection) shippingSection.classList.add('hidden');
-        if(paymentSection) paymentSection.classList.remove('hidden');
+    function showPaymentStep() {
+        updateReviewBoxAndHiddenFields();
+        if (shippingSection) shippingSection.classList.add('hidden');
+        if (paymentSection) paymentSection.classList.remove('hidden');
         window.scrollTo(0, 0);
     }
 
+    // Hàm xử lý submit của shippingForm
+    const shippingFormSubmitHandler = function (event) {
+        event.preventDefault();
+        if (shippingForm.checkValidity()) {
+            sessionStorage.setItem('shippingFormValid', 'true');
+            showPaymentStep(); // Gọi hàm showPaymentStep đã có updateReviewBoxAndHiddenFields
+        } else {
+            sessionStorage.setItem('shippingFormValid', 'false');
+            shippingForm.reportValidity();
+        }
+    };
+
     if (shippingForm && btnToPayment) {
-        shippingForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            if (shippingForm.checkValidity()) {
-                showPaymentStep();
-            } else {
-                shippingForm.reportValidity();
-            }
-        });
+        shippingForm.removeEventListener('submit', shippingFormSubmitHandler); // Xóa listener cũ nếu có
+        shippingForm.addEventListener('submit', shippingFormSubmitHandler);
     }
 
-    if (btnBackToShipping) {
-        btnBackToShipping.addEventListener('click', function (event) {
+    if (btnBackToShippingFooter) {
+        btnBackToShippingFooter.addEventListener('click', function (event) {
             event.preventDefault();
             showShippingStep();
         });
@@ -130,11 +126,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    if (changeContactLink && emailInput) {
+    if (changeContactLink && (emailInput || fullNameInput)) {
         changeContactLink.addEventListener('click', function (e) {
             e.preventDefault();
             showShippingStep();
-            emailInput.focus();
+            if (fullNameInput) fullNameInput.focus();
+            else if (emailInput) emailInput.focus();
         });
     }
     if (changeAddressLink && addressInput) {
@@ -145,81 +142,103 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- Billing Address Logic ---
-    if (billingAddressRadios.length > 0 && differentBillingForm) {
-        billingAddressRadios.forEach(radio => {
-            radio.addEventListener('change', function () {
-                const isDifferent = this.value === 'different_billing';
-                differentBillingForm.classList.toggle('hidden', !isDifferent);
-                Array.from(differentBillingForm.querySelectorAll('input[type="text"], input[type="tel"]')).forEach(el => {
-                    if (['billingFullName', 'billingAddress', 'billingProvince', 'billingDistrict', 'billingWard', 'billingPhone'].includes(el.id)) {
-                        el.required = isDifferent;
-                    }
-                });
-            });
-        });
-        const initiallyDifferentBilling = document.querySelector('input[name="billingAddressOption"]:checked')?.value === 'different_billing';
-        differentBillingForm.classList.toggle('hidden', !initiallyDifferentBilling);
-        Array.from(differentBillingForm.querySelectorAll('input[type="text"], input[type="tel"]')).forEach(el => {
-            if (['billingFullName', 'billingAddress', 'billingProvince', 'billingDistrict', 'billingWard', 'billingPhone'].includes(el.id)) {
-                el.required = initiallyDifferentBilling;
-            }
-        });
-    }
-
-    // --- Payment Option Selection & Details ---
-    if (paymentOptions.length > 0) {
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function () {
-                paymentOptions.forEach(opt => {
-                    opt.classList.remove('selected');
-                    const radioInside = opt.querySelector('input[type="radio"]');
-                    if (radioInside) radioInside.checked = false;
-                });
-                paymentOptionDetails.forEach(detail => detail.classList.add('hidden'));
-
-                this.classList.add('selected');
-                const radioInsideThis = this.querySelector('input[type="radio"]');
-                if (radioInsideThis) radioInsideThis.checked = true;
-
-                // Update hidden field for payment method when an option is clicked
-                if(hiddenPaymentMethodValue && radioInsideThis) hiddenPaymentMethodValue.value = radioInsideThis.value;
-
-
-                const detailsFor = this.dataset.value;
-                const detailToShow = document.querySelector(`.payment-option-details[data-details-for="${detailsFor}"]`);
-                if (detailToShow) {
-                    detailToShow.classList.remove('hidden');
+    function handleBillingAddressSelection() {
+        const selectedBillingOption = document.querySelector('input[name="SameOtherAddress"]:checked');
+        if (differentBillingForm && selectedBillingOption) {
+            const isDifferent = selectedBillingOption.value === 'different_billing';
+            differentBillingForm.classList.toggle('hidden', !isDifferent);
+            billingInputs.forEach(input => {
+                input.disabled = !isDifferent;
+                input.required = isDifferent;
+                if (!isDifferent) {
+                    input.value = '';
                 }
             });
-        });
-        const initiallyCheckedPaymentRadio = document.querySelector('.payment-option input[type="radio"]:checked');
-        if (initiallyCheckedPaymentRadio) {
-            const parentOption = initiallyCheckedPaymentRadio.closest('.payment-option');
-            if (parentOption) {
-                parentOption.classList.add('selected');
-                const detailsFor = parentOption.dataset.value;
-                const detailToShow = document.querySelector(`.payment-option-details[data-details-for="${detailsFor}"]`);
-                if (detailToShow) {
-                    detailToShow.classList.remove('hidden');
-                }
-                // Set initial value for hidden payment method
-                if(hiddenPaymentMethodValue) hiddenPaymentMethodValue.value = initiallyCheckedPaymentRadio.value;
+            if (isDifferent && billingInputs.length > 0) {
+                // billingInputs[0].focus(); // Tạm thời comment out để tránh lỗi nếu billingInputs[0] không tồn tại
             }
         }
     }
 
-    // Logic cho việc submit form thanh toán (btnCompleteOrder)
-    // Sẽ submit form #payment-form theo cách truyền thống
-    // Không cần JavaScript đặc biệt ở đây nếu không có AJAX
-    // Đảm bảo form #payment-form có action và method phù hợp.
+    if (billingAddressRadios.length > 0) {
+        billingAddressRadios.forEach(radio => {
+            radio.addEventListener('change', handleBillingAddressSelection);
+        });
+        handleBillingAddressSelection();
+    }
 
-    // Kiểm tra nếu có tham số step=payment trên URL để hiển thị đúng bước khi trang tải lại (sau khi áp dụng voucher)
+    if (paymentOptionsRadios.length > 0) {
+        paymentOptionsRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                paymentOptionDetails.forEach(detail => detail.classList.add('hidden'));
+                paymentOptionDivs.forEach(div => div.classList.remove('selected'));
+                if (this.checked) {
+                    const parentOptionDiv = this.closest('.payment-option');
+                    if (parentOptionDiv) {
+                        parentOptionDiv.classList.add('selected');
+                        const detailsFor = parentOptionDiv.dataset.value;
+                        const detailToShow = document.querySelector(`.payment-option-details[data-details-for="${detailsFor}"]`);
+                        if (detailToShow) {
+                            detailToShow.classList.remove('hidden');
+                        }
+                    }
+                }
+            });
+        });
+        const initiallyCheckedPaymentRadio = document.querySelector('#payment-form input[name="payment"]:checked');
+        if (initiallyCheckedPaymentRadio) {
+            initiallyCheckedPaymentRadio.dispatchEvent(new Event('change'));
+        }
+    }
+
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function (event) {
+            updateReviewBoxAndHiddenFields(); // Cập nhật lần cuối trước khi submit
+
+            const selectedBillingOption = document.querySelector('input[name="SameOtherAddress"]:checked');
+            if (selectedBillingOption && selectedBillingOption.value === 'different_billing') {
+                let isBillingFormValid = true;
+                billingInputs.forEach(input => {
+                    if (input.required && !input.value.trim()) {
+                        isBillingFormValid = false;
+                    }
+                });
+                if (!isBillingFormValid) {
+                    event.preventDefault();
+                    alert('Vui lòng điền đầy đủ các trường bắt buộc cho địa chỉ thanh toán.');
+                    const firstInvalidBillingInput = Array.from(billingInputs).find(input => input.required && !input.value.trim());
+                    if (firstInvalidBillingInput) {
+                        firstInvalidBillingInput.focus();
+                    }
+                    return;
+                }
+            }
+
+            const selectedPaymentMethod = document.querySelector('input[name="payment"]:checked');
+            if (!selectedPaymentMethod) {
+                event.preventDefault();
+                alert('Vui lòng chọn phương thức thanh toán.');
+                const paymentOptionsArea = document.querySelector('#payment-form h2');
+                if (paymentOptionsArea) {
+                    paymentOptionsArea.scrollIntoView({ behavior: 'smooth' });
+                }
+                return;
+            }
+        });
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('step') === 'payment') {
-        showPaymentStep();
+        const shippingFormIsValid = sessionStorage.getItem('shippingFormValid') === 'true';
+        if (shippingForm && (shippingForm.checkValidity() || shippingFormIsValid)) { // Kiểm tra cả trạng thái hiện tại và session
+            updateReviewBoxAndHiddenFields();
+            showPaymentStep();
+        } else {
+            showShippingStep();
+        }
     } else {
-        showShippingStep(); // Mặc định hiển thị bước shipping
+        showShippingStep();
     }
+
 
 });

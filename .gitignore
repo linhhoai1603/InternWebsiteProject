@@ -16,6 +16,8 @@ target/
 workspace.xml
 secrets.properties
 src/main/resources/client_secrets.json
+out/
+
 
 # Gradle cache files
 .gradle/
