@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ProjectWeb.main:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="add reCAPTCHA">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AddToCartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AddToCartServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ToTalProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ToTalProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project_web.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ProjectWeb" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ProjectWeb" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ProjectWeb" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ProjectWeb" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+        <option value="JavaScript File" />
+        <option value="Servlet" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SHOW_TAGS" value="false" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;HungLee104&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/linhhoai1603/InternWebsiteProject.git&quot;,
+    &quot;accountId&quot;: &quot;712509bc-c7d4-4b60-8e8a-50a2fcb83bae&quot;
+  }
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2vXefvsJmDzaomyOJ80rrgwsgxd" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.AddressCalculator.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.ToTalProductService.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build InternWebsiteProject.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (2).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (3).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (3).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [model].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InternWebsiteProject [build] (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InternWebsiteProject [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InternWebsiteProject [docker_app_start] (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InternWebsiteProject [docker_app_start].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InternWebsiteProject [docker_deploy] (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InternWebsiteProject [docker_deploy].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.InternWebsiteProject [docker_upload_file_to_server].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;TomEE Server.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.28.executor&quot;: &quot;Run&quot;,
+    &quot;Tomcat Server.Tomcat 10.1.314.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;hung&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Learn/LearnSpace/learn_space&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="controllers.API" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)">
+    <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [build] (2)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="docker_deploy" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="docker_deploy" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="docker_deploy" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tomcat 10.1.314" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.314" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="ProjectWeb.main:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/ProjectWeb" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="7c0af664-9f19-4e24-beff-aff0a44a2e0a" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="53067" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="ProjectWeb.main:war exploded" />
+        </option>
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build]" />
+      <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)" />
+      <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (2)" />
+      <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy]" />
+      <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2)" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.314" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)" />
+        <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build]" />
+        <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy]" />
+        <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (2)" />
+        <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="" />
+      <created>1744295954402</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1744295954402</updated>
+      <workItem from="1744295957565" duration="20000" />
+      <workItem from="1744338743374" duration="4352000" />
+      <workItem from="1744435222111" duration="1376000" />
+      <workItem from="1744436753709" duration="3308000" />
+      <workItem from="1744442683494" duration="15000" />
+      <workItem from="1744535505592" duration="2578000" />
+      <workItem from="1744543944910" duration="595000" />
+      <workItem from="1744625659292" duration="247000" />
+      <workItem from="1744642662761" duration="666000" />
+      <workItem from="1744684801252" duration="3000" />
+      <workItem from="1744722889713" duration="1824000" />
+      <workItem from="1744727540926" duration="4293000" />
+      <workItem from="1744792542184" duration="6000" />
+      <workItem from="1744962311866" duration="4136000" />
+      <workItem from="1745048388753" duration="7789000" />
+      <workItem from="1745077506969" duration="11000" />
+      <workItem from="1745077551249" duration="1390000" />
+      <workItem from="1745108285081" duration="6730000" />
+      <workItem from="1745124179715" duration="10875000" />
+      <workItem from="1745199247829" duration="56000" />
+      <workItem from="1745199671886" duration="602000" />
+      <workItem from="1746966354202" duration="5001000" />
+      <workItem from="1747014386489" duration="13064000" />
+      <workItem from="1747044744583" duration="9597000" />
+      <workItem from="1747064122204" duration="1190000" />
+      <workItem from="1747190387247" duration="3947000" />
+      <workItem from="1747289819445" duration="1666000" />
+      <workItem from="1747362199530" duration="2843000" />
+      <workItem from="1747365073666" duration="17000" />
+      <workItem from="1747365969288" duration="167000" />
+      <workItem from="1747367438520" duration="617000" />
+      <workItem from="1747368268890" duration="18000" />
+      <workItem from="1747385600800" duration="11433000" />
+      <workItem from="1747405711846" duration="912000" />
+      <workItem from="1747438401356" duration="21000" />
+      <workItem from="1747438427854" duration="4184000" />
+      <workItem from="1747487232883" duration="8000" />
+      <workItem from="1747541703998" duration="26000" />
+      <workItem from="1747638327569" duration="614000" />
+      <workItem from="1747639799799" duration="12000" />
+      <workItem from="1747640145785" duration="961000" />
+      <workItem from="1747641269813" duration="1048000" />
+      <workItem from="1747642788929" duration="388000" />
+      <workItem from="1747643509756" duration="566000" />
+      <workItem from="1747660363854" duration="607000" />
+      <workItem from="1747661413807" duration="1615000" />
+      <workItem from="1747663536443" duration="285000" />
+      <workItem from="1747664160213" duration="682000" />
+      <workItem from="1747664968782" duration="899000" />
+      <workItem from="1747734010534" duration="530000" />
+      <workItem from="1747735265449" duration="297000" />
+      <workItem from="1747735981359" duration="3166000" />
+      <workItem from="1747743897024" duration="142000" />
+      <workItem from="1747744149503" duration="967000" />
+      <workItem from="1747745473210" duration="384000" />
+      <workItem from="1747745997765" duration="411000" />
+      <workItem from="1747746531061" duration="1369000" />
+      <workItem from="1747749341550" duration="13000" />
+      <workItem from="1747749748022" duration="42000" />
+      <workItem from="1747749848133" duration="299000" />
+      <workItem from="1747750357315" duration="133000" />
+      <workItem from="1747750530994" duration="164000" />
+      <workItem from="1747811142375" duration="628000" />
+      <workItem from="1747989114528" duration="2665000" />
+      <workItem from="1747991815540" duration="4746000" />
+      <workItem from="1748002795746" duration="296000" />
+      <workItem from="1748003145831" duration="368000" />
+      <workItem from="1748004185164" duration="398000" />
+      <workItem from="1748004734838" duration="430000" />
+      <workItem from="1748005356701" duration="2065000" />
+      <workItem from="1748010560486" duration="3000" />
+      <workItem from="1748225971369" duration="791000" />
+      <workItem from="1748306238179" duration="625000" />
+      <workItem from="1748322232610" duration="10000" />
+      <workItem from="1748352157765" duration="4249000" />
+      <workItem from="1748358079021" duration="315000" />
+      <workItem from="1748359994104" duration="275000" />
+      <workItem from="1748397887385" duration="1526000" />
+      <workItem from="1748743215376" duration="1572000" />
+      <workItem from="1748746757975" duration="172000" />
+      <workItem from="1748746999390" duration="124000" />
+      <workItem from="1748747844349" duration="1438000" />
+      <workItem from="1748766312459" duration="698000" />
+      <workItem from="1748830814903" duration="3637000" />
+    </task>
+    <task id="LOCAL-00001" summary="calculator fee ship feature">
+      <option name="closed" value="true" />
+      <created>1747057419709</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747057419709</updated>
+    </task>
+    <task id="LOCAL-00002" summary="fix err product">
+      <option name="closed" value="true" />
+      <created>1747405775555</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1747405775555</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add modal product page">
+      <option name="closed" value="true" />
+      <created>1747747996273</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1747747996273</updated>
+    </task>
+    <task id="LOCAL-00004" summary="search product feature">
+      <option name="closed" value="true" />
+      <created>1747750636918</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1747750636918</updated>
+    </task>
+    <task id="LOCAL-00005" summary="commit get detail servlet">
+      <option name="closed" value="true" />
+      <created>1747750679732</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1747750679732</updated>
+    </task>
+    <task id="LOCAL-00006" summary="search feature">
+      <option name="closed" value="true" />
+      <created>1748006347196</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748006347196</updated>
+    </task>
+    <task id="LOCAL-00007" summary="merge main">
+      <option name="closed" value="true" />
+      <created>1748006759522</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1748006759522</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add reCAPTCHA">
+      <option name="closed" value="true" />
+      <created>1748766425484</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1748766425484</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="calculator fee ship feature" />
+    <MESSAGE value="fix err product" />
+    <MESSAGE value="add modal product page" />
+    <MESSAGE value="search product feature" />
+    <MESSAGE value="commit get detail servlet" />
+    <MESSAGE value="search feature" />
+    <MESSAGE value="merge main" />
+    <MESSAGE value="add reCAPTCHA" />
+    <option name="LAST_COMMIT_MESSAGE" value="add reCAPTCHA" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.util.NoSuchElementException" package="java.util" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

@@ -53,27 +53,71 @@
                     </div>
                 </div>
             </div>
-            <input id="address" aria-label="Địa chỉ (số nhà, tên đường)" placeholder="Địa chỉ (số nhà, tên đường)"
-                   name="detail"
-                   type="text" value="${sessionScope.user.address.detail}" required/>
-            <div class="form-row-wrapper">
-                <div class="form-row" style="gap:10px;">
-                    <div class="third">
-                        <label for="province">Tỉnh / thành</label>
-                        <input type="text" id="province" aria-label="Tỉnh / thành" placeholder="Tỉnh / thành"
-                               name="province"
-                               value="${sessionScope.user.address.province}" required/>
+
+            <!-- Address Selection -->
+            <div class="address-selection">
+                <div class="radio-group">
+                    <input type="radio" id="use-user-address" name="address-type" value="user-address" checked>
+                    <label for="use-user-address">Sử dụng địa chỉ của tôi</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="use-new-address" name="address-type" value="new-address">
+                    <label for="use-new-address">Sử dụng địa chỉ khác</label>
+                </div>
+            </div>
+
+            <!-- User Address Section -->
+            <div id="user-address-section">
+                <input id="address" aria-label="Địa chỉ (số nhà, tên đường)" placeholder="Địa chỉ (số nhà, tên đường)"
+                       name="detail"
+                       type="text" value="${sessionScope.user.address.detail}" required/>
+                <div class="form-row-wrapper">
+                    <div class="form-row" style="gap:10px;">
+                        <div class="third">
+                            <label for="province">Tỉnh / thành</label>
+                            <input type="text" id="province" aria-label="Tỉnh / thành" placeholder="Tỉnh / thành"
+                                   name="province"
+                                   value="${sessionScope.user.address.province}" required/>
+                        </div>
+                        <div class="third">
+                            <label for="district">Quận / huyện</label>
+                            <input type="text" id="district" aria-label="Quận / huyện" placeholder="Quận / huyện"
+                                   name="district"
+                                   value="${sessionScope.user.address.district}" required/>
+                        </div>
+                        <div class="third">
+                            <label for="ward">Phường / xã</label>
+                            <input type="text" id="ward" aria-label="Phường / xã" placeholder="Phường / xã" name="ward"
+                                   value="${sessionScope.user.address.ward}" required/>
+                        </div>
                     </div>
-                    <div class="third">
-                        <label for="district">Quận / huyện</label>
-                        <input type="text" id="district" aria-label="Quận / huyện" placeholder="Quận / huyện"
-                               name="district"
-                               value="${sessionScope.user.address.district}" required/>
-                    </div>
-                    <div class="third">
-                        <label for="ward">Phường / xã</label>
-                        <input type="text" id="ward" aria-label="Phường / xã" placeholder="Phường / xã" name="ward"
-                               value="${sessionScope.user.address.ward}" required/>
+                </div>
+            </div>
+
+            <!-- New Address Section -->
+            <div id="new-address-section" style="display: none;">
+                <input id="new-address" aria-label="Địa chỉ chi tiết" placeholder="Địa chỉ chi tiết (số nhà, tên đường)"
+                       name="new-detail" type="text" required/>
+                <div class="form-row-wrapper">
+                    <div class="form-row" style="gap:10px;">
+                        <div class="third">
+                            <label for="new-province">Tỉnh / thành</label>
+                            <select id="new-province" name="new-province" required>
+                                <option value="">Chọn tỉnh/thành</option>
+                            </select>
+                        </div>
+                        <div class="third">
+                            <label for="new-district">Quận / huyện</label>
+                            <select id="new-district" name="new-district" required disabled>
+                                <option value="">Chọn quận/huyện</option>
+                            </select>
+                        </div>
+                        <div class="third">
+                            <label for="new-ward">Phường / xã</label>
+                            <select id="new-ward" name="new-ward" required disabled>
+                                <option value="">Chọn phường/xã</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -304,6 +348,7 @@
 </div>
 
 <script src="js/checkout.js"></script>
+<script src="js/address.js"></script>
 <%-- Google Maps API Script --%>
 </body>
 </html>

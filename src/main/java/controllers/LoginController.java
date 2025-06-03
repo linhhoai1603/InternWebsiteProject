@@ -27,6 +27,7 @@ public class LoginController extends HttpServlet {
 
     private boolean verifyRecaptcha(String recaptchaResponse) throws IOException {
         String secretKey = ConfigLoader.getProperty("recaptcha.sec.key");
+
         String verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
         String postParams = "secret=" + secretKey + "&response=" + recaptchaResponse;
 
@@ -64,7 +65,6 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String siteKey = ConfigLoader.getProperty("recaptcha.site.key");
-        System.out.println("Site Key: " + siteKey);
         request.setAttribute("siteKey", siteKey);
         request.getRequestDispatcher("login.jsp").forward(request, response);
     }
