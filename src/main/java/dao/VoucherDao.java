@@ -19,7 +19,7 @@ public class VoucherDao {
     }
 
     public List<Voucher> getAllVouchers() {
-        String query = "SELECT * FROM vouchers;";
+        String query = "SELECT * FROM vouchers ORDER BY createdAt DESC;";
         return jdbi.withHandle(handle -> {
             return handle.createQuery(query).mapToBean(Voucher.class).list();
         });
@@ -63,7 +63,7 @@ public class VoucherDao {
 
     public static void main(String[] args) {
         VoucherDao dao = new VoucherDao();
-        dao.getVoucherUsageCount(1);
+        System.out.println(dao.getVoucherByValid(1));
     }
 
     public Boolean applyVoucherToCart(int idCart, Voucher voucher) {
