@@ -174,7 +174,6 @@
                                                data-discount="${fn:escapeXml(voucher.discountValue)}"
                                                data-condition-min-spend="Áp dụng cho đơn hàng từ ${fn:escapeXml(voucher.minimumSpend)}."
                                                data-condition-no-combo="Không áp dụng chung với các khuyến mãi khác."
-                                               data-condition-end-date="Hạn sử dụng: <fmt:formatDate value="${voucher.endDate}" pattern="dd/MM/yyyy"/>"
                                                data-description="${fn:escapeXml(voucher.description)}">Chi tiết</a>
                                             <button class="copy-btn">Sao chép</button>
                                         </div>
@@ -255,7 +254,6 @@
             // Lấy từng điều kiện
             var condMinSpend = button.data('condition-min-spend');
             var condNoCombo = button.data('condition-no-combo');
-            var condEndDate = button.data('condition-end-date');
 
             var modal = $(this);
 
@@ -271,7 +269,6 @@
             var conditionsToDisplay = [];
             if (condMinSpend) conditionsToDisplay.push(condMinSpend);
             if (condNoCombo) conditionsToDisplay.push(condNoCombo);
-            if (condEndDate) conditionsToDisplay.push(condEndDate);
 
             if (conditionsToDisplay.length > 0) {
                 conditionsToDisplay.forEach(function (condition) {

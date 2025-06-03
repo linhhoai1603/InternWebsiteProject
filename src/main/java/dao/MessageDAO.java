@@ -30,6 +30,7 @@ public class MessageDAO {
         SELECT m.*, u.fullNameGenerated, u.email, u.phoneNumber
         FROM message m
         JOIN users u ON m.idUser = u.id
+        ORDER BY m.id DESC
     """;
 
         return jdbi.withHandle(handle ->

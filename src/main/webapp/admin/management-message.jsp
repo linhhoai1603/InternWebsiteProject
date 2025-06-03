@@ -53,8 +53,8 @@
                   <tr>
                       <td>${message.id}</td>
                       <td>${message.user.id}</td>
-                      <td>${message.user.fullName}</td>
-                      <td>${message.user.numberPhone}</td>
+                      <td>${message.user.fullname}</td>
+                      <td>${message.user.phoneNumber}</td>
                       <td>${message.user.email}</td>
                       <td>${message.title}</td>
                       <td>${message.content}</td>
