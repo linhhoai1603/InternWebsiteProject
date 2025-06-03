@@ -126,8 +126,10 @@ public class VnpayReturn extends HttpServlet {
                 vnpayPayment.setVnpTxnRef(vnp_TxnRefFromVnpay); // Lưu mã giao dịch VNPAY
                 paymentService.insertPayment(vnpayPayment);
 
-                // Xóa thông tin tạm và giỏ hàng
+                // Lưu thông tin hiển thị
+                OrderDisplayInfor orderDisplay = createOrderDisplayInfor(newOrder, pendingOrder, savedDeliveryAddress);
 
+                // Xóa thông tin tạm và giỏ hàng
                 if (user != null) {
                     cartService.clearCartInDatabase(user.getId());
                 }
@@ -138,6 +140,7 @@ public class VnpayReturn extends HttpServlet {
                 session.setAttribute("cart", newEmptyCart);
 
 
+                request.setAttribute("ordered", orderDisplay);
                 request.setAttribute("orderId", newOrder.getId());
                 request.setAttribute("message", "Thanh toán VNPAY và đặt hàng thành công!");
                 request.getRequestDispatcher("payment-success.jsp").forward(request, response);
@@ -154,6 +157,24 @@ public class VnpayReturn extends HttpServlet {
             session.removeAttribute(vnp_TxnRefFromVnpay); // Xóa thông tin tạm
             request.getRequestDispatcher("/WEB-INF/views/payment-failure.jsp").forward(request, response);
         }
+    }
+
+    private OrderDisplayInfor createOrderDisplayInfor(Order newOrder, PendingOrderInfo pendingOrder, Address savedDeliveryAddress) {
+        OrderDisplayInfor orderDisplay = new OrderDisplayInfor();
+
+        orderDisplay.setIdOrder(newOrder.getId());
+        orderDisplay.setTimeOrderedRaw(LocalDateTime.now());
+        orderDisplay.setPersonName(pendingOrder.getDeliveryPersonName());
+        String fullAddress = savedDeliveryAddress.getAddressDetail() + ", " +
+                savedDeliveryAddress.getWard() + ", " +
+                savedDeliveryAddress.getDistrict() + ", " +
+                savedDeliveryAddress.getProvince();
+        orderDisplay.setAddress(fullAddress);
+        orderDisplay.setCart(pendingOrder.getCart());
+        orderDisplay.setMethodPayment(pendingOrder.getPaymentMethod());
+        orderDisplay.setNote(pendingOrder.getDeliveryNotes());
+
+        return orderDisplay;
     }
 
     private Order createAndSaveOrderToDbInReturn(User user, Cart cart) {
