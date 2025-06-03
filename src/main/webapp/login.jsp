@@ -5,7 +5,7 @@
 <head>
     <title>Đăng nhập</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -57,8 +57,8 @@
             </div>
 
             <div class="mb-3">
-                <!-- reCAPTCHA -->
-                <div class="g-recaptcha" data-sitekey="${siteKey}"></div>
+                <!-- reCAPTCHA div -->
+                <div id="recaptcha-placeholder"></div>
             </div>
 
             <div class="text-center">
@@ -102,5 +102,17 @@
 <%@include file="includes/footer.jsp" %>
 <%@include file="includes/link/footLink.jsp" %>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<%-- Thêm script để render reCAPTCHA --%>
+<script>
+    var onloadCallback = function() {
+        console.log("onloadCallback is executing!");
+        // Render the recaptcha button
+        grecaptcha.render('recaptcha-placeholder', {
+            'sitekey' : '${siteKey}'
+        });
+    };
+</script>
+
 </body>
 </html>
