@@ -1,15 +1,12 @@
 package controllers;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import models.Address;
 import models.User;
-import services.UploadService;
 import services.UserInForServies;
 
-import java.io.File;
 import java.io.IOException;
 
 @WebServlet( value="/personal-inf")
@@ -64,7 +61,7 @@ public class PersonalServlet extends HttpServlet {
         String finalFirstName = (firstNameFromForm == null || firstNameFromForm.trim().isEmpty()) ? user.getFirstname() : firstNameFromForm.trim();
         String finalLastName = (lastNameFromForm == null || lastNameFromForm.trim().isEmpty()) ? user.getLastname() : lastNameFromForm.trim();
         String finalFullname = finalFirstName + " " + finalLastName;
-        String finalPhoneNumber = (phoneNumberFromForm == null || phoneNumberFromForm.trim().isEmpty()) ? user.getNumberPhone() : phoneNumberFromForm.trim();
+        String finalPhoneNumber = (phoneNumberFromForm == null || phoneNumberFromForm.trim().isEmpty()) ? user.getPhoneNumber() : phoneNumberFromForm.trim();
 
 
         Address addressToUpdateOrCreate = (currentAddress == null) ? new Address() : currentAddress;
@@ -80,8 +77,8 @@ public class PersonalServlet extends HttpServlet {
         updatedUser.setEmail(finalEmail);
         updatedUser.setFirstname(finalFirstName);
         updatedUser.setLastname(finalLastName);
-        updatedUser.setFullName(finalFullname);
-        updatedUser.setNumberPhone(finalPhoneNumber);
+        updatedUser.setFullname(finalFullname);
+        updatedUser.setPhoneNumber(finalPhoneNumber);
 
         Address updatedAddress = new Address();
         updatedAddress.setId(idAddress);
@@ -97,8 +94,8 @@ public class PersonalServlet extends HttpServlet {
         if (success) {
             user.setFirstname(finalFirstName);
             user.setLastname(finalLastName);
-            user.setFullName(finalFullname);
-            user.setNumberPhone(finalPhoneNumber);
+            user.setFullname(finalFullname);
+            user.setPhoneNumber(finalPhoneNumber);
 
             if (currentAddress == null && !finalProvince.isEmpty()) {
                 Address newAddress = new Address();

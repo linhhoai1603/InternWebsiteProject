@@ -10,16 +10,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="add reCAPTCHA">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AddToCartServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AddToCartServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ProductsServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ProductDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ProductDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/ToTalProductDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/CartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CartItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ToTalProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ToTalProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/project_web.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/project_web.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/OrderServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/OrderServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PersonalServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/AccountDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/MessageDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/MessageDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/UserInForServies.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/UserInForServies.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/contact.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/contact.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/management-deliveries.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/management-deliveries.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/admin/management-users.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/admin/management-users.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/js/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/js/product.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/total-product.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/total-product.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,9 +39,6 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
@@ -112,7 +114,7 @@
   &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2vXefvsJmDzaomyOJ80rrgwsgxd" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -120,59 +122,76 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AddressCalculator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ToTalProductService.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.Build InternWebsiteProject.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (2).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (3).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (3).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [model].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InternWebsiteProject [build] (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InternWebsiteProject [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InternWebsiteProject [docker_app_start] (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InternWebsiteProject [docker_app_start].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InternWebsiteProject [docker_deploy] (1).executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InternWebsiteProject [docker_deploy].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.InternWebsiteProject [docker_upload_file_to_server].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;TomEE Server.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.28.executor&quot;: &quot;Run&quot;,
-    &quot;Tomcat Server.Tomcat 10.1.314.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;hung&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Learn/LearnSpace/learn_space&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AddressCalculator.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.ToTalProductService.executor": "Run",
+    "Gradle.Build InternWebsiteProject.executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (1).executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (2).executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (3).executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build].executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1).executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2).executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (3).executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy].executor": "Run",
+    "Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [model].executor": "Run",
+    "Gradle.InternWebsiteProject [:dao.UserDao.main()].executor": "Run",
+    "Gradle.InternWebsiteProject [build] (1).executor": "Run",
+    "Gradle.InternWebsiteProject [build].executor": "Run",
+    "Gradle.InternWebsiteProject [docker_app_start] (1).executor": "Run",
+    "Gradle.InternWebsiteProject [docker_app_start].executor": "Run",
+    "Gradle.InternWebsiteProject [docker_deploy] (1).executor": "Run",
+    "Gradle.InternWebsiteProject [docker_deploy].executor": "Run",
+    "Gradle.InternWebsiteProject [docker_upload_file_to_server].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "TomEE Server.Unnamed.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.28.executor": "Run",
+    "Tomcat Server.Tomcat 10.1.314.executor": "Run",
+    "git-widget-placeholder": "huy",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Learn/LearnSpace/learn_space",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\NLU\HK2 Nam 3\cuoi ki\InternWebsiteProject\src\main\webapp" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="controllers.API" />
     </key>
   </component>
   <component name="RunManager" selected="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)">
+    <configuration name="UserDao" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dao.UserDao" />
+      <module name="ProjectWeb.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [build] (2)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -218,28 +237,6 @@
       <method v="2" />
     </configuration>
     <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="docker_deploy" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -371,20 +368,20 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.UserDao" />
       <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build]" />
       <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)" />
       <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (2)" />
       <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy]" />
-      <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2)" />
       <item itemvalue="Tomcat Server.Tomcat 10.1.314" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (1)" />
+        <item itemvalue="Application.UserDao" />
         <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build]" />
         <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy]" />
         <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [build] (2)" />
-        <item itemvalue="Gradle.D:/Learn/TTWEB/project/InternWebsiteProject [docker_deploy] (2)" />
       </list>
     </recent_temporary>
   </component>
