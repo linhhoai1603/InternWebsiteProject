@@ -52,7 +52,7 @@ public class UserInForServies {
                     userToUpdate.getId(),
                     userToUpdate.getFirstname(),
                     userToUpdate.getLastname(),
-                    userToUpdate.getNumberPhone()
+                    userToUpdate.getPhoneNumber()
             );
 
             if (!userUpdateSuccess) {
