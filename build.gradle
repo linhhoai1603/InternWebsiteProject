@@ -7,13 +7,17 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id "org.hidetake.ssh" version "2.11.2"
+    id 'org.hidetake.ssh' version '2.11.2'
     id 'war'
 }
 
-tasks.withType(JavaCompile) {
-    options.release = 21
-    options.compilerArgs << "-Xlint:deprecation"
+group = 'web.sale.hoai'
+version = '1.0-SNAPSHOT'
+description = 'ProjectWeb'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
@@ -72,10 +76,15 @@ dependencies {
     runtimeOnly 'ch.qos.logback:logback-classic:1.2.11'
 }
 
-group = 'web.sale.hoai'
-version = '1.0-SNAPSHOT'
-description = 'ProjectWeb'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.release = 21
+    options.compilerArgs << "-Xlint:deprecation"
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
 
 publishing {
     publications {
@@ -85,25 +94,20 @@ publishing {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+war {
+    archiveFileName = 'ProjectWeb.war'
+    webAppDirName = 'src/main/webapp'
 }
 
-tasks.withType(Javadoc) {
-    options.encoding = 'UTF-8'
-}
 
-apply plugin: 'org.hidetake.ssh'
 remotes {
     host {
-        host = '192.168.74.139'
+        host = '192.168.235.128'
         user = 'root'
-        password = 'centos'
+        password = '123'
     }
 }
-ssh.settings {
-    knownHosts = allowAnyHosts
-}
+
 task docker_app_start {
     doLast {
         println 'begin docker_app_start'
@@ -119,31 +123,26 @@ task docker_app_start {
         }
     }
 }
+
 task docker_upload_file_to_server {
     doLast {
         println 'begin docker_upload_file_to_server'
         ssh.run {
             session(remotes.host) {
                 execute 'mkdir -p /usr/deploy'
-
                 remove '/usr/deploy/ProjectWeb.war'
                 remove '/usr/deploy/ProjectWeb/'
                 put from: "${project.projectDir}/build/libs/ProjectWeb-1.0-SNAPSHOT.war",
-                        into: "/usr/deploy/ProjectWeb.war"
+                    into: "/usr/deploy/ProjectWeb.war"
             }
         }
     }
 }
 
 task docker_deploy {
-    docker_deploy.dependsOn docker_app_start
-    docker_deploy.dependsOn docker_upload_file_to_server
-    docker_deploy.dependsOn build
+    dependsOn build
+    dependsOn docker_upload_file_to_server
+    dependsOn docker_app_start
     tasks.getByName('docker_app_start').mustRunAfter docker_upload_file_to_server
-}
-
-war {
-    archiveFileName = 'ProjectWeb.war'
-    webAppDirName = 'src/main/webapp'
 }
 

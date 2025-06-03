@@ -8,7 +8,7 @@ import jakarta.servlet.annotation.*;
 import models.AccountUser;
 import models.Cart;
 import services.CartService;
-import websocket.CartSyncEndpoint;
+//import websocket.CartSyncEndpoint;
 
 @WebServlet(name = "RemoveItemInCartServlet", value = "/delete-cart-item")
 public class RemoveItemInCartServlet extends HttpServlet {
@@ -18,7 +18,7 @@ public class RemoveItemInCartServlet extends HttpServlet {
         int idItem = Integer.parseInt(request.getParameter("idItem"));
         cartService.deleteCartItem(cart.getId(), idItem);
         AccountUser acc = (AccountUser) request.getSession().getAttribute("account");
-        CartSyncEndpoint.notifyCartChanged(acc.getUser().getId());
+//        CartSyncEndpoint.notifyCartChanged(acc.getUser().getId());
         request.getRequestDispatcher("/cart").forward(request, response);
     }
 }

@@ -22,7 +22,6 @@ public class ToTalProductService {
     }
 
     public List<Product> getAllProducts(int currentPage, int nuPerPage, String option) {
-<<<<<<< HEAD
         switch (option) {
             case "latest":
                 return productDao.getProductLatest(currentPage, nuPerPage);
@@ -31,14 +30,14 @@ public class ToTalProductService {
             case "cheap":
                 return productDao.getProductByPrice(currentPage, nuPerPage, "ascending");
             case "bestselling":
-                return productDao.getProductBestSelling(currentPage, nuPerPage);
+                return productDao.getProductsBestSellerByCategory("all", currentPage, nuPerPage);
             case "discount":
                 return productDao.getProductBiggestDiscount(currentPage, nuPerPage);
             default:
                 return productDao.getAllProducts(currentPage, nuPerPage);
         }
-
     }
+
     public List<Product> getProductByCategoryName(String selection, int currentPage, int nuPerPage, String option) {
         if(option.equals("")||option==null){
             return productDao.getProductByCategoryNameWithOption(selection,currentPage,nuPerPage, option);
@@ -60,9 +59,20 @@ public class ToTalProductService {
     }
 
     public List<Product> getProducts(String selection, int currentPage, int nuPerPage, String option, String minPrice, String maxPrice) {
-<<<<<<< HEAD
-        List<Product> products;
-        
+        // Handle null selection
+        if (selection == null) {
+            selection = "all";
+        }
+
+        // Map numeric categories to names
+        selection = switch (selection) {
+            case "1" -> "Vải may mặc";
+            case "2" -> "Vải nội thất";
+            case "3" -> "Nút áo";
+            case "4" -> "Dây kéo";
+            default -> selection;
+        };
+
         // Check if price parameters are valid
         boolean hasValidPriceRange = minPrice != null && maxPrice != null && 
                                    !minPrice.trim().isEmpty() && !maxPrice.trim().isEmpty();
@@ -72,59 +82,37 @@ public class ToTalProductService {
                 // Validate that the values can be parsed as doubles
                 Double.parseDouble(minPrice);
                 Double.parseDouble(maxPrice);
-                products = productDao.getProductByCategoryAndPriceRange(selection, currentPage, nuPerPage, minPrice, maxPrice);
+                if (selection.equals("all")) {
+                    return productDao.getAllProductByPriceRange(currentPage, nuPerPage, minPrice, maxPrice);
+                } else {
+                    return productDao.getProductByCategoryAndPriceRange(selection, currentPage, nuPerPage, minPrice, maxPrice);
+                }
             } catch (NumberFormatException e) {
                 // If price parsing fails, fall back to normal category search
-                if ("all".equals(selection)) {
-                    products = getAllProducts(currentPage, nuPerPage, option);
+                if (selection.equals("all")) {
+                    return getAllProducts(currentPage, nuPerPage, option);
                 } else {
-                    products = getProductByCategoryName(selection, currentPage, nuPerPage, option);
+                    return getProductByCategoryName(selection, currentPage, nuPerPage, option);
                 }
             }
         } else {
             // No price range, use normal category search
-            if ("all".equals(selection)) {
-                products = getAllProducts(currentPage, nuPerPage, option);
-=======
-
-        if (selection == null) {
-            selection = "all";
-        }
-        selection = switch (selection) {
-            case "1" -> "Vải may mặc";
-            case "2" -> "Vải nội thất";
-            case "3" -> "Nút áo";
-            case "4" -> "Dây kéo";
-            default -> selection;
-        };
-        if (minPrice != null && maxPrice != null) {
             if (selection.equals("all")) {
-                return productDao.getAllProductByPriceRange(currentPage, nuPerPage, minPrice, maxPrice);
->>>>>>> 0e4a6d239f86628bf41c195a11079b227e8cb11a
+                return getAllProducts(currentPage, nuPerPage, option);
             } else {
-                return productDao.getProductByCategoryAndPriceRange(selection, currentPage, nuPerPage, minPrice, maxPrice);
+                return getProductByCategoryName(selection, currentPage, nuPerPage, option);
             }
         }
-
-
-        if (selection.equals("all")) {
-            return getAllProducts(currentPage, nuPerPage, option);
-        } else {
-            return getProductByCategoryName(selection, currentPage, nuPerPage, option);
-        }
     }
-    public static void main(String[] args) {
-        ToTalProductService service = new ToTalProductService();
-        //System.out.println(service.getNuPage(1, "all"));
-        System.out.println(service.getProducts("Vải may mặc",1,12,"latest",null,null));
 
-    }
     public List<Product> searchProductByName(String name) {
         return productDao.searchProductByName(name);
     }
+
     public Product getProductByName(String name) {
         return productDao.getProductByName(name);
     }
+
     public Product getProductById(int id) {
         Product product = productDao.getProductById(id);
         StyleService styleService = new StyleService();
@@ -132,7 +120,7 @@ public class ToTalProductService {
         return product;
     }
 
-    public List<Product> getProductsBestSellerByCategory(String selection, int currentPage , int nuperPage) {
-        return productDao.getProductsBestSellerByCategory( selection,  currentPage ,  nuperPage);
+    public List<Product> getProductsBestSellerByCategory(String selection, int currentPage, int nuperPage) {
+        return productDao.getProductsBestSellerByCategory(selection, currentPage, nuperPage);
     }
 }

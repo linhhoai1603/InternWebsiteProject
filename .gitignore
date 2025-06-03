@@ -53,3 +53,9 @@ src/main/resources/client_secrets.json
 echo ".gradle/" >> .gitignore
 git add .gitignore
 
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
