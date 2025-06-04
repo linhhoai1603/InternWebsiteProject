@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "AdminInventory", value = "/inventory")
+@WebServlet(name = "AdminInventory", value = "/admin/inventory")
 public class AdminInventoryServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -33,7 +33,7 @@ public class AdminInventoryServlet extends HttpServlet {
         List<Product> products = service.getProductsByIds(productIds);
 
         request.setAttribute("products", products);
-        request.getRequestDispatcher("inventory.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/inventory.jsp").forward(request, response);
     }
 
 
