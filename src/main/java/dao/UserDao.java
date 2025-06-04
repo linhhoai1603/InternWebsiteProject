@@ -5,11 +5,12 @@ import models.*;
 import models.enums.TokenType;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.Query;
+import utils.AccountUserMapper;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class UserDao {
@@ -56,12 +57,17 @@ public class UserDao {
 
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
-        UserTokens u = new UserTokens();
 
-        User user = userDao.findUserById(1);
-        System.out.println(user.getEmail());
-        System.out.println(userDao.updateInfo(1, "1", "1",  "1"));
-        System.out.println(userDao.getAllUser());
+        List<AccountUser> accList = userDao.getAllAccUserByRole(3);
+        System.out.println(accList.size());
+
+        // Gọi hàm để test
+        List<User> users = userDao.getAllUserByAccList(accList);
+        System.out.println(users.size());
+        // In kết quả
+        for (User user : users) {
+            System.out.println("User ID: " + user.getId());
+        }
     }
 
     public boolean updateAvatar(int id, String url) {
@@ -392,6 +398,42 @@ public class UserDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<User> getAllUserByAccList(List<AccountUser> accList) {
+        if (accList == null || accList.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Integer> userIds = accList.stream()
+                .map(AccountUser::getUserId)
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
+
+        if (userIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String sql = "SELECT * FROM users WHERE id IN (<ids>)";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bindList("ids", userIds)
+                        .mapToBean(User.class)
+                        .list()
+        );
+    }
+
+    public List<AccountUser> getAllAccUserByRole(int RoleId) {
+        String sql = "SELECT * FROM account_users WHERE idRole = :roleId";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("roleId", RoleId)
+                        .map(new AccountUserMapper())
+                        .list()
+        );
     }
 }
 
