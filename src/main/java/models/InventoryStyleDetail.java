@@ -8,9 +8,10 @@ public class InventoryStyleDetail implements Serializable {
     private int idStyle;
     private int stockQuantity;
     private int actualQuantity;
+    private int imported;
     private int discrepancy;
 
-    public InventoryStyleDetail(int id, int idInventoryDetail, int idStyle, int stockQuantity, int actualQuantity, int discrepancy) {
+    public InventoryStyleDetail(int id, int idInventoryDetail, int idStyle, int stockQuantity, int actualQuantity, int imported,int discrepancy) {
         this.id = id;
         this.idInventoryDetail = idInventoryDetail;
         this.idStyle = idStyle;
@@ -20,6 +21,14 @@ public class InventoryStyleDetail implements Serializable {
     }
 
     public InventoryStyleDetail() {
+    }
+
+    public int getQuantityImported() {
+        return imported;
+    }
+
+    public void setQuantityImported(int imported) {
+        this.imported = imported;
     }
 
     public int getId() {

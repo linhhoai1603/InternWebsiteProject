@@ -63,7 +63,7 @@ public class PersonalServlet extends HttpServlet {
         String finalEmail = user.getEmail();
         String finalFirstName = (firstNameFromForm == null || firstNameFromForm.trim().isEmpty()) ? user.getFirstname() : firstNameFromForm.trim();
         String finalLastName = (lastNameFromForm == null || lastNameFromForm.trim().isEmpty()) ? user.getLastname() : lastNameFromForm.trim();
-        String finalPhoneNumber = (phoneNumberFromForm == null || phoneNumberFromForm.trim().isEmpty()) ? user.getNumberPhone() : phoneNumberFromForm.trim();
+        String finalPhoneNumber = (phoneNumberFromForm == null || phoneNumberFromForm.trim().isEmpty()) ? user.getPhoneNumber() : phoneNumberFromForm.trim();
         String finalProvince = (provinceFromForm == null || provinceFromForm.trim().isEmpty()) ? currentAddress.getProvince() : provinceFromForm;
         String finaldistrict = (districtFromForm == null || districtFromForm.trim().isEmpty()) ? currentAddress.getDistrict() : districtFromForm;
         String finalward = (wardFromForm == null || wardFromForm.trim().isEmpty()) ? currentAddress.getWard() : wardFromForm;

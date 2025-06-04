@@ -1,26 +1,21 @@
 package controllers.API;
-import com.google.gson.*;
-import dao.InventoryStyleDetailDao;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import models.InventoryDetail;
-import services.InventoryDetailService;
 import services.InventoryService;
-import services.InventoryStyleDetailService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(value = "/api/create-inventory")
 public class CreateInventoryApi extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("Hello, Servlet!");
-    }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         StringBuilder jsonBuilder = new StringBuilder();
@@ -39,34 +34,29 @@ public class CreateInventoryApi extends HttpServlet {
         JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 
         InventoryService inventoryService = new InventoryService();
-        InventoryDetailService inventoryDetailService = new InventoryDetailService();
-        InventoryStyleDetailService inventoryStyleDetailService = new InventoryStyleDetailService();
-        String description = jsonObject.get("description").getAsString();
+        String deciption = jsonObject.get("deciption").getAsString();
         String status = jsonObject.get("status").getAsString();
-        int idinventory = inventoryService.createInventory(description, status);
+
+
+        int idinventory = inventoryService.createInventory(2,deciption,status);
+        int idinventoryDetail ;
 
         JsonArray products = jsonObject.getAsJsonArray("products");
-        int idinventoryDetail,befor = 0,total =0 ;
         for (JsonElement productElement : products) {
             JsonObject product = productElement.getAsJsonObject();
-            int productId = product.get("id").getAsInt();
-            idinventoryDetail = inventoryDetailService.createInventoryDetail(idinventory,productId,befor,total);
-            JsonArray items = product.getAsJsonArray("items");
+            int productId = product.get("idProduct").getAsInt();
+            int quantityBefore = product.get("quantityBefore").getAsInt();
+            int quantityLoss = product.get("quantityLoss").getAsInt();
+            idinventoryDetail = inventoryService.createinventoryDetail(productId,idinventory,quantityBefore,quantityLoss);
+            JsonArray items = product.getAsJsonArray("style");
             for (JsonElement itemElement : items) {
                 JsonObject item = itemElement.getAsJsonObject();
-                int styleId = item.get("id").getAsInt();
-                int tonkho = item.get("tonkho").getAsInt();
-                int thucte = item.get("thucte").getAsInt();
-                int diff = thucte - tonkho;
-                inventoryStyleDetailService.createInventoryStyleDetail(idinventoryDetail,styleId,tonkho,thucte);
-                befor += tonkho;
-                total += thucte;
+                int styleId = item.get("idStyle").getAsInt();
+                int stockQuantity = item.get("stockQuantity").getAsInt();
+                int actualQuantity = item.get("actualQuantity").getAsInt();
+                inventoryService.createinventoryStyleDetail(idinventoryDetail,styleId,stockQuantity,actualQuantity);
 
             }
-            inventoryDetailService.updateQuantityActualAndLoss(idinventoryDetail,befor,total);
-
-            befor = 0;
-            total = 0;
         }
 
         // Gửi phản hồi về client

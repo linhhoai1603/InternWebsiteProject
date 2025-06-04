@@ -40,8 +40,8 @@ public class UserDao {
                             user.setEmail(rs.getString("email"));
                             user.setFirstname(rs.getString("firstName"));
                             user.setLastname(rs.getString("lastName"));
-                            user.setFullName(rs.getString("fullNameGenerated"));
-                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setFullname(rs.getString("fullNameGenerated"));
+                            user.setPhoneNumber(rs.getString("phoneNumber"));
                             user.setImage(rs.getString("image"));
                             user.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                             user.setUpdatedAt(rs.getTimestamp("updatedAt").toLocalDateTime());
@@ -326,8 +326,8 @@ public class UserDao {
                             User user = new User();
                             user.setId(rs.getInt("userId"));
                             user.setEmail(rs.getString("email"));
-                            user.setFullName(rs.getString("fullName"));
-                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setFullname(rs.getString("fullName"));
+                            user.setPhoneNumber(rs.getString("phoneNumber"));
 
                             // Tạo đối tượng Address
                             Address address = new Address();

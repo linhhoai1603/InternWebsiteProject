@@ -40,6 +40,9 @@ DROP TABLE IF EXISTS `roles`;
 DROP TABLE IF EXISTS `prices`;
 DROP TABLE IF EXISTS `categories`;
 DROP TABLE IF EXISTS `addresses`;
+DROP TABLE IF EXISTS `inventory_style_detail`;
+DROP TABLE IF EXISTS `inventorydetail`;
+DROP TABLE IF EXISTS `inventory`;
 
 -- Create tables in correct order of dependency
 ALTER TABLE payments ADD vnpTxnRef VARCHAR(100) DEFAULT NULL;
@@ -1317,8 +1320,10 @@ INSERT INTO `order_details` (`id`, `idOrder`, `idStyle`, `quantity`, `totalPrice
                                                                                                  (121, 39, 591, 10, 2850000, 5);
 
 
+
 CREATE TABLE inventory (
                            id INT AUTO_INCREMENT PRIMARY KEY,
+                           type INT NOT NULL,
                            creatDate DATETIME DEFAULT CURRENT_TIMESTAMP,
                            code VARCHAR(50) ,
                            status VARCHAR(50),
@@ -1326,22 +1331,22 @@ CREATE TABLE inventory (
 );
 CREATE TABLE inventorydetail (
                                  id INT AUTO_INCREMENT PRIMARY KEY,
-                                 idProduct INT NOT NULL,
-                                 idInventory INT NOT NULL,
+                                 idProduct INT ,
+                                 idInventory INT ,
                                  quantityBefore INT DEFAULT 0,
                                  quantityLoss INT DEFAULT 0,
                                  quantityImported INT DEFAULT 0,
                                  quantityTotal INT AS (quantityBefore - quantityLoss + quantityImported) STORED,
-                                 importDate DATE NOT NULL,
+                                 importDate DATE ,
                                  FOREIGN KEY (idInventory) REFERENCES inventory(id),
                                  FOREIGN KEY (idProduct) REFERENCES products(id)
 );
 CREATE TABLE inventory_style_detail (
                                         id INT PRIMARY KEY AUTO_INCREMENT,
-                                        idInventoryDetail INT NOT NULL,
-                                        idStyle INT NOT NULL,
-                                        stockQuantity INT NOT NULL,
-                                        actualQuantity INT NOT NULL,
+                                        idInventoryDetail INT ,
+                                        idStyle INT ,
+                                        stockQuantity INT ,
+                                        actualQuantity INT ,
                                         discrepancy INT GENERATED ALWAYS AS (stockQuantity - actualQuantity) STORED
 );
 

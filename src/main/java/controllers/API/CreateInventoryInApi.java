@@ -9,20 +9,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import services.InventoryDetailService;
 import services.InventoryService;
-import services.InventoryStyleDetailService;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
 @WebServlet(value = "/api/create-inventory-in")
-public class CreateInventoryIn extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().println("Hello, Servlet!");
-    }
-
+public class CreateInventoryInApi extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         StringBuilder jsonBuilder = new StringBuilder();
@@ -41,31 +34,27 @@ public class CreateInventoryIn extends HttpServlet {
         JsonObject jsonObject = JsonParser.parseString(json).getAsJsonObject();
 
         InventoryService inventoryService = new InventoryService();
-        InventoryDetailService inventoryDetailService = new InventoryDetailService();
-        InventoryStyleDetailService inventoryStyleDetailService = new InventoryStyleDetailService();
-        String note = jsonObject.get("note").getAsString();
+        String deciption = jsonObject.get("deciption").getAsString();
         String status = jsonObject.get("status").getAsString();
-        String supplier = jsonObject.get("supplier").getAsString();
-        String totalAmount = jsonObject.get("totalAmount").getAsString();
 
-        int idinventory = inventoryService.createInventoryIn(note,totalAmount,supplier, status);
+
+        int idinventory = inventoryService.createInventory(1,deciption,status);
+        int idinventoryDetail ;
 
         JsonArray products = jsonObject.getAsJsonArray("products");
-        int idinventoryDetail,totalImport =0 ;
         for (JsonElement productElement : products) {
             JsonObject product = productElement.getAsJsonObject();
             int productId = product.get("idProduct").getAsInt();
-            idinventoryDetail = inventoryDetailService.createInventoryInDetail(idinventory,productId,totalImport);
+            int quantityImported = product.get("quantityImported").getAsInt();
+            idinventoryDetail = inventoryService.createinventoryInDetail(productId,idinventory,quantityImported);
             JsonArray items = product.getAsJsonArray("style");
             for (JsonElement itemElement : items) {
                 JsonObject item = itemElement.getAsJsonObject();
                 int styleId = item.get("idStyle").getAsInt();
-                int quantity = item.get("quantity").getAsInt();
-                inventoryStyleDetailService.createInventoryInStyleDetail(idinventoryDetail,styleId,quantity);
-                totalImport += quantity;
-            }
-            inventoryDetailService.updateQuantityActualAndLoss(idinventoryDetail,0,totalImport);
+                int quantity = item.get("imported").getAsInt();
+                inventoryService.createinventoryInStyleDetail(idinventoryDetail,styleId,quantity);
 
+            }
         }
 
         // Gửi phản hồi về client
