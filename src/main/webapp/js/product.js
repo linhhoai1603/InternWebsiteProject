@@ -263,7 +263,7 @@ function updateModalContent(product) {
         const modalDiscountedPrice = $('.product-modal-discounted-price');
         const modalStyles = $('.product-modal-styles');
         const productIdInput = $('input[name="productID"]');
-        const currentUrlInput = $('input[name="currentURL"]');
+        // const currentUrlInput = $('input[name="currentURL"]');
 
         // Clear previous content
         modalImage.attr('src', '');
@@ -272,7 +272,7 @@ function updateModalContent(product) {
         modalDiscountedPrice.text('');
         modalStyles.empty();
         productIdInput.val('');
-        currentUrlInput.val('');
+        // currentUrlInput.val('');
 
         // Update with new content
         modalImage.attr('src', product.image || '');
@@ -290,7 +290,7 @@ function updateModalContent(product) {
         
         // Update form values
         productIdInput.val(product.id || '');
-        currentUrlInput.val(window.location.href);
+        // currentUrlInput.val(window.location.href);
         
         // Update styles
         if (product.styles && product.styles.length > 0) {

@@ -16,10 +16,12 @@ import java.util.List;
 
 @WebServlet("/admin/manager-voucher")
 public class AdminManagerVoucher extends HttpServlet {
+    LocalDateTime parsedStartDate = null;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         VoucherService voucherService = new VoucherService();
-        List<Voucher> list = voucherService.getVoucherByValid(1);
+//        List<Voucher> list = voucherService.getVoucherByValid(1);
+        List<Voucher> list = voucherService.getAllVoucher();
         if (list.isEmpty()) {
             System.out.println("No voucher found");
         } else {
@@ -129,9 +131,10 @@ public class AdminManagerVoucher extends HttpServlet {
                 }
 
                 String startDateStr = request.getParameter("startDate");
+                System.out.println("DEBUG: startDateStr từ form: [" + startDateStr + "]");
                 if (startDateStr != null && !startDateStr.trim().isEmpty()) {
                     try {
-                        voucherToUpdate.setStartDate(LocalDateTime.parse(startDateStr));
+                        voucherToUpdate.setStartDate(LocalDateTime.parse(startDateStr.trim()));
                     } catch (DateTimeParseException e) {
                         throw new IllegalArgumentException("Định dạng Ngày bắt đầu không hợp lệ.");
                     }
@@ -140,9 +143,10 @@ public class AdminManagerVoucher extends HttpServlet {
                 }
 
                 String endDateStr = request.getParameter("endDate");
+                System.out.println("DEBUG: endDateStr từ form: [" + endDateStr + "]");
                 if (endDateStr != null && !endDateStr.trim().isEmpty()) {
                     try {
-                        voucherToUpdate.setEndDate(LocalDateTime.parse(endDateStr));
+                        voucherToUpdate.setEndDate(LocalDateTime.parse(endDateStr.trim()));
                         if (voucherToUpdate.getStartDate() != null && voucherToUpdate.getEndDate().isBefore(voucherToUpdate.getStartDate())) {
                             throw new IllegalArgumentException("Ngày kết thúc phải sau hoặc bằng Ngày bắt đầu.");
                         }
