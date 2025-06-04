@@ -28,27 +28,25 @@ public class OrderDetailDAO {
 
     public List<OrderDetail> getOrderDetailByOrder(int idOrder) {
         String query = """
-        SELECT od.id AS idOrderDetail,
-               od.idOrder,
-               od.idStyle,
-               od.quantity,
-               od.totalPrice,
-               od.weight,
-               s.name AS styleName,
-               p.name AS productName,
-               p.id AS productId,
-
-               c.id AS categoryId,
-                c.name AS categoryName,
-                pr.id AS priceId,
-                pr.lastPrice
-        FROM order_details od
-        JOIN styles s ON od.idStyle = s.id
-        JOIN products p ON s.idProduct = p.id
-        JOIN categories c ON p.idCategory = c.id
-        JOIN prices pr ON p.idPrice = pr.id
-
-        WHERE od.idOrder = :idOrder;
+    SELECT od.id AS idOrderDetail,
+           od.idOrder,
+           od.idStyle,
+           od.quantity,
+           od.totalPrice,
+           od.weight,
+           s.name AS styleName,
+           p.name AS productName,
+           p.id AS productId,
+           c.id AS categoryId,
+           c.name AS categoryName,
+           pr.id AS priceId,
+           pr.lastPrice
+    FROM order_details od
+    JOIN styles s ON od.idStyle = s.id
+    JOIN products p ON s.idProduct = p.id
+    JOIN categories c ON p.idCategory = c.id
+    JOIN prices pr ON p.idPrice = pr.id
+    WHERE od.idOrder = :idOrder;
     """;
         return jdbi.withHandle(handle -> {
             return handle.createQuery(query)
@@ -92,8 +90,7 @@ public class OrderDetailDAO {
 
     public static void main(String[] args) {
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
-        List<OrderDetail> orderDetails = orderDetailDAO.getOrderDetailByOrder(1);
+        List<OrderDetail> orderDetails = orderDetailDAO.getOrderDetailByOrder(11);
         System.out.println(orderDetails);
     }
-
 }
