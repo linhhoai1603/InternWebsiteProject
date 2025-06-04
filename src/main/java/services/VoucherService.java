@@ -52,4 +52,8 @@ public class VoucherService {
             return false;
         }
     }
+
+    public List<Voucher> getAllVoucher() {
+        return voucherDao.getAllVouchers();
+    }
 }

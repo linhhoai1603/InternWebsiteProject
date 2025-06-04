@@ -145,7 +145,7 @@
             <p class="h4 text-decoration-line-through text-warning product-modal-original-price"></p>
             <p class="h2 text-danger fw-bold product-modal-discounted-price"></p>
             <form action="add-to-cart" method="post">
-              <input name="currentURL" type="hidden" value="">
+              <input name="currentURL" type="hidden" value="total-product?selection=${requestScope.selection}">
               <div class="mb-3">
                 <p class="fw-bold">Kiểu vải</p>
                 <div class="d-flex gap-2 product-modal-styles">
@@ -156,7 +156,7 @@
               <div class="row">
                 <div class="col-6">
                   <div class="input-group">
-                    <input type="hidden" name="currentURL" value="">
+                    <input type="hidden" name="currentURL" value="total-product?selection=${requestScope.selection}">
                     <input type="number" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 100px" min="1">
                   </div>
                 </div>

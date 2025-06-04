@@ -1,4 +1,5 @@
 package controllers;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +26,8 @@ import java.net.URL;
 public class LoginController extends HttpServlet {
 
     private boolean verifyRecaptcha(String recaptchaResponse) throws IOException {
-        String secretKey =ConfigLoader.getProperty("recaptcha.sec.key");
+        String secretKey = ConfigLoader.getProperty("recaptcha.sec.key");
+
         String verifyUrl = "https://www.google.com/recaptcha/api/siteverify";
         String postParams = "secret=" + secretKey + "&response=" + recaptchaResponse;
 
@@ -75,7 +77,7 @@ public class LoginController extends HttpServlet {
 
         // Bước 1: Kiểm tra CAPTCHA
         if (recaptchaResponse == null || !verifyRecaptcha(recaptchaResponse)) {
-            String siteKey =ConfigLoader.getProperty("recaptcha.site.key");
+            String siteKey = ConfigLoader.getProperty("recaptcha.site.key");
             request.setAttribute("siteKey", siteKey);
             request.setAttribute("username", username);
             request.setAttribute("error", "Xác minh CAPTCHA thất bại. Vui lòng thử lại.");
@@ -85,7 +87,7 @@ public class LoginController extends HttpServlet {
 
         // Bước 2: Kiểm tra username/password trống
         if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
-            String siteKey =ConfigLoader.getProperty("recaptcha.site.key");
+            String siteKey = ConfigLoader.getProperty("recaptcha.site.key");
             request.setAttribute("siteKey", siteKey);
             request.setAttribute("error", "Tên đăng nhập và mật khẩu không được để trống");
             request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -98,7 +100,7 @@ public class LoginController extends HttpServlet {
 
         if (acc != null) {
             if (acc.getLocked() == 1) {
-                String siteKey =ConfigLoader.getProperty("recaptcha.site.key");
+                String siteKey = ConfigLoader.getProperty("recaptcha.site.key");
                 request.setAttribute("siteKey", siteKey);
                 request.setAttribute("username", username);
                 request.setAttribute("error", "Tài khoản đã bị khóa, vui lòng liên hệ quản trị viên");
@@ -117,7 +119,7 @@ public class LoginController extends HttpServlet {
 
             response.sendRedirect(request.getContextPath() + "/home");
         } else {
-            String siteKey =ConfigLoader.getProperty("recaptcha.site.key");
+            String siteKey = ConfigLoader.getProperty("recaptcha.site.key");
             request.setAttribute("siteKey", siteKey);
             request.setAttribute("username", username);
             request.setAttribute("error", "Tài khoản hoặc mật khẩu sai");
