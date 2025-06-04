@@ -5,6 +5,10 @@ import dao.InventoryDao;
 import dao.InventoryDetailDao;
 import dao.InventoryStyleDetailDao;
 import models.Inventory;
+import models.InventoryDetail;
+import models.InventoryStyleDetail;
+
+import java.util.List;
 
 public class InventoryService {
     InventoryDao inventoryDao;
@@ -20,7 +24,7 @@ public class InventoryService {
     }
 
     public int createinventoryInDetail(int idProduct,int idInventory ,int quantityImported) {
-        return inventoryDetailDao.createInventoryInDetail(idProduct, idInventory,quantityImported);
+        return inventoryDetailDao.createInventoryInDetail(idInventory,idProduct,quantityImported);
     }
     public int createinventoryDetail(int idProduct,int idInventory ,
                                        int quantityBefore,int quantityLoss ) {
@@ -30,14 +34,35 @@ public class InventoryService {
                                        int quantityImported) {
         return inventoryStyleDetailDao.createInventoryInStyleDetail(idInventoryDetail, idStyle,quantityImported);
     }
-    public boolean createinventoryStyleDetail(int idProduct,int idInventory ,
-                                     int quantityBefore,int quantityLoss ) {
-        return inventoryStyleDetailDao.createInventoryStyleDetail(idProduct, idInventory,quantityBefore,quantityLoss);
+    public boolean createinventoryStyleDetail(int idInventoryDetail, int idStyle, int stockQuantity, int actualQuantity) {
+        return inventoryStyleDetailDao.createInventoryStyleDetail(idInventoryDetail, idStyle, stockQuantity, actualQuantity);
     }
 
-    public static void main(String[] args) {
-        InventoryService inventoryService = new InventoryService();
-        System.out.println(inventoryService.createInventory(1,"hai","444"));
+    public List<Inventory> getInventoryByType(int i) {
+        return inventoryDao.getInventoryByType(i);
+    }
+
+    public Inventory getInventoryById(int id) {
+        return inventoryDao.getById(id);
+    }
+
+    public InventoryDetail getInventorDetailyById(int id) {
+        return inventoryDetailDao.getById(id);
+    }
+    public InventoryStyleDetail getInventorStyleDetailyById(int id) {
+        return inventoryStyleDetailDao.getById(id);
+    }
+
+    public List<InventoryDetail> getByIdInventory(int id) {
+        return inventoryDetailDao.getByIdInventory( id);
+    }
+
+    public List<InventoryStyleDetail> getByIdInventoryDetail(int id) {
+        return inventoryStyleDetailDao.getByIdInventoryDetail(id);
+    }
+
+    public boolean updateStatus(int id) {
+        return inventoryDao.updateStatus( id);
     }
 
 }

@@ -9,13 +9,14 @@ public class Inventory implements Serializable {
     private Timestamp creatDate;
     private String status;
     private String code;
-    private String description;
-    public Inventory(int id, int type,Timestamp creatDate , String status, String code, String description) {
+    private String decription;
+    public Inventory(int id, int type,Timestamp creatDate , String status, String code, String decription) {
         this.id = id;
         this.type = type;
         this.creatDate = creatDate;
         this.status = status;
         this.code = code;
+        this.decription = decription;
     }
     public Inventory(){}
 
@@ -60,10 +61,10 @@ public class Inventory implements Serializable {
     }
 
     public String getDescription() {
-        return description;
+        return decription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(String decription) {
+        this.decription = decription;
     }
 }

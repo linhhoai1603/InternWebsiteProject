@@ -54,7 +54,7 @@ public class CreateInventoryApi extends HttpServlet {
                 int styleId = item.get("idStyle").getAsInt();
                 int stockQuantity = item.get("stockQuantity").getAsInt();
                 int actualQuantity = item.get("actualQuantity").getAsInt();
-                inventoryService.createinventoryStyleDetail(idinventoryDetail,styleId,stockQuantity,actualQuantity);
+                inventoryService.createinventoryStyleDetail(idinventoryDetail, styleId, stockQuantity, actualQuantity);
 
             }
         }

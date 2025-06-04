@@ -102,4 +102,12 @@ public class ToTalProductService {
     public List<Product> getProductsBestSellerByCategory(String selection, int currentPage , int nuperPage) {
         return productDao.getProductsBestSellerByCategory( selection,  currentPage ,  nuperPage);
     }
+    public boolean addProduct(int id, int quantity) {
+        Product product = productDao.getProductById(id);
+        return productDao.addProduct(product ,quantity);
+    }
+    public boolean updateQuantityProduct(int id, int quantity) {
+        Product product = productDao.getProductById(id);
+        return productDao.updateQuantityProduct(product ,quantity);
+    }
 }

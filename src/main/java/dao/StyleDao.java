@@ -187,4 +187,24 @@ public class StyleDao {
         System.out.println(styleDao.decreaseStyleQuantity(587, 1));
 
     }
+
+    public boolean addMoreStyle(Style style, int quantity) {
+        String query = "UPDATE styles SET quantity = :quantity " +
+                "WHERE id = :id";
+        return jdbi.withHandle(handle ->
+            handle.createUpdate(query)
+                    .bind("quantity", style.getQuantity()+quantity)
+                    .bind("id", style.getId())
+                    .execute()>0);
+    }
+    public boolean updateQuantityStyle(Style style, int quantity) {
+        String query = "UPDATE styles SET quantity = :quantity " +
+                "WHERE id = :id";
+        int result = style.getQuantity()+quantity<0 ? 0 : style.getQuantity();
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("quantity",result )
+                        .bind("id", style.getId())
+                        .execute()>0);
+    }
 }

@@ -161,6 +161,44 @@
   </div>
 </div>
 
+<!-- Modal Xác nhận -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Xác nhận lưu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn lưu phiếu kiểm kê này không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="confirmSave">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thành công -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">Thành công</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-check-circle text-success" style="font-size: 48px;"></i>
+                <p class="mt-3">Đã lưu phiếu kiểm kê thành công!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
   function generateRandomInventoryCode() {
     const prefix = "PN";
@@ -173,6 +211,12 @@
     if (inventoryCodeSpan) {
       inventoryCodeSpan.innerText = generateRandomInventoryCode();
     }
+
+    // Thêm Font Awesome
+    const fontAwesome = document.createElement('link');
+    fontAwesome.rel = 'stylesheet';
+    fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+    document.head.appendChild(fontAwesome);
 
     function calculateDiff(inputElement) {
       // Lấy dòng sản phẩm chứa phần tử input này
@@ -226,92 +270,87 @@
       document.getElementById('totalActualQuantity').innerText = totalActual;
     }
 
-    document.getElementById("btnSave").addEventListener("click", function () {
-      if (!confirm("Bạn có muốn lưu không?")) return;
+    // Xử lý nút lưu
+    document.getElementById('btnSave').addEventListener('click', function() {
+        const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+        confirmModal.show();
+    });
 
-      // Collect data from the form
-      // const inventoryCode = document.getElementById('inventoryCode').innerText; // Get generated code
-      const status = document.getElementById("status-inventory").innerText.trim(); // Get status text
-      const description = document.getElementById("ghiChu").value; // Get ghiChu as description
-      // const inventoryType = 2; // Type 2 for Kiểm kê
+    // Xử lý xác nhận lưu
+    document.getElementById('confirmSave').addEventListener('click', function() {
+        const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+        confirmModal.hide();
 
-      const productsData = [];
+        const status = document.getElementById("status-inventory").innerText.trim();
+        const description = document.getElementById("ghiChu").value;
 
-      // Duyệt tất cả các hàng sản phẩm để thu thập chi tiết
-      document.querySelectorAll("tr[data-product-id]").forEach(row => {
-        const productId = parseInt(row.dataset.productId);
-        const styleItems = [];
-        let productTotalStockQuantity = 0;
-        let productTotalActualQuantity = 0;
+        const productsData = [];
 
-        // Duyệt qua các input thực tế trong hàng đó để lấy dữ liệu kiểu vải
-        row.querySelectorAll("input.actual").forEach(input => {
-          const styleId = parseInt(input.dataset.styleId);
-          const stockQuantity = parseInt(input.dataset.quantity); // Lấy số lượng tồn kho ban đầu
-          const actualQuantity = parseInt(input.value) || 0; // Lấy số lượng thực tế (mặc định 0 nếu trống)
+        document.querySelectorAll("tr[data-product-id]").forEach(row => {
+            const productId = parseInt(row.dataset.productId);
+            const styleItems = [];
+            let productTotalStockQuantity = 0;
+            let productTotalActualQuantity = 0;
 
-          productTotalStockQuantity += stockQuantity;
-          productTotalActualQuantity += actualQuantity;
+            row.querySelectorAll("input.actual").forEach(input => {
+                const styleId = parseInt(input.dataset.styleId);
+                const stockQuantity = parseInt(input.dataset.quantity);
+                const actualQuantity = parseInt(input.value) || 0;
 
-          styleItems.push({
-            idStyle: styleId, // idStyle
-            stockQuantity: stockQuantity, // stockQuantity (trước kiểm kê)
-            actualQuantity: actualQuantity // actualQuantity (thực tế sau kiểm kê)
-          });
-        });
+                productTotalStockQuantity += stockQuantity;
+                productTotalActualQuantity += actualQuantity;
 
-        // Calculate quantityLoss at the product level (sum of non-negative differences)
-        let quantityLoss = 0;
-        styleItems.forEach(item => {
-            const diff = item.stockQuantity - item.actualQuantity;
-            if (diff > 0) {
-                quantityLoss += diff;
+                styleItems.push({
+                    idStyle: styleId,
+                    stockQuantity: stockQuantity,
+                    actualQuantity: actualQuantity
+                });
+            });
+
+            let quantityLoss = 0;
+            styleItems.forEach(item => {
+                const diff = item.stockQuantity - item.actualQuantity;
+                if (diff > 0) {
+                    quantityLoss += diff;
+                }
+            });
+
+            if (styleItems.length > 0) {
+                productsData.push({
+                    idProduct: productId,
+                    quantityBefore: productTotalStockQuantity,
+                    quantityLoss: quantityLoss,
+                    style: styleItems
+                });
             }
         });
 
+        const payload = {
+            deciption: description,
+            status: status,
+            products: productsData
+        };
 
-        if (styleItems.length > 0) {
-          productsData.push({
-            idProduct: productId, // idProduct
-            quantityBefore: productTotalStockQuantity, // Sum of stockQuantity for all styles of this product
-            quantityLoss: quantityLoss, // Sum of (stockQuantity - actualQuantity) for styles where diff > 0
-            style: styleItems // nested style array
-          });
-        }
-      });
-
-      // Prepare JSON payload for CreateInventoryApi.java
-      const payload = {
-        deciption: description, // Map ghiChu to deciption
-        status: status,
-        products: productsData
-        // Note: type, code, supplier, totalAmount, note are not needed for this API
-      };
-
-      // Send data to server using Fetch API
-      fetch("/ProjectWeb/api/create-inventory", { // Updated URL
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(payload)
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.message) {
-          alert(data.message);
-          // Optional: Redirect or update UI on success
-          if (data.message === "Inventory data saved successfully!") {
-            // window.location.reload(); // Example: reload page on success
-          }
-        } else {
-          alert("Unexpected response from server.");
-        }
-      })
-      .catch(err => {
-        console.error('Error:', err);
-        alert("Không thể kết nối đến server hoặc xảy ra lỗi khi gửi dữ liệu.");
-      });
+        fetch("/ProjectWeb/api/create-inventory", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.message === "Inventory data saved successfully!") {
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+            } else {
+                alert(data.message || "Unexpected response from server.");
+            }
+        })
+        .catch(err => {
+            console.error('Error:', err);
+            alert("Không thể kết nối đến server hoặc xảy ra lỗi khi gửi dữ liệu.");
+        });
     });
   });
 </script>

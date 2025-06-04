@@ -43,9 +43,34 @@ public class InventoryDetailDao {
                         .one()
         );
     }
+    public InventoryDetail getById(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM inventorydetail WHERE id = :id")
+                        .bind("id", id)
+                        .mapToBean(InventoryDetail.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
 
-    public static void main(String[] args) {
-        System.out.println(new InventoryDetailDao().createInventoryInDetail(1, 185, 10));
+
+    public List<InventoryDetail> getByIdInventory(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM inventorydetail WHERE idInventory = :id")
+                        .bind("id", id)
+                        .map((rs, ctx) -> {
+                            InventoryDetail detail = new InventoryDetail();
+                            detail.setId(rs.getInt("id"));
+                            detail.setIdProduct(rs.getInt("idProduct"));
+                            detail.setQuantityBefore(rs.getInt("quantityBefore"));
+                            detail.setQuantityLoss(rs.getInt("quantityLoss"));
+                            detail.setQuantityImported(rs.getInt("quantityImported"));
+                            detail.setQuantityTotal(rs.getInt("quantityTotal"));
+                            detail.setImportDate(rs.getDate("importDate"));
+                            return detail;
+                        })
+                        .list()
+        );
     }
 
 }
