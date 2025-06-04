@@ -6,11 +6,11 @@ import models.enums.TokenType;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import services.AddressService;
+import utils.AccountUserMapper;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class UserDao {
@@ -40,8 +40,8 @@ public class UserDao {
                             user.setEmail(rs.getString("email"));
                             user.setFirstname(rs.getString("firstName"));
                             user.setLastname(rs.getString("lastName"));
-                            user.setFullName(rs.getString("fullNameGenerated"));
-                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setFullname(rs.getString("fullNameGenerated"));
+                            user.setPhoneNumber(rs.getString("phoneNumber"));
                             user.setImage(rs.getString("image"));
                             user.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                             user.setUpdatedAt(rs.getTimestamp("updatedAt").toLocalDateTime());
@@ -326,8 +326,8 @@ public class UserDao {
                             User user = new User();
                             user.setId(rs.getInt("userId"));
                             user.setEmail(rs.getString("email"));
-                            user.setFullName(rs.getString("fullName"));
-                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setFullname(rs.getString("fullName"));
+                            user.setPhoneNumber(rs.getString("phoneNumber"));
 
                             // Tạo đối tượng Address
                             Address address = new Address();
@@ -411,6 +411,51 @@ public class UserDao {
             e.printStackTrace();
             return false;
         }
+    }
+    public List<User> getAllUserByAccList(List<AccountUser> accList) {
+        if (accList == null || accList.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Integer> userIds = accList.stream()
+                .map(AccountUser::getUserId)
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
+
+        if (userIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String sql = "SELECT * FROM users WHERE id IN (<ids>)";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bindList("ids", userIds)
+                        .mapToBean(User.class)
+                        .list()
+        );
+    }
+
+    public List<AccountUser> getAllAccUserByRole(int RoleId) {
+        String sql = "SELECT * FROM account_users WHERE idRole = :roleId";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("roleId", RoleId)
+                        .map(new AccountUserMapper())
+                        .list()
+        );
+    }
+
+    public User getUserById(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM users WHERE id = :id")
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .findOne()
+                        .orElse(null)
+        );
     }
 }
 
