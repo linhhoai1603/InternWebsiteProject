@@ -2,6 +2,7 @@ package services;
 
 import dao.UserDao;
 import models.AccountUser;
+import models.User;
 import models.enums.TokenType;
 import models.UserTokens;
 import services.application.EmailSender;
@@ -100,10 +101,7 @@ public class UserService {
     public List<AccountUser> searchUser(String name) {
         return userDao.findUserByName(name);
     }
-    
-    public User getUserById(int id) {
-        return userDao.findUserById(id);
-    }
+
     public void createEmp(String email, String firstName, String lastName, String username, String hasedPassword, String phoneNumber, String image, int role) {
         userDao.getJdbi().useTransaction(handle -> {
             int newUserId = userDao.insertUser(handle, email, firstName, lastName, phoneNumber, 1, image);
@@ -120,6 +118,9 @@ public class UserService {
     }
     public User getEmployeeById(int id) {
         return userDao.getUserById(id);
+    
+    public User getUserById(int id) {
+        return userDao.findUserById(id);
     }
 }
 

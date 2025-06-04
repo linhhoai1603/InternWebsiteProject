@@ -5,8 +5,9 @@ import models.*;
 import models.enums.TokenType;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
-import services.AddressService;
+import org.jdbi.v3.core.statement.Query;
 import utils.AccountUserMapper;
+import services.AddressService;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -40,8 +41,8 @@ public class UserDao {
                             user.setEmail(rs.getString("email"));
                             user.setFirstname(rs.getString("firstName"));
                             user.setLastname(rs.getString("lastName"));
-                            user.setFullname(rs.getString("fullNameGenerated"));
-                            user.setPhoneNumber(rs.getString("phoneNumber"));
+                            user.setFullName(rs.getString("fullNameGenerated"));
+                            user.setNumberPhone(rs.getString("phoneNumber"));
                             user.setImage(rs.getString("image"));
                             user.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
                             user.setUpdatedAt(rs.getTimestamp("updatedAt").toLocalDateTime());
@@ -77,12 +78,17 @@ public class UserDao {
 
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
-        UserTokens u = new UserTokens();
 
-        User user = userDao.findUserById(1);
-        System.out.println(user.getEmail());
+        List<AccountUser> accList = userDao.getAllAccUserByRole(3);
+        System.out.println(accList.size());
 
-
+        // Gọi hàm để test
+        List<User> users = userDao.getAllUserByAccList(accList);
+        System.out.println(users.size());
+        // In kết quả
+        for (User user : users) {
+            System.out.println("User ID: " + user.getId());
+        }
     }
 
     public boolean updateAvatar(int id, String url) {
@@ -326,8 +332,8 @@ public class UserDao {
                             User user = new User();
                             user.setId(rs.getInt("userId"));
                             user.setEmail(rs.getString("email"));
-                            user.setFullname(rs.getString("fullName"));
-                            user.setPhoneNumber(rs.getString("phoneNumber"));
+                            user.setFullName(rs.getString("fullName"));
+                            user.setNumberPhone(rs.getString("phoneNumber"));
 
                             // Tạo đối tượng Address
                             Address address = new Address();
@@ -412,6 +418,7 @@ public class UserDao {
             return false;
         }
     }
+
     public List<User> getAllUserByAccList(List<AccountUser> accList) {
         if (accList == null || accList.isEmpty()) {
             return Collections.emptyList();
