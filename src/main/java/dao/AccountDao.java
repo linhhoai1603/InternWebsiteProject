@@ -173,4 +173,14 @@ public class AccountDao {
         );
         return rowsUpdated > 0;
     }
+
+    public AccountUser getAccUserById(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM account_users WHERE idUser = :id")
+                        .bind("id", id)
+                        .mapToBean(AccountUser.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
 }

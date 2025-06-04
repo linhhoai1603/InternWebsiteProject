@@ -50,4 +50,8 @@ public class AccountService {
     public boolean updateEmployeeRole(int id, int i) {
         return accountDao.updateEmployeeRole(id, i);
     }
+
+    public AccountUser getEmployeeById(int id) {
+        return accountDao.getAccUserById(id);
+    }
 }

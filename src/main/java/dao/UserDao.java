@@ -435,6 +435,16 @@ public class UserDao {
                         .list()
         );
     }
+
+    public User getUserById(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM users WHERE id = :id")
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
 }
 
 
