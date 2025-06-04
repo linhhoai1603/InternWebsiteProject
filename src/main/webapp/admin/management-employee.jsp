@@ -101,9 +101,9 @@
         Integer role = (Integer) session.getAttribute("role");
     %>
     <div class="top-actions">
-        <button class="btn btn-primary">
-            <i class="fas fa-users me-2"></i>Quay lại
-        </button>
+        <a href="dashboard" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Quay lại
+        </a>
         <% if ((role != null && role == 3) || (role != null && role == 2)) { %>
         <button class="btn btn-success" id="toggleAddStaffForm">
             <i class="fas fa-user-plus me-2"></i>Thêm nhân viên mới
@@ -184,8 +184,8 @@
 
     <div class="search-box">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Tìm kiếm nhân viên...">
-            <button class="btn btn-primary">
+            <input type="text" class="form-control" placeholder="Tìm kiếm theo tên hoặc email..." id="searchInput">
+            <button class="btn btn-primary" id="searchButton">
                 <i class="fas fa-search"></i> Tìm kiếm
             </button>
         </div>
@@ -215,7 +215,7 @@
                             <p class="mb-0 text-muted">${staff.email}</p>
                         </div>
                         <div class="staff-actions">
-                            <button class="btn btn-info btn-action">
+                            <button class="btn btn-info btn-action" onclick="viewEmployeeDetail(${staff.id})">
                                 <i class="fas fa-info-circle me-1"></i>Xem chi tiết
                             </button>
                             <c:if test="${currentUserRole == 2 || currentUserRole == 3}">
@@ -239,7 +239,7 @@
                             <p class="mb-0 text-muted">${manager.email}</p>
                         </div>
                         <div class="staff-actions">
-                            <button class="btn btn-info btn-action">
+                            <button class="btn btn-info btn-action" onclick="viewEmployeeDetail(${manager.id})">
                                 <i class="fas fa-info-circle me-1"></i>Xem chi tiết
                             </button>
                             <button class="btn btn-warning btn-action" onclick="demoteManager(${manager.id})">
@@ -258,59 +258,50 @@
     </div>
 </div>
 
+<!-- Modal xem chi tiết -->
+<div class="modal fade" id="employeeDetailModal" tabindex="-1" aria-labelledby="employeeDetailModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employeeDetailModalLabel">Thông tin chi tiết</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <th>Mã nhân viên</th>
+                        <td id="detail-id"></td>
+                    </tr>
+                    <tr>
+                        <th>Họ và tên</th>
+                        <td id="detail-name"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td id="detail-email"></td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td id="detail-username"></td>
+                    </tr>
+                    <tr>
+                        <th>Số điện thoại</th>
+                        <td id="detail-phone"></td>
+                    </tr>
+                    <tr>
+                        <th>Vai trò</th>
+                        <td id="detail-role"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const staffTab = document.getElementById('staff-tab');
-        if (staffTab) staffTab.click();
-
-        const toggleButton = document.getElementById('toggleAddStaffForm');
-        const addStaffForm = document.getElementById('addStaffForm');
-        if (toggleButton && addStaffForm) {
-            toggleButton.addEventListener('click', function () {
-                const bsCollapse = new bootstrap.Collapse(addStaffForm, {
-                    toggle: true
-                });
-            });
-        }
-    });
-
-    function deleteEmployee(id) {
-        if (!confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) return;
-
-        fetch('${pageContext.request.contextPath}/admin/delete-employee', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: 'id=' + id
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                if (data.status) {
-                    document.getElementById('employee-' + id).remove();
-                    location.reload();
-                }
-            })
-            .catch(err => console.error(err));
-    }
-
-    function demoteManager(id) {
-        if (!confirm("Bạn có chắc muốn hạ cấp người này?")) return;
-
-        fetch('${pageContext.request.contextPath}/admin/demote-manager', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: 'id=' + id
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                if (data.status) {
-                    location.reload();
-                }
-            })
-            .catch(err => console.error(err));
-    }
-</script>
+<script src="js/management_employee.js"></script>
 </body>
 </html>
