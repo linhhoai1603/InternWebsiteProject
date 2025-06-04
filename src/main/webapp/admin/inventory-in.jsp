@@ -122,6 +122,45 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Xác nhận -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Xác nhận lưu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có chắc chắn muốn lưu phiếu nhập hàng này không?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" id="confirmSave">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Thành công -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">Thành công</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <i class="fas fa-check-circle text-success" style="font-size: 48px;"></i>
+                <p class="mt-3">Đã lưu phiếu nhập hàng thành công!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     function generateRandomInventoryCode() {
         const prefix = "PN"; // Hoặc tiền tố khác cho phiếu nhập
@@ -135,18 +174,26 @@
             inventoryCodeSpan.innerText = generateRandomInventoryCode();
         }
 
-        document.getElementById('btnSave').addEventListener('click', function () {
-            if (!confirm("Bạn có muốn lưu không?")) return;
+        // Thêm Font Awesome
+        const fontAwesome = document.createElement('link');
+        fontAwesome.rel = 'stylesheet';
+        fontAwesome.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+        document.head.appendChild(fontAwesome);
+
+        // Xử lý nút lưu
+        document.getElementById('btnSave').addEventListener('click', function() {
+            const confirmModal = new bootstrap.Modal(document.getElementById('confirmModal'));
+            confirmModal.show();
+        });
+
+        // Xử lý xác nhận lưu
+        document.getElementById('confirmSave').addEventListener('click', function() {
+            const confirmModal = bootstrap.Modal.getInstance(document.getElementById('confirmModal'));
+            confirmModal.hide();
 
             // Collect data from the form
-            // API expects 'deciption' with typo
-            const deciption = document.getElementById('ghiChu').value.trim(); // Get ghiChu as deciption
-            const status = document.getElementById('status-inventory').innerText.trim(); // Get status text
-            // Fields like code, supplier, totalAmount, type are not used by /api/create-inventory-in based on provided code
-            // const inventoryCode = document.getElementById('inventoryCode').innerText; // Not used by this API
-            // const supplier = document.getElementById('nhaCungCap').value.trim(); // Not used by this API
-            // const totalAmount = document.getElementById('soTienHang').value.trim(); // Not used by this API
-            // const inventoryType = 1; // Not used by this API
+            const deciption = document.getElementById('ghiChu').value.trim();
+            const status = document.getElementById('status-inventory').innerText.trim();
 
             const productsData = [];
 
@@ -156,40 +203,37 @@
                 const inputElements = row.querySelectorAll('input[data-style-id]');
 
                 const styleItems = [];
-                let totalQuantityForProduct = 0; // Calculate total quantity imported for this product
+                let totalQuantityForProduct = 0;
 
                 inputElements.forEach(input => {
                     const styleId = input.getAttribute('data-style-id');
-                    const quantityImported = parseInt(input.value) || 0; // Số lượng nhập cho kiểu vải
+                    const quantityImported = parseInt(input.value) || 0;
 
-                    // Prepare style item matching API expectation: {idStyle: ..., imported: ...}
                     styleItems.push({
                         idStyle: parseInt(styleId),
-                        imported: quantityImported // Tên trường 'imported' theo API
+                        imported: quantityImported
                     });
 
-                    totalQuantityForProduct += quantityImported; // Add to product total
+                    totalQuantityForProduct += quantityImported;
                 });
 
-                // Prepare product data matching API expectation: {idProduct: ..., quantityImported: ..., style: [...]}
                 if (styleItems.length > 0) {
-                     productsData.push({
-                         idProduct: parseInt(productId),
-                         quantityImported: totalQuantityForProduct, // Tổng số lượng nhập cho sản phẩm
-                         style: styleItems // Mảng các kiểu vải
-                     });
+                    productsData.push({
+                        idProduct: parseInt(productId),
+                        quantityImported: totalQuantityForProduct,
+                        style: styleItems
+                    });
                 }
             });
 
-            // Prepare JSON payload matching API structure
             const payload = {
-                deciption: deciption, // Tên trường 'deciption' theo API
+                deciption: deciption,
                 status: status,
                 products: productsData
             };
 
-            // Send data to server using Fetch API to the API endpoint
-            fetch('/ProjectWeb/api/create-inventory-in', { // Correct API endpoint
+            // Send data to server
+            fetch('/ProjectWeb/api/create-inventory-in', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -198,15 +242,14 @@
             })
             .then(response => response.json())
             .then(data => {
-                 if (data && data.status === 'ok') {
-                     alert('Đã lưu thành công!');
-                     // Optional: Redirect or update UI on success
-                     // window.location.reload(); // Example: reload page on success
-                 } else if (data && data.error) {
-                     alert('Lỗi từ server: ' + data.error);
-                 } else {
-                     alert("Unexpected response from server.");
-                 }
+                if (data && data.status === 'ok') {
+                    const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                    successModal.show();
+                } else if (data && data.error) {
+                    alert('Lỗi từ server: ' + data.error);
+                } else {
+                    alert("Unexpected response from server.");
+                }
             })
             .catch(error => {
                 console.error('Lỗi:', error);

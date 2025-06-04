@@ -90,7 +90,7 @@
                 <div class="form-group">
                     <label for="phoneNumber"><fmt:message key="phone"/></label>
                     <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
-                           placeholder="Nhập số điện thoại" value="${sessionScope.user.getNumberPhone()}"
+                           placeholder="Nhập số điện thoại" value="${sessionScope.user.phoneNumber}"
                            required>
                 </div>
 
@@ -100,10 +100,10 @@
                 <!-- Current Address Display -->
                 <div class="current-address-display mb-4 p-3 border rounded">
                     <h6>Địa chỉ hiện tại:</h6>
-                    <p class="mb-1">**Địa chỉ chi tiết:** ${sessionScope.user.address.detail}</p>
-                    <p class="mb-1">**Phường/Xã:** ${sessionScope.user.address.ward}</p>
-                    <p class="mb-1">**Quận/Huyện:** ${sessionScope.user.address.district}</p>
                     <p class="mb-0">**Tỉnh/Thành phố:** ${sessionScope.user.address.province}</p>
+                    <p class="mb-1">**Quận/Huyện:** ${sessionScope.user.address.district}</p>
+                    <p class="mb-1">**Phường/Xã:** ${sessionScope.user.address.ward}</p>
+                    <p class="mb-1">**Địa chỉ chi tiết:** ${sessionScope.user.address.detail}</p>
                 </div>
 
                 <!-- New Address Selection -->

@@ -2,6 +2,7 @@ package services;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import utils.ConfigLoader;
 
 import java.io.File;
 import java.util.Map;
@@ -18,9 +19,9 @@ public class UploadService {
      * Cấu hình Cloudinary bằng biến môi trường
      */
     private Cloudinary createCloudinary() {
-        String cloudName = System.getenv("CLOUD_NAME");
-        String apiKey = System.getenv("API_KEY");
-        String apiSecret = System.getenv("API_SECRET");
+        String cloudName = ConfigLoader.getProperty("CLOUD_NAME");
+        String apiKey = ConfigLoader.getProperty("API_KEY");
+        String apiSecret = ConfigLoader.getProperty("API_SECRET");
 
         if (cloudName == null || apiKey == null || apiSecret == null) {
             throw new IllegalStateException("Cloudinary configuration is missing. Please set CLOUD_NAME, API_KEY, and API_SECRET as environment variables.");
