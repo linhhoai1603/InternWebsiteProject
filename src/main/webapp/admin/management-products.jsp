@@ -41,9 +41,53 @@
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
             Thêm sản phẩm
         </button>
+        
+        <!-- Container cho Nút Kiểm Kê và Form -->
+        <div class="d-flex flex-column align-items-start">
+             <!-- Nút Kiểm Kê Kho -->
+            <button type="button" class="btn btn-info" data-bs-toggle="collapse" data-bs-target="#kiemKeFormCollapse" aria-expanded="false" aria-controls="kiemKeFormCollapse">
+                Kiểm Kê Kho
+            </button>
+            <!-- Phần sổ xuống cho Kiểm Kê Kho -->
+            <div class="collapse mt-2" id="kiemKeFormCollapse">
+                <div class="card card-body">
+                    <form action="inventory" method="get" class="mb-0">
+                        <div class="form-group mb-2">
+                            <label for="inventoryIds"><strong>Kiểm Kê Kho</strong></label>
+                            <input type="text" class="form-control" id="inventoryIds" name="id"
+                                   placeholder="Nhập mã sản phẩm (phân cách bằng dấu phẩy)" required>
+                            <small class="form-text text-muted">Ví dụ: 1,2,3,4,5</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm mt-1">Tạo phiếu kiểm kho</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+         <!-- Container cho Nút Nhập Kho và Form -->
+        <div class="d-flex flex-column align-items-start ms-2">
+            <!-- Nút Nhập Kho -->
+            <button type="button" class="btn btn-success" data-bs-toggle="collapse" data-bs-target="#nhapKhoFormCollapse" aria-expanded="false" aria-controls="nhapKhoFormCollapse">
+                Nhập Kho
+            </button>
+             <!-- Phần sổ xuống cho Nhập Kho -->
+            <div class="collapse mt-2" id="nhapKhoFormCollapse">
+                <div class="card card-body">
+                     <form action="inventory-in" method="get" class="mb-0">
+                        <div class="form-group mb-2">
+                            <label for="inventoryInIds"><strong>Nhập Kho</strong></label>
+                            <input type="text" class="form-control" id="inventoryInIds" name="id"
+                                   placeholder="Nhập mã sản phẩm (phân cách bằng dấu phẩy)" required>
+                            <small class="form-text text-muted">Ví dụ: 1,2,3,4,5</small>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-sm mt-1">Tạo phiếu nhập kho</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- Form tìm kiếm -->
-        <form class="d-flex" action="admin-manager-products?method=searchProduct" method="POST">
+        <form class="d-flex ms-auto" action="admin-manager-products?method=searchProduct" method="POST">
             <input type="hidden" name="method" value="searchProduct">
             <input class="form-control me-2" type="search" name="inputName" placeholder="Tìm kiếm sản phẩm theo ID" aria-label="Search" required>
             <button class="btn btn-primary" type="submit">Tìm kiếm</button>
@@ -205,6 +249,58 @@
         </ul>
     </nav>
 </div>
+
 <%@include file="../includes/link/footLink.jsp"%>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Xử lý form Kiểm Kê Kho
+        const kiemKeForm = document.querySelector('#kiemKeFormCollapse form');
+        if (kiemKeForm) {
+            kiemKeForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Ngăn chặn submit form mặc định
+                const input = kiemKeForm.querySelector('input[name="id"]');
+                const idsString = input.value;
+                const idsArray = idsString.split(',').map(id => id.trim()).filter(id => id !== '');
+
+                if (idsArray.length > 0) {
+                    const baseUrl = kiemKeForm.getAttribute('action');
+                    const params = new URLSearchParams();
+                    idsArray.forEach(id => {
+                        params.append('id', id);
+                    });
+                    window.location.href = baseUrl + '?' + params.toString();
+                } else {
+                    alert('Vui lòng nhập ít nhất một mã sản phẩm.');
+                }
+            });
+        }
+
+        // Xử lý form Nhập Kho
+        const nhapKhoForm = document.querySelector('#nhapKhoFormCollapse form');
+        if (nhapKhoForm) {
+             nhapKhoForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Ngăn chặn submit form mặc định
+                const input = nhapKhoForm.querySelector('input[name="id"]');
+                const idsString = input.value;
+                const idsArray = idsString.split(',').map(id => id.trim()).filter(id => id !== '');
+
+                if (idsArray.length > 0) {
+                    const baseUrl = nhapKhoForm.getAttribute('action');
+                    const params = new URLSearchParams();
+                    idsArray.forEach(id => {
+                        params.append('id', id);
+                    });
+                    window.location.href = baseUrl + '?' + params.toString();
+                } else {
+                     alert('Vui lòng nhập ít nhất một mã sản phẩm.');
+                }
+            });
+        }
+    });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

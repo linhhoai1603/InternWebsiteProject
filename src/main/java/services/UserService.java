@@ -2,11 +2,11 @@ package services;
 
 import dao.UserDao;
 import models.AccountUser;
-import models.User;
 import models.enums.TokenType;
 import models.UserTokens;
 import services.application.EmailSender;
 import services.application.HashUtil;
+import models.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -100,23 +100,9 @@ public class UserService {
     public List<AccountUser> searchUser(String name) {
         return userDao.findUserByName(name);
     }
-
-    public void createEmp(String email, String firstName, String lastName, String username, String hasedPassword, String phoneNumber, String image, int role) {
-        userDao.getJdbi().useTransaction(handle -> {
-            int newUserId = userDao.insertUser(handle, email, firstName, lastName, phoneNumber, 1, image);
-            userDao.insertAccountUser(handle, newUserId, username, hasedPassword, role, 0, null);
-        });
-    }
-
-    public List<User> getAllUserByAccList(List<AccountUser> AccList) {
-        return userDao.getAllUserByAccList(AccList);
-    }
-
-    public List<AccountUser> getAllAccUserByRole(int RoleId) {
-        return userDao.getAllAccUserByRole(RoleId);
-    }
-    public User getEmployeeById(int id) {
-        return userDao.getUserById(id);
+    
+    public User getUserById(int id) {
+        return userDao.findUserById(id);
     }
 }
 
