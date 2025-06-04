@@ -79,19 +79,19 @@ public class User implements Serializable {
         this.lastname = lastname;
     }
 
-    public String getFullName() {
+    public String getFullname() {
         return fullname;
     }
 
-    public void setFullName(String fullname) {
+    public void setFullname(String fullname) {
         this.fullname = fullname;
     }
 
-    public String getNumberPhone() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setNumberPhone(String phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

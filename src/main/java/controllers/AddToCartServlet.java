@@ -20,7 +20,7 @@ public class AddToCartServlet extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int idStyle = Integer.parseInt(request.getParameter("selectedStyle"));
         String originalUrl = request.getParameter("currentURL");
-
+        System.out.println(originalUrl);
         // Xử lý thêm vào giỏ hàng
         CartService cartService = new CartService();
         AccountUser acc = (AccountUser) request.getSession().getAttribute("account");
@@ -40,5 +40,7 @@ public class AddToCartServlet extends HttpServlet {
         // Redirect về trang cũ
         String contextPath = request.getContextPath(); // ví dụ: /ProjectWeb_war
         response.sendRedirect(contextPath + "/" + originalUrl);
+
+
     }
 }

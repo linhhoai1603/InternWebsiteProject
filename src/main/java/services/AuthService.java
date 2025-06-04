@@ -67,7 +67,7 @@ public class AuthService {
                         newUser.setFirstname(firstName);
                         newUser.setLastname(lastName);
                         newUser.setImage(pictureUrl != null ? pictureUrl : "default.png");
-                        newUser.setNumberPhone("0000000000");
+                        newUser.setPhoneNumber("0000000000");
 
                         currentUserId = userDao.createUser(newUser);
 

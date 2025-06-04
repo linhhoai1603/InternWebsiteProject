@@ -38,7 +38,7 @@
     <table class="table table-bordered table-striped custom-table">
         <thead>
         <tr>
-            <th> Mã vận chuyển </th>
+            <th>Mã vận chuyển</th>
             <th>Mã Đơn Hàng</th>
             <th>Thông Tin Giao Hàng</th>
             <th>Trọng lượng</th>
@@ -55,7 +55,7 @@
                 <td>${d.id}</td>
                <td>${d.idOrder}</td>
                <td>
-                   <p><strong>Địa chỉ:</strong> ${d.address.street} / ${d.address.commune} / ${d.address.province} / ${d.address.city}</p>
+                   <p><strong>Địa chỉ:</strong> ${d.address.detail}, ${d.address.ward}, ${d.address.district}, ${d.address.province}</p>
                    <p><strong>Người nhận:</strong> ${d.fullName}</p>
                    <p><strong>SĐT:</strong> ${d.phoneNumber}</p>
                </td>

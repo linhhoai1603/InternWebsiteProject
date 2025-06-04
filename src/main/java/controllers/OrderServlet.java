@@ -262,7 +262,7 @@ public class OrderServlet extends HttpServlet {
             name = request.getParameter("billingFullName");
         }
         if (name == null || name.trim().isEmpty()) {
-            name = (user != null && user.getFullName() != null) ? user.getFullName() : null;
+            name = (user != null && user.getFullname() != null) ? user.getFullname() : null;
         }
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalStateException("Tên người nhận hàng không được để trống.");
@@ -279,7 +279,7 @@ public class OrderServlet extends HttpServlet {
             phone = request.getParameter("billingPhone");
         }
         if (phone == null || phone.trim().isEmpty()) {
-            phone = (user != null && user.getNumberPhone() != null) ? user.getNumberPhone() : null;
+            phone = (user != null && user.getPhoneNumber() != null) ? user.getPhoneNumber() : null;
         }
         if (phone == null || phone.trim().isEmpty()) {
             throw new IllegalStateException("Số điện thoại người nhận hàng không được để trống.");
