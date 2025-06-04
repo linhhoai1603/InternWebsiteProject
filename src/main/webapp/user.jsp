@@ -20,6 +20,17 @@
         .error {
             color: red;
         }
+         .current-address-display label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+         .current-address-display p {
+            margin-bottom: 5px;
+        }
+        .form-group label {
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -83,32 +94,44 @@
                            required>
                 </div>
 
-                <!-- Địa chỉ -->
+                <!-- Address Section -->
                 <h5 class="mt-4">Địa chỉ</h5>
+
+                <!-- Current Address Display -->
+                <div class="current-address-display mb-4 p-3 border rounded">
+                    <h6>Địa chỉ hiện tại:</h6>
+                    <p class="mb-1">**Địa chỉ chi tiết:** ${sessionScope.user.address.detail}</p>
+                    <p class="mb-1">**Phường/Xã:** ${sessionScope.user.address.ward}</p>
+                    <p class="mb-1">**Quận/Huyện:** ${sessionScope.user.address.district}</p>
+                    <p class="mb-0">**Tỉnh/Thành phố:** ${sessionScope.user.address.province}</p>
+                </div>
+
+                <!-- New Address Selection -->
+                <h6>Cập nhật địa chỉ mới (chọn từ danh sách):</h6>
                 <div class="form-group">
                     <label for="province">Tỉnh / Thành phố</label>
-                    <input type="text" class="form-control" id="province" name="province"
-                           placeholder="Nhập tỉnh/thành phố"
-                           value="${sessionScope.user.address.province}" required>
+                    <select class="form-control" id="province" name="province">
+                        <option value="">Chọn tỉnh/thành phố</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label for="district">Quận / Huyện</label>
-                    <input type="text" class="form-control" id="district" name="district" placeholder="Nhập quận/huyện"
-                           value="${sessionScope.user.address.district}" required>
+                    <select class="form-control" id="district" name="district" disabled>
+                        <option value="">Chọn quận/huyện</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label for="ward">Phường / Xã</label>
-                    <input type="text" class="form-control" id="ward" name="ward" placeholder="Nhập phường/xã"
-                           value="${sessionScope.user.address.ward}" required>
+                    <select class="form-control" id="ward" name="ward" disabled>
+                        <option value="">Chọn phường/xã</option>
+                    </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="detail">Địa chỉ chi tiết</label>
-                    <input type="text" class="form-control" id="detail" name="detail"
-                           placeholder="Nhập số nhà, tên đường"
-                           value="${sessionScope.user.address.detail}" required>
+                 <div class="form-group">
+                    <label for="detail">Địa chỉ chi tiết (Số nhà, tên đường...)</label>
+                    <input type="text" class="form-control" id="detail" name="detail" placeholder="Nhập số nhà, tên đường...">
                 </div>
 
                 <!-- Nút lưu thông tin -->
@@ -116,26 +139,8 @@
             </form>
         </div>
     </div>
-    <script>
 
-        function previewImageAndSubmit(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function () {
-                // Cập nhật ảnh đại diện với ảnh người dùng đã chọn
-                const userAvatar = document.getElementById('userAvatar');
-                userAvatar.src = reader.result;
-
-                // Sau khi chọn ảnh, tự động submit form
-                document.getElementById('avatarForm').submit();
-            }
-
-            if (file) {
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
+    <script src="js/user.js"></script>
     <%@ include file="includes/footer.jsp" %>
     <%@ include file="includes/link/footLink.jsp" %>
 

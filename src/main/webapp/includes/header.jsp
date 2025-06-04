@@ -64,7 +64,7 @@
                     User user = (User) session.getAttribute("user");
                     if (user == null) {
                 %>
-                <a href="${pageContext.request.contextPath}/login.jsp" class="btn text-white btn-bg" id="loginButton">
+                <a href="${pageContext.request.contextPath}/login-user" class="btn text-white btn-bg" id="loginButton">
                     <i class="fa-solid fa-right-to-bracket"></i>&nbsp;<fmt:message key="login"/>
                 </a>
                 <a href="register.jsp" class="btn text-white btn-bg" id="registerButton">
