@@ -6,6 +6,7 @@ import models.enums.TokenType;
 import models.UserTokens;
 import services.application.EmailSender;
 import services.application.HashUtil;
+import models.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -98,6 +99,10 @@ public class UserService {
 
     public List<AccountUser> searchUser(String name) {
         return userDao.findUserByName(name);
+    }
+    
+    public User getUserById(int id) {
+        return userDao.findUserById(id);
     }
 }
 
