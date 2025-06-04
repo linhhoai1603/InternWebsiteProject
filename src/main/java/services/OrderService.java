@@ -70,7 +70,13 @@ public class OrderService {
     }
 
     public boolean deleteOrder(int orderId) {
-        return false;
+        try {
+            // Sau đó xóa đơn hàng
+           return   dao.deleteOrder(orderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void updateOrderTotalAndLastPrice(int orderId) {
@@ -81,6 +87,41 @@ public class OrderService {
                 totalPrice += detail.getTotalPrice();
             }
             dao.updateOrderTotal(orderId, totalPrice);
+        }
+    }
+
+    public boolean updateOrder(Order order) {
+        try {
+            System.out.println("OrderService: Starting to update order " + order.getId());
+            
+            // Validate order status
+            if (order.getStatus() == null || order.getStatus().trim().isEmpty()) {
+                System.out.println("OrderService: Invalid order status");
+                return false;
+            }
+            
+            // Update order
+            boolean updated = dao.updateOrder(order);
+            System.out.println("OrderService: Order update result: " + updated);
+            
+            return updated;
+        } catch (Exception e) {
+            System.out.println("OrderService: Exception during order update: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Order getOrderById(int orderId) {
+        try {
+            System.out.println("OrderService: Getting order by ID: " + orderId);
+            Order order = dao.getOrderById(orderId);
+            System.out.println("OrderService: Found order: " + (order != null));
+            return order;
+        } catch (Exception e) {
+            System.out.println("OrderService: Exception getting order by ID: " + e.getMessage());
+            e.printStackTrace();
+            return null;
         }
     }
 }

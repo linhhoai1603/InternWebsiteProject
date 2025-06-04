@@ -149,18 +149,37 @@ public class OrderDAO {
                         .execute()
         );
     }
-    public void deleteOrder(int orderId) {
-        jdbi.useTransaction(handle -> {
-            // Xoá chi tiết đơn hàng trước
-            handle.createUpdate("DELETE FROM order_detail WHERE idOrder = :idOrder")
-                    .bind("idOrder", orderId)
-                    .execute();
+    public boolean deleteOrder(int orderId) {
+        try {
+            System.out.println("OrderDAO: Starting to delete order " + orderId);
+            
+            jdbi.useTransaction(handle -> {
+                // Xóa các bản ghi thanh toán trước
+                int paymentsDeleted = handle.createUpdate("DELETE FROM payments WHERE idOrder = :idOrder")
+                        .bind("idOrder", orderId)
+                        .execute();
+                System.out.println("OrderDAO: Deleted " + paymentsDeleted + " payments");
 
-            // Sau đó xoá đơn hàng
-            handle.createUpdate("DELETE FROM orders WHERE id = :id")
-                    .bind("id", orderId)
-                    .execute();
-        });
+                // Xóa chi tiết đơn hàng
+                int detailsDeleted = handle.createUpdate("DELETE FROM order_details WHERE idOrder = :idOrder")
+                        .bind("idOrder", orderId)
+                        .execute();
+                System.out.println("OrderDAO: Deleted " + detailsDeleted + " order details");
+
+                // Sau đó xóa đơn hàng
+                int orderDeleted = handle.createUpdate("DELETE FROM orders WHERE id = :id")
+                        .bind("id", orderId)
+                        .execute();
+                System.out.println("OrderDAO: Deleted " + orderDeleted + " orders");
+            });
+            
+            System.out.println("OrderDAO: Order deletion completed successfully");
+            return true;
+        } catch (Exception e) {
+            System.out.println("OrderDAO: Exception during order deletion: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean updateOrderTotal(int orderId, double totalPrice) {
@@ -171,5 +190,51 @@ public class OrderDAO {
                         .bind("id", orderId)
                         .execute() > 0
         );
+    }
+
+    public boolean updateOrder(Order order) {
+        try {
+            System.out.println("OrderDAO: Starting to update order " + order.getId());
+            
+            jdbi.useTransaction(handle -> {
+                int updated = handle.createUpdate("""
+                    UPDATE orders 
+                    SET status = :status,
+                        updatedAt = NOW()
+                    WHERE id = :id
+                """)
+                .bind("id", order.getId())
+                .bind("status", order.getStatus())
+                .execute();
+                
+                System.out.println("OrderDAO: Updated " + updated + " orders");
+            });
+            
+            System.out.println("OrderDAO: Order update completed successfully");
+            return true;
+        } catch (Exception e) {
+            System.out.println("OrderDAO: Exception during order update: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Order getOrderById(int orderId) {
+        try {
+            System.out.println("OrderDAO: Getting order by ID: " + orderId);
+            Order order = jdbi.withHandle(handle -> {
+                return handle.createQuery("SELECT * FROM orders WHERE id = :id")
+                             .bind("id", orderId)
+                             .mapToBean(Order.class)
+                             .findOne()
+                             .orElse(null);
+            });
+            System.out.println("OrderDAO: Found order: " + (order != null));
+            return order;
+        } catch (Exception e) {
+            System.out.println("OrderDAO: Exception getting order by ID: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 }

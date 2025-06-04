@@ -16,8 +16,8 @@ public class AdminManagerOrder extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int loca = request.getParameter("loca") == null ? 1 : Integer.parseInt(request.getParameter("loca"));
         OrderService os = new OrderService();
-        int nuPage = os.getNuPage(5);
-        List<Order> orders = os.getOrdersByPage(loca,5);
+        int nuPage = os.getNuPage(10);
+        List<Order> orders = os.getOrdersByPage(loca, 10);
         request.setAttribute("orders", orders);
         request.setAttribute("nuPage", nuPage);
         request.setAttribute("loca", loca);

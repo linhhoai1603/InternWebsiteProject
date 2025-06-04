@@ -45,14 +45,16 @@ public class UserActivityFilter implements Filter {
             String description = "User accessed: " + path;
             String ipAddress = getClientIpAddress(httpRequest);
             String userAgent = httpRequest.getHeader("User-Agent");
+            String level = "INFO";
 
-            userLogService.logUserActivity(
+            // Combine details into a single string
+            String logDetails = "Action: " + action + ", Description: " + description + ", IP: " + ipAddress + ", User Agent: " + userAgent + ", Level: " + level;
+
+            // Call the new logUserAction method
+            userLogService.logUserAction(
                 user.getId(),
-                action,
-                description,
-                ipAddress,
-                userAgent,
-                "INFO"
+                action, // Use action as the main action type
+                logDetails
             );
         }
 

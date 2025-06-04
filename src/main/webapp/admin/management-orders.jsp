@@ -21,14 +21,11 @@
     <div class="row my-3">
         <div class="col-md-8">
             <c:set var="error" value="${not empty requestScope.error ? requestScope.error : ''}" />
+            <c:set var="success" value="${not empty sessionScope.successMessage ? sessionScope.successMessage : ''}" />
             <c:if test="${not empty error}">
-                <script type="text/javascript">
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Thông báo',
-                        text: "${error}"
-                    });
-                </script>
+            </c:if>
+            <c:if test="${not empty success}">
+                <% session.removeAttribute("successMessage"); %>
             </c:if>
         </div>
         <div class="col-md-4">
@@ -75,10 +72,16 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td>${oder.status}</td>
-                <td>${oder.totalPrice}</td>
-                <td>${oder.lastPrice}</td>
-                <td><a class="btn btn-info" href="${pageContext.request.contextPath}/admin/order-detail?orderId=${oder.id}">Xem chi tiết</a></td>
+                <td>
+                   ${oder.status}
+                </td>
+                <td><fmt:formatNumber value="${oder.totalPrice}" type="currency" currencyCode="VND" /></td>
+                <td><fmt:formatNumber value="${oder.lastPrice}" type="currency" currencyCode="VND" /></td>
+                <td>
+                    <a href="<%= request.getContextPath() %>/admin/order-detail?orderId=${oder.id}" class="btn btn-info btn-sm">Xem chi tiết</a>
+                    <a href="<%= request.getContextPath() %>/admin/edit-order?orderId=${oder.id}" class="btn btn-primary btn-sm">Edit</a>
+                    <button class="btn btn-danger btn-sm" onclick="deleteOrder(${oder.id})">Delete</button>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
@@ -125,6 +128,7 @@
         </ul>
     </nav>
 </div>
+
 
 <%@include file="../includes/link/footLink.jsp"%>
 </body>

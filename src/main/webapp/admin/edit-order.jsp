@@ -5,11 +5,15 @@
   Time: current_time
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Chỉnh Sửa Đơn Hàng</title>
     <%@include file="../includes/link/headLink.jsp"%>
     <link rel="stylesheet" href="css/management.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <%@include file="menu-admin.jsp"%>
@@ -94,5 +98,41 @@
 </div>
 
 <%@include file="../includes/link/footLink.jsp"%>
+
+<script>
+    function updateOrderStatus(orderId) {
+        const newStatus = document.getElementById('status').value;
+        Swal.fire({
+            title: 'Xác nhận cập nhật',
+            text: 'Bạn có chắc chắn muốn cập nhật trạng thái đơn hàng này?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Có, cập nhật',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('<%= request.getContextPath() %>/admin/update-order', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `orderId=${orderId}&status=${newStatus}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        Swal.fire('Thành công!', data.message, 'success');
+                    } else {
+                        Swal.fire('Lỗi!', data.message, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Lỗi!', 'Có lỗi xảy ra khi cập nhật trạng thái đơn hàng', 'error');
+                });
+            }
+        });
+    }
+</script>
 </body>
 </html> 

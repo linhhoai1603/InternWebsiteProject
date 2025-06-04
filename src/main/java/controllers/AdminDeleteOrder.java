@@ -11,18 +11,40 @@ import java.io.IOException;
 
 @WebServlet(name = "AdminDeleteOrder", value = "/admin/delete-order")
 public class AdminDeleteOrder extends HttpServlet {
+    private OrderService orderService;
+
+    @Override
+    public void init() throws ServletException {
+        orderService = new OrderService();
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
-        OrderService orderService = new OrderService();
-        boolean success = orderService.deleteOrder(orderId);
+        try {
+            String orderIdStr = request.getParameter("orderId");
+            if (orderIdStr == null || orderIdStr.trim().isEmpty()) {
+                request.setAttribute("error", "Mã đơn hàng không hợp lệ");
+                request.getRequestDispatcher("/admin/manager-order").forward(request, response);
+                return;
+            }
 
-        if (success) {
-            request.getSession().setAttribute("successMessage", "Xóa đơn hàng thành công!");
-        } else {
-            request.getSession().setAttribute("errorMessage", "Xóa đơn hàng thất bại.");
+            int orderId = Integer.parseInt(orderIdStr);
+            
+            // Xóa đơn hàng
+            boolean success = orderService.deleteOrder(orderId);
+            
+            if (success) {
+                request.setAttribute("success", "Xóa đơn hàng thành công!");
+            } else {
+                request.setAttribute("error", "Xóa đơn hàng thất bại.");
+            }
+        } catch (NumberFormatException e) {
+            request.setAttribute("error", "Mã đơn hàng không hợp lệ");
+        } catch (Exception e) {
+            request.setAttribute("error", "Có lỗi xảy ra: " + e.getMessage());
         }
 
+        // Chuyển hướng về trang quản lý đơn hàng
         response.sendRedirect(request.getContextPath() + "/admin/manager-order");
     }
 
