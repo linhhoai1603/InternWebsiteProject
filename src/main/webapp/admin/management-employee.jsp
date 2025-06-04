@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page pageEncoding="UTF-8" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -92,6 +92,7 @@
     </style>
 </head>
 <body>
+
 <div class="container">
     <div class="header-bar">
         <h2 class="mb-0">Quản lý Nhân viên</h2>
@@ -101,7 +102,7 @@
     %>
     <div class="top-actions">
         <button class="btn btn-primary">
-            <i class="fas fa-users me-2"></i>Xem tất cả nhân viên
+            <i class="fas fa-users me-2"></i>Quay lại
         </button>
         <% if ((role != null && role == 3) || (role != null && role == 2)) { %>
         <button class="btn btn-success" id="toggleAddStaffForm">
@@ -155,10 +156,6 @@
                         <div class="col-md-6 mb-3">
                             <label for="newStaffPhone" class="form-label">Phone Number *</label>
                             <input type="tel" class="form-control" name="phoneNumber" id="newStaffPhone" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="newStaffPassword" class="form-label">Password *</label>
-                            <input type="password" class="form-control" name="password" id="newStaffPassword" required>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -277,61 +274,9 @@
             });
         }
 
-        // Remove AJAX submit handler
-        // const staffForm = document.getElementById('staffRegistrationForm');
-        // if (staffForm) {
-        //     staffForm.addEventListener('submit', function(e) {
-        //         e.preventDefault();
-        //
-        //         const formData = new FormData(staffForm);
-        //
-        //         // Debug: Log form data
-        //         for (let pair of formData.entries()) {
-        //             console.log(pair[0] + ': ' + pair[1]);
-        //         }
-        //
-        //         fetch('${pageContext.request.contextPath}/api/create-employee', {
-        //             method: 'POST',
-        //             body: formData
-        //         })
-        //         .then(response => {
-        //             if (!response.ok) {
-        //                 if (response.status === 401) {
-        //                     throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.');
-        //                 }
-        //                 // Try to read the error message from the response body if it's JSON
-        //                 return response.json().then(err => {
-        //                     throw new Error(err.message || 'Có lỗi xảy ra khi tạo nhân viên');
-        //                 }).catch(() => {
-        //                     // If response body is not JSON, throw a generic error
-        //                     throw new Error('Có lỗi xảy ra khi tạo nhân viên');
-        //                 });
-        //             }
-        //             return response.json();
-        //         })
-        //         .then(data => {
-        //             if (data.success) {
-        //                 alert(data.message);
-        //                 // Đóng form
-        //                 const bsCollapse = bootstrap.Collapse.getInstance(addStaffForm);
-        //                 bsCollapse.hide();
-        //                 // Reload trang để cập nhật danh sách
-        //                 location.reload();
-        //             } else {
-        //                 alert('Lỗi: ' + data.message);
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error('Error:', error);
-        //             alert(error.message || 'Có lỗi xảy ra khi tạo nhân viên');
-        //         });
-        //     });
-        // }
-
         // Function stubs for delete and demote (client-side only, need server implementation)
         function deleteStaff(id) {
             if (confirm('Bạn có chắc chắn muốn xóa nhân viên có ID ' + id + '?')) {
-                // Here you would typically send an AJAX request or form submission to a delete servlet
                 alert('Chức năng xóa nhân viên với ID ' + id + ' chưa được triển khai đầy đủ.');
                 // Example: window.location.href = '${pageContext.request.contextPath}/admin/delete-employee?id=' + id;
             }
@@ -344,9 +289,6 @@
                 // Example: window.location.href = '${pageContext.request.contextPath}/admin/demote-employee?id=' + id;
             }
         }
-
-        // Call these functions from onclick (already set up in JSP)
-
     });
 </script>
 </body>
