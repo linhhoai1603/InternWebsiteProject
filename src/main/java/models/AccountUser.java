@@ -11,6 +11,10 @@ public class AccountUser implements Serializable {
     private int locked;
     private String code;
 
+    public Integer getUserId() {
+        return user != null ? user.getId() : null;
+    }
+
     public String getCode() {
         return code;
     }
