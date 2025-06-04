@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(value = "/inventory-in")
+@WebServlet(value = "/admin/inventory-in")
 public class AdminInventoryInServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -24,7 +24,6 @@ public class AdminInventoryInServlet extends HttpServlet {
                 try {
                     productIds.add(Integer.parseInt(idStr));
                 } catch (NumberFormatException e) {
-                    // Có thể ghi log hoặc bỏ qua ID lỗi
                     System.err.println("ID không hợp lệ: " + idStr);
                 }
             }
@@ -34,7 +33,7 @@ public class AdminInventoryInServlet extends HttpServlet {
 
         request.setAttribute("products", products);
         System.out.println(products);
-        request.getRequestDispatcher("inventory-in.jsp").forward(request, response);
+        request.getRequestDispatcher("/admin/inventory-in.jsp").forward(request, response);
     }
 
 }

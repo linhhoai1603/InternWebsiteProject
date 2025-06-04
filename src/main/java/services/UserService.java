@@ -7,6 +7,7 @@ import models.enums.TokenType;
 import models.UserTokens;
 import services.application.EmailSender;
 import services.application.HashUtil;
+import models.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -117,6 +118,9 @@ public class UserService {
     }
     public User getEmployeeById(int id) {
         return userDao.getUserById(id);
+    
+    public User getUserById(int id) {
+        return userDao.findUserById(id);
     }
 }
 

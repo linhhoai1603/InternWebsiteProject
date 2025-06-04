@@ -7,6 +7,7 @@ import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.jdbi.v3.core.statement.Query;
 import utils.AccountUserMapper;
+import services.AddressService;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -34,20 +35,40 @@ public class UserDao {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM users WHERE id = :id")
                         .bind("id", id)
-                        .mapToBean(User.class)
+                        .map((rs, ctx) -> {
+                            User user = new User();
+                            user.setId(rs.getInt("id"));
+                            user.setEmail(rs.getString("email"));
+                            user.setFirstname(rs.getString("firstName"));
+                            user.setLastname(rs.getString("lastName"));
+                            user.setFullName(rs.getString("fullNameGenerated"));
+                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setImage(rs.getString("image"));
+                            user.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+                            user.setUpdatedAt(rs.getTimestamp("updatedAt").toLocalDateTime());
+
+                            int addressId = rs.getInt("idAddress");
+                            if (!rs.wasNull()) {
+                                AddressService addressService = new AddressService();
+                                Address address = addressService.getAddressById(addressId);
+                                user.setAddress(address);
+                            }
+
+                            return user;
+                        })
                         .findOne()
                         .orElse(null)
         );
     }
 
-    public boolean updateInfo(int id, String firstname, String lastname, String phone) {
-        String sql = """
-                UPDATE users SET firstName = :firstName, lastName = :lastName, phoneNumber = :phoneNumber
-                WHERE id = :id
-                """;
+
+    public boolean updateInfo(int id,String email,String firstname, String lastname, String phone) {
+        String sql = "UPDATE users SET email = :email,firstName = :firstName, lastName = :lastName, phoneNumber = :phoneNumber " +
+                     "WHERE id = :id";
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
+                        .bind("email", email)
                         .bind("firstName", firstname)
                         .bind("lastName", lastname)
                         .bind("phoneNumber", phone)
@@ -71,10 +92,8 @@ public class UserDao {
     }
 
     public boolean updateAvatar(int id, String url) {
-        String sql = """
-                UPDATE users SET image = :image 
-                WHERE id = :id
-                """;
+        String sql = "UPDATE users SET image = :image " +
+                     "WHERE id = :id";
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
@@ -295,14 +314,14 @@ public class UserDao {
     }
 
     public List<AccountUser> findUserByName(String name) {
-        String query = "SELECT u.id AS userId, u.email, u.fullNameGenerated, u.phoneNumber, " +
+        String query = "SELECT u.id AS userId, u.email, u.fullName, u.phoneNumber, " +
                 "a.id AS addressId, a.province, a.district, a.ward, a.detail, " +
                 "COUNT(o.id) AS orderCount, SUM(o.lastPrice) AS totalSpent, acc.locked " +
                 "FROM users u " +
                 "JOIN addresses a ON u.idAddress = a.id " +
                 "JOIN account_users acc ON u.id = acc.idUser " +
                 "LEFT JOIN orders o ON u.id = o.idUser " +
-                "WHERE u.fullNameGenerated LIKE :name " +
+                "WHERE u.fullName LIKE :name " +
                 "GROUP BY u.id, a.id";
 
         return jdbi.withHandle(handle ->
@@ -313,8 +332,8 @@ public class UserDao {
                             User user = new User();
                             user.setId(rs.getInt("userId"));
                             user.setEmail(rs.getString("email"));
-                            user.setFullname(rs.getString("fullNameGenerated"));
-                            user.setPhoneNumber(rs.getString("phoneNumber"));
+                            user.setFullName(rs.getString("fullName"));
+                            user.setNumberPhone(rs.getString("phoneNumber"));
 
                             // Tạo đối tượng Address
                             Address address = new Address();

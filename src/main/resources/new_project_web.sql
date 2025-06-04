@@ -1317,7 +1317,33 @@ INSERT INTO `order_details` (`id`, `idOrder`, `idStyle`, `quantity`, `totalPrice
                                                                                                  (121, 39, 591, 10, 2850000, 5);
 
 
-
+CREATE TABLE inventory (
+                           id INT AUTO_INCREMENT PRIMARY KEY,
+                           creatDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+                           code VARCHAR(50) ,
+                           status VARCHAR(50),
+                           decription VARCHAR(255)
+);
+CREATE TABLE inventorydetail (
+                                 id INT AUTO_INCREMENT PRIMARY KEY,
+                                 idProduct INT NOT NULL,
+                                 idInventory INT NOT NULL,
+                                 quantityBefore INT DEFAULT 0,
+                                 quantityLoss INT DEFAULT 0,
+                                 quantityImported INT DEFAULT 0,
+                                 quantityTotal INT AS (quantityBefore - quantityLoss + quantityImported) STORED,
+                                 importDate DATE NOT NULL,
+                                 FOREIGN KEY (idInventory) REFERENCES inventory(id),
+                                 FOREIGN KEY (idProduct) REFERENCES products(id)
+);
+CREATE TABLE inventory_style_detail (
+                                        id INT PRIMARY KEY AUTO_INCREMENT,
+                                        idInventoryDetail INT NOT NULL,
+                                        idStyle INT NOT NULL,
+                                        stockQuantity INT NOT NULL,
+                                        actualQuantity INT NOT NULL,
+                                        discrepancy INT GENERATED ALWAYS AS (stockQuantity - actualQuantity) STORED
+);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
