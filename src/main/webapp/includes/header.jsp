@@ -4,8 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <link rel="stylesheet" href="includes/css/header.css">
 <%@ include file="link/headLink.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <fmt:setLocale value="${sessionScope.locale}" scope="session"/>
 <fmt:setBundle basename="translate.messages" scope="session"/>
@@ -29,13 +29,13 @@
             </div>
             <div class="col-md-5 text-center pt-4">
                 <!-- Search Form -->
-                <form action="${pageContext.request.contextPath}/products" method="get">
+                <form action="${pageContext.request.contextPath}/search" method="get">
                     <div class="input-group">
                         <input
                                 type="text"
                                 class="form-control w-80"
                                 placeholder="Tìm kiếm sản phẩm"
-                                name="search"
+                                name="input"
                                 id="searchInput"
                         />
                         <button class="btn text-white btn-bg" type="submit">
@@ -51,7 +51,7 @@
                     Cart cart = (Cart) session.getAttribute("cart");
                     int cartCount = 0;
                     if (cart != null) {
-                        cartCount = cart.getTotalQuantity(); // Giả sử Cart có phương thức getTotalItems()
+                        cartCount = cart.getTotalQuantity();
                     }
                 %>
                 <a href="${pageContext.request.contextPath}/shopping-cart.jsp" class="btn text-white btn-bg position-relative" id="shoppingCart">
@@ -68,41 +68,28 @@
                     <i class="fa-solid fa-right-to-bracket"></i>&nbsp;<fmt:message key="login"/>
                 </a>
                 <a href="register.jsp" class="btn text-white btn-bg" id="registerButton">
-                    <i class="fa-solid fa-pen-to-square"></i>&nbsp;<fmt:message key="logout"/>
+                    <i class="fa-solid fa-pen-to-square"></i>&nbsp;<fmt:message key="reg"/>
                 </a>
                 <%
                 } else {
                 %>
-                <div class="dropdown d-inline-block">
-                    <a href="#" class="btn text-white btn-bg dropdown-toggle" id="accountDropdown"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>&nbsp;<fmt:message key="user"/>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-                        <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/personal-inf">
-                                <fmt:message key="user"/>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/changePassword.jsp">
-                                <fmt:message key="changepass"/>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/ordered">
-                                <fmt:message key="check"/>
-                            </a>
-                        </li>
-                        <c:if test="${sessionScope.account.role == 1}">
-                            <li>
-                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/dashboard">
-                                    Dashboard
-                                </a>
-                            </li>
-                        </c:if>
-                    </ul>
-                </div>
+                <select class="form-select d-inline-block" style="width: auto;" onchange="location = this.value;">
+                    <option selected disabled><i class="fa-solid fa-user"></i>&nbsp;<fmt:message key="user"/></option>
+                    <option value="${pageContext.request.contextPath}/personal-inf">
+                        <fmt:message key="user"/>
+                    </option>
+                    <option value="${pageContext.request.contextPath}/forgotPass.jsp">
+                        <fmt:message key="changepass"/>
+                    </option>
+                    <option value="${pageContext.request.contextPath}/ordered">
+                        <fmt:message key="check"/>
+                    </option>
+                    <c:if test="${sessionScope.account.role == 2}">
+                        <option value="${pageContext.request.contextPath}/admin/dashboard">
+                            Dashboard
+                        </option>
+                    </c:if>
+                </select>
                 <a href="${pageContext.request.contextPath}/logout-user" class="btn text-white btn-bg">
                     <i class="fa fa-sign-out-alt"></i>&nbsp;<fmt:message key="logout"/>
                 </a>
@@ -126,15 +113,3 @@
 </div>
 
 <%@ include file="link/footLink.jsp" %>
-
-<!-- CSS cho Dropdown -->
-<style>
-    /* Hiển thị dropdown khi rê chuột */
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
-
-    .dropdown-menu {
-        margin-top: 0; /* Điều chỉnh khoảng cách nếu cần */
-    }
-</style>

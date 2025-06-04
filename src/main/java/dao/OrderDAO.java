@@ -19,7 +19,8 @@ public class OrderDAO {
     }
 
     public int insertOrder(Order order) {
-        String query = "INSERT INTO orders (timeOrder, idUser, idVoucher, statusOrder, totalPrice, lastPrice) " +
+        String query = "INSERT INTO orders (timeOrder, idUser, idVoucher, statusOrder, " +
+                "totalPrice, lastPrice) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
 
         return jdbi.withHandle(handle -> handle.createUpdate(query)
@@ -34,6 +35,17 @@ public class OrderDAO {
                 .findOnly());
     }
 
+    public boolean updateOrderStatus(int orderId, String newStatus) {
+        String query = "UPDATE orders SET statusOrder = :status WHERE id = :id";
+
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("status", newStatus)
+                        .bind("id", orderId)
+                        .execute() > 0
+        );
+    }
+
     public List<Order> getAllOrders() {
         String query = "SELECT * FROM orders";
 
@@ -42,7 +54,6 @@ public class OrderDAO {
                     // Handle user
                     User user = new User();
                     user.setId(rs.getInt("idUser"));
-
                     // Handle voucher
                     Voucher voucher = new Voucher();
                     Integer idVoucher = (Integer) rs.getObject("idVoucher");
@@ -51,8 +62,6 @@ public class OrderDAO {
                     } else {
                         voucher.setIdVoucher(null);
                     }
-
-                    // Handle order
                     Order order = new Order();
                     order.setId(rs.getInt("id"));
                     order.setTimeOrdered(rs.getObject("timeOrder", LocalDateTime.class));
@@ -61,7 +70,6 @@ public class OrderDAO {
                     order.setStatus(rs.getString("statusOrder"));
                     order.setTotalPrice(rs.getDouble("totalPrice"));
                     order.setLastPrice(rs.getDouble("lastPrice"));
-
                     return order;
                 }).list());
     }
@@ -130,5 +138,38 @@ public class OrderDAO {
 
                     return order;
                 }).list());
+    }
+    public void cancelOrder(int orderId) {
+        String query = "UPDATE orders SET statusOrder = :status WHERE id = :id";
+
+        jdbi.useHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("status", "CANCELLED")
+                        .bind("id", orderId)
+                        .execute()
+        );
+    }
+    public void deleteOrder(int orderId) {
+        jdbi.useTransaction(handle -> {
+            // Xoá chi tiết đơn hàng trước
+            handle.createUpdate("DELETE FROM order_detail WHERE idOrder = :idOrder")
+                    .bind("idOrder", orderId)
+                    .execute();
+
+            // Sau đó xoá đơn hàng
+            handle.createUpdate("DELETE FROM orders WHERE id = :id")
+                    .bind("id", orderId)
+                    .execute();
+        });
+    }
+
+    public boolean updateOrderTotal(int orderId, double totalPrice) {
+        String query = "UPDATE orders SET totalPrice = :totalPrice, lastPrice = :totalPrice WHERE id = :id";
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("totalPrice", totalPrice)
+                        .bind("id", orderId)
+                        .execute() > 0
+        );
     }
 }

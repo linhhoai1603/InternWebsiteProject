@@ -98,10 +98,10 @@
         <c:forEach var="account" items="${requestScope.accounts}">
             <tr class="${account.locked >= 1 ? 'table-secondary text-muted disabled-row' : ''}">
                 <td>${account.user.id}</td>
-                <td>${account.user.fullName}</td>
+                <td>${account.user.fullname}</td>
                 <td>${account.user.email}</td>
-                <td>${account.user.numberPhone}</td>
-                <td>${account.user.address.street} / ${account.user.address.commune} / ${account.user.address.province} / ${account.user.address.city}</td>
+                <td>${account.user.phoneNumber}</td>
+                <td>${account.user.address.detail}, ${account.user.address.ward}, ${account.user.address.district}, ${account.user.address.province}</td>
                 <td>${account.user.orderCount}</td>
                 <td class="price">${account.user.totalSpent}</td>
                 <td>
@@ -133,7 +133,7 @@
     </table>
 
     <div class="text-center">
-        <a class="btn btn-primary" href="admin/dashboard.jsp">Quay lại</a>
+        <a class="btn btn-primary" href="/admin/dashboard">Quay lại</a>
     </div>
 </div>
 

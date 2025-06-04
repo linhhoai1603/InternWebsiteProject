@@ -4,13 +4,11 @@ package controllers;
 import java.io.*;
 import java.util.List;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import models.AccountUser;
-import models.Cart;
-import models.Product;
-import models.User;
+import models.*;
 import services.*;
 import services.application.HashUtil;
 
@@ -39,26 +37,29 @@ public class HomeServlet extends HttpServlet {
             session.setAttribute("cart", cart);
         } // kiem tra da co gio hang hay chua
         // đợi dữ liệu đầy đủ r thay vào
-//        List<Product> productsHotSelling = ps.getProductsBestSellerByCategory("Vải may mặc",1,4);
+        List<Product> productsHotSelling = ps.getProductsBestSellerByCategory("Vải may mặc",1,4);
 //        List<Product> fabricHotSelling = ps.getProductsBestSellerByCategory("Vải nội thất",1,4);
         // data test
-        List<Product> productsHotSelling = ps.getProductByCategoryName("Vải may mặc",1,4, "latest");
-        List<Product> fabricHotSelling = ps.getProductByCategoryName("Vải may mặc",1,4, "latest");
-        // danh sách sản phẩm nội thất bán chạy
-        session.setAttribute("fabricHotSelling",fabricHotSelling );
-        // danh sách sản phẩm may mặc bán chạy nhất
+//        List<Product> productsHotSelling = ps.getProductByCategoryName("Vải may mặc",1,4, "latest");
+//        List<Product> fabricHotSelling = ps.getProductByCategoryName("Vải may mặc",1,4, "latest");
+//        // danh sách sản phẩm nội thất bán chạy
+//        session.setAttribute("fabricHotSelling",fabricHotSelling );
+//        // danh sách sản phẩm may mặc bán chạy nhất
         session.setAttribute("productHotSelling", productsHotSelling);
-        List<Product> productsMostDiscount =  ps.getProductByCategoryName("Vải may mặc", 1, 4, "discount");
-        // danh sách sản phẩm may mặc mới nhất
-        session.setAttribute("mostProductsNew", ps.getProductByCategoryName("Vải may mặc", 1, 4, "latest"));
-        // danh sách sản phẩm giảm giá nhiều nhất
-        session.setAttribute("productsMostDiscount", productsMostDiscount);
-        // sản phẩm mới nhất
-        session.setAttribute("mostProductNew", ps.getAllProducts(1, 1, "latest").getFirst());
-        // danh sách voucher
+//        List<Product> productsMostDiscount =  ps.getProductByCategoryName("Vải may mặc", 1, 4, "discount");
+//        // danh sách sản phẩm may mặc mới nhất
+//        session.setAttribute("mostProductsNew", ps.getProductByCategoryName("Vải may mặc", 1, 4, "latest"));
+//        // danh sách sản phẩm giảm giá nhiều nhất
+//        session.setAttribute("productsMostDiscount", productsMostDiscount);
+//        // sản phẩm mới nhất
+//        session.setAttribute("mostProductNew", ps.getAllProducts(1, 1, "latest").getFirst());
+//        // danh sách voucher
         VoucherService vd = new VoucherService();
-        session.setAttribute("vouchers", vd.getVoucherByValid(1));
-        // chuyển tới trang chủ
-        request.getRequestDispatcher("index.jsp").forward(request,response);
+//        session.setAttribute("vouchers", vd.getVoucherByValid(1));
+        List<Voucher> vouchers = vd.getVoucherByValid(1);
+        session.setAttribute("vouchers", vouchers);
+//        // chuyển tới trang chủ
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        dispatcher.forward(request, response);
     }
 }

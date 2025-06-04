@@ -5,7 +5,6 @@ import models.AccountUser;
 import models.Address;
 import models.User;
 import org.jdbi.v3.core.Jdbi;
-import services.application.HashUtil;
 
 public class AccountDao {
     Jdbi jdbi;
@@ -41,8 +40,8 @@ public class AccountDao {
                         user.setEmail(rs.getString("email"));
                         user.setFirstname(rs.getString("firstName"));
                         user.setLastname(rs.getString("lastName"));
-                        user.setFullName(rs.getString("fullNameGenerated"));
-                        user.setNumberPhone(rs.getString("phoneNumber"));
+                        user.setFullname(rs.getString("fullNameGenerated"));
+                        user.setPhoneNumber(rs.getString("phoneNumber"));
                         user.setImage(rs.getString("image"));
 
                         // Ánh xạ thông tin từ bảng address

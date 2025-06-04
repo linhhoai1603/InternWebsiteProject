@@ -1,76 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
   <title>Nút áo</title>
   <c:import url="includes/link/headLink.jsp" />
   <link rel="stylesheet" href="css/button_up.css">
-  <style>
-    /* Thêm một số CSS cho việc chọn Style */
-    .style-selection {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 15px;
-    }
-    .style-option {
-      position: relative;
-      cursor: pointer;
-    }
-    .style-option img {
-      width: 60px;
-      height: 60px;
-      border: 2px solid #ccc;
-      border-radius: 5px;
-      transition: transform 0.2s, border-color 0.2s;
-      padding: 2px;
-    }
-    .style-option.selected img {
-      border-color: #007bff;
-      transform: scale(1.1);
-    }
-    /* Hiển thị thông báo */
-    .alert-message {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      display: none;
-    }
-    .pagination .page-item.active .page-link {
-      background-color: #339C87 !important;
-      color: white !important;
-      border-color: #339C87 !important;
-    }
-    .pagination .page-link {
-      color: #339C87;
-    }
-    .pagination .page-link:hover {
-      background-color: #287a6a;
-      color: white;
-      border-color: #287a6a;
-    }
-    /* Thêm CSS cho loading spinner */
-    .loading-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(255, 255, 255, 0.7);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-      display: none;
-    }
-    .spinner-border {
-      width: 3rem;
-      height: 3rem;
-    }
-  </style>
 </head>
 <body>
 <c:import url="includes/header.jsp" />
@@ -83,32 +19,32 @@
       <h5>Giá</h5>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price1" data-min="0" data-max="10000">
+        <input class="form-check-input price-filter" type="checkbox" id="price1" data-selection="${requestScope.selection}" data-min="0" data-max="10000">
         <label class="form-check-label" for="price1">Dưới 10.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price2" data-min="10000" data-max="50000">
+        <input class="form-check-input price-filter" type="checkbox" id="price2" data-selection="${requestScope.selection}" data-min="10000" data-max="50000">
         <label class="form-check-label" for="price2">10.000đ - 50.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price3" data-min="50000" data-max="100000">
+        <input class="form-check-input price-filter" type="checkbox" id="price3" data-selection="${requestScope.selection}" data-min="50000" data-max="100000">
         <label class="form-check-label" for="price3">50.000đ - 100.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price4" data-min="100000" data-max="200000">
+        <input class="form-check-input price-filter" type="checkbox" id="price4" data-selection="${requestScope.selection}" data-min="100000" data-max="200000">
         <label class="form-check-label" for="price4">100.000đ - 200.000đ</label>
       </div>
 
       <div class="form-check mb-2">
-        <input class="form-check-input price-filter" type="checkbox" id="price5" data-min="200000" data-max="">
+        <input class="form-check-input price-filter" type="checkbox" id="price5" data-selection="${requestScope.selection}" data-min="200000" data-max="">
         <label class="form-check-label" for="price5">Trên 200.000đ</label>
       </div>
-    </div>
+</div>
 
-    <!-- Nội dung chính -->
+      <!-- Nội dung chính -->
     <div class="col-md-9 position-relative">
       <!-- Overlay loading spinner -->
       <div class="loading-overlay" id="loadingOverlay">
@@ -124,11 +60,11 @@
             Sắp xếp theo
           </button>
           <ul class="dropdown-menu sort-options" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" data-option="1" href="#">Mới nhất</a></li>
-            <li><a class="dropdown-item" data-option="2" href="#">Giá: Cao -> Thấp</a></li>
-            <li><a class="dropdown-item" data-option="3" href="#">Giá: Thấp -> Cao</a></li>
-            <li><a class="dropdown-item" data-option="4" href="#">Bán chạy nhất</a></li>
-            <li><a class="dropdown-item" data-option="5" href="#">Giảm giá: Cao -> Thấp</a></li>
+            <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="latest">Mới nhất</a></li>
+            <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="expensivet">Giá: Cao -> Thấp</a></li>
+            <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="cheapt">Giá: Thấp -> Cao</a></li>
+            <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="latestt">Bán chạy nhất</a></li>
+            <li><a class="dropdown-item" data-selection="${requestScope.selection}" data-option="discountt">Giảm giá: Cao -> Thấp</a></li>
           </ul>
         </div>
       </div>
@@ -178,100 +114,110 @@
                 </p>
 
                 <p class="cart-text description">Mô tả: ${product.description}</p>
-
-                <form action="cart" method="post" class="mt-auto product-options-form">
-                  <!-- Hidden Inputs -->
-                  <input type="hidden" name="method" value="add">
-                  <input type="hidden" name="currentURL" value="?page=${currentPage}&option=${option}<c:if test='${minPrice != null || maxPrice != null}'>&amp;minPrice=${minPrice}&amp;maxPrice=${maxPrice}</c:if>">
-                  <input type="hidden" name="productID" value="${product.id}">
-                  <input type="hidden" name="selectedStyle" id="selectedStyle${product.id}" value="">
-
-                  <!-- Chọn Style -->
-                  <c:if test="${not empty product.styles}">
-                    <div class="mb-3">
-                      <label class="form-label">Chọn Style:</label>
-                      <div class="style-selection">
-                        <c:forEach var="style" items="${product.styles}">
-                          <div class="style-option" data-style-id="${style.id}" data-image-url="${style.image}">
-                            <img src="${style.image}" alt="${style.name}" class="product-style-image rounded">
-                          </div>
-                        </c:forEach>
-                      </div>
-                    </div>
-                  </c:if>
-
-                  <!-- Số lượng sản phẩm -->
-                  <div class="mb-3 quantity-container" style="display: none;">
-                    <label for="quantity${product.id}" class="form-label">Số lượng:</label>
-                    <input type="number" class="form-control quantity-input" id="quantity${product.id}" name="quantity" min="1" value="1" required>
-                  </div>
-
-                  <!-- Nút Thêm Vào Giỏ Hàng / Xác Nhận -->
-                  <button type="button" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
-                  <button type="submit" class="btn btn-success w-100 mb-2 submit-cart-button" style="display: none;">Xác nhận</button>
-                </form>
-
+                <button type="button" data-id="${product.id}" class="btn btn-warning w-100 mb-2 add-to-cart-button">Thêm vào giỏ hàng</button>
                 <!-- Nút Xem Ngay -->
                 <a href="detail-product?productId=${product.id}" class="btn btn-primary w-100">Xem ngay</a>
               </div>
             </div>
           </div>
         </c:forEach>
-
       </div>
-
     </div>
   </div>
 </div>
 
-<div class="pagination-container mt-4 d-flex justify-content-center" id="paginationContainer">
-  <ul class="pagination pagination-lg">
-
-    <!-- Nút Trước -->
-    <c:if test="${currentPage > 1}">
-      <li class="page-item">
-        <a class="page-link pagination-link" data-page="${currentPage - 1}" href="#"> < </a>
-      </li>
-    </c:if>
-
-    <!-- Hiển thị tối đa 5 trang quanh currentPage -->
-    <c:set var="startPage" value="${currentPage - 2 > 1 ? currentPage - 2 : 1}" />
-    <c:set var="endPage" value="${currentPage + 2 < nupage ? currentPage + 2 : nupage}" />
-
-    <c:forEach begin="${startPage}" end="${endPage}" var="i">
-      <li class="page-item ${i == currentPage ? 'active' : ''}">
-        <a class="page-link pagination-link" data-page="${i}" href="#">${i}</a>
-      </li>
-    </c:forEach>
-
-    <!-- Nút Sau -->
-    <c:if test="${currentPage < nupage}">
-      <li class="page-item">
-        <a class="page-link pagination-link" data-page="${currentPage + 1}" href="#"> > </a>
-      </li>
-    </c:if>
-
-  </ul>
+<!-- Dynamic Modal for Product Details -->
+<div class="modal fade" id="productDetailsModal" tabindex="-1" aria-labelledby="productDetailsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="productDetailsModalLabel">Chi tiết sản phẩm</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <!-- Image Section -->
+          <div class="col-md-6">
+            <img src="" class="d-block w-100 product-modal-image" alt="Product Image">
+          </div>
+          <div class="col-md-6">
+            <h3 class="text product-modal-name" style="color: #008080"></h3>
+            <p class="h4 text-decoration-line-through text-warning product-modal-original-price"></p>
+            <p class="h2 text-danger fw-bold product-modal-discounted-price"></p>
+            <form action="add-to-cart" method="post">
+              <input name="currentURL" type="hidden" value="total-product?selection=${requestScope.selection}">
+              <div class="mb-3">
+                <p class="fw-bold">Kiểu vải</p>
+                <div class="d-flex gap-2 product-modal-styles">
+                  <!-- Styles will be dynamically inserted here -->
+                </div>
+              </div>
+              <p class="fw-bold">Số lượng</p>
+              <div class="row">
+                <div class="col-6">
+                  <div class="input-group">
+                    <input type="hidden" name="currentURL" value="total-product?selection=${requestScope.selection}">
+                    <input type="number" name="quantity" class="form-control text-center quantity-input" value="1" style="max-width: 100px" min="1">
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" name="productID" value="">
+              <button type="submit" class="btn btn-custom w-100" style="background-color: #339c87">Thêm vào giỏ hàng</button>
+            </form>
+            <div class="alert alert-light mt-3" role="alert">
+              <i class="bi bi-truck"></i>
+              Giao hàng: Mua hàng từ 10 sản phẩm (trong đó có trên 5 loại là vải) thì được freeship.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- Nút Back to Top -->
-<button id="back-to-top" class="back-to-top">
-  <i class="fas fa-arrow-up"></i>
-</button>
-
-<!-- Thẻ thông báo -->
-<div class="alert-message alert alert-success" role="alert" id="alert-message">
-  <!-- Nội dung thông báo sẽ được thêm bằng JavaScript -->
-</div>
+<div id="paginationContainer" class="pagination-container"></div>
 
 <c:import url="includes/footer.jsp" />
 <c:import url="includes/link/footLink.jsp" />
 
-
-
 <!-- JavaScript -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/product.js"></script>
 
+<!-- Add this script to initialize Bootstrap modal -->
+<script>
+    $(document).ready(function() {
+        // Initialize Bootstrap modal
+        const productModal = new bootstrap.Modal(document.getElementById('productDetailsModal'), {
+            backdrop: 'static',
+            keyboard: false
+        });
+        
+        // Add click handler for add to cart button
+        $(document).on('click', '.add-to-cart-button', function() {
+            const productId = $(this).data('id');
+            loadProductDetails(productId);
+        });
+
+        // Handle modal hidden event
+        $('#productDetailsModal').on('hidden.bs.modal', function () {
+            // Clean up modal content
+            $('.product-modal-image').attr('src', '');
+            $('.product-modal-name').text('');
+            $('.product-modal-original-price').text('');
+            $('.product-modal-discounted-price').text('');
+            $('.product-modal-styles').empty();
+            $('input[name="productID"]').val('');
+            $('input[name="currentURL"]').val('');
+            
+            // Remove modal backdrop
+            $('.modal-backdrop').remove();
+            $('body').removeClass('modal-open');
+            $('body').css('overflow', '');
+            $('body').css('padding-right', '');
+        });
+    });
+</script>
 </body>
 </html>

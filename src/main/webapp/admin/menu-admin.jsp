@@ -150,6 +150,7 @@ input:checked ~ .content {
       <li><a href="manager-deliveries"><i class="fa-solid fa-truck-fast"></i>Vận chuyển</a></li>
       <li><a href="manager-voucher"><i class="fa-solid fa-ticket"></i>Mã giảm giá</a></li>
       <li><a href="manager-message"><i class="fa-regular fa-message"></i>Tin nhắn</a></li>
+      <li><a href="manager-logging"><i class="fa-solid fa-list-check"></i>Hệ thống Log</a></li>
       <li><a href="../index.jsp"><i class="fa-solid fa-house-user"></i>Trang chủ</a></li>
     </ul>
   </div>

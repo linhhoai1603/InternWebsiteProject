@@ -5,15 +5,18 @@ import models.Category;
 import models.Price;
 import models.Product;
 import models.Style;
+import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
 
 public class StyleDao {
     private Jdbi jdbi;
+
     public StyleDao() {
         jdbi = DBConnection.getConnetion();
     }
+
     public Style findById(int id) {
 
         String sql = "SELECT * FROM styles WHERE id = :id";
@@ -30,6 +33,47 @@ public class StyleDao {
                     .list();
         });
     }
+
+    public List<Style> getAllStyles() {
+        String query = "SELECT s.id, s.name, s.image, s.quantity AS styleQuantity, " +
+                "p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, " +
+                "c.id AS idCategory, p.quantity " +
+                "FROM styles s " +
+                "JOIN products p ON s.idProduct = p.id " +
+                "JOIN prices pr ON p.idPrice = pr.id " +
+                "JOIN categories c ON p.idCategory = c.id";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .map((rs, ctx) -> {
+                            Style style = new Style();
+                            style.setId(rs.getInt("id"));
+                            style.setName(rs.getString("name"));
+                            style.setImage(rs.getString("image"));
+                            style.setQuantity(rs.getInt("styleQuantity"));
+
+                            Product product = new Product();
+                            product.setId(rs.getInt("idProduct"));
+                            product.setName(rs.getString("nameProduct"));
+                            product.setQuantity(rs.getInt("quantity"));
+
+                            Price price = new Price();
+                            price.setId(rs.getInt("idPrice"));
+                            price.setLastPrice(rs.getDouble("lastPrice"));
+
+                            Category category = new Category();
+                            category.setId(rs.getInt("idCategory"));
+
+                            product.setCategory(category);
+                            product.setPrice(price);
+                            style.setProduct(product);
+
+                            return style;
+                        })
+                        .list()
+        );
+    }
+
     public Style getStyleByID(int idStyle) {
         String query = "SELECT s.id, s.name, s.image, s.quantity AS styleQuantity, " +
                 "p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, " +
@@ -74,7 +118,6 @@ public class StyleDao {
     }
 
 
-
     //Thêm một phương thức mới trong StyleDao để lấy các styles liên quan đến dây kéo:
     public List<Style> getZipperStylesByIDProduct(int idProduct) {
         String query = "SELECT * FROM styles WHERE idProduct = ? AND " +
@@ -87,7 +130,8 @@ public class StyleDao {
                     .list();
         });
     }
-    public void updateQuantityForStyle(int idStyle, int quantity){
+
+    public void updateQuantityForStyle(int idStyle, int quantity) {
         String query = "UPDATE styles SET quantity = ? WHERE id = ?";
         jdbi.withHandle(handle -> {
             return handle.createUpdate(query)
@@ -96,7 +140,8 @@ public class StyleDao {
                     .execute();
         });
     }
-    public void updateQuantityForProduct(int idProduct, int quantity){
+
+    public void updateQuantityForProduct(int idProduct, int quantity) {
         String query = "UPDATE products SET quantity = ? WHERE id = ?";
         jdbi.withHandle(handle -> {
             return handle.createUpdate(query)
@@ -136,5 +181,49 @@ public class StyleDao {
                     .bind(3, style.getProduct().getId())
                     .execute();
         });
+    }
+
+    public int getProductQuantity(int productId) {
+        String query = "SELECT quantity FROM products WHERE id = :productId";
+        try (Handle handle = jdbi.open()) {
+            return handle.createQuery(query)
+                    .bind("productId", productId)
+                    .mapTo(int.class)
+                    .findOne()
+                    .orElseThrow(() -> new RuntimeException("can not find product with id: " + productId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int decreaseStyleQuantity(int styleId, int quantityToDecrease) {
+        String query = "UPDATE styles SET quantity = quantity - :quantityToDecrease " +
+                "WHERE id = :styleId AND quantity >= :quantityToDecrease";
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind("quantityToDecrease", quantityToDecrease)
+                    .bind("styleId", styleId)
+                    .execute();
+        });
+        return styleId;
+    }
+
+    public int decreaseProductQuantity(int productId, int quantityToDecrease) {
+        String query = "UPDATE products SET quantity = quantity - :quantityToDecrease " +
+                "WHERE id = :productId AND quantity >= :quantityToDecrease";
+        jdbi.withHandle(handle -> {
+            return handle.createUpdate(query)
+                    .bind("quantityToDecrease", quantityToDecrease)
+                    .bind("productId", productId)
+                    .execute();
+        });
+        return productId;
+    }
+
+    public static void main(String[] args) {
+        StyleDao styleDao = new StyleDao();
+        System.out.println(styleDao.decreaseStyleQuantity(587, 1));
+
     }
 }

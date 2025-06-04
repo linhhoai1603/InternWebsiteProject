@@ -74,6 +74,9 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
         this.unitPrice = quantity * style.getProduct().getPrice().getLastPrice();
     }
+    public double getTotalLinePrice() {
+        return this.unitPrice * this.quantity;
+    }
 
     @Override
     public String toString() {

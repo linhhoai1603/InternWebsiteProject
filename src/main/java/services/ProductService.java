@@ -192,5 +192,11 @@ public class ProductService {
     public void updateProduct(Product product) {
         productDao.updateProduct(product);
     }
+    public int getIdProductByIdStyle(int idStyle) {
+        return productDao.getProductByIdStyle(idStyle);
+    }
 
+    public double getPriceByIdProduct(int idProduct) {
+        return productDao.getPriceByIdProduct(idProduct);
+    }
 }
