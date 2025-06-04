@@ -35,14 +35,14 @@ public class OrderDAO {
                 .findOnly());
     }
 
-    public void updateOrderStatus(int orderId, String newStatus) {
+    public boolean updateOrderStatus(int orderId, String newStatus) {
         String query = "UPDATE orders SET statusOrder = :status WHERE id = :id";
 
-        jdbi.useHandle(handle ->
+        return jdbi.withHandle(handle ->
                 handle.createUpdate(query)
                         .bind("status", newStatus)
                         .bind("id", orderId)
-                        .execute()
+                        .execute() > 0
         );
     }
 
@@ -163,5 +163,13 @@ public class OrderDAO {
         });
     }
 
-
+    public boolean updateOrderTotal(int orderId, double totalPrice) {
+        String query = "UPDATE orders SET totalPrice = :totalPrice, lastPrice = :totalPrice WHERE id = :id";
+        return jdbi.withHandle(handle ->
+                handle.createUpdate(query)
+                        .bind("totalPrice", totalPrice)
+                        .bind("id", orderId)
+                        .execute() > 0
+        );
+    }
 }

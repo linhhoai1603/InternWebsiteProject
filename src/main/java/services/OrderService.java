@@ -65,7 +65,22 @@ public class OrderService {
         return ordersForPage;
     }
 
-    public void updateOrderStatus(int orderId, String newStatus) {
-        dao.updateOrderStatus(orderId, newStatus);
+    public boolean updateOrderStatus(int orderId, String newStatus) {
+        return dao.updateOrderStatus(orderId, newStatus);
+    }
+
+    public boolean deleteOrder(int orderId) {
+        return false;
+    }
+
+    public void updateOrderTotalAndLastPrice(int orderId) {
+        Order order = getOrder(orderId);
+        if (order != null) {
+            double totalPrice = 0;
+            for (OrderDetail detail : order.getListOfDetailOrder()) {
+                totalPrice += detail.getTotalPrice();
+            }
+            dao.updateOrderTotal(orderId, totalPrice);
+        }
     }
 }

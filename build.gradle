@@ -7,8 +7,8 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'org.hidetake.ssh' version '2.11.2'
     id 'war'
+    id 'org.eclipse.jetty' version '11.0.24'
 }
 
 group = 'web.sale.hoai'
@@ -31,10 +31,8 @@ repositories {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
     compileOnly("jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.1")
-    implementation 'org.apache.tomcat.embed:tomcat-embed-websocket:10.1.40'
     compileOnly("jakarta.websocket:jakarta.websocket-api:2.2.0")
     implementation("org.eclipse.jetty:glassfish-jstl:11.0.24")
-    implementation("org.apache.tomcat.embed:tomcat-embed-jasper:10.1.40")
     implementation 'org.glassfish.jersey.containers:jersey-container-servlet:4.0.0-M1'
     implementation 'org.glassfish.jersey.media:jersey-media-json-jackson:4.0.0-M1'
     implementation 'org.glassfish.jersey.inject:jersey-hk2:4.0.0-M1'
@@ -97,52 +95,5 @@ publishing {
 war {
     archiveFileName = 'ProjectWeb.war'
     webAppDirName = 'src/main/webapp'
-}
-
-
-remotes {
-    host {
-        host = '192.168.235.128'
-        user = 'root'
-        password = '123'
-    }
-}
-
-task docker_app_start {
-    doLast {
-        println 'begin docker_app_start'
-        ssh.run {
-            session(remotes.host) {
-                execute 'docker stop tomcat10', ignoreError: true
-                execute 'docker run -it --rm -d ' +
-                        '--name tomcat10 ' +
-                        '-v /usr/deploy:/usr/local/tomcat/webapps ' +
-                        '-p 80:8080 ' +
-                        'tomcat:10.1&'
-            }
-        }
-    }
-}
-
-task docker_upload_file_to_server {
-    doLast {
-        println 'begin docker_upload_file_to_server'
-        ssh.run {
-            session(remotes.host) {
-                execute 'mkdir -p /usr/deploy'
-                remove '/usr/deploy/ProjectWeb.war'
-                remove '/usr/deploy/ProjectWeb/'
-                put from: "${project.projectDir}/build/libs/ProjectWeb-1.0-SNAPSHOT.war",
-                    into: "/usr/deploy/ProjectWeb.war"
-            }
-        }
-    }
-}
-
-task docker_deploy {
-    dependsOn build
-    dependsOn docker_upload_file_to_server
-    dependsOn docker_app_start
-    tasks.getByName('docker_app_start').mustRunAfter docker_upload_file_to_server
 }
 

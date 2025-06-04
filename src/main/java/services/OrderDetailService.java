@@ -16,4 +16,15 @@ public class OrderDetailService {
     public List<OrderDetail> getOrderDetailByOrder(int idOrder){
         return dao.getOrderDetailByOrder(idOrder);
     }
+    public OrderDetail getOrderDetailById(int id) {
+        return dao.getOrderDetailById(id);
+    }
+
+    public boolean deleteOrderDetailById(int id) {
+        return dao.deleteOrderDetailById(id);
+    }
+
+    public boolean updateOrderDetail(OrderDetail orderDetail) {
+        return dao.updateOrderDetail(orderDetail);
+    }
 }

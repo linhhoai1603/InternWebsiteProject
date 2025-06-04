@@ -1,4 +1,3 @@
-
 package services;
 
 import dao.StyleDao;
@@ -25,6 +24,13 @@ public class StyleService {
         return styleDao.getStyleByID(idStyle);
     }
 
+    public Style getStyleById(int idStyle) {
+        return getStyleByID(idStyle);
+    }
+
+    public List<Style> getAllStyles() {
+        return styleDao.getAllStyles();
+    }
 
     //Thêm phương thức mới trong StyleService để sử dụng phương thức vừa tạo:
     public List<Style> getZipperStylesByIDProduct(int idProduct) {

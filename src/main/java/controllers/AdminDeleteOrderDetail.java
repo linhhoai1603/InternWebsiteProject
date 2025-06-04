@@ -34,7 +34,7 @@ public class AdminDeleteOrderDetail extends HttpServlet {
                 request.getSession().setAttribute("errorMessage", "Xóa chi tiết đơn hàng thất bại.");
             }
         } else {
-             request.getSession().setAttribute("errorMessage", "Không tìm thấy chi tiết đơn hàng để xóa.");
+            request.getSession().setAttribute("errorMessage", "Không tìm thấy chi tiết đơn hàng để xóa.");
         }
 
 
@@ -42,7 +42,7 @@ public class AdminDeleteOrderDetail extends HttpServlet {
         if (orderId != -1) {
             response.sendRedirect(request.getContextPath() + "/admin/edit-order?orderId=" + orderId);
         } else {
-             response.sendRedirect(request.getContextPath() + "/admin/manager-order?error=Could not determine order ID");
+            response.sendRedirect(request.getContextPath() + "/admin/manager-order?error=Could not determine order ID");
         }
     }
 

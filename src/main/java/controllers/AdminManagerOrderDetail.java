@@ -13,12 +13,23 @@ import java.io.IOException;
 public class AdminManagerOrderDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Lấy orderId từ request
         int orderId = Integer.parseInt(request.getParameter("orderId"));
 
+        // Lấy thông tin đơn hàng và chi tiết đơn hàng
         OrderService orderService = new OrderService();
         Order order = orderService.getOrder(orderId);
-         request.setAttribute("order", order);
-         request.getRequestDispatcher("management-detail-orders.jsp").forward(request, response);
+
+        if (order != null) {
+            request.setAttribute("order", order);
+            request.getRequestDispatcher("management-detail-orders.jsp").forward(request, response);
+        } else {
+            response.sendRedirect(request.getContextPath() + "/admin/manager-order");
+        }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
