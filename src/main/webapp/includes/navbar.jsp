@@ -102,7 +102,6 @@
             </div>
 
         </div>
-    </div>
 </nav>
 <script>
     let lastScrollTop = 0;

@@ -27,9 +27,10 @@ public class MessageDAO {
 
     public List<Message> getAllMessages() {
         String query = """
-        SELECT m.*, u.fullName, u.email, u.phoneNumber
+        SELECT m.*, u.fullNameGenerated, u.email, u.phoneNumber
         FROM message m
         JOIN users u ON m.idUser = u.id
+        ORDER BY m.id DESC
     """;
 
         return jdbi.withHandle(handle ->
@@ -39,9 +40,9 @@ public class MessageDAO {
                             // Map the user data
                             User user = new User();
                             user.setId(rs.getInt("idUser"));
-                            user.setFullName(rs.getString("fullName"));
+                            user.setFullname(rs.getString("fullNameGenerated"));
                             user.setEmail(rs.getString("email"));
-                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setPhoneNumber(rs.getString("phoneNumber"));
 
                             // Map the message data
                             Message message = new Message();
@@ -59,10 +60,10 @@ public class MessageDAO {
     }
     public List<Message> getAllMessages(String name) {
         String query = """
-        SELECT m.*, u.fullName, u.email, u.phoneNumber
+        SELECT m.*, u.fullNameGenerated, u.email, u.phoneNumber
         FROM message m
         JOIN users u ON m.idUser = u.id
-        WHERE u.fullName LIKE :name
+        WHERE u.fullNameGenerated LIKE :name
     """;
 
         return jdbi.withHandle(handle ->
@@ -72,9 +73,9 @@ public class MessageDAO {
                             // Map the user data
                             User user = new User();
                             user.setId(rs.getInt("idUser"));
-                            user.setFullName(rs.getString("fullName"));
+                            user.setFullname(rs.getString("fullNameGenerated"));
                             user.setEmail(rs.getString("email"));
-                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setPhoneNumber(rs.getString("phoneNumber"));
 
                             // Map the message data
                             Message message = new Message();

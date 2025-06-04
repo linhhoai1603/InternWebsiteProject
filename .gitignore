@@ -13,7 +13,7 @@ target/
 *.iml
 *.ipr
 *.xml
-workspace.xml
+.idea/workspace.xml
 secrets.properties
 src/main/resources/client_secrets.json
 out/
