@@ -99,7 +99,7 @@
         <div class="card mb-3">
             <div class="card-header bg-secondary text-white">Thông tin đơn</div>
             <div class="card-body">
-                <p><strong>Mã kiểm kho :</strong> PN000044</p>
+                <p><strong>Mã kiểm kho :</strong> <span id="inventoryCode">PN000044</span></p>
                 <p><strong>Trạng thái:</strong> <span id="status-inventory" class="badge bg-success">Phiếu nhập hàng</span></p>
                 <hr>
                 <div class="mb-3">
@@ -123,70 +123,96 @@
     </div>
 </div>
 <script>
-    document.getElementById('btnSave').addEventListener('click', function () {
-        // Lấy trạng thái từ id="status-inventory"
-        const status = document.getElementById('status-inventory').innerText.trim();
+    function generateRandomInventoryCode() {
+        const prefix = "PN"; // Hoặc tiền tố khác cho phiếu nhập
+        const randomNumber = Math.floor(100000 + Math.random() * 900000); // Random 6-digit number
+        return prefix + randomNumber;
+    }
 
-        // Lấy tên nhà cung cấp
-        const supplier = document.getElementById('nhaCungCap').value.trim();
+    document.addEventListener('DOMContentLoaded', function() {
+        const inventoryCodeSpan = document.getElementById('inventoryCode');
+        if (inventoryCodeSpan) {
+            inventoryCodeSpan.innerText = generateRandomInventoryCode();
+        }
 
-        // Lấy số tiền hàng
-        const totalAmount = document.getElementById('soTienHang').value.trim();
+        document.getElementById('btnSave').addEventListener('click', function () {
+            if (!confirm("Bạn có muốn lưu không?")) return;
 
-        // Lấy ghi chú
-        const note = document.getElementById('ghiChu').value.trim();
+            // Collect data from the form
+            // API expects 'deciption' with typo
+            const deciption = document.getElementById('ghiChu').value.trim(); // Get ghiChu as deciption
+            const status = document.getElementById('status-inventory').innerText.trim(); // Get status text
+            // Fields like code, supplier, totalAmount, type are not used by /api/create-inventory-in based on provided code
+            // const inventoryCode = document.getElementById('inventoryCode').innerText; // Not used by this API
+            // const supplier = document.getElementById('nhaCungCap').value.trim(); // Not used by this API
+            // const totalAmount = document.getElementById('soTienHang').value.trim(); // Not used by this API
+            // const inventoryType = 1; // Not used by this API
 
-        // Lấy danh sách sản phẩm
-        const productRows = document.querySelectorAll('tbody tr[data-product-id]');
-        const products = [];
+            const productsData = [];
 
-        productRows.forEach(row => {
-            const productId = row.getAttribute('data-product-id');
-            const inputElements = row.querySelectorAll('input[data-style-id]');
+            // Duyệt tất cả các hàng sản phẩm để thu thập chi tiết
+            document.querySelectorAll('tbody tr[data-product-id]').forEach(row => {
+                const productId = row.getAttribute('data-product-id');
+                const inputElements = row.querySelectorAll('input[data-style-id]');
 
-            inputElements.forEach(input => {
-                const styleId = input.getAttribute('data-style-id');
-                const quantity = input.value;
+                const styleItems = [];
+                let totalQuantityForProduct = 0; // Calculate total quantity imported for this product
 
-                products.push({
-                    idProduct: productId,
-                    style: {
-                        idStyle: styleId,
-                        quantity: parseInt(quantity)
-                    }
+                inputElements.forEach(input => {
+                    const styleId = input.getAttribute('data-style-id');
+                    const quantityImported = parseInt(input.value) || 0; // Số lượng nhập cho kiểu vải
+
+                    // Prepare style item matching API expectation: {idStyle: ..., imported: ...}
+                    styleItems.push({
+                        idStyle: parseInt(styleId),
+                        imported: quantityImported // Tên trường 'imported' theo API
+                    });
+
+                    totalQuantityForProduct += quantityImported; // Add to product total
                 });
-            });
-        });
 
-        // Tạo object tổng hợp
-        const data = {
-            status: status,
-            supplier: supplier,
-            totalAmount: totalAmount,
-            note: note,
-            products: products
-        };
-
-        // Gửi về Servlet (ví dụ tên servlet là "/save-inventory")
-        fetch('/api/save-inventory-in', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json' // kiểu dữ liệu là JSON
-            },
-            body: JSON.stringify(data)
-        })
-            .then(response => {
-                if (response.ok) {
-                    alert('Đã lưu thành công!');
-                    // Có thể chuyển hướng hoặc reset form tại đây nếu muốn
-                } else {
-                    alert('Lưu thất bại!');
+                // Prepare product data matching API expectation: {idProduct: ..., quantityImported: ..., style: [...]}
+                if (styleItems.length > 0) {
+                     productsData.push({
+                         idProduct: parseInt(productId),
+                         quantityImported: totalQuantityForProduct, // Tổng số lượng nhập cho sản phẩm
+                         style: styleItems // Mảng các kiểu vải
+                     });
                 }
+            });
+
+            // Prepare JSON payload matching API structure
+            const payload = {
+                deciption: deciption, // Tên trường 'deciption' theo API
+                status: status,
+                products: productsData
+            };
+
+            // Send data to server using Fetch API to the API endpoint
+            fetch('/ProjectWeb/api/create-inventory-in', { // Correct API endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                 if (data && data.status === 'ok') {
+                     alert('Đã lưu thành công!');
+                     // Optional: Redirect or update UI on success
+                     // window.location.reload(); // Example: reload page on success
+                 } else if (data && data.error) {
+                     alert('Lỗi từ server: ' + data.error);
+                 } else {
+                     alert("Unexpected response from server.");
+                 }
             })
             .catch(error => {
                 console.error('Lỗi:', error);
                 alert('Đã xảy ra lỗi khi gửi dữ liệu!');
             });
+        });
     });
 </script>
 
