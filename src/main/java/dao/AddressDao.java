@@ -15,18 +15,18 @@ public class AddressDao {
         jdbi = DBConnection.getConnetion();
     }
 
-    public boolean updateAddress(int id, String province, String city, String street, String commune) {
+    public boolean updateAddress(int id, String province, String district, String ward, String detail) {
         String sql = """
-                Update addresses SET province = :province ,city = :city ,street = :street ,commune = :commune
+                Update addresses SET province = :province ,district = :district ,ward = :ward ,detail = :detail
                 WHERE id = :id
                 """;
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
                         .bind("province", province)
-                        .bind("city", city)
-                        .bind("street", street)
-                        .bind("commune", commune)
+                        .bind("district", district)
+                        .bind("ward", ward)
+                        .bind("detail", detail)
                         .execute() > 0
         );
     }

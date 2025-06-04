@@ -30,7 +30,7 @@ async function loadProvinces() {
 
         loadedProvincesData.forEach(province => {
             const option = document.createElement('option');
-            option.value = province.code;
+            option.value = province.name; // Change to use name as value
             option.textContent = province.name;
             provinceSelect.appendChild(option);
         });
@@ -40,13 +40,20 @@ async function loadProvinces() {
     }
 }
 
-// Function to load districts from API based on selected province code
+
 async function loadDistricts(provinceCode) {
-    console.log('loadDistricts called with provinceCode:', provinceCode);
+    console.log('loadDistricts called with provinceCode:', provinceCode); // This will now log the province NAME
     try {
-        const response = await fetch(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`);
-        const data = await response.json();
-        loadedDistrictsData = data.districts || []; // Store districts data
+        // We need to find the province code from the name to fetch districts
+        const selectedProvince = loadedProvincesData.find(p => p.name === provinceCode); // Find by name
+        let districtsToLoad = [];
+        if (selectedProvince) {
+             const response = await fetch(`https://provinces.open-api.vn/api/p/${selectedProvince.code}?depth=2`);
+             const data = await response.json();
+             districtsToLoad = data.districts || [];
+        }
+
+        loadedDistrictsData = districtsToLoad; // Store districts data
         const districtSelect = document.getElementById('district');
         districtSelect.innerHTML = '<option value="">Chọn quận/huyện</option>'; // Clear existing options
         districtSelect.disabled = true;
@@ -54,7 +61,7 @@ async function loadDistricts(provinceCode) {
         if (loadedDistrictsData.length > 0) {
             loadedDistrictsData.forEach(district => {
                 const option = document.createElement('option');
-                option.value = district.code; // Use code as value
+                option.value = district.name; // Change to use name as value
                 option.textContent = district.name; // Use name for display
                 districtSelect.appendChild(option);
             });
@@ -68,7 +75,7 @@ async function loadDistricts(provinceCode) {
     }
 }
 
-// Function to load wards from API based on selected district code
+
 async function loadWards(districtCode) {
     try {
         const response = await fetch(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`);
@@ -82,7 +89,7 @@ async function loadWards(districtCode) {
         if (wards.length > 0) {
             wards.forEach(ward => {
                 const option = document.createElement('option');
-                option.value = ward.code;
+                option.value = ward.name;
                 option.textContent = ward.name;
                 wardSelect.appendChild(option);
             });
@@ -93,12 +100,13 @@ async function loadWards(districtCode) {
     }
 }
 
+
 // Add event listeners for dropdown changes
 document.getElementById('province').addEventListener('change', (e) => {
-    const provinceCode = e.target.value; // Get the code from the selected option's value
-    console.log('Selected province code:', provinceCode); // Log the selected province code
-    if (provinceCode) {
-        loadDistricts(provinceCode);
+    const provinceName = e.target.value;
+    console.log('Selected province name:', provinceName);
+    if (provinceName) {
+        loadDistricts(provinceName);
     } else {
         document.getElementById('district').innerHTML = '<option value="">Chọn quận/huyện</option>';
         document.getElementById('district').disabled = true;
@@ -108,14 +116,18 @@ document.getElementById('province').addEventListener('change', (e) => {
 });
 
 document.getElementById('district').addEventListener('change', (e) => {
-    const districtCode = e.target.value; // Get the code from the selected option's value
-    if (districtCode) {
-        loadWards(districtCode);
+    const districtName = e.target.value;
+    const selectedDistrict = loadedDistrictsData.find(d => d.name === districtName);
+
+    if (selectedDistrict) {
+        loadWards(selectedDistrict.code);
     } else {
         document.getElementById('ward').innerHTML = '<option value="">Chọn phường/xã</option>';
         document.getElementById('ward').disabled = true;
     }
 });
+
+
 
 // Load provinces when the page is ready
 document.addEventListener('DOMContentLoaded', loadProvinces);
