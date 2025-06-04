@@ -6,8 +6,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import models.Address;
 import models.User;
+import services.AddressService;
 import services.UploadService;
 import services.UserInForServies;
+import services.UserService;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +48,7 @@ public class PersonalServlet extends HttpServlet {
         }
 
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/login");
+            response.sendRedirect(request.getContextPath() + "/login-user");
             return;
         }
         String emailFromForm = request.getParameter("email");
@@ -58,71 +60,35 @@ public class PersonalServlet extends HttpServlet {
         String wardFromForm = request.getParameter("ward");
         String detailFromForm = request.getParameter("detail");
 
-        UserInForServies sv = new UserInForServies();
-
         String finalEmail = user.getEmail();
         String finalFirstName = (firstNameFromForm == null || firstNameFromForm.trim().isEmpty()) ? user.getFirstname() : firstNameFromForm.trim();
         String finalLastName = (lastNameFromForm == null || lastNameFromForm.trim().isEmpty()) ? user.getLastname() : lastNameFromForm.trim();
-        String finalFullname = finalFirstName + " " + finalLastName;
         String finalPhoneNumber = (phoneNumberFromForm == null || phoneNumberFromForm.trim().isEmpty()) ? user.getNumberPhone() : phoneNumberFromForm.trim();
-
-
-        Address addressToUpdateOrCreate = (currentAddress == null) ? new Address() : currentAddress;
-
-        // Cập nhật các trường của address
-        String finalProvince = (provinceFromForm == null || provinceFromForm.trim().isEmpty()) ? addressToUpdateOrCreate.getProvince() : provinceFromForm.trim();
-        String finalDistrict = (districtFromForm == null || districtFromForm.trim().isEmpty()) ? addressToUpdateOrCreate.getDistrict() : districtFromForm.trim();
-        String finalWard = (wardFromForm == null || wardFromForm.trim().isEmpty()) ? addressToUpdateOrCreate.getWard() : wardFromForm.trim();
-        String finalDetail = (detailFromForm == null || detailFromForm.trim().isEmpty()) ? addressToUpdateOrCreate.getDetail() : detailFromForm.trim();
-
-        User updatedUser = new User();
-        updatedUser.setId(idUser);
-        updatedUser.setEmail(finalEmail);
-        updatedUser.setFirstname(finalFirstName);
-        updatedUser.setLastname(finalLastName);
-        updatedUser.setFullName(finalFullname);
-        updatedUser.setNumberPhone(finalPhoneNumber);
-
-        Address updatedAddress = new Address();
-        updatedAddress.setId(idAddress);
-        updatedAddress.setProvince(finalProvince);
-        updatedAddress.setDistrict(finalDistrict);
-        updatedAddress.setWard(finalWard);
-        updatedAddress.setDetail(finalDetail);
-
-        updatedUser.setAddress(updatedAddress);
-
-        boolean success = sv.updateUserAndAddress(updatedUser);
-
+        String finalProvince = (provinceFromForm == null || provinceFromForm.trim().isEmpty()) ? currentAddress.getProvince() : provinceFromForm;
+        String finaldistrict = (districtFromForm == null || districtFromForm.trim().isEmpty()) ? currentAddress.getDistrict() : districtFromForm;
+        String finalward = (wardFromForm == null || wardFromForm.trim().isEmpty()) ? currentAddress.getWard() : wardFromForm;
+        String finalDetail = detailFromForm;
+        if(wardFromForm == null) finalDetail = currentAddress.getDetail();
+        UserInForServies userInForServies = new UserInForServies();
+        boolean success = userInForServies.updateInfo(idUser,idAddress,emailFromForm,
+                finalFirstName,finalLastName,finalPhoneNumber,finalProvince,finaldistrict,finalward,finalDetail);
+        
         if (success) {
-            user.setFirstname(finalFirstName);
-            user.setLastname(finalLastName);
-            user.setFullName(finalFullname);
-            user.setNumberPhone(finalPhoneNumber);
-
-            if (currentAddress == null && !finalProvince.isEmpty()) {
-                Address newAddress = new Address();
-                newAddress.setProvince(finalProvince);
-                newAddress.setDistrict(finalDistrict);
-                newAddress.setWard(finalWard);
-                newAddress.setDetail(finalDetail);
-                user.setAddress(newAddress);
-            } else if (currentAddress != null) {
-                currentAddress.setProvince(finalProvince);
-                currentAddress.setDistrict(finalDistrict);
-                currentAddress.setWard(finalWard);
-                currentAddress.setDetail(finalDetail);
-            }
-            user.setAddress(updatedAddress);
-
-            session.setAttribute("user", user);
-            request.setAttribute("message", "Cập nhật thành công!");
+            request.setAttribute("message", "Cập nhật thông tin thành công!");
             request.setAttribute("messageType", "success");
+
+            UserService userService = new UserService();
+            User updatedUser = userService.getUserById(idUser);
+            if (updatedUser != null) {
+                session.setAttribute("user", updatedUser);
+                request.setAttribute("user", updatedUser);
+            }
+            
         } else {
-            request.setAttribute("message", "Cập nhật thất bại, vui lòng thử lại.");
+            request.setAttribute("message", "Cập nhật thông tin thất bại!");
             request.setAttribute("messageType", "error");
         }
+        
         request.getRequestDispatcher("user.jsp").forward(request, response);
-
     }
 }

@@ -5,6 +5,7 @@ import models.*;
 import models.enums.TokenType;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
+import services.AddressService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,20 +34,40 @@ public class UserDao {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM users WHERE id = :id")
                         .bind("id", id)
-                        .mapToBean(User.class)
+                        .map((rs, ctx) -> {
+                            User user = new User();
+                            user.setId(rs.getInt("id"));
+                            user.setEmail(rs.getString("email"));
+                            user.setFirstname(rs.getString("firstName"));
+                            user.setLastname(rs.getString("lastName"));
+                            user.setFullName(rs.getString("fullNameGenerated"));
+                            user.setNumberPhone(rs.getString("phoneNumber"));
+                            user.setImage(rs.getString("image"));
+                            user.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+                            user.setUpdatedAt(rs.getTimestamp("updatedAt").toLocalDateTime());
+
+                            int addressId = rs.getInt("idAddress");
+                            if (!rs.wasNull()) {
+                                AddressService addressService = new AddressService();
+                                Address address = addressService.getAddressById(addressId);
+                                user.setAddress(address);
+                            }
+
+                            return user;
+                        })
                         .findOne()
                         .orElse(null)
         );
     }
 
-    public boolean updateInfo(int id, String firstname, String lastname, String phone) {
-        String sql = """
-                UPDATE users SET firstName = :firstName, lastName = :lastName, phoneNumber = :phoneNumber
-                WHERE id = :id
-                """;
+
+    public boolean updateInfo(int id,String email,String firstname, String lastname, String phone) {
+        String sql = "UPDATE users SET email = :email,firstName = :firstName, lastName = :lastName, phoneNumber = :phoneNumber " +
+                     "WHERE id = :id";
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
+                        .bind("email", email)
                         .bind("firstName", firstname)
                         .bind("lastName", lastname)
                         .bind("phoneNumber", phone)
@@ -60,14 +81,12 @@ public class UserDao {
 
         User user = userDao.findUserById(1);
         System.out.println(user.getEmail());
-        System.out.println(userDao.updateInfo(1, "1", "1",  "1"));
+
     }
 
     public boolean updateAvatar(int id, String url) {
-        String sql = """
-                UPDATE users SET image = :image 
-                WHERE id = :id
-                """;
+        String sql = "UPDATE users SET image = :image " +
+                     "WHERE id = :id";
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
@@ -367,14 +386,7 @@ public class UserDao {
     }
 
     public boolean updateUserAddressId(int userId, int addressId) {
-        String sql = """
-                UPDATE users
-                SET
-                    idAddress = :idAddress,
-                    updatedAt = :updatedAt
-                WHERE
-                    id = :userId
-                """;
+        String sql = "UPDATE users SET idAddress = :idAddress, updatedAt = :updatedAt WHERE id = :userId";
 
         try {
             return jdbi.withHandle(handle -> {
