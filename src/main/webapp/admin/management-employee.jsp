@@ -219,7 +219,7 @@
                                 <i class="fas fa-info-circle me-1"></i>Xem chi tiết
                             </button>
                             <c:if test="${currentUserRole == 2 || currentUserRole == 3}">
-                                <button class="btn btn-danger btn-action" onclick="deleteStaff(${staff.id})">
+                                <button class="btn btn-danger btn-action" onclick="deleteEmployee(${staff.id})">
                                     <i class="fas fa-trash me-1"></i>Xóa
                                 </button>
                             </c:if>
@@ -246,7 +246,7 @@
                                 <i class="fas fa-arrow-down me-1"></i>Hạ cấp
                             </button>
                             <c:if test="${currentUserRole == 2}">
-                                <button class="btn btn-danger btn-action" onclick="deleteStaff(${manager.id})">
+                                <button class="btn btn-danger btn-action" onclick="deleteEmployee(${manager.id})">
                                     <i class="fas fa-trash me-1"></i>Xóa
                                 </button>
                             </c:if>
@@ -273,23 +273,44 @@
                 });
             });
         }
-
-        // Function stubs for delete and demote (client-side only, need server implementation)
-        function deleteStaff(id) {
-            if (confirm('Bạn có chắc chắn muốn xóa nhân viên có ID ' + id + '?')) {
-                alert('Chức năng xóa nhân viên với ID ' + id + ' chưa được triển khai đầy đủ.');
-                // Example: window.location.href = '${pageContext.request.contextPath}/admin/delete-employee?id=' + id;
-            }
-        }
-
-        function demoteManager(id) {
-            if (confirm('Bạn có chắc chắn muốn hạ cấp quản lý có ID ' + id + ' xuống nhân viên?')) {
-                // Here you would typically send an AJAX request or form submission to a demote servlet
-                alert('Chức năng hạ cấp quản lý với ID ' + id + ' chưa được triển khai đầy đủ.');
-                // Example: window.location.href = '${pageContext.request.contextPath}/admin/demote-employee?id=' + id;
-            }
-        }
     });
+
+    function deleteEmployee(id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa nhân viên này?")) return;
+
+        fetch('${pageContext.request.contextPath}/admin/delete-employee', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'id=' + id
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.status) {
+                    document.getElementById('employee-' + id).remove();
+                    location.reload();
+                }
+            })
+            .catch(err => console.error(err));
+    }
+
+    function demoteManager(id) {
+        if (!confirm("Bạn có chắc muốn hạ cấp người này?")) return;
+
+        fetch('${pageContext.request.contextPath}/admin/demote-manager', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: 'id=' + id
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                if (data.status) {
+                    location.reload();
+                }
+            })
+            .catch(err => console.error(err));
+    }
 </script>
 </body>
 </html>
