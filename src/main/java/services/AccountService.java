@@ -46,4 +46,8 @@ public class AccountService {
     public boolean resetPasswordByEmail(String email, String hashedPassword) {
         return accountDao.resetPasswordByEmail(email, hashedPassword);
     }
+
+    public boolean updateEmployeeRole(int id, int i) {
+        return accountDao.updateEmployeeRole(id, i);
+    }
 }
