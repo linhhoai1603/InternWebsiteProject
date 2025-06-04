@@ -116,9 +116,12 @@ public class UserService {
     public List<AccountUser> getAllAccUserByRole(int RoleId) {
         return userDao.getAllAccUserByRole(RoleId);
     }
+
     public User getEmployeeById(int id) {
         return userDao.getUserById(id);
-    
+
+    }
+
     public User getUserById(int id) {
         return userDao.findUserById(id);
     }

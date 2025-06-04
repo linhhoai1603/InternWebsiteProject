@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="link/headLink.jsp" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 <link rel="stylesheet" href="includes/css/navbar.css">
 
 <div class="container-fluid">
@@ -14,7 +16,7 @@
     <nav class="navbar navbar-expand-lg" style="background-color: #4fd0b6; height: 40px">
         <div class="container-fluid">
             <a class="navbar-item text-white active" href="index.jsp"
-               style="text-decoration: none;">Trang chủ</a>
+               style="text-decoration: none;"><fmt:message key="index"/></a>
             <!-- Updated href -->
             <button
                     class="navbar-toggler"
@@ -38,25 +40,25 @@
                                 data-bs-toggle="dropdown"
                                 aria-expanded="false"
                         >
-                            Sản phẩm
+                            <fmt:message key="pro"/>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="productDropdown">
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=1">Vải may mặc</a></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=2">Vải nội thất</a></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=3">Nút áo</a></li>
-                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=4">Dây kéo</a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=1"><fmt:message key="vmm"/></a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=2"><fmt:message key="vnt"/></a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=3"><fmt:message key="na"/></a></li>
+                            <li><a class="dropdown-item" href="${pageContext.request.contextPath}/total-product?selection=4"><fmt:message key="dk"/></a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link text-white" href="${pageContext.request.contextPath}/may-mac"
-                        >Vải may mặc</a
+                        ><fmt:message key="vmm"/></a
                         >
                         <!-- Updated href -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="product-fabric"
-                        >Vải nội thất</a
+                        ><fmt:message key="vnt"/></a
                         >
                         <!-- Updated href -->
                     </li>
@@ -73,28 +75,28 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="accessoryDropdown">
                             <li>
-                                <a class="dropdown-item" href="button-up.jsp">NÚT ÁO</a>
+                                <a class="dropdown-item" href="button-up.jsp"><fmt:message key="na"/></a>
                             </li>
 
                             <li><hr class="dropdown-divider" /></li>
                             <li>
-                                <a class="dropdown-item" href="zipstar-product.jsp">DÂY KÉO</a>
+                                <a class="dropdown-item" href="zipstar-product.jsp"><fmt:message key="dk"/></a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="design-product.jsp"
-                        >Các mẫu thiết kế</a
+                        ><fmt:message key="cmtk"/></a
                         >
                         <!-- Updated href -->
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="contact.jsp">Liên hệ</a>
+                        <a class="nav-link text-white" href="contact.jsp"><fmt:message key="lh"/></a>
                         <!-- Updated href -->
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white" href="police-return.jsp"
-                        >Chính sách đổi trả</a
+                        ><fmt:message key="csdt"/></a
                         >
                         <!-- Updated href -->
                     </li>

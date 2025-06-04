@@ -32,17 +32,13 @@ public class CreateEmployee extends HttpServlet {
         try {
             userService.createEmp(email, firstName, lastName, username, hasedPassword, phoneNumber, "default.png", role);
             System.out.println("tao thanh cong employee");
-            try {
-                String content = String.format(
-                        "Chào %s,\n\nTài khoản nhân viên của bạn đã được tạo:\n\nUsername: %s\nPassword: %s\n\nVui lòng đổi mật khẩu sau khi đăng nhập.",
-                        username, hasedPassword
-                );
-                EmailSender.sendEMail(email, "Thông tin tài khoản nhân viên mới", content);
-                System.out.println("Gui mail thanh cong");
-                log("Verification code sent successfully to: " + email);
-            } catch (Exception emailEx) {
-                log("CRITICAL: Failed to send verification email to " + email + " after updating code.", emailEx);
-            }
+            String content = String.format(
+                    "Chào %s,\n\nTài khoản nhân viên của bạn đã được tạo:\n\nUsername: %s\nPassword: %s\n\nVui lòng đổi mật khẩu sau khi đăng nhập.",
+                    username, hasedPassword
+            );
+            EmailSender.sendEMail(email, "Thông tin tài khoản nhân viên mới", content);
+            System.out.println("Gui mail thanh cong");
+            log("Verification code sent successfully to: " + email);
             response.sendRedirect(request.getContextPath() + "/admin/manage-employees");
         } catch (Exception e) {
             e.printStackTrace();

@@ -303,5 +303,32 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/management_employee.js"></script>
+<script>function viewEmployeeDetail(id) {
+    fetch('${pageContext.request.contextPath}/admin/view-employee', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'id=' + id
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                document.getElementById("detail-id").innerText = data.employee.id;
+                document.getElementById("detail-name").innerText = data.employee.firstname + ' ' + data.employee.lastname;
+                document.getElementById("detail-email").innerText = data.employee.email;
+                document.getElementById("detail-username").innerText = data.employee.username;
+                document.getElementById("detail-phone").innerText = data.employee.phoneNumber;
+                document.getElementById("detail-role").innerText = data.employee.roleName;
+
+                const modal = new bootstrap.Modal(document.getElementById('employeeDetailModal'));
+                modal.show();
+            } else {
+                alert("Không tìm thấy thông tin nhân viên.");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Lỗi khi tải thông tin chi tiết.");
+        });
+}</script>
 </body>
 </html>

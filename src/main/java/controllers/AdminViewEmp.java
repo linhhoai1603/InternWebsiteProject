@@ -5,7 +5,7 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import models.AccountUser;
 import models.User;
-import org.cloudinary.json.JSONObject;
+import org.json.JSONObject;
 import services.AccountService;
 import services.UserService;
 
@@ -23,6 +23,7 @@ public class AdminViewEmp extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println("có vô trang admin view");
         int id = Integer.parseInt(req.getParameter("id"));
         User emp = userService.getEmployeeById(id);
         AccountUser acc = accountService.getEmployeeById(id);
@@ -42,6 +43,7 @@ public class AdminViewEmp extends HttpServlet {
             e.put("roleName", acc.getRole() == 3 ? "Quản lý" : "Nhân viên");
             obj.put("employee", e);
             out.print(obj.toString());
+            out.flush();
         } else {
             out.print("{\"status\":false}");
         }

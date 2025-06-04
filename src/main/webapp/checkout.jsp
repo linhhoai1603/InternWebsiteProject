@@ -40,7 +40,7 @@
         <!-- information section -->
         <form id="shipping-form">
             <input id="fullName" aria-label="Họ và tên" placeholder="Họ và tên" type="text"
-                   value="${sessionScope.user.getFullName()}" required/>
+                   value="${sessionScope.user.getFullname()}" required/>
             <div class="form-row-wrapper">
                 <div class="form-row">
                     <div class="half">
@@ -49,7 +49,7 @@
                     </div>
                     <div class="half" style="max-width: 200px;">
                         <input id="phone" aria-label="Số điện thoại" placeholder="Số điện thoại" type="tel"
-                               value="${sessionScope.user.getNumberPhone()}" required/>
+                               value="${sessionScope.user.phoneNumber}" required/>
                     </div>
                 </div>
             </div>

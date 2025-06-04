@@ -801,7 +801,9 @@ INSERT INTO `prices` (`id`, `price`, `discountPercent`, `startDate`, `endDate`) 
 DELETE FROM `roles`;
 INSERT INTO `roles` (`id`, `name`) VALUES
                                        (1, 'User'),
-                                       (2, 'Admin');
+                                       (2, 'Admin'),
+                                       (3, 'Manager'),
+                                       (4, 'Staff');
 
 -- Dumping data for table `technical_information`
 DELETE FROM `technical_information`;
