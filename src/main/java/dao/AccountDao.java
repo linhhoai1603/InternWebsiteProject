@@ -163,4 +163,24 @@ public class AccountDao {
             return rowsAffected > 0;
         });
     }
+
+    public boolean updateEmployeeRole(int id, int roleId) {
+        int rowsUpdated = jdbi.withHandle(handle ->
+                handle.createUpdate("UPDATE account_users SET idRole = :roleId WHERE idUser = :id")
+                        .bind("roleId", roleId)
+                        .bind("id", id)
+                        .execute()
+        );
+        return rowsUpdated > 0;
+    }
+
+    public AccountUser getAccUserById(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM account_users WHERE idUser = :id")
+                        .bind("id", id)
+                        .mapToBean(AccountUser.class)
+                        .findOne()
+                        .orElse(null)
+        );
+    }
 }
