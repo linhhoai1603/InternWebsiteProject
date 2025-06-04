@@ -10,6 +10,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
@@ -25,11 +26,15 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/websocket/CartSyncEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/websocket/CartSyncEndpoint.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.properties" afterDir="false" />
     </list>
+=======
+    <list default="true" id="8fb8d648-fff6-47b4-a451-b51f44b7cd13" name="Changes" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< Updated upstream
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -41,6 +46,11 @@
         <task path="$PROJECT_DIR$">
           <activation />
         </task>
+=======
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+>>>>>>> Stashed changes
         <projects_view>
           <tree_state>
             <expand>
@@ -361,6 +371,10 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Tomcat Server.Tomcat 10.1.28" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ProjectWeb [docker_deploy]" />
