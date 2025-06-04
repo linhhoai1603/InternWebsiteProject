@@ -109,9 +109,11 @@ public class LoginController extends HttpServlet {
             }
 
             User user = acc.getUser();
+            int role = acc.getRole();
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("account", acc);
+            session.setAttribute("role", role);
 
             CartService cartService = new CartService();
             Cart cart = cartService.getCart(user.getId());
