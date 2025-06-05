@@ -1,4 +1,3 @@
-
 package dao;
 
 import connection.DBConnection;
@@ -33,6 +32,46 @@ public class StyleDao {
                     .mapToBean(Style.class)
                     .list();
         });
+    }
+
+    public List<Style> getAllStyles() {
+        String query = "SELECT s.id, s.name, s.image, s.quantity AS styleQuantity, " +
+                "p.id AS idProduct, p.name AS nameProduct, pr.lastPrice, p.idPrice, " +
+                "c.id AS idCategory, p.quantity " +
+                "FROM styles s " +
+                "JOIN products p ON s.idProduct = p.id " +
+                "JOIN prices pr ON p.idPrice = pr.id " +
+                "JOIN categories c ON p.idCategory = c.id";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(query)
+                        .map((rs, ctx) -> {
+                            Style style = new Style();
+                            style.setId(rs.getInt("id"));
+                            style.setName(rs.getString("name"));
+                            style.setImage(rs.getString("image"));
+                            style.setQuantity(rs.getInt("styleQuantity"));
+
+                            Product product = new Product();
+                            product.setId(rs.getInt("idProduct"));
+                            product.setName(rs.getString("nameProduct"));
+                            product.setQuantity(rs.getInt("quantity"));
+
+                            Price price = new Price();
+                            price.setId(rs.getInt("idPrice"));
+                            price.setLastPrice(rs.getDouble("lastPrice"));
+
+                            Category category = new Category();
+                            category.setId(rs.getInt("idCategory"));
+
+                            product.setCategory(category);
+                            product.setPrice(price);
+                            style.setProduct(product);
+
+                            return style;
+                        })
+                        .list()
+        );
     }
 
     public Style getStyleByID(int idStyle) {

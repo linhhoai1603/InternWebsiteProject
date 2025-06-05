@@ -65,7 +65,63 @@ public class OrderService {
         return ordersForPage;
     }
 
-    public void updateOrderStatus(int orderId, String newStatus) {
-        dao.updateOrderStatus(orderId, newStatus);
+    public boolean updateOrderStatus(int orderId, String newStatus) {
+        return dao.updateOrderStatus(orderId, newStatus);
+    }
+
+    public boolean deleteOrder(int orderId) {
+        try {
+            // Sau đó xóa đơn hàng
+           return   dao.deleteOrder(orderId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void updateOrderTotalAndLastPrice(int orderId) {
+        Order order = getOrder(orderId);
+        if (order != null) {
+            double totalPrice = 0;
+            for (OrderDetail detail : order.getListOfDetailOrder()) {
+                totalPrice += detail.getTotalPrice();
+            }
+            dao.updateOrderTotal(orderId, totalPrice);
+        }
+    }
+
+    public boolean updateOrder(Order order) {
+        try {
+            System.out.println("OrderService: Starting to update order " + order.getId());
+            
+            // Validate order status
+            if (order.getStatus() == null || order.getStatus().trim().isEmpty()) {
+                System.out.println("OrderService: Invalid order status");
+                return false;
+            }
+            
+            // Update order
+            boolean updated = dao.updateOrder(order);
+            System.out.println("OrderService: Order update result: " + updated);
+            
+            return updated;
+        } catch (Exception e) {
+            System.out.println("OrderService: Exception during order update: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Order getOrderById(int orderId) {
+        try {
+            System.out.println("OrderService: Getting order by ID: " + orderId);
+            Order order = dao.getOrderById(orderId);
+            System.out.println("OrderService: Found order: " + (order != null));
+            return order;
+        } catch (Exception e) {
+            System.out.println("OrderService: Exception getting order by ID: " + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
     }
 }

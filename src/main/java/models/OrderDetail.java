@@ -20,6 +20,8 @@ public class OrderDetail implements Serializable {
 
     }
 
+
+
     public int getId() {
         return id;
     }

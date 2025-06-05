@@ -153,6 +153,8 @@ input:checked ~ .content {
       <li><a href="manager-message"><i class="fa-regular fa-message"></i>Tin nhắn</a></li>
       <li><a href="manager-logging"><i class="fa-solid fa-list-check"></i>Hệ thống Log</a></li>
       <li><a href="../index.jsp"><i class="fa-solid fa-house-user"></i>Trang chủ</a></li>
+      <li><a class="dropdown-item" href="<%= request.getContextPath() %>/admin/user-logs">User Logs</a></li>
+      <li><hr class="dropdown-divider"></li>
     </ul>
   </div>
 </label>

@@ -6,24 +6,46 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import models.Order;
+import models.OrderDetail;
 import services.OrderService;
+import services.OrderDetailService;
 
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet(name = "AdminEditOrder", value = "/admin/edit-order")
+@WebServlet("/admin/edit-order")
 public class AdminEditOrder extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int orderId = Integer.parseInt(request.getParameter("orderId"));
-        OrderService orderService = new OrderService();
-        Order order = orderService.getOrder(orderId);
+    private OrderService orderService;
+    private OrderDetailService orderDetailService;
 
-        if (order != null) {
-            request.setAttribute("order", order);
-            request.getRequestDispatcher("/admin/edit-order.jsp").forward(request, response);
-        } else {
-            // Handle case where order is not found
-            response.sendRedirect(request.getContextPath() + "/admin/manager-order?error=Order not found");
+    @Override
+    public void init() throws ServletException {
+        orderService = new OrderService();
+        orderDetailService = new OrderDetailService();
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+        try {
+            int orderId = Integer.parseInt(request.getParameter("orderId"));
+            
+            Order order = orderService.getOrderById(orderId);
+            List<OrderDetail> orderDetails = orderDetailService.getOrderDetailsByOrderId(orderId);
+            
+            if (order != null) {
+                request.setAttribute("order", order);
+                request.setAttribute("orderDetails", orderDetails);
+                request.getRequestDispatcher("/admin/edit-order.jsp").forward(request, response);
+            } else {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Order not found");
+            }
+            
+        } catch (NumberFormatException e) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid Order ID");
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Server error");
         }
     }
 
