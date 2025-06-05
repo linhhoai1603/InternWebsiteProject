@@ -1,0 +1,193 @@
+body {
+    background-color: #f8f9fa; /* Light grey background */
+    padding: 20px;
+}
+.container {
+    background: #fff; /* White background */
+    border-radius: 0; /* Remove border radius */
+    box-shadow: none; /* Remove box shadow */
+    /* padding: 30px; */ /* Remove padding */
+    margin-top: 20px;
+}
+.header-bar {
+    background-color: #28a745; /* Green color from image */
+    color: white;
+    padding: 15px 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    /* margin: -30px -30px 20px -30px; */ /* Adjust margin to fit container */
+    margin-bottom: 20px;
+}
+.header-bar h2 {
+    color: white;
+    margin: 0;
+}
+.nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 20px;
+}
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    color: #495057;
+    margin-bottom: -1px;
+    font-weight: 400; /* Standard font weight */
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+.nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+}
+
+/* Style for the actual staff list, more like a table */
+.staff-list {
+    margin-top: 20px;
+}
+.staff-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee; /* Light border */
+    background-color: white; /* Default background */
+}
+.staff-item:nth-child(even) {
+    background-color: #f2f2f2; /* Alternating background */
+}
+.staff-info {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+.staff-details {
+    display: flex;
+    flex-grow: 1;
+}
+.staff-details > div {
+    flex: 1;
+    padding: 0 10px;
+}
+.staff-name {
+    font-weight: 500; /* Less bold */
+    color: #333;
+}
+.staff-email {
+    color: #666;
+    font-size: 0.9em;
+}
+.staff-actions {
+    display: flex;
+    gap: 8px; /* Smaller gap */
+    padding-right: 10px;
+}
+.btn-action {
+    padding: 5px 12px; /* Smaller padding */
+    border-radius: 4px; /* Slightly less rounded */
+    font-size: 0.9em;
+}
+.btn-delete {
+    background-color: #dc3545; /* Red */
+    color: white;
+    border: none;
+}
+.btn-delete:hover {
+    background-color: #c82333;
+    color: white;
+}
+.btn-demote {
+    background-color: #ffc107; /* Yellow */
+    color: #212529;
+    border: none;
+}
+.btn-demote:hover {
+    background-color: #e0a800;
+    color: #212529;
+}
+.btn-view-details {
+    background-color: #ffc107; /* Yellow */
+    color: #212529;
+    border: none;
+}
+.btn-view-details:hover {
+    background-color: #e0a800;
+    color: #212529;
+}
+.btn-status-active {
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+}
+.btn-status-active:hover {
+    background-color: #218838;
+    color: white;
+}
+.btn-status-inactive {
+    background-color: #6c757d; /* Grey */
+    color: white;
+    border: none;
+}
+.btn-status-inactive:hover {
+    background-color: #5a6268;
+    color: white;
+}
+
+.search-box {
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+}
+.search-box input {
+    flex-grow: 1;
+    border-radius: 4px; /* Less rounded */
+    padding: 8px 12px; /* Smaller padding */
+    border: 1px solid #ced4da;
+}
+.search-box input:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+.search-box .btn-primary {
+    flex-grow: 0;
+    width: auto; /* Auto width */
+    padding: 8px 15px; /* Smaller padding */
+    font-size: 1rem; /* Standard font size */
+    border-radius: 4px; /* Less rounded */
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.search-box .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.top-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.top-actions .btn {
+    border-radius: 4px;
+}
+.btn-view-all {
+    background-color: #ffc107; /* Yellow */
+    color: #212529;
+    border: none;
+}
+.btn-view-all:hover {
+    background-color: #e0a800;
+    color: #212529;
+}
+.btn-add-product {
+    background-color: #007bff; /* Blue */
+    color: white;
+    border: none;
+}
+.btn-add-product:hover {
+    background-color: #0056b3;
+    color: white;
+}

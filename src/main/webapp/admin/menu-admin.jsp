@@ -144,6 +144,7 @@ input:checked ~ .content {
     <h1>Menu</h1>
     <ul>
       <li><a href="dashboard"><i class="fa-solid fa-chart-line"></i>Dashboard</a></li>
+      <li><a href="manage-employees"><i class="fa-solid fa-briefcase"></i>Nhân viên</a></li>
       <li><a href="management-users.jsp"><i class="fa-solid fa-users"></i>Người dùng</a></li>
       <li><a href="management-products.jsp"><i class="fa-solid fa-clone"></i>Sản phẩm</a></li>
       <li><a href="manager-order"><i class="fa-solid fa-cart-shopping"></i>Đơn hàng</a></li>

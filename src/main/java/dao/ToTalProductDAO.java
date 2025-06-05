@@ -573,4 +573,21 @@ public class ToTalProductDAO {
     }
 
 
+    public boolean addProduct(Product product, int quantity) {
+        return jdbi.withHandle(handle -> handle.createUpdate(
+                        "UPDATE products SET quantity = :quantity WHERE id = :id")
+                .bind("id", product.getId())
+                .bind("quantity", quantity + product.getQuantity())
+                .execute() > 0);
+    }
+    public boolean updateQuantityProduct(Product product, int quantity) {
+        int resutl = Math.max((product.getQuantity() - quantity), 0);
+        return jdbi.withHandle(handle -> handle.createUpdate(
+                        "UPDATE products SET quantity = :quantity WHERE id = :id")
+                .bind("id", product.getId())
+                .bind("quantity", resutl)
+                .execute() > 0);
+    }
+
+
 }

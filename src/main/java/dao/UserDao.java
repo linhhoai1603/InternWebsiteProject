@@ -5,11 +5,13 @@ import models.*;
 import models.enums.TokenType;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.Query;
+import utils.AccountUserMapper;
+import services.AddressService;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class UserDao {
@@ -33,20 +35,40 @@ public class UserDao {
         return jdbi.withHandle(handle ->
                 handle.createQuery("SELECT * FROM users WHERE id = :id")
                         .bind("id", id)
-                        .mapToBean(User.class)
+                        .map((rs, ctx) -> {
+                            User user = new User();
+                            user.setId(rs.getInt("id"));
+                            user.setEmail(rs.getString("email"));
+                            user.setFirstname(rs.getString("firstName"));
+                            user.setLastname(rs.getString("lastName"));
+                            user.setFullname(rs.getString("fullNameGenerated"));
+                            user.setPhoneNumber(rs.getString("phoneNumber"));
+                            user.setImage(rs.getString("image"));
+                            user.setCreatedAt(rs.getTimestamp("createdAt").toLocalDateTime());
+                            user.setUpdatedAt(rs.getTimestamp("updatedAt").toLocalDateTime());
+
+                            int addressId = rs.getInt("idAddress");
+                            if (!rs.wasNull()) {
+                                AddressService addressService = new AddressService();
+                                Address address = addressService.getAddressById(addressId);
+                                user.setAddress(address);
+                            }
+
+                            return user;
+                        })
                         .findOne()
                         .orElse(null)
         );
     }
 
-    public boolean updateInfo(int id, String firstname, String lastname, String phone) {
-        String sql = """
-                UPDATE users SET firstName = :firstName, lastName = :lastName, phoneNumber = :phoneNumber
-                WHERE id = :id
-                """;
+
+    public boolean updateInfo(int id,String email,String firstname, String lastname, String phone) {
+        String sql = "UPDATE users SET email = :email,firstName = :firstName, lastName = :lastName, phoneNumber = :phoneNumber " +
+                     "WHERE id = :id";
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
+                        .bind("email", email)
                         .bind("firstName", firstname)
                         .bind("lastName", lastname)
                         .bind("phoneNumber", phone)
@@ -56,19 +78,22 @@ public class UserDao {
 
     public static void main(String[] args) {
         UserDao userDao = new UserDao();
-        UserTokens u = new UserTokens();
 
-        User user = userDao.findUserById(1);
-        System.out.println(user.getEmail());
-        System.out.println(userDao.updateInfo(1, "1", "1",  "1"));
-        System.out.println(userDao.getAllUser());
+        List<AccountUser> accList = userDao.getAllAccUserByRole(3);
+        System.out.println(accList.size());
+
+        // Gọi hàm để test
+        List<User> users = userDao.getAllUserByAccList(accList);
+        System.out.println(users.size());
+        // In kết quả
+        for (User user : users) {
+            System.out.println("User ID: " + user.getId());
+        }
     }
 
     public boolean updateAvatar(int id, String url) {
-        String sql = """
-                UPDATE users SET image = :image 
-                WHERE id = :id
-                """;
+        String sql = "UPDATE users SET image = :image " +
+                     "WHERE id = :id";
         return jdbi.withHandle(handle ->
                 handle.createUpdate(sql)
                         .bind("id", id)
@@ -289,14 +314,14 @@ public class UserDao {
     }
 
     public List<AccountUser> findUserByName(String name) {
-        String query = "SELECT u.id AS userId, u.email, u.fullNameGenerated, u.phoneNumber, " +
+        String query = "SELECT u.id AS userId, u.email, u.fullName, u.phoneNumber, " +
                 "a.id AS addressId, a.province, a.district, a.ward, a.detail, " +
                 "COUNT(o.id) AS orderCount, SUM(o.lastPrice) AS totalSpent, acc.locked " +
                 "FROM users u " +
                 "JOIN addresses a ON u.idAddress = a.id " +
                 "JOIN account_users acc ON u.id = acc.idUser " +
                 "LEFT JOIN orders o ON u.id = o.idUser " +
-                "WHERE u.fullNameGenerated LIKE :name " +
+                "WHERE u.fullName LIKE :name " +
                 "GROUP BY u.id, a.id";
 
         return jdbi.withHandle(handle ->
@@ -307,7 +332,7 @@ public class UserDao {
                             User user = new User();
                             user.setId(rs.getInt("userId"));
                             user.setEmail(rs.getString("email"));
-                            user.setFullname(rs.getString("fullNameGenerated"));
+                            user.setFullname(rs.getString("fullName"));
                             user.setPhoneNumber(rs.getString("phoneNumber"));
 
                             // Tạo đối tượng Address
@@ -392,6 +417,52 @@ public class UserDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List<User> getAllUserByAccList(List<AccountUser> accList) {
+        if (accList == null || accList.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        List<Integer> userIds = accList.stream()
+                .map(AccountUser::getUserId)
+                .filter(Objects::nonNull)
+                .distinct()
+                .collect(Collectors.toList());
+
+        if (userIds.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        String sql = "SELECT * FROM users WHERE id IN (<ids>)";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bindList("ids", userIds)
+                        .mapToBean(User.class)
+                        .list()
+        );
+    }
+
+    public List<AccountUser> getAllAccUserByRole(int RoleId) {
+        String sql = "SELECT * FROM account_users WHERE idRole = :roleId";
+
+        return jdbi.withHandle(handle ->
+                handle.createQuery(sql)
+                        .bind("roleId", RoleId)
+                        .map(new AccountUserMapper())
+                        .list()
+        );
+    }
+
+    public User getUserById(int id) {
+        return jdbi.withHandle(handle ->
+                handle.createQuery("SELECT * FROM users WHERE id = :id")
+                        .bind("id", id)
+                        .mapToBean(User.class)
+                        .findOne()
+                        .orElse(null)
+        );
     }
 }
 

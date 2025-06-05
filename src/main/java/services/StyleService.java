@@ -101,4 +101,12 @@ public class StyleService {
             return true;
         });
     }
+    public boolean addStyle(int id, int quantity) {
+        Style style = styleDao.getStyleByID(id);
+        return styleDao.addMoreStyle(style ,quantity);
+    }
+    public boolean updateQuantityStyle(int id, int quantity) {
+        Style style = styleDao.getStyleByID(id);
+        return styleDao.updateQuantityStyle(style ,quantity);
+    }
 }
