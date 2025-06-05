@@ -2,13 +2,13 @@ package dao;
 
 import connection.DBConnection;
 import models.Category;
-import models.Price;
+import models.Price;        
 import models.Product;
 import models.TechnicalInfo;
 import models.Style;
-
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
+import org.jdbi.v3.core.statement.Query;
 
 import java.util.List;
 
@@ -21,22 +21,22 @@ public class ProductDao {
 
     public Product getProductById(int id) {
         String sql = """
-       SELECT
-           p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
-           c.id AS category_id, c.name AS category_name,
-           pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
-           ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
-       FROM
-           products p
-       JOIN
-           categories c ON p.idCategory = c.id
-       JOIN
-           prices pr ON p.idPrice = pr.id
-       LEFT JOIN
-           technical_information ti ON p.idTechnical = ti.id
-       WHERE
-           p.id = :id;
-    """;
+                SELECT
+                    p.id, p.name, p.quantity, p.addedDate, p.description, p.height, p.weight, p.width, p.selling, p.img,
+                    c.id AS category_id, c.name AS category_name,
+                    pr.id AS price_id, pr.price, pr.discountPercent, pr.lastPrice,
+                    ti.id AS technical_info_id, ti.specifications, ti.manufactureDate
+                FROM
+                    products p
+                JOIN
+                    categories c ON p.idCategory = c.id
+                JOIN
+                    prices pr ON p.idPrice = pr.id
+                LEFT JOIN
+                    technical_information ti ON p.idTechnical = ti.id
+                WHERE
+                    p.id = :id
+                """;
         return jdbi.withHandle(handle -> {
             Product product = handle.createQuery(sql)
                     .bind("id", id)
